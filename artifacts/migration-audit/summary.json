@@ -1,0 +1,190 @@
+{
+  "generatedAt": "2026-09-30T05:11:10.883Z",
+  "legacyRoot": "E:/eclipse/MSME%20-%20LAND%20ALLOTMENT%20AND%20FINANCIAL%20ASSISTANCE/mpindustry-web/src/main/webapp",
+  "scope": "Static route inventory, documented mapping cross-check, and selected actual redirect resolutions. Not an end-to-end content or workflow certification.",
+  "angularRoutingFiles": 28,
+  "angularRouteDeclarations": 874,
+  "uniqueFileAndHashPairs": 870,
+  "legacyTemplateFiles": 793,
+  "reactExplicitPathDeclarations": 99,
+  "reactRedirectDeclarations": 62,
+  "distinctReactPageComponents": [
+    "HomePage",
+    "ScreenReaderPage",
+    "LoginPage",
+    "SignUpPage",
+    "ForgotPasswordPage",
+    "ForgotUsernamePage",
+    "UnauthorizedPage",
+    "ApplicantDashboard",
+    "LandApplicationsPage",
+    "LandAllotmentPage",
+    "ApplicationDetailPage",
+    "AdminDashboard",
+    "DepartmentDashboard"
+  ],
+  "byModule": {
+    "account": {
+      "declarations": 12,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 11,
+      "noDocumentedMapping": 0
+    },
+    "admuser": {
+      "declarations": 49,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 48,
+      "noDocumentedMapping": 0
+    },
+    "applicant": {
+      "declarations": 129,
+      "mappedRouteExists": 4,
+      "documentedRouteMissing": 125,
+      "noDocumentedMapping": 0
+    },
+    "audit": {
+      "declarations": 44,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 43,
+      "noDocumentedMapping": 0
+    },
+    "bank": {
+      "declarations": 17,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 16,
+      "noDocumentedMapping": 0
+    },
+    "budgetPlanning": {
+      "declarations": 38,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 37,
+      "noDocumentedMapping": 0
+    },
+    "cmcs": {
+      "declarations": 10,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 9,
+      "noDocumentedMapping": 0
+    },
+    "collector": {
+      "declarations": 8,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 7,
+      "noDocumentedMapping": 0
+    },
+    "common": {
+      "declarations": 5,
+      "mappedRouteExists": 0,
+      "documentedRouteMissing": 5,
+      "noDocumentedMapping": 0
+    },
+    "coordination": {
+      "declarations": 40,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 39,
+      "noDocumentedMapping": 0
+    },
+    "dtfc": {
+      "declarations": 21,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 20,
+      "noDocumentedMapping": 0
+    },
+    "dtic": {
+      "declarations": 179,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 178,
+      "noDocumentedMapping": 0
+    },
+    "fa": {
+      "declarations": 37,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 36,
+      "noDocumentedMapping": 0
+    },
+    "grievanceApplicant": {
+      "declarations": 9,
+      "mappedRouteExists": 0,
+      "documentedRouteMissing": 9,
+      "noDocumentedMapping": 0
+    },
+    "icOffice": {
+      "declarations": 38,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 37,
+      "noDocumentedMapping": 0
+    },
+    "id": {
+      "declarations": 35,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 34,
+      "noDocumentedMapping": 0
+    },
+    "ldm": {
+      "declarations": 6,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 5,
+      "noDocumentedMapping": 0
+    },
+    "legal": {
+      "declarations": 32,
+      "mappedRouteExists": 2,
+      "documentedRouteMissing": 30,
+      "noDocumentedMapping": 0
+    },
+    "mbfc": {
+      "declarations": 16,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 15,
+      "noDocumentedMapping": 0
+    },
+    "msefc": {
+      "declarations": 17,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 16,
+      "noDocumentedMapping": 0
+    },
+    "msme": {
+      "declarations": 23,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 22,
+      "noDocumentedMapping": 0
+    },
+    "secretary": {
+      "declarations": 6,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 5,
+      "noDocumentedMapping": 0
+    },
+    "selfemployment": {
+      "declarations": 15,
+      "mappedRouteExists": 0,
+      "documentedRouteMissing": 15,
+      "noDocumentedMapping": 0
+    },
+    "startupCenter": {
+      "declarations": 11,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 10,
+      "noDocumentedMapping": 0
+    },
+    "textile": {
+      "declarations": 16,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 15,
+      "noDocumentedMapping": 0
+    },
+    "zonaloffice": {
+      "declarations": 53,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 52,
+      "noDocumentedMapping": 0
+    },
+    "zonaloperator": {
+      "declarations": 8,
+      "mappedRouteExists": 1,
+      "documentedRouteMissing": 7,
+      "noDocumentedMapping": 0
+    }
+  }
+}

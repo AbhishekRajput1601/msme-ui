@@ -1,0 +1,901 @@
+[
+  {
+    "name": "selfEmploymentData.applicantTitle",
+    "label": "Title",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select"
+      },
+      {
+        "value": "Mr.",
+        "label": "Mr."
+      },
+      {
+        "value": "Mrs.",
+        "label": "Mrs."
+      },
+      {
+        "value": "Ms.",
+        "label": "Ms."
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.applicantFirstName",
+    "label": "First Name",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 34
+  },
+  {
+    "name": "selfEmploymentData.applicantMiddleName",
+    "label": "Middle Name",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 20
+  },
+  {
+    "name": "selfEmploymentData.applicantLastName",
+    "label": "Last Name",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 20
+  },
+  {
+    "name": "selfEmploymentData.fatherOrHusbandTitle",
+    "label": "Title",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "Mr.",
+        "label": "Mr."
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.fatherOrHusbandFirstName",
+    "label": "First Name",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 20
+  },
+  {
+    "name": "selfEmploymentData.fatherOrHusbandMiddleName",
+    "label": "Middle Name",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 20
+  },
+  {
+    "name": "selfEmploymentData.fatherOrHusbandLastName",
+    "label": "Last Name",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 20
+  },
+  {
+    "name": "selfEmploymentData.dateOfBirth",
+    "label": "Date \n                                        \tOf Birth",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.age",
+    "label": "Age",
+    "type": "text",
+    "required": false,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.categoryId",
+    "label": "Select category",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Category"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.gender",
+    "label": "Select Gender",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Gender"
+      },
+      {
+        "value": "Male",
+        "label": "Male"
+      },
+      {
+        "value": "Female",
+        "label": "Female"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.religion",
+    "label": "Religion",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Religion"
+      },
+      {
+        "value": "Hindu",
+        "label": "Hindu"
+      },
+      {
+        "value": "Muslim",
+        "label": "Muslim"
+      },
+      {
+        "value": "Buddhist",
+        "label": "Buddhist"
+      },
+      {
+        "value": "Jain",
+        "label": "Jain"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.domicile",
+    "label": "Are you Domicile of M.P ?",
+    "type": "radio",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "true",
+        "label": "Yes"
+      },
+      {
+        "value": "false",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.minority",
+    "label": "Do you belong to the minority category ?",
+    "type": "radio",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "true",
+        "label": "Yes"
+      },
+      {
+        "value": "false",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.physicallyDisabled",
+    "label": "Are you physically disabled?",
+    "type": "radio",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "true",
+        "label": "Yes"
+      },
+      {
+        "value": "false",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.address1",
+    "label": "Applicant's Address Line 1",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.address2",
+    "label": "Applicant's Address Line 2",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.city",
+    "label": "City",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 30
+  },
+  {
+    "name": "selfEmploymentData.presentAddState",
+    "label": "State",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select State"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.district",
+    "label": "Select District",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select District"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.tehsil",
+    "label": "Select Tehsil",
+    "type": "select",
+    "required": false,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Tehsil"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.block",
+    "label": "Select Block",
+    "type": "select",
+    "required": false,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Block"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.phoneNumber",
+    "label": "Phone Number",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 10
+  },
+  {
+    "name": "selfEmploymentData.mobileNo",
+    "label": "Mobile Number",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 10
+  },
+  {
+    "name": "selfEmploymentData.pinCode",
+    "label": "Applicant's pin code",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 6
+  },
+  {
+    "name": "selfEmploymentData.fax",
+    "label": "Fax Number",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 10
+  },
+  {
+    "name": "selfEmploymentData.website",
+    "label": "Website",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 20
+  },
+  {
+    "name": "selfEmploymentData.email",
+    "label": "Email\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tId",
+    "type": "email",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.permanentAddress1",
+    "label": "Address Line 1",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.permanentAddress2",
+    "label": "Address Line 2",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.permanentCity",
+    "label": "City",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 30
+  },
+  {
+    "name": "selfEmploymentData.permanentAddState",
+    "label": "State",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select State"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.permanentDistrict",
+    "label": "Select District",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select District"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.permanentTehsilName",
+    "label": "Select Tehsil",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 30
+  },
+  {
+    "name": "selfEmploymentData.permanentBlockName",
+    "label": "Select Block",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 30
+  },
+  {
+    "name": "selfEmploymentData.permanentPhoneNumber",
+    "label": "Phone Number",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 10
+  },
+  {
+    "name": "selfEmploymentData.permanentMobileNumber",
+    "label": "Mobile Number",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 10
+  },
+  {
+    "name": "selfEmploymentData.permanentPinCode",
+    "label": "Pin code",
+    "type": "text",
+    "required": true,
+    "readOnly": true,
+    "maxLength": 6
+  },
+  {
+    "name": "selfEmploymentData.permanentFax",
+    "label": "Fax Number",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 10
+  },
+  {
+    "name": "selfEmploymentData.permanentWebsite",
+    "label": "Website",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.permanentEmail",
+    "label": "Email\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tId",
+    "type": "email",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.nomineeName",
+    "label": "Nominee name",
+    "type": "text",
+    "required": false,
+    "readOnly": false
+  },
+  {
+    "name": "selfEmploymentData.nomineeRelation",
+    "label": "Nominee relation",
+    "type": "select",
+    "required": false,
+    "readOnly": false,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Relation"
+      },
+      {
+        "value": "Father",
+        "label": "Father"
+      },
+      {
+        "value": "Mother",
+        "label": "Mother"
+      },
+      {
+        "value": "Spouse",
+        "label": "Spouse"
+      },
+      {
+        "value": "Husband",
+        "label": "Husband"
+      },
+      {
+        "value": "Wife",
+        "label": "Wife"
+      },
+      {
+        "value": "Son",
+        "label": "Son"
+      },
+      {
+        "value": "Daughter",
+        "label": "Daughter"
+      },
+      {
+        "value": "Brother",
+        "label": "Brother"
+      },
+      {
+        "value": "Sister",
+        "label": "Sister"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.nomineeGender",
+    "label": "Nominee gender",
+    "type": "select",
+    "required": false,
+    "readOnly": false,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Gender"
+      },
+      {
+        "value": "Male",
+        "label": "Male"
+      },
+      {
+        "value": "Female",
+        "label": "Female"
+      },
+      {
+        "value": "Transgender",
+        "label": "Transgender"
+      }
+    ]
+  },
+  {
+    "name": "item.itemName",
+    "label": "Item name",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 40
+  },
+  {
+    "name": "item.presentAnnualCapacity",
+    "label": "Present annual capacity",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 12
+  },
+  {
+    "name": "item.presentProposedYOI",
+    "label": "Present proposed yoi",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 4
+  },
+  {
+    "name": "item.subsequentAnnualCapacity",
+    "label": "Subsequent annual capacity",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 12
+  },
+  {
+    "name": "item.subsequentProposedYOI",
+    "label": "Subsequent proposed yoi",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 4
+  },
+  {
+    "name": "idEmpBean.empName",
+    "label": "Emp name",
+    "type": "text",
+    "required": false,
+    "readOnly": true
+  },
+  {
+    "name": "idEmpBean.empNumber",
+    "label": "Emp number",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 13
+  },
+  {
+    "name": "selfEmploymentData.constitution",
+    "label": "Constitution of the Applicant.",
+    "type": "select",
+    "required": true,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "Proprietorship",
+        "label": "Proprietorship"
+      },
+      {
+        "value": "Partnership",
+        "label": "Partnership"
+      },
+      {
+        "value": "Private Ltd.",
+        "label": "Private Ltd."
+      },
+      {
+        "value": "Public Ltd.",
+        "label": "Public Ltd."
+      },
+      {
+        "value": "Co-operative Society",
+        "label": "Co-operative Society"
+      },
+      {
+        "value": "Limited Liability Partnership",
+        "label": "Limited Liability Partnership"
+      },
+      {
+        "value": "Other",
+        "label": "Other"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.otherConstitution",
+    "label": "Other Constitution",
+    "type": "text",
+    "required": false,
+    "readOnly": false,
+    "maxLength": 50
+  },
+  {
+    "name": "selfEmploymentData.proposedActivity",
+    "label": "Nature of Proposed Activity",
+    "type": "select",
+    "required": false,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Nature of Proposed Activity"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.ventureType",
+    "label": "Venture Type",
+    "type": "select",
+    "required": true,
+    "readOnly": false,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Venture Type"
+      },
+      {
+        "value": "New",
+        "label": "New"
+      },
+      {
+        "value": "Expansion",
+        "label": "Expansion"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.proposedVenture",
+    "label": "Type of Proposed Venture",
+    "type": "select",
+    "required": false,
+    "readOnly": true,
+    "options": [
+      {
+        "value": "",
+        "label": ""
+      },
+      {
+        "value": "Micro",
+        "label": "Micro"
+      },
+      {
+        "value": "Small",
+        "label": "Small"
+      },
+      {
+        "value": "Medium",
+        "label": "Medium"
+      },
+      {
+        "value": "Large",
+        "label": "Large"
+      }
+    ]
+  },
+  {
+    "name": "landDetail.phase",
+    "label": "Phase",
+    "type": "select",
+    "required": true,
+    "readOnly": false,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Phase"
+      },
+      {
+        "value": "Present/First Phase",
+        "label": "Present/First Phase"
+      },
+      {
+        "value": "Second/Subsequent Phase",
+        "label": "Second/Subsequent Phase"
+      }
+    ]
+  },
+  {
+    "name": "landDetail.type",
+    "label": "Type",
+    "type": "select",
+    "required": true,
+    "readOnly": false,
+    "options": [
+      {
+        "value": "",
+        "label": "Select Type"
+      },
+      {
+        "value": "Open",
+        "label": "Open"
+      },
+      {
+        "value": "Covered",
+        "label": "Covered"
+      }
+    ]
+  },
+  {
+    "name": "landDetail.purpose",
+    "label": "Purpose",
+    "type": "text",
+    "required": false,
+    "readOnly": false,
+    "maxLength": 20
+  },
+  {
+    "name": "landDetail.dimensionsL",
+    "label": "Dimensions l",
+    "type": "text",
+    "required": false,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "landDetail.dimensionsW",
+    "label": "Dimensions w",
+    "type": "text",
+    "required": false,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "landDetail.area",
+    "label": "Area",
+    "type": "text",
+    "required": false,
+    "readOnly": false
+  },
+  {
+    "name": "landDetail.cost",
+    "label": "Cost",
+    "type": "text",
+    "required": false,
+    "readOnly": false,
+    "maxLength": 3
+  },
+  {
+    "name": "selfEmploymentData.totalPresentOpenCoveredArea",
+    "label": "Total present open covered area",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.totalPresentOpenCoveredCost",
+    "label": "Total present open covered cost",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.totalSubsequentOpenCoveredArea",
+    "label": "Total subsequent open covered area",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.totalSubsequentOpenCoveredCost",
+    "label": "Total subsequent open covered cost",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.totalPresentAndSubsequentArea",
+    "label": "Total present and subsequent area",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.totalPresentAndSubsequentCost",
+    "label": "Total present and subsequent cost",
+    "type": "text",
+    "required": true,
+    "readOnly": true
+  },
+  {
+    "name": "selfEmploymentData.time",
+    "label": "Time",
+    "type": "text",
+    "required": false,
+    "readOnly": true,
+    "maxLength": 2
+  },
+  {
+    "name": "selfEmploymentData.waterReq",
+    "label": "Water req",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "selfEmploymentData.presentConnectedLoad",
+    "label": "Present connected load",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "selfEmploymentData.expConnectedLoad",
+    "label": "Exp connected load",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "selfEmploymentData.presentMaxDemand",
+    "label": "Present max demand",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "selfEmploymentData.expMaxDemand",
+    "label": "Exp max demand",
+    "type": "text",
+    "required": true,
+    "readOnly": false,
+    "maxLength": 5
+  },
+  {
+    "name": "selfEmploymentData.isAlreadyLandAlloted",
+    "label": "Any Land/built up space .... ?",
+    "type": "radio",
+    "required": true,
+    "readOnly": false,
+    "options": [
+      {
+        "value": "true",
+        "label": "Yes"
+      },
+      {
+        "value": "false",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "name": "selfEmploymentData.detailOfAllotedLand",
+    "label": "If yes, give details",
+    "type": "textarea",
+    "required": false,
+    "readOnly": false,
+    "maxLength": 1000
+  },
+  {
+    "name": "captchaText",
+    "label": "Captcha text",
+    "type": "text",
+    "required": true,
+    "readOnly": false
+  }
+]

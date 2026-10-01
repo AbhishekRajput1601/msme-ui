@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-01T05:41:54.450Z",
+  "mode": "Live anonymous requests; no application writes",
+  "passed": true,
+  "checks": [
+    {
+      "path": "/website/login",
+      "status": 200,
+      "authenticationRequired": false
+    },
+    {
+      "path": "/api/session/current-user",
+      "status": 302,
+      "authenticationRequired": true
+    },
+    {
+      "path": "/applicant/fetchApplicationList",
+      "status": 302,
+      "authenticationRequired": true
+    },
+    {
+      "path": "/applicant/fetchAllLandAllotmentList",
+      "status": 302,
+      "authenticationRequired": true
+    },
+    {
+      "path": "/applicant/id/fetchDocumentsList?applicantId=0",
+      "status": 302,
+      "authenticationRequired": true
+    }
+  ],
+  "pending": "Authenticated create/update/upload verification requires a test applicant account."
+}

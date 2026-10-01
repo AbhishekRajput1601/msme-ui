@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "./styles/legacy-public.css";
+@import "./styles/legacy-portal.css";
+@import "./styles/legacy-adaptations.css";
+@import "./styles/home-page.css";
+
+@theme {
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --color-indigo-50: #eef5fb;
+  --color-indigo-100: #d9edf7;
+  --color-indigo-200: #bce8f1;
+  --color-indigo-300: #90bddc;
+  --color-indigo-500: #428bca;
+  --color-indigo-600: #337ab7;
+  --color-indigo-700: #286090;
+  --color-indigo-800: #23527c;
+}
+
+html { font-size: 16px; }
+body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #333; background: #f8f8f8; }
+#root { min-height: 100vh; }
+button, a, input, select, textarea { touch-action: manipulation; }
+button:not(:disabled), summary { cursor: pointer; }
+:focus-visible { outline: 2px solid #337ab7; outline-offset: 3px; }

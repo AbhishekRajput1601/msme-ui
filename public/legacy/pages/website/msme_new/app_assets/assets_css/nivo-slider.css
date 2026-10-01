@@ -1,0 +1,254 @@
+.nivoSlider {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.nivoSlider img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    max-width: none;
+    max-height: 350px;
+    object-fit: cover;
+}
+
+@media(max-width: 1300px) {
+    .nivoSlider img {
+        max-height: 320px;
+    }
+}
+
+.nivo-main-image {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+}
+
+.nivoSlider a.nivo-imageLink {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 6;
+    display: none;
+    background: white;
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+.nivo-slice {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    height: 100%;
+    top: 0;
+}
+
+.nivo-box {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.nivo-box img {
+    display: block;
+}
+
+
+/* Caption styles */
+
+.nivo-caption {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background: #000;
+    color: #fff;
+    width: 100%;
+    z-index: 8;
+    padding: 5px 10px;
+    opacity: 0.8;
+    overflow: hidden;
+    display: none;
+    -moz-opacity: 0.8;
+    filter: alpha(opacity=8);
+    -webkit-box-sizing: border-box;
+    /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;
+    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    /* Opera/IE 8+ */
+}
+
+.nivo-caption p {
+    padding: 5px;
+    margin: 0;
+}
+
+.nivo-caption a {
+    display: inline !important;
+}
+
+.nivo-html-caption {
+    display: none;
+}
+
+
+/* Direction nav styles (e.g. Next & Prev) */
+
+.nivo-directionNav a {
+    position: absolute;
+    top: 45%;
+    z-index: 9;
+    cursor: pointer;
+}
+
+.nivo-prevNav {
+    left: 0px;
+}
+
+.nivo-nextNav {
+    right: 0px;
+}
+
+
+/* Control nav styles (e.g. 1,2,3...) */
+
+.nivo-controlNav a {
+    cursor: pointer;
+}
+
+.nivo-controlNav a.active {
+    font-weight: bold;
+}
+
+.nivo-controlNav {
+    text-align: center;
+    padding: 15px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 40px;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.theme-default .nivoSlider {
+    position: relative;
+    /* background: #fff url(../assets_img/lo) no-repeat 50% 50%; */
+}
+
+.theme-default .nivoSlider img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+.theme-default .nivoSlider a {
+    border: 0;
+    display: block;
+}
+
+.theme-default .nivo-controlNav {
+    text-align: center;
+    padding: 8px 0;
+}
+
+.theme-default .nivo-controlNav a {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    text-indent: -9999px;
+    border: 0;
+    margin: 0 2px;
+}
+
+.theme-default .nivo-controlNav a.active {
+    background-position: 0 -22px;
+}
+
+.theme-default .nivo-directionNav a {
+    background: #fff;
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: none 0s ease 0s;
+    transition: none 0s ease 0s;
+    width: 40px;
+    z-index: 8;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.theme-default:hover .nivo-directionNav a {
+    opacity: 1;
+}
+
+.theme-default a.nivo-nextNav {
+    background-position: -30px 0;
+    right: 15px;
+}
+
+.theme-default a.nivo-prevNav {
+    left: 15px;
+}
+
+.theme-default .nivo-caption {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.theme-default .nivo-caption a {
+    color: #fff;
+    border-bottom: 1px dotted #fff;
+}
+
+.theme-default .nivo-caption a:hover {
+    color: #fff;
+}
+
+.theme-default .nivo-controlNav.nivo-thumbs-enabled {
+    width: 100%;
+}
+
+.theme-default .nivo-controlNav.nivo-thumbs-enabled a {
+    width: auto;
+    height: auto;
+    background: none;
+    margin-bottom: 5px;
+}
+
+.theme-default .nivo-controlNav.nivo-thumbs-enabled img {
+    display: block;
+    width: 120px;
+    height: auto;
+}
+
+#Pause,
+#Play {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9;
+    background-color: #fff;
+    border: 0px;
+    border-radius: 3px;
+    color: #000000;
+    cursor: pointer;
+}

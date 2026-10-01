@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "mode": "Controlled browser fixtures; no live writes or payments",
+  "checks": [
+    "plot selection and instructions",
+    "backend eligibility rejection",
+    "readonly profile fields",
+    "rejected saves stay on form",
+    "investment totals block POST",
+    "create payload and document route",
+    "failed upload cannot proceed",
+    "document save and payment review",
+    "payment amount and hidden token preservation",
+    "draft update endpoint",
+    "legacy history bookmark",
+    "query reply partial upload failure and retry without duplicate reply"
+  ],
+  "runtimeErrors": []
+}

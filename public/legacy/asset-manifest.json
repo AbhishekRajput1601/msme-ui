@@ -1,0 +1,714 @@
+[
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/arrow-next.png",
+    "sha256": "78b7a9e6427deeceab1167c1d3201e80a5a42877b6e3c90efb006ef093625c43"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/arrow-prev.png",
+    "sha256": "3a0498c6c8094b1c64cc04f183358549cb6a4b4995fb79c88f5807f8975b4a8b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/banner1.jpg",
+    "sha256": "8d153bc2346f20903eda261d2cd24f1af6a633cd20655548dcba3fff941a1158"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/banner2.jpg",
+    "sha256": "db2689c6206332efc3ec556bb7ad45b9192e8e4f71581309983b39d1b9949e5a"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/bullet-over.png",
+    "sha256": "1073927f9ab9f954f30cd95eb8349631654721019073dabc833d977cf0f2b9f8"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/bullet.png",
+    "sha256": "4d3c01a82e76a34369ebba3016a9eb1e4451937686189d966749912afb433657"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/bullet1.png",
+    "sha256": "4c20366de66a38fe2f2bda1d0c67e7a06327177ba9a70a6406d44cf9b1cd0f5d"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/card.jpg",
+    "sha256": "2368c5e55e97bca829fa5c321e8e8d49b189d830bf854abc3499ba72dcb4ed16"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/CM-dashboard.jpg",
+    "sha256": "464a37fd2e6a956a65200a4433aeba7f0a2ec15e42ace8c72f2d2febadc9c7ec"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/CM-Photo.png",
+    "sha256": "8cb11b333bb71b9e84eb4f10565f64da99b742395b244dc920f71763e4dbab20"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/cogs.png",
+    "sha256": "4831215594fd43d80e5c832961cb6a761c9f6f437cae202289b3c53337d7513a"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/council.png",
+    "sha256": "7eba0082b350c9f45da664a7691bd9d329d808ea3cf978a1e58fac05ed45ed4b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/cubes.png",
+    "sha256": "369e2fea2fdb00eb15301e187e55aa4e7cf4854dc7b665f43b874093c10cddd7"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/employment.png",
+    "sha256": "a05fdc9ebe156c1f9b5cec9bd850703ed85a70ca9718f6a876da7a650bf42942"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/favicon.png",
+    "sha256": "c99fb1c1a8969e6a3b0a38bb52cfec8ee1b8ca7972b0833133b2c8fab9be4d9c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/finance.png",
+    "sha256": "038e6e626a3731c12e3a474ec51447f21f941123d210f2d36b2e5f912f193aca"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/Government_E_Marketplace_logo.jpg",
+    "sha256": "389552ef6d1134912d06f213f1fa9d3a76859ef0bc7bab8af1755e93fb371523"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/img-gallery-2.jpg",
+    "sha256": "4c806d41c8a853b8f907cb8924178362bd6cce3a938c17f6bc8017057fa82d26"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/img-gallery.jpg",
+    "sha256": "f6b8f6ba7bcaa1d0b14efcf850e7f887aa685a613ec389117c3380d3d99ebc79"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/industry.jpg",
+    "sha256": "b88fdc6b2a07da6a50e784e87b4a28dc66e7df3d70418340bad2b54ef196bf48"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/infrastructure.png",
+    "sha256": "c844788707c69e5bd390c47d8e2de3e9a8f36ab8db386c3448670dd724b8b006"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/jobs.png",
+    "sha256": "acf7f7e9d4b6a05d1bcc5c11bdcd3531e7bcc2525ba0aa572e96d18feb00082c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/logo.png",
+    "sha256": "9a5fc66418ce62a15db57fd6e9c0ae6854d478c71134d5af0373348e52ca5742"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/M-Photo.png",
+    "sha256": "9a5fa8d3c865f48c54bf87dad8de4eaacf229f09f5bd2bdefa65fcdf46da2543"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/mpsdc.jpg",
+    "sha256": "653ccabaa420831f3186904e0c389d03adb202c86067d7962563c48c7afdb707"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/mrignayani.png",
+    "sha256": "eb06ea4cb8c104bc653ea15976fe5718eea39c280d69ede27e5253f3ff61ac4c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/msme.jpg",
+    "sha256": "4febd2c2079830e82e8b1542eedbd2cdb62301244145037b4edb9e86f260b86c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/MSME_Award_Image.jpg",
+    "sha256": "8902652ed759cfd085d499a6f87962edf734e75d0ba6c79ca58b423067a27860"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/MSME_logo.png",
+    "sha256": "32c00699dd79ba5dca37e62eafe42cad77ddd78e15f88b85736746ef5ed3285e"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/MyGov-MP-logo.jpg",
+    "sha256": "4da668e29a5935eb438edfcbb4b0cae69922f8d4e434b78494bc710eff5aebea"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/new.gif",
+    "sha256": "f2577315006c6dd7d083df08b2569198789c90bad63e36f693d2269c07fb0099"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/OnlineEDP.jpg",
+    "sha256": "14c2efd36c4faefd01ea128e527c4f9d88a32ba7bfd4a5538094ff91504c9f1c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/pause.png",
+    "sha256": "2ee6aa787e080897f0d4c1312eb36e83aa24c2a9ed29e6e3244d3b05bb7c4db2"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/play.png",
+    "sha256": "0647f718944cea7de778c0bbac08d3233fe814ab2f5d385a76afa43c76c02952"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/project-profile.jpg",
+    "sha256": "957a2ce117b6d9a35cf4b819ad6906ae1162af45f205c4c8135240f93729c3ff"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/registration.png",
+    "sha256": "679f7384ae039d42b1c0797a3b57e411dca5342a2f139842ffd42eb2530195dd"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/rojgarsetu.jpg",
+    "sha256": "b301199fb53a292597c5fcc335517819a54ce0916d5824a636531928b77b2ffb"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/Shivraj-Singh-Chouhan-9-1.jpg",
+    "sha256": "1f9436c842d767e7789c57f1cbfe80b25c080841b8742d9c251074d10224b192"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_img/Standup.jpg",
+    "sha256": "4b5c5d9d4c233b33259f5107f7fc2e44afe5f0c3b643e52e29bc1699d05db92e"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/fonts.css",
+    "sha256": "8599629ba7edcb451a9e16165955f1b77fa64f93cb31cd343c24683e39c29397"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Black.eot",
+    "sha256": "670347bb66373c0f4446823869cf122e0f09cd9e44f8ffe3d8cb6136b0334c74"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Black.ttf",
+    "sha256": "ddd2cbf1553092390d40328ca1e56011ee1ba84611a69f2cbb11cfc0a0b654e9"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Black.woff",
+    "sha256": "5ed4242e08603e31613cc27f1d1b03fb22460c462242cb4da01ed5fac27cc780"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Black.woff2",
+    "sha256": "9f39397bc1f61d5ceb4a38e98c824463d12d943f990d3eae4838542f471feb9f"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BlackItalic.eot",
+    "sha256": "3b95ec45cc62a5206d271e6fcdb77b7a691b284d7ffaea5346038856de53abd3"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BlackItalic.ttf",
+    "sha256": "7f8241cc96504ac71b4a77ce36f71413d8f86cbd4ee20e9ddb9eecb8c0377edc"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BlackItalic.woff",
+    "sha256": "93473f4e6c6c509b8c5d1090eeb9e70b0629823c0b2885493d1bf4242bbd3606"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BlackItalic.woff2",
+    "sha256": "fc73cdef96f75a56737dbe811d323b0016413e89fdd28a318c55415c892625cb"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Bold.eot",
+    "sha256": "8b7729154a0de18eb83106343c05b42c12adddadf2c842d285ba828651e4193b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Bold.ttf",
+    "sha256": "360f767715b867447a65032ac088d45143c3518d74e64068d99297e671deaefb"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Bold.woff",
+    "sha256": "dc645a3c29dd6c99d35f0db3acdc0e78fff7355da0ff0517adb1eb4d61f74cc8"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Bold.woff2",
+    "sha256": "d83ab9cc7335a68b7e86a1aeebf6626ea6027c63d28d898bf66aaaf43d3197a3"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BoldItalic.eot",
+    "sha256": "a2687e3a84f0db7927b11bc09cce9c2fdad233062a4fe7d29f8b3e5a0ff1ecf3"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BoldItalic.ttf",
+    "sha256": "641748378ea6450f9d9a0d1efc98825c0215008f3a475613d6023a0b18054969"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BoldItalic.woff",
+    "sha256": "cde056aa49f1ae01f8bfafb08538bb4a2ced0bb29cd2cc1b2cdad8f16d23a184"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-BoldItalic.woff2",
+    "sha256": "f401d78d59fca3c36271d81bd4e1827b0d6756e41272c30911e0494d535f39ab"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBold.eot",
+    "sha256": "9d30bd4195cee1359b7e2977f8234dea6ee8d94fee6b94a1bb741df9f17db2a1"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBold.ttf",
+    "sha256": "0c2daf9ae780ba207073a33f068ab59ab1fe4abe263a103d1ca23d1495502029"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBold.woff",
+    "sha256": "08d39392f50f85d124b4f627c42a6730a25e75163755bb9285807edcacfe6013"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBold.woff2",
+    "sha256": "b98326c241c7eb58bf26d1c44dd3c4f92da6b1b9bc4adb5759e9c278e20c2c70"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBoldItalic.eot",
+    "sha256": "89af6e0e41b8bf107b9a364c61a788e26ee5367257df958674d7dc27c360547c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBoldItalic.ttf",
+    "sha256": "fcd4178cac719a25093e4dd1681a909dc641f9b589080ebc001c6bde5f81ec0d"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBoldItalic.woff",
+    "sha256": "50573d7a41748cfc1c63ac8c6be078a4b66df289ebaaf87d113d5fe32f9d3596"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraBoldItalic.woff2",
+    "sha256": "4ed4ee3ccf550687866af7ad1755f62b95e48e38ae297e627f4c0c4ede0a8899"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLight.eot",
+    "sha256": "d90a561744ceed3ddf35655e7d63cc2fd9e14eb4c4cd1a717f5d92540fc26114"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLight.ttf",
+    "sha256": "6960ddb9d451f5375a688fff8f42b3a6c3466b37456b5e009b404a68d5da1845"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLight.woff",
+    "sha256": "e6582437f44f6afdbe9bc699c0dfb588f06c9a5c598b86bd8a98f61a8dabf27c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLight.woff2",
+    "sha256": "f5b6d5dd1c4e5a603845e6d504da00424208f36ea41c85eec331b54dab0d1c1c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLightItalic.eot",
+    "sha256": "eedc4beac45a4aba8aa24bab4ff393cc48dc538245366e593d52d9eff024f0ee"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLightItalic.ttf",
+    "sha256": "7c0faf02803eaed14f4b392be6b4ba6e9d008394b67515b93a06dfb7a2e1c902"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLightItalic.woff",
+    "sha256": "1475c9327e40b7c49dc24c55ae71cd60790116f4a570157597f388211276d66a"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ExtraLightItalic.woff2",
+    "sha256": "70eb32b6539bd124242ccd579defb42bf13a018525b1fc66811905fd28f1d331"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Italic.eot",
+    "sha256": "3665817af223bfe5a1d885b471e13e86dd2f41b16608ab915421e28bd2ab37b5"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Italic.ttf",
+    "sha256": "dae10c7dd2cd0b05b1358b50815e402bdb1b964531cf668b64c8d7ac8102efce"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Italic.woff",
+    "sha256": "5019b96a3038d41823028175c3b4fc6097529f831a48acfebd0ea61c289aeb2a"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Italic.woff2",
+    "sha256": "e4f71a95a3bffeedbecd33954ee30a68417324134efe9f955cb2eb127f15cb1b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Light.eot",
+    "sha256": "39d3b1268d51715ea021044eb6b0adfc8b6fcbb02d3f4cc6690373f7900e865c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Light.ttf",
+    "sha256": "74341477b3b90be25ca4675f7d421646bc83ae7af80300e552ae698992b5a996"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Light.woff",
+    "sha256": "41f353b4c8052dbaa6d2630a8d1adfdafbe12a6252dfad38aad62f35a7cb080c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Light.woff2",
+    "sha256": "fb1ca56684a87b209f611ce83431f6e79b38fa48191074f3a4dba5962798db06"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-LightItalic.eot",
+    "sha256": "0cec0766f97cd54905a6dd8581d01ac0cb76eaf1ee1a6abd2b1789789631fd64"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-LightItalic.ttf",
+    "sha256": "1e67d5cef4630e0450bdc11aa4b18ebfb3c4dd9bb773e545dc3c079a084bb0af"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-LightItalic.woff",
+    "sha256": "2babd3452349e2a585321ffcc305c7ce120b2b76b5fa158b398666886ea18cc5"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-LightItalic.woff2",
+    "sha256": "bda4ebafcd5e67a682a306bab57f981ae6596c9c96a3cb8d962bf3ee200a208f"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Medium.eot",
+    "sha256": "a822a9899f88474c3307fdce3d4a48a2ff6e696ed854f821d187ea1f191083c7"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Medium.ttf",
+    "sha256": "e500febfc5ff83ca48d2239ba9094d2f5b6401571ec76096a20323fc80ca2d16"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Medium.woff",
+    "sha256": "7fbbbe96a7999f7781f2597a10e8df4682f7076f8f518e26b60f01b7df6f260c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Medium.woff2",
+    "sha256": "9b9b4a38274692e80c411778f0287d1cedf9d1a92753f1073e6074b34fec8a4e"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-MediumItalic.eot",
+    "sha256": "a97d7c28f88d74a6d213b735dbb336f460197eeb63e0ca0a717893a5f6aa8437"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-MediumItalic.ttf",
+    "sha256": "a007de808c82b56b4cc440153115066583f43241bf458d18a37ed30611d3dd33"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-MediumItalic.woff",
+    "sha256": "8ee23ff686a407a8c978bde8836b07f3897f82b0c210c6ac3c4b886f17115779"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-MediumItalic.woff2",
+    "sha256": "7d831f05fac5d3bb36c4e2dd6a0179e065ecc2e7018cee63a5a527e299c90f50"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Regular.eot",
+    "sha256": "6ae76e9a673f790af7f8da12f214d09632bb7874cbee8a705d991165461847df"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Regular.ttf",
+    "sha256": "12e8f76d9bc181fd1128655ab06dfb91521fd19e6e9b1f50f4ccd01d799ce87b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Regular.woff",
+    "sha256": "eeb0834fb907592d937dd9c2d8806d785c3b3c117b46afbb7fb22462592134d8"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Regular.woff2",
+    "sha256": "efb99a75559353bdd76adff36eb32002df26da19e4a8e46a240b29f3fb02d39b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBold.eot",
+    "sha256": "8e51d794c6e09ab2039bc89bba030b2e2a1597e14b099ef3d6fc82213ca1bf2a"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBold.ttf",
+    "sha256": "18e88d450c5265828bd362f9d1e7fe3a4fff9c045ca1ec2595ec4a44145f2ac1"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBold.woff",
+    "sha256": "17b85a3d7c51779cd3f0fef9c4b961c7d4e463aa297979ecfac583236e3ded56"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBold.woff2",
+    "sha256": "f5bbc8913d08cdcbfe526e3680418a1d4f881298a0fe9caa96242601c0f3f760"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBoldItalic.eot",
+    "sha256": "70757326e21479f845004c12eb51314f7777ba6fc5f6ba112e9dcd40b46248c7"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBoldItalic.ttf",
+    "sha256": "7163b813121c3c938f4ed31cbdc4108a5e771c959509503d9635ed5d6fc4ea94"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBoldItalic.woff",
+    "sha256": "edd86af39a6bc8912eec63b5e14a069dc3ffe808537543d60f8df166ae99c571"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-SemiBoldItalic.woff2",
+    "sha256": "631bd3f6c95cb23f74e3aa891dfbc7b274d9e8a191334b3b484d461a12cf6608"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Thin.eot",
+    "sha256": "5f0fe62f4decca4060bed18f1efa4e2f2d06e6927deb6a49e7aa55af3954f552"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Thin.ttf",
+    "sha256": "e054752d14392437d4f1562639c1310ab234d1f9cd5cd7398652b20ba65e1bf6"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Thin.woff",
+    "sha256": "bfc293cdf2b7eb1b681149eaf6d9dec36a680252b1d1d5b71b004e243789fdf6"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-Thin.woff2",
+    "sha256": "7c230e71ea3c9b858831e622f2772bb71bbe4f647fa39fd9eda27e5bb4283a52"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ThinItalic.eot",
+    "sha256": "c0b9e1d5b190ba489709a93ca392b0b90b6f1aa96341626243524c489e6b8bc3"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ThinItalic.ttf",
+    "sha256": "e801888745ea2e02b1aea0487e94e0acada75a312e52e861e132f50475af7c52"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ThinItalic.woff",
+    "sha256": "fc30211f4514cc24d41439dda819fc46aed3c20e614025f54460e2093e1bf15c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/fonts/Poppins-ThinItalic.woff2",
+    "sha256": "a1a633c9910e91fe3f770050a8cd3056150e4ca8a56c05f035933e6f4e58a619"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/animate.min.css",
+    "sha256": "ca8edb5291f7e3b086383ba018e48800c2ca5cb6e35423fa340b96895f970b06"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/bootstrap.min.css",
+    "sha256": "579f0886a22f1877dfcc22b8e1eee322bbd246c2ba529fcce4b57f11666aaa84"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/css_bigger.css",
+    "sha256": "641acc37438a2a0f2e6e925ae65f833631e880a7fac0893a5f504cd615aebf2b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/css_small.css",
+    "sha256": "b030ee41bbfe59bcf8b9063ef068cf61a03cc763f7db2692f91cf1b86e98c09b"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/fancybox.min.css",
+    "sha256": "4db7cea580d713cbf55a968c66266734d5b859e362827aa3c6b3925641f40f84"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/fancybox_buttons.png",
+    "sha256": "e31c3a8c15610109580e0f787dceb6e0a33c5f365d4cdbd4ee76f2b33aef5822"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/font-awesome.css",
+    "sha256": "37b2056475b137aea345dc4669f3b85d0c9c3fff017c143f7667e09585eeae99"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/jquery.fancybox-buttons.css",
+    "sha256": "d1313784adf15be807f65b052b8d2ab0a85819bf62698664918da2845f36daf1"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/main_css.css",
+    "sha256": "9c8272d7d8342eaf68680795190b08aa8122c8f482574e2a5237432e0493ea86"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/materialdesignicons.css",
+    "sha256": "7bb338b7a5a3922484a805c801920535d53600d4f6f0c602914d3c6288f8705f"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/modern-ticker.css",
+    "sha256": "dc4a86e83e856141dd778932a985fe4b0c713f8178b857a36300d0b1a646f862"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/nivo-slider.css",
+    "sha256": "73a5234838ec5b3a364761181cad4c561efda55fd321295621f222df9c5e43d8"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/owl.carousel.css",
+    "sha256": "4c9f32e4caf110762d2431153db813198de1d753593f291375c4bd46f606d28c"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/owl.theme.default.css",
+    "sha256": "18eef84d2ef1244b24716e857bf5809748997c2250bae28619a62d00b147a560"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/theme1.css",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "pages/website/msme_new/app_assets/assets_css/theme2.css",
+    "sha256": "941809f3934912365d8c37be2e3f1f06575aac5c78a1bcac8567fc8604b94a1d"
+  },
+  {
+    "file": "image/diary-img.jpg",
+    "sha256": "6e532c7840d8ce59aee3bc52b9dff5da406b15c24f48e07c3cd8c7a8f5843ab2"
+  },
+  {
+    "file": "image/diary.jpg",
+    "sha256": "eee51192b880152de663a0f35b9d97703ff8b98416dd1715f53c89e211c8ca21"
+  },
+  {
+    "file": "image/edit.png",
+    "sha256": "5ec983ade286c0be13f882fe42a8ecf9081afca636bc1b62aec5c94d6dd78bfe"
+  },
+  {
+    "file": "image/grey_arrow_left.svg",
+    "sha256": "067f6612227a6e30615055c4fac79121c91c54f9d61b3ab7be6b84391a7809d7"
+  },
+  {
+    "file": "image/grey_arrow_right.svg",
+    "sha256": "bb336890938ae8db3f27bf66106cbe3519b6145731cffd7daa5be38975f5e22a"
+  },
+  {
+    "file": "image/homemodal.jpeg",
+    "sha256": "886b53a00cf52d5e210e514e59d060a7afb6627ea178c99fe416484fc1bae51e"
+  },
+  {
+    "file": "image/industry logo.png",
+    "sha256": "e32eb1c5767df7473127f6c5bf9af36d51d90795275726b3ea98e677115d9ebc"
+  },
+  {
+    "file": "image/indus_logo.png",
+    "sha256": "c061aa89640fdbd749c7bc056a551906ba0b7259fbed791ba52bd7b225cff41b"
+  },
+  {
+    "file": "image/print.png",
+    "sha256": "3d777c9b3345fffdc67bfb65a2029bb5ec023eed9fc9b59f251ea6049425b42b"
+  },
+  {
+    "file": "image/refresh.ico",
+    "sha256": "07c346ab1cba9f92c7f2cca26db018ce7b968d2e585b88b4753c6a344604d237"
+  },
+  {
+    "file": "image/white_arrow_left.svg",
+    "sha256": "0875b72550968dae724d9a33310a0a57c0216ee9310f533eb115198ee9c5d2f5"
+  },
+  {
+    "file": "image/white_arrow_right.svg",
+    "sha256": "e7dc994126214cd1a8d64f2129f7aeb54195f281fbe8afc87d4c0e519fe2e168"
+  },
+  {
+    "file": "fonts/glyphicons-halflings-regular.eot",
+    "sha256": "f495f34e4f177cf0115af995bbbfeb3fcabc88502876e76fc51a4ab439bc8431"
+  },
+  {
+    "file": "fonts/glyphicons-halflings-regular.svg",
+    "sha256": "6c94d6f93e3405b8e5264e0c38a4f53c257d1bbc584623e093b5a675010eff21"
+  },
+  {
+    "file": "fonts/glyphicons-halflings-regular.ttf",
+    "sha256": "bd18efd3efd70fec8ad09611a20cdbf99440b2c1d40085c29be036f891d65358"
+  },
+  {
+    "file": "fonts/glyphicons-halflings-regular.woff",
+    "sha256": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e"
+  },
+  {
+    "file": "font-awesome-4.1.0/css/font-awesome.css",
+    "sha256": "6e450dd690f0af78170d33f054c9f586db01eeb47597d9e65175836ed60def71"
+  },
+  {
+    "file": "font-awesome-4.1.0/css/font-awesome.min.css",
+    "sha256": "02716a81de5b93b2ad2b34f4125544188447f3fd5deb4cc6c52d8f67fbd05aaf"
+  },
+  {
+    "file": "font-awesome-4.1.0/fonts/fontawesome-webfont.eot",
+    "sha256": "9f8288933d2c87ab3cdbdbda5c9fa1e1e139b01c7c1d1983f91a13be85173975"
+  },
+  {
+    "file": "font-awesome-4.1.0/fonts/fontawesome-webfont.svg",
+    "sha256": "993028bcbedc7124b2d5f069520e8f32fe9cab9898284bb5d951f8960413fab6"
+  },
+  {
+    "file": "font-awesome-4.1.0/fonts/fontawesome-webfont.ttf",
+    "sha256": "c2a9333b008247abd42354df966498b4c2f1aa51a10b7e178a4f5df2edea4ce1"
+  },
+  {
+    "file": "font-awesome-4.1.0/fonts/fontawesome-webfont.woff",
+    "sha256": "66db52b456efe7e29cec11fa09421d03cb09e37ed1b567307ec0444fd605ce31"
+  },
+  {
+    "file": "font-awesome-4.1.0/fonts/FontAwesome.otf",
+    "sha256": "f7b60acb8a44554b59ef3c31bae942be65e0f1045b55400807a2ac6fde2949ba"
+  },
+  {
+    "file": "pages/website/logo/comm.png",
+    "sha256": "5bedb5bd867aeaf72704fc95285a2436807ee4be8e43603d111b35b86bcfe6fe"
+  },
+  {
+    "file": "pages/website/logo/dipp.png",
+    "sha256": "ef8cf45afe2f84bfdaca5e8e550903e928120aab633b1381553bb83370b324c9"
+  },
+  {
+    "file": "pages/website/logo/imagenotavailable.png",
+    "sha256": "62122c44a9f2eb46ec19ea77cd52e4874664c903fc43e872a76e7957eed030ea"
+  },
+  {
+    "file": "pages/website/logo/imagenotavailable_original.png",
+    "sha256": "bf052f1f1314622b12f08daef6838d7c8781a8ccab9b990178aa4e680fe4f2a5"
+  },
+  {
+    "file": "pages/website/logo/indiagov.bmp",
+    "sha256": "82f57603efc8381adc5c7b212cc31962276bfd84bfea6174cf1b94563d288e92"
+  },
+  {
+    "file": "pages/website/logo/mpgov.bmp",
+    "sha256": "4095fe70385330d18eb8d918cc82183e2e66559d0006b8f3b8c0577751acb77a"
+  },
+  {
+    "file": "pages/website/logo/msme-logo.png",
+    "sha256": "a329ed80b4343d1aaaa37bd1d83cbb5517ee473ef757e707668cbe283d9c8ce6"
+  },
+  {
+    "file": "pages/website/logo/videoimage.png",
+    "sha256": "0b5490aee41f06c48c0893cb175c0554101177d8220921250322685028d2bacb"
+  },
+  {
+    "file": "pages/website/images/avatar2.png",
+    "sha256": "192ae912c0b01ad8f31fad43bd19664735163bf66bc518e9f0afae7059843035"
+  },
+  {
+    "file": "pages/website/images/cap.png",
+    "sha256": "da79a7898d36fa0718551ebfe9866a2a4378d45ea843e9850f7c7ea06fc0596e"
+  },
+  {
+    "file": "pages/website/images/cap1.png",
+    "sha256": "824a4336833c37b21667e86499a441e4241350969ed25dd2e2a4286ffb6a1351"
+  },
+  {
+    "file": "pages/website/images/download.png",
+    "sha256": "0adb8e7d40cfc39bba9c94f1f9204e095a5a0991a2e62d419af9066fa5f03fa0"
+  },
+  {
+    "file": "pages/website/images/excel-32.png",
+    "sha256": "d20bd0717098ca8ccbdc862bdea45e47bd88b8689323a3248d1f33d19d15a4ea"
+  },
+  {
+    "file": "pages/website/images/favicon.png",
+    "sha256": "03eb8d58a1ddc7a21a1dfc34f1f4acf37967d61f852db913c608019d6b9336a5"
+  },
+  {
+    "file": "pages/website/images/ico1.png",
+    "sha256": "2b35b366459e39a7deee1289b338877af227cb871f1a12f1399fa723493f39a9"
+  },
+  {
+    "file": "pages/website/images/ico2.png",
+    "sha256": "a283d87f7e43f262a81898306e127ef0e712179bb6119b9a4219ac3c34f34039"
+  },
+  {
+    "file": "pages/website/images/ico3.png",
+    "sha256": "7934347be1e9f5788d5cb1f759e80ac6fdace33c4b19c774fe386e001943417c"
+  },
+  {
+    "file": "pages/website/images/ico4.png",
+    "sha256": "4d17d8415d8006ecabf3e7cd6b187ead0f51e192c644cfda349bf35d66ff9260"
+  },
+  {
+    "file": "pages/website/images/india.png",
+    "sha256": "89f59c4ec6a1595196467e1008df0c6d02a9e934522bf02e891de6722148c106"
+  },
+  {
+    "file": "pages/website/images/industry logo.png",
+    "sha256": "e32eb1c5767df7473127f6c5bf9af36d51d90795275726b3ea98e677115d9ebc"
+  },
+  {
+    "file": "pages/website/images/industry_logo_2.jpg",
+    "sha256": "121a855b3010af354c5a8b754b590b114fc8602c355ec3b3097fee85a77c3f72"
+  },
+  {
+    "file": "pages/website/images/indus_logo.png",
+    "sha256": "c061aa89640fdbd749c7bc056a551906ba0b7259fbed791ba52bd7b225cff41b"
+  },
+  {
+    "file": "pages/website/images/lihover.gif",
+    "sha256": "b6611573f89a07938387a72bad18a3ebe2b92ce458107625dcd7024f4e3f0615"
+  },
+  {
+    "file": "pages/website/images/minister.png",
+    "sha256": "868321557b121c7e32e76e2248cc509aa81634b9656efff26ce4499007c58d3c"
+  },
+  {
+    "file": "pages/website/images/signup-bg.jpg",
+    "sha256": "f7e899fbf4481035c413eafdda1808aa734cd058eeb31cf4cf7353f9e98e0489"
+  },
+  {
+    "file": "css/bootstrap.min.css",
+    "sha256": "08c201b05ee368a22f9d0958b0ae03da23cb1bfda011b6611c70366dc50b7d51"
+  },
+  {
+    "file": "css/sb-admin-2.css",
+    "sha256": "af04e74153158fd86a3cba1b045b79f4648f8eeaa4895c2a7f64dab2d01c3d4c"
+  }
+]

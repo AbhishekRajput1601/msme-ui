@@ -1,0 +1,15 @@
+Verified by loading actual AppRoutes via Vite and React Router createRoutesFromChildren/matchRoutes. No authenticated actions executed.
+/about => HomePage
+/guidelines => HomePage
+/applicant/change-password => ApplicantDashboard
+/applicant/financial-assistance => ApplicantDashboard
+/admin/users => AdminDashboard
+/department/land-scrutiny => DepartmentDashboard
+/applicant/land-applications => NotFoundPage
+/applicant/vacant-lands => NotFoundPage
+/applicant/financial-assistance/new => NotFoundPage
+/admin/addOfficer => NotFoundPage
+/website/downloads => NotFoundPage
+/website/usefulLinks => NotFoundPage
+/website/search => NotFoundPage
+Homepage helper: backendLink("/website/home") => "/"
