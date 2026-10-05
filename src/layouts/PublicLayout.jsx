@@ -16,7 +16,7 @@ export default function PublicLayout() {
   const isLogin = useLocation().pathname === '/login'
 
   return (
-    <div className={`legacy-public${contrast ? ' high-contrast' : ''}`} style={{ '--font-scale': fontSize }}>
+    <div className={`legacy-public${isLogin ? ' login-layout' : ''}${contrast ? ' high-contrast' : ''}`} style={{ '--font-scale': fontSize }}>
       {/* ── Fixed Side Diary / Calendar 2026 Tab ── */}
       <a
         href="https://diary.mp.gov.in/"
