@@ -48,7 +48,8 @@ export const translations = {
       landAllotment: 'Land Allotment',
       financialAssistance: 'Financial Assistance',
       statusTracker: 'Application Status',
-      profile: 'My Profile',
+      profile: 'User Profile',
+      industryProfile: 'Industrial Profile',
       changePassword: 'Change Password',
       grievance: 'Grievance Redressal',
       // Admin
@@ -141,7 +142,8 @@ export const translations = {
       landAllotment: 'भूमि आवंटन',
       financialAssistance: 'वित्तीय सहायता',
       statusTracker: 'आवेदन की स्थिति',
-      profile: 'मेरी प्रोफ़ाइल',
+      profile: 'उपयोगकर्ता प्रोफ़ाइल',
+      industryProfile: 'औद्योगिक प्रोफ़ाइल',
       changePassword: 'पासवर्ड बदलें',
       grievance: 'शिकायत निवारण',
       // Admin

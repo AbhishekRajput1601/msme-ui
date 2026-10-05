@@ -1,0 +1,932 @@
+/* ── Profile & Password Management Government Theme Styles ─────────────────── */
+
+.profile-page-container {
+  padding: 15px 20px 30px;
+  background-color: #fcfcfc;
+  color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.42857143;
+}
+
+/* Breadcrumb Bar */
+.profile-breadcrumb-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 12px;
+}
+
+.profile-breadcrumb-bar a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.profile-breadcrumb-bar a:hover {
+  text-decoration: underline;
+  color: #23527c;
+}
+
+.profile-breadcrumb-separator {
+  margin: 0 6px;
+  color: #999;
+}
+
+/* Tab Navigation Header matching MPMSME .with-nav-tabs */
+.profile-nav-tabs-wrapper {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #337ab7;
+}
+
+.profile-nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-nav-tabs li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #337ab7;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.profile-nav-tabs li a:hover {
+  background-color: #e8e8e8;
+  color: #23527c;
+}
+
+.profile-nav-tabs li a.active {
+  background-color: #f07e01;
+  color: #ffffff !important;
+  border-color: #f07e01;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Government Section Header Banner - Text Left, Icon & Button Right */
+.gov-form-banner {
+  background: linear-gradient(to right, #ffffff, #faf9f6);
+  border: 1px solid #dcdcdc;
+  border-left: 4px solid #f07e01;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.gov-form-banner-left {
+  text-align: left;
+  flex: 1;
+}
+
+.gov-form-banner-left h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2936;
+  line-height: 1.3;
+}
+
+.gov-form-banner-left p {
+  margin: 3px 0 0 0;
+  font-size: 11px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gov-form-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.gov-form-banner-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1f4273, #337ab7);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+/* Hide login user detail strip in header as requested */
+.legacy-portal .loginas,
+.postLoginHeader .loginas,
+.loginas {
+  display: none !important;
+}
+
+/* ==========================================================================
+   MODERN PORTAL HEADER (Matches User Screenshot Exactly)
+   ========================================================================== */
+
+.legacy-portal .postLoginHeader.portal-modern-header,
+.legacy-portal .postLoginHeader,
+.legacy-portal .portal-modern-header {
+  background: #ffffff !important;
+  min-height: auto !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  position: relative !important;
+  width: 100% !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+.legacy-portal .postLoginHeader.portal-modern-header:after,
+.legacy-portal .postLoginHeader.portal-modern-header::after,
+.legacy-portal .postLoginHeader:after,
+.legacy-portal .postLoginHeader::after {
+  display: none !important;
+}
+
+/* 1. Top Strip with Heritage Skyline Silhouette & Slogan */
+.portal-header-top-strip {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background-color: #fbf6ec !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 36' preserveAspectRatio='xMinYMid meet'%3E%3Cpath fill='%23d6be96' fill-opacity='0.42' d='M0 36h1000V24h-10l-4-6h-8l-2-6h-4v-8h-2v8h-4l-2 6h-8l-4 6h-14v-10h-2v10h-10l-3-5h-6l-2-5h-3v-6h-2v6h-3l-2 5h-6l-3 5h-12v-12h-2v12h-12l-4-7h-8l-2-7h-4v-9h-2v9h-4l-2 7h-8l-4 7h-16v-8h-2v8h-12l-3-6h-7l-2-5h-3v-7h-2v7h-3l-2 5h-7l-3 6h-14v-10h-2v10h-12l-4-6h-8l-2-6h-4v-8h-2v8h-4l-2 6h-8l-4 6h-15v-12h-2v12h-12l-3-5h-6l-2-5h-3v-6h-2v6h-3l-2 5h-6l-3 5h-14v-9h-2v9h-10l-4-7h-8l-2-7h-4v-9h-2v9h-4l-2 7h-8l-4 7h-16v-12h-2v12h-12l-3-6h-7l-2-5h-3v-7h-2v7h-3l-2 5h-7l-3 6h-14v-10h-2v10h-12l-4-6h-8l-2-6h-4v-8h-2v8h-4l-2 6h-8l-4 6h-20V36z'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat-x !important;
+  background-position: left bottom !important;
+  background-size: auto 100% !important;
+  border-bottom: 1px solid #ebdcc5 !important;
+  padding: 4px 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  min-height: 32px !important;
+}
+
+.portal-header-top-slogan {
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #8c6b38 !important;
+  letter-spacing: 0.5px !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+
+/* 2. Main Header Content Bar */
+.portal-header-main-bar {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 30px !important;
+  background: #ffffff !important;
+  gap: 20px !important;
+}
+
+/* Left Brand Group */
+.portal-header-brand-group {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  flex-shrink: 0 !important;
+}
+
+.portal-header-emblem-link {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+}
+
+.portal-header-emblem-img {
+  width: 68px !important;
+  height: 68px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.portal-header-vertical-sep {
+  display: block !important;
+  width: 1px !important;
+  height: 52px !important;
+  background-color: #d1d5db !important;
+  margin: 0 18px !important;
+  flex-shrink: 0 !important;
+}
+
+.portal-header-titles {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  text-align: left !important;
+}
+
+.portal-title-gov {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 15.5px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.2px !important;
+}
+
+.portal-title-dept {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 21px !important;
+  font-weight: 800 !important;
+  color: #074784 !important;
+  line-height: 1.25 !important;
+  margin: 3px 0 2px 0 !important;
+  letter-spacing: -0.3px !important;
+}
+
+.portal-title-sub {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #4b5563 !important;
+  line-height: 1.2 !important;
+}
+
+/* Right Section: Actions & Info Badge */
+.portal-header-user-section {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+.portal-header-actions-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+/* Language Pill Button (Rounded capsule from screenshot) */
+.legacy-portal button.portal-lang-capsule,
+button.portal-lang-capsule,
+.portal-lang-capsule {
+  background: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 25px !important;
+  padding: 6px 16px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.15s ease !important;
+  line-height: 1.4 !important;
+  outline: none !important;
+}
+
+.legacy-portal button.portal-lang-capsule:hover,
+button.portal-lang-capsule:hover,
+.portal-lang-capsule:hover {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+.portal-lang-divider {
+  color: #cbd5e1 !important;
+  margin-left: 2px !important;
+  font-weight: 300 !important;
+}
+
+/* User Menu Capsule Button (Red pill from screenshot) */
+.legacy-portal button.portal-user-capsule,
+button.portal-user-capsule,
+.portal-user-capsule {
+  background: #c9302c !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 25px !important;
+  padding: 7px 18px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 0 2px 5px rgba(201, 48, 44, 0.3) !important;
+  transition: background 0.15s ease !important;
+  line-height: 1.4 !important;
+  outline: none !important;
+}
+
+.legacy-portal button.portal-user-capsule:hover,
+button.portal-user-capsule:hover,
+.portal-user-capsule:hover {
+  background: #b52b27 !important;
+  color: #ffffff !important;
+}
+
+.portal-user-capsule-name {
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+/* Logged In User & System Role Pill Badge */
+.legacy-portal .portal-user-role-badge,
+.portal-user-role-badge {
+  background: #edf5fc !important;
+  border: 1px solid #d4e7f7 !important;
+  border-radius: 25px !important;
+  padding: 5px 16px 5px 7px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 12px !important;
+  color: #4b5563 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.portal-badge-avatar {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  background: #bce0fd !important;
+  color: #0066cc !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 11px !important;
+  flex-shrink: 0 !important;
+}
+
+.portal-badge-info {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 12px !important;
+  color: #4b5563 !important;
+}
+
+.portal-badge-info strong {
+  color: #074784 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
+
+.portal-badge-pipe {
+  color: #cbd5e1 !important;
+  font-weight: 300 !important;
+  margin: 0 3px !important;
+}
+
+/* 3. Bottom Accent Stripe (Orange to Royal Blue with Diagonal Cut) */
+.portal-header-bottom-stripe {
+  height: 5px !important;
+  width: 100% !important;
+  background: linear-gradient(108deg, #f07e01 0%, #f07e01 175px, #ffffff 175px, #ffffff 178px, #074784 178px, #074784 100%) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .portal-header-main-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 14px;
+    gap: 12px;
+  }
+  .portal-header-user-section {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .portal-header-actions-row {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .portal-user-role-badge {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* Dropdown Menu under User Capsule */
+.legacy-portal .portal-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  min-width: 240px;
+  z-index: 1000;
+  background: #ffffff !important;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e0e0e0;
+  border-top: 3px solid #f07e01;
+  overflow: hidden;
+  animation: fadeInDown 0.15s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.legacy-portal .portal-dropdown-header {
+  padding: 12px 16px;
+  background: #f7f9fa;
+  border-bottom: 1px solid #e5e9ec;
+}
+
+.legacy-portal .portal-dropdown-user {
+  font-weight: 700;
+  font-size: 13px;
+  color: #2e353d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.legacy-portal .portal-dropdown-sub {
+  font-size: 11px;
+  color: #059eb7;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.legacy-portal .portal-dropdown a,
+.legacy-portal .portal-dropdown button {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  padding: 10px 16px !important;
+  width: 100%;
+  background: #ffffff !important;
+  color: #333333 !important;
+  border: none !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  font-size: 13px !important;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.legacy-portal .portal-dropdown a:hover,
+.legacy-portal .portal-dropdown button:hover {
+  background-color: #f07e01 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal .portal-dropdown a:hover i,
+.legacy-portal .portal-dropdown button:hover i {
+  color: #ffffff !important;
+}
+
+.legacy-portal .portal-dropdown button {
+  color: #d9534f !important;
+  font-weight: 600;
+}
+
+.legacy-portal .portal-dropdown button:hover {
+  background-color: #d9534f !important;
+  color: #ffffff !important;
+}
+
+.gov-sub-heading {
+  background-color: #f2f2f2;
+  border-left: 3px solid #8a3b14;
+  padding: 6px 12px;
+  margin: 15px 0 12px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #8a3b14;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Standard Panels */
+.panel {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.panel-primary > .panel-heading {
+  color: #ffffff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+.panel-default > .panel-heading {
+  color: #333333;
+  background-color: #f5f5f5;
+  border-color: #dddddd;
+}
+
+.panel-info > .panel-heading {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.panel-body {
+  padding: 15px;
+}
+
+/* Password Input & Strength Meter */
+.password-container {
+  position: relative;
+}
+
+.password-container .form-control {
+  padding-right: 40px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  height: 32px;
+  width: 36px;
+  border: none;
+  background: transparent;
+  color: #337ab7;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.password-toggle-btn:hover {
+  color: #23527c;
+}
+
+#strength {
+  display: inline-block;
+  list-style: none;
+  margin: 6px 0 0 0;
+  padding: 0;
+  height: 6px;
+}
+
+#strength li.point {
+  background: #DDD;
+  border-radius: 2px;
+  display: inline-block;
+  height: 6px;
+  margin-right: 4px;
+  width: 25px;
+}
+
+/* Standards Guidelines Box matching changepassword.html */
+.password-standards-box {
+  background-color: #faf8f5;
+  border: 1px solid #ebd3be;
+  border-radius: 4px;
+  padding: 20px 30px;
+}
+
+.password-standards-box h3 {
+  margin-top: 0;
+  color: #8a3b14;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.password-standards-box ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.password-standards-box li {
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #444;
+}
+
+/* Form Groups & Controls */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #444444;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.form-control[disabled],
+.form-control[readonly] {
+  background-color: #eeeeee;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #286090;
+  border-color: #204d74;
+}
+
+.btn-success {
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #449d44;
+  border-color: #398439;
+}
+
+.btn-warning {
+  color: #ffffff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+  background-color: #ec971f;
+  border-color: #d58512;
+}
+
+.btn-default {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+
+.btn-default:hover,
+.btn-default:focus {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 15px;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table-bordered {
+  border: 1px solid #dddddd;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table > thead > tr > th {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Alert Boxes */
+.alert {
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+/* Required Asterisk */
+.text-danger, .required-star {
+  color: #a94442;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+/* ==========================================================================
+   FIXED SIDEBAR & INDEPENDENT SCROLLING CONTENT
+   ========================================================================== */
+
+.legacy-portal {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.legacy-portal .postLoginHeader {
+  flex-shrink: 0 !important;
+}
+
+.legacy-portal .portal-body {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.legacy-portal #sideNav,
+.legacy-portal .sidebar {
+  width: 250px !important;
+  flex: 0 0 250px !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: #314dab !important;
+  position: relative !important;
+  margin-top: 0 !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+
+.legacy-portal #page-wrapper {
+  flex: 1 !important;
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 25px 30px 40px 30px !important;
+  background: #ffffff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+/* Sidebar Active Color - ONLY the clicked / current active item is yellow/orange #f07e01 */
+.legacy-portal #side-menu li a.portal-menu-item {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #side-menu li a.portal-menu-item.active {
+  background: #f07e01 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #side-menu li a.portal-menu-item:hover {
+  background: #f07e01 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #side-menu li button.portal-menu-item {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #side-menu li button.portal-menu-item:hover {
+  background: #253e99 !important;
+}
+
+.legacy-portal #side-menu .nav-second-level a {
+  background: #223c93 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #side-menu .nav-second-level a.active {
+  background: #f07e01 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #side-menu .nav-second-level a:hover {
+  background: #f07e01 !important;
+  color: #ffffff !important;
+}

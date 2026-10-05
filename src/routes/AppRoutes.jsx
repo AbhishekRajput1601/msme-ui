@@ -58,6 +58,11 @@ import LandReceiptPage from '../modules/id/applicant/LandReceiptPage'
 import LandNoticesPage from '../modules/id/applicant/LandNoticesPage'
 import LandSigningPage from '../modules/id/applicant/LandSigningPage'
 
+// Profile & Account Management
+import UserProfilePage from '../modules/profile/UserProfilePage'
+import IndustrialProfilePage from '../modules/profile/IndustrialProfilePage'
+import ChangePasswordPage from '../modules/profile/ChangePasswordPage'
+
 // List of all department officer roles supported
 const DEPARTMENT_ROLES = [
   'ROLE_DTIC',
@@ -117,6 +122,13 @@ export default function AppRoutes() {
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Route>
 
+      {/* Profile & Password Root Aliases */}
+      <Route path="/profile" element={<Navigate to="/applicant/profile" replace />} />
+      <Route path="/industry-profile" element={<Navigate to="/applicant/industry-profile" replace />} />
+      <Route path="/updateindustryprofileapplicant" element={<Navigate to="/applicant/industry-profile" replace />} />
+      <Route path="/change-password" element={<Navigate to="/applicant/change-password" replace />} />
+      <Route path="/first-password-change" element={<Navigate to="/applicant/first-password-change" replace />} />
+
       {/* ─── 2. Protected Citizen / Applicant Routes ────────────────────── */}
       <Route
         path="/applicant"
@@ -159,11 +171,17 @@ export default function AppRoutes() {
         <Route path="land-allotment/appeal-review/:appealId" element={<LandAnnualReviewPage appeal />} />
         <Route path="land-allotment/sign/:applicantId/:parcelToken" element={<LandSigningPage />} />
         <Route path="financial-assistance" element={<ApplicantDashboard />} />
+        <Route path="financial-assistance/*" element={<ApplicantDashboard />} />
+        <Route path="online-nocs" element={<ApplicantDashboard />} />
+        <Route path="msme-award" element={<ApplicantDashboard />} />
+        <Route path="bank-details" element={<IndustrialProfilePage />} />
         <Route path="status" element={<LandApplicationsPage />} />
         <Route path="grievances" element={<ApplicantDashboard />} />
-        <Route path="profile" element={<ApplicantDashboard />} />
-        <Route path="change-password" element={<ApplicantDashboard />} />
-        <Route path="first-password-change" element={<ApplicantDashboard />} />
+        <Route path="profile" element={<UserProfilePage />} />
+        <Route path="industry-profile" element={<IndustrialProfilePage />} />
+        <Route path="updateindustryprofileapplicant" element={<IndustrialProfilePage />} />
+        <Route path="change-password" element={<ChangePasswordPage />} />
+        <Route path="first-password-change" element={<ChangePasswordPage mode="first" />} />
       </Route>
 
       {/* ─── 3. Protected Administrator Routes ─────────────────────────── */}
