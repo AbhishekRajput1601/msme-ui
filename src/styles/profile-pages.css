@@ -137,33 +137,30 @@
   flex-shrink: 0;
 }
 
-/* Hide login user detail strip in header as requested */
-.legacy-portal .loginas,
-.postLoginHeader .loginas,
-.loginas {
-  display: none !important;
-}
-
 /* ==========================================================================
-   MODERN PORTAL HEADER (Matches User Screenshot Exactly)
+   LEGACY PORTAL HEADER (Matches User Screenshot Exactly)
    ========================================================================== */
 
+.legacy-portal .postLoginHeader.portal-header-legacy-theme,
 .legacy-portal .postLoginHeader.portal-modern-header,
 .legacy-portal .postLoginHeader,
 .legacy-portal .portal-modern-header {
   background: #ffffff !important;
+  border-top: 4px solid #da4c42 !important;
   min-height: auto !important;
   margin-bottom: 0 !important;
   padding: 0 !important;
-  border: 0 !important;
+  border-bottom: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
   position: relative !important;
   width: 100% !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
 }
 
+.legacy-portal .postLoginHeader.portal-header-legacy-theme:after,
+.legacy-portal .postLoginHeader.portal-header-legacy-theme::after,
 .legacy-portal .postLoginHeader.portal-modern-header:after,
 .legacy-portal .postLoginHeader.portal-modern-header::after,
 .legacy-portal .postLoginHeader:after,
@@ -171,42 +168,17 @@
   display: none !important;
 }
 
-/* 1. Top Strip with Heritage Skyline Silhouette & Slogan */
-.portal-header-top-strip {
-  width: 100% !important;
-  box-sizing: border-box !important;
-  background-color: #fbf6ec !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 36' preserveAspectRatio='xMinYMid meet'%3E%3Cpath fill='%23d6be96' fill-opacity='0.42' d='M0 36h1000V24h-10l-4-6h-8l-2-6h-4v-8h-2v8h-4l-2 6h-8l-4 6h-14v-10h-2v10h-10l-3-5h-6l-2-5h-3v-6h-2v6h-3l-2 5h-6l-3 5h-12v-12h-2v12h-12l-4-7h-8l-2-7h-4v-9h-2v9h-4l-2 7h-8l-4 7h-16v-8h-2v8h-12l-3-6h-7l-2-5h-3v-7h-2v7h-3l-2 5h-7l-3 6h-14v-10h-2v10h-12l-4-6h-8l-2-6h-4v-8h-2v8h-4l-2 6h-8l-4 6h-15v-12h-2v12h-12l-3-5h-6l-2-5h-3v-6h-2v6h-3l-2 5h-6l-3 5h-14v-9h-2v9h-10l-4-7h-8l-2-7h-4v-9h-2v9h-4l-2 7h-8l-4 7h-16v-12h-2v12h-12l-3-6h-7l-2-5h-3v-7h-2v7h-3l-2 5h-7l-3 6h-14v-10h-2v10h-12l-4-6h-8l-2-6h-4v-8h-2v8h-4l-2 6h-8l-4 6h-20V36z'/%3E%3C/svg%3E") !important;
-  background-repeat: repeat-x !important;
-  background-position: left bottom !important;
-  background-size: auto 100% !important;
-  border-bottom: 1px solid #ebdcc5 !important;
-  padding: 4px 30px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  min-height: 32px !important;
-}
-
-.portal-header-top-slogan {
-  font-size: 13.5px !important;
-  font-weight: 600 !important;
-  color: #8c6b38 !important;
-  letter-spacing: 0.5px !important;
-  white-space: nowrap !important;
-  margin: 0 !important;
-}
-
-/* 2. Main Header Content Bar */
+/* 1. Main Header Content Bar */
 .portal-header-main-bar {
   width: 100% !important;
   box-sizing: border-box !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 10px 30px !important;
+  padding: 8px 0 8px 24px !important;
   background: #ffffff !important;
-  gap: 20px !important;
+  position: relative !important;
+  min-height: 98px !important;
 }
 
 /* Left Brand Group */
@@ -215,6 +187,8 @@
   align-items: center !important;
   text-decoration: none !important;
   flex-shrink: 0 !important;
+  padding: 0 !important;
+  gap: 20px !important;
 }
 
 .portal-header-emblem-link {
@@ -224,19 +198,14 @@
 }
 
 .portal-header-emblem-img {
-  width: 68px !important;
-  height: 68px !important;
+  width: 82px !important;
+  height: 82px !important;
   object-fit: contain !important;
   display: block !important;
 }
 
 .portal-header-vertical-sep {
-  display: block !important;
-  width: 1px !important;
-  height: 52px !important;
-  background-color: #d1d5db !important;
-  margin: 0 18px !important;
-  flex-shrink: 0 !important;
+  display: none !important;
 }
 
 .portal-header-titles {
@@ -247,63 +216,107 @@
 }
 
 .portal-title-gov {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 15.5px !important;
-  font-weight: 600 !important;
-  color: #1f2937 !important;
-  line-height: 1.25 !important;
-  letter-spacing: -0.2px !important;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  letter-spacing: -0.1px !important;
 }
 
 .portal-title-dept {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 21px !important;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-size: 22.5px !important;
   font-weight: 800 !important;
-  color: #074784 !important;
-  line-height: 1.25 !important;
-  margin: 3px 0 2px 0 !important;
+  color: #0f385c !important;
+  line-height: 1.15 !important;
+  margin: 0 0 2px 0 !important;
   letter-spacing: -0.3px !important;
 }
 
 .portal-title-sub {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-  color: #4b5563 !important;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
   line-height: 1.2 !important;
+  margin: 0 !important;
 }
 
-/* Right Section: Actions & Info Badge */
-.portal-header-user-section {
+/* Right Controls Zone (Red button touching top red border, shifted left) */
+.portal-header-right-zone {
+  position: absolute !important;
+  top: 0 !important;
+  right: 25px !important;
   display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-end !important;
-  gap: 8px !important;
-  flex-shrink: 0 !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+  z-index: 20 !important;
 }
 
-.portal-header-actions-row {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
+/* User Tab Hanging Button (Touching top red border, compact with smaller user icon) */
+.portal-user-menu {
+  position: relative !important;
+  margin: 0 !important;
+  display: inline-block !important;
 }
 
-/* Language Pill Button (Rounded capsule from screenshot) */
-.legacy-portal button.portal-lang-capsule,
-button.portal-lang-capsule,
-.portal-lang-capsule {
-  background: #ffffff !important;
-  border: 1px solid #d1d5db !important;
-  border-radius: 25px !important;
-  padding: 6px 16px !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  color: #1f2937 !important;
+.legacy-portal button.portal-user-toggle-btn,
+button.portal-user-toggle-btn,
+.portal-user-toggle-btn {
+  background: #da4c42 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0 0 10px 10px !important;
+  padding: 9px 13px 11px 13px !important;
+  min-width: 44px !important;
+  min-height: 48px !important;
   cursor: pointer !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 7px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  box-shadow: 0 2px 4px rgba(218, 76, 66, 0.3) !important;
+  transition: background 0.15s ease !important;
+  line-height: 1 !important;
+  outline: none !important;
+}
+
+.legacy-portal button.portal-user-toggle-btn:hover,
+button.portal-user-toggle-btn:hover,
+.portal-user-toggle-btn:hover {
+  background: #c53930 !important;
+}
+
+.portal-user-toggle-btn i.fa-user {
+  color: #ffffff !important;
+  font-size: 13.5px !important;
+}
+
+.portal-user-toggle-btn i.fa-caret-down,
+.portal-user-toggle-btn i.fa-caret-up {
+  color: #ffffff !important;
+  font-size: 11px !important;
+}
+
+/* Language Pill Button (Top right, next to red tab) */
+.legacy-portal button.portal-lang-capsule,
+button.portal-lang-capsule,
+.portal-lang-capsule {
+  margin-top: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid #d0d7de !important;
+  border-radius: 14px !important;
+  padding: 3px 10px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #24292f !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
   transition: all 0.15s ease !important;
   line-height: 1.4 !important;
   outline: none !important;
@@ -312,104 +325,55 @@ button.portal-lang-capsule,
 .legacy-portal button.portal-lang-capsule:hover,
 button.portal-lang-capsule:hover,
 .portal-lang-capsule:hover {
-  background: #f8fafc !important;
-  border-color: #94a3b8 !important;
+  background: #f6f8fa !important;
+  border-color: #afb8c1 !important;
 }
 
 .portal-lang-divider {
-  color: #cbd5e1 !important;
+  color: #d0d7de !important;
   margin-left: 2px !important;
   font-weight: 300 !important;
 }
 
-/* User Menu Capsule Button (Red pill from screenshot) */
-.legacy-portal button.portal-user-capsule,
-button.portal-user-capsule,
-.portal-user-capsule {
-  background: #c9302c !important;
-  color: #ffffff !important;
-  border: none !important;
-  border-radius: 25px !important;
-  padding: 7px 18px !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.3px !important;
-  cursor: pointer !important;
+/* Bottom Teal Info Strip (With right gap, resting on bottom blue bar) */
+.portal-loginas-strip,
+.legacy-portal .loginas {
+  position: absolute !important;
+  right: 20px !important;
+  bottom: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
-  box-shadow: 0 2px 5px rgba(201, 48, 44, 0.3) !important;
-  transition: background 0.15s ease !important;
-  line-height: 1.4 !important;
-  outline: none !important;
-}
-
-.legacy-portal button.portal-user-capsule:hover,
-button.portal-user-capsule:hover,
-.portal-user-capsule:hover {
-  background: #b52b27 !important;
+  background: #008fa0 !important;
   color: #ffffff !important;
+  padding: 6px 20px 6px 18px !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  border-top-left-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+  z-index: 10 !important;
 }
 
-.portal-user-capsule-name {
-  font-weight: 700 !important;
+.portal-loginas-sep {
   color: #ffffff !important;
-}
-
-/* Logged In User & System Role Pill Badge */
-.legacy-portal .portal-user-role-badge,
-.portal-user-role-badge {
-  background: #edf5fc !important;
-  border: 1px solid #d4e7f7 !important;
-  border-radius: 25px !important;
-  padding: 5px 16px 5px 7px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  font-size: 12px !important;
-  color: #4b5563 !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-}
-
-.portal-badge-avatar {
-  width: 22px !important;
-  height: 22px !important;
-  border-radius: 50% !important;
-  background: #bce0fd !important;
-  color: #0066cc !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 11px !important;
-  flex-shrink: 0 !important;
-}
-
-.portal-badge-info {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  font-size: 12px !important;
-  color: #4b5563 !important;
-}
-
-.portal-badge-info strong {
-  color: #074784 !important;
   font-weight: 700 !important;
-  text-transform: uppercase !important;
+  margin: 0 4px !important;
 }
 
-.portal-badge-pipe {
-  color: #cbd5e1 !important;
-  font-weight: 300 !important;
-  margin: 0 3px !important;
-}
-
-/* 3. Bottom Accent Stripe (Orange to Royal Blue with Diagonal Cut) */
+/* 2. Bottom Thin Blue Stripe (Matches sidebar blue #314dab) */
 .portal-header-bottom-stripe {
-  height: 5px !important;
+  height: 12px !important;
   width: 100% !important;
-  background: linear-gradient(108deg, #f07e01 0%, #f07e01 175px, #ffffff 175px, #ffffff 178px, #074784 178px, #074784 100%) !important;
+  background: #314dab !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
 }
 
 /* Responsive adjustments */
@@ -417,36 +381,61 @@ button.portal-user-capsule:hover,
   .portal-header-main-bar {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 14px;
-    gap: 12px;
+    padding: 8px 12px 35px 12px !important;
+    gap: 8px;
+    min-height: auto !important;
   }
-  .portal-header-user-section {
-    align-items: flex-start;
-    width: 100%;
+  .portal-header-brand-group {
+    padding: 4px 0 !important;
+    gap: 12px !important;
   }
-  .portal-header-actions-row {
-    width: 100%;
-    justify-content: space-between;
+  .portal-header-emblem-img {
+    width: 55px !important;
+    height: 55px !important;
   }
-  .portal-user-role-badge {
+  .portal-title-gov {
+    font-size: 13px !important;
+  }
+  .portal-title-dept {
+    font-size: 18px !important;
+  }
+  .portal-title-sub {
+    font-size: 12px !important;
+  }
+  .portal-header-right-zone {
+    position: static !important;
     width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px !important;
+    margin-top: 5px;
+  }
+  .portal-user-toggle-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 8px 12px !important;
+  }
+  .portal-loginas-strip {
+    width: 100% !important;
+    border-radius: 0 !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    flex-wrap: wrap !important;
+    padding: 6px 10px !important;
   }
 }
 
-/* Dropdown Menu under User Capsule */
+/* Dropdown Menu under User Button */
 .legacy-portal .portal-dropdown {
   position: absolute;
   right: 0;
-  top: calc(100% + 6px);
-  min-width: 240px;
+  top: 100%;
+  min-width: 220px;
   z-index: 1000;
   background: #ffffff !important;
-  border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
   border: 1px solid #e0e0e0;
-  border-top: 3px solid #f07e01;
+  border-top: 3px solid #d32f2f;
   overflow: hidden;
   animation: fadeInDown 0.15s ease-out;
 }
@@ -522,6 +511,10 @@ button.portal-user-capsule:hover,
 .legacy-portal .portal-dropdown button:hover {
   background-color: #d9534f !important;
   color: #ffffff !important;
+}
+
+.fa-industry:before {
+  content: "\f1ad";
 }
 
 .gov-sub-heading {

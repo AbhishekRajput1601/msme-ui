@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { Outlet, Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useTranslation } from '../hooks/useTranslation'
@@ -45,6 +45,13 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const [openSubmenus, setOpenSubmenus] = useState({ land: location.pathname.includes('land-allotment') })
   const { isWarning, countdown, stayLoggedIn, logoutNow } = useSessionTimeout({ timeoutSeconds: 1800, warningSeconds: 120, enabled: true })
   const primaryRole = roles[0]?.replace('ROLE_', '') || 'APPLICANT'
+  const formattedRole = useMemo(() => {
+    if (!primaryRole) return 'Applicant Role'
+    const clean = primaryRole.replace(/^ROLE_/, '')
+    const titleCase = clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase()
+    return titleCase.toLowerCase().includes('role') ? titleCase : `${titleCase} Role`
+  }, [primaryRole])
+  const userName = currentUser?.displayName || currentUser?.username || 'AMITN'
   const menu = isApplicant ? applicantMenu : sidebarItems
 
   const handleLogoutConfirm = async () => {
@@ -72,14 +79,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   }, [isUserMenuOpen])
 
   return <div className={`legacy-portal${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
-    <header className="postLoginHeader portal-modern-header">
-      {/* Top Slogan Strip with Heritage Theme */}
-      <div className="portal-header-top-strip">
-        <div className="portal-header-top-slogan">
-          <span>&#8212;&#8212; उद्योग से समृद्ध मध्यप्रदेश &#8212;&#8212;</span>
-        </div>
-      </div>
-
+    <header className="postLoginHeader portal-header-legacy-theme">
       {/* Main Header Bar */}
       <div className="portal-header-main-bar">
         {/* Left: Emblem + Department Branding */}
@@ -87,105 +87,93 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
           <Link to={dashboard} className="portal-header-emblem-link">
             <img src="/legacy/image/indus_logo.png" alt="Govt of Madhya Pradesh Emblem" className="portal-header-emblem-img" />
           </Link>
-          <div className="portal-header-vertical-sep" />
           <div className="portal-header-titles">
-            <div className="portal-title-gov">Govt. of Madhya Pradesh,</div>
+            <div className="portal-title-gov">Government of Madhya Pradesh</div>
             <div className="portal-title-dept">Department of Micro, Small &amp; Medium Enterprises</div>
             <div className="portal-title-sub">(Directorate of Industries, M.P.)</div>
           </div>
         </div>
 
-        {/* Right: Actions & User Info Badge */}
-        <div className="portal-header-user-section">
-          {/* Top Row: Language Toggle & User Menu Capsule */}
-          <div className="portal-header-actions-row">
+        {/* Right Controls & User Tab */}
+        <div className="portal-header-right-zone">
+          <button
+            className="portal-mobile-toggle"
+            aria-label="Toggle navigation"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="sideNav"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <i className="fa fa-bars" />
+          </button>
+
+          {/* User Tab Hanging Button (Touching top red border, shifted left) */}
+          <div className="portal-user-menu" ref={userMenuRef}>
             <button
-              className="portal-mobile-toggle"
-              aria-label="Toggle navigation"
-              aria-expanded={mobileMenuOpen}
-              aria-controls="sideNav"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="portal-user-toggle-btn"
+              aria-label="User menu"
+              aria-expanded={isUserMenuOpen}
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              title="User Profile Menu"
             >
-              <i className="fa fa-bars" />
+              <i className="fa fa-user" />
+              <i className={`fa fa-caret-${isUserMenuOpen ? 'up' : 'down'}`} />
             </button>
 
-            <button className="portal-lang-capsule" onClick={toggleLocale} title="Switch Language">
-              <i className="fa fa-globe" />
-              <span>{locale === 'hi' ? 'English' : 'हिन्दी'}</span>
-              <span className="portal-lang-divider">|</span>
-            </button>
-
-            <div className="portal-user-menu" ref={userMenuRef}>
-              <button
-                className="portal-user-capsule"
-                aria-label="User menu"
-                aria-expanded={isUserMenuOpen}
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                title="User Profile Menu"
+            {isUserMenuOpen && (
+              <div
+                className="portal-dropdown"
+                onKeyDown={(event) => {
+                  if (event.key === 'Escape') setIsUserMenuOpen(false)
+                }}
               >
-                <i className="fa fa-user" />
-                <span className="portal-user-capsule-name">
-                  {currentUser?.displayName || currentUser?.username || 'AMITN'}
-                </span>
-                <i className={`fa fa-caret-${isUserMenuOpen ? 'up' : 'down'}`} />
-              </button>
-
-              {isUserMenuOpen && (
-                <div
-                  className="portal-dropdown"
-                  onKeyDown={(event) => {
-                    if (event.key === 'Escape') setIsUserMenuOpen(false)
+                <div className="portal-dropdown-header">
+                  <div className="portal-dropdown-user">
+                    <i className="fa fa-user-circle fa-fw" /> {userName}
+                  </div>
+                  <div className="portal-dropdown-sub">{formattedRole}</div>
+                </div>
+                {isApplicant && (
+                  <>
+                    <Link to="/applicant/profile" onClick={() => setIsUserMenuOpen(false)}>
+                      <i className="fa fa-user fa-fw" /> {locale === 'hi' ? 'उपयोगकर्ता प्रोफ़ाइल' : 'Update User Profile'}
+                    </Link>
+                    <Link to="/applicant/industry-profile" onClick={() => setIsUserMenuOpen(false)}>
+                      <i className="fa fa-building fa-fw" /> {locale === 'hi' ? 'औद्योगिक प्रोफ़ाइल' : 'Update Industrial Profile'}
+                    </Link>
+                    <Link to="/applicant/change-password" onClick={() => setIsUserMenuOpen(false)}>
+                      <i className="fa fa-key fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
+                    </Link>
+                  </>
+                )}
+                <button
+                  onClick={() => {
+                    setIsUserMenuOpen(false)
+                    setShowLogoutConfirm(true)
                   }}
                 >
-                  <div className="portal-dropdown-header">
-                    <div className="portal-dropdown-user">
-                      <i className="fa fa-user-circle fa-fw" /> {currentUser?.displayName || currentUser?.username}
-                    </div>
-                    <div className="portal-dropdown-sub">{primaryRole}</div>
-                  </div>
-                  {isApplicant && (
-                    <>
-                      <Link to="/applicant/profile" onClick={() => setIsUserMenuOpen(false)}>
-                        <i className="fa fa-user fa-fw" /> {locale === 'hi' ? 'उपयोगकर्ता प्रोफ़ाइल' : 'Update User Profile'}
-                      </Link>
-                      <Link to="/applicant/industry-profile" onClick={() => setIsUserMenuOpen(false)}>
-                        <i className="fa fa-industry fa-fw" /> {locale === 'hi' ? 'औद्योगिक प्रोफ़ाइल' : 'Update Industrial Profile'}
-                      </Link>
-                      <Link to="/applicant/change-password" onClick={() => setIsUserMenuOpen(false)}>
-                        <i className="fa fa-key fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
-                      </Link>
-                    </>
-                  )}
-                  <button
-                    onClick={() => {
-                      setIsUserMenuOpen(false)
-                      setShowLogoutConfirm(true)
-                    }}
-                  >
-                    <i className="fa fa-sign-out fa-fw" /> Logout
-                  </button>
-                </div>
-              )}
-            </div>
+                  <i className="fa fa-sign-out fa-fw" /> Logout
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* Bottom Row: Logged In User & System Role Pill Badge */}
-          <div className="portal-user-role-badge">
-            <span className="portal-badge-avatar">
-              <i className="fa fa-user" />
-            </span>
-            <span className="portal-badge-info">
-              Logged In User: <strong>{currentUser?.displayName || currentUser?.username || 'AMITN'}</strong>
-            </span>
-            <span className="portal-badge-pipe">|</span>
-            <span className="portal-badge-info">
-              System Role: <strong>{primaryRole || 'APPLICANT'}</strong>
-            </span>
-          </div>
+          {/* Hindi Language Capsule Button */}
+          <button className="portal-lang-capsule" onClick={toggleLocale} title="Switch Language">
+            <i className="fa fa-globe" />
+            <span>{locale === 'hi' ? 'English' : 'हिन्दी'}</span>
+            <span className="portal-lang-divider">|</span>
+          </button>
+        </div>
+
+        {/* Bottom Teal Info Strip */}
+        <div className="portal-loginas-strip">
+          <span>Logged In User: {userName}</span>
+          <span className="portal-loginas-sep">|</span>
+          <span>System Role: {formattedRole}</span>
         </div>
       </div>
 
-      {/* Bottom Accent Stripe (Orange into Royal Blue with diagonal cut) */}
+      {/* Bottom Solid Blue Stripe */}
       <div className="portal-header-bottom-stripe" />
     </header>
     <div className="portal-body">
