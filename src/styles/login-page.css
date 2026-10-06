@@ -13,9 +13,13 @@
 .legacy-public .legacy-login-page .log-main { padding-bottom: 0; }
 .legacy-public .legacy-login-page .form-group { margin: 0 0 10px; }
 .legacy-public .legacy-login-page .login-through { gap: 8px; line-height: 1.4; }
-.legacy-public .legacy-login-page .legacy-login-actions { margin: 12px 0; gap: 12px; }
+.legacy-public .legacy-login-page .legacy-login-actions { margin: 10px 0 16px !important; gap: 12px; }
 .legacy-public .legacy-login-page .legacy-login-actions .btn { padding: 8px 12px; font-size: 14px; }
-.legacy-public .legacy-login-page .login-recovery { display: inline-block; width: 50%; margin: 0; font-size: calc(11px * var(--font-scale, 1)); line-height: 1.6; }
+.legacy-public .legacy-login-page .login-recovery-group { display: flex; flex-direction: column; gap: 6px; margin-top: 16px !important; }
+.legacy-public .legacy-login-page .login-recovery-group p,
+.legacy-public .legacy-login-page .login-recovery { display: block; width: 100%; margin: 0 !important; padding: 0; font-size: calc(12px * var(--font-scale, 1)); line-height: 1.4; color: #4a5568; }
+.legacy-public .legacy-login-page .login-recovery a { color: #1b6ca8; font-weight: 500; text-decoration: none; }
+.legacy-public .legacy-login-page .login-recovery a:hover { text-decoration: underline; color: #0f4c81; }
 .legacy-public .legacy-login-page .login-password { position: relative; }
 .legacy-public .login-password .form-control { padding-right: 85px; }
 .legacy-public .login-password-toggle { position: absolute; right: 3px; top: 3px; height: 32px; padding: 0 9px; border: 0; background: transparent; color: #337ab7; font-size: 12px; display: flex; gap: 5px; align-items: center; }

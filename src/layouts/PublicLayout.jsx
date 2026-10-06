@@ -13,10 +13,11 @@ export default function PublicLayout() {
   const [contrast, setContrast] = useState(false)
   const website = useLegacyWebsite(locale)
   const hindi = locale === 'hi'
-  const isLogin = useLocation().pathname === '/login'
+  const pathname = useLocation().pathname
+  const isAuthPage = ['/login', '/forgot-password', '/forgot-username', '/website/viewforgotpassword', '/website/viewforgotusername'].includes(pathname)
 
   return (
-    <div className={`legacy-public${isLogin ? ' login-layout' : ''}${contrast ? ' high-contrast' : ''}`} style={{ '--font-scale': fontSize }}>
+    <div className={`legacy-public${isAuthPage ? ' login-layout' : ''}${contrast ? ' high-contrast' : ''}`} style={{ '--font-scale': fontSize }}>
       {/* ── Fixed Side Diary / Calendar 2026 Tab ── */}
       <a
         href="https://diary.mp.gov.in/"
@@ -124,7 +125,7 @@ export default function PublicLayout() {
         </div>
 
         {/* ── 3. Main Navigation Bar ── */}
-        {!isLogin && (
+        {!isAuthPage && (
           <div className="bottom-header" id="skip_navigation" tabIndex={-1}>
             <div className="main-nav-inner">
               <nav aria-label="Main navigation" style={{ width: '100%' }}>
