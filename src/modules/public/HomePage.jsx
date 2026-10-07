@@ -115,21 +115,89 @@ const FALLBACK_PARTNERS = [
   { title: 'Make in India', href: 'https://www.makeinindia.com/' },
 ]
 
+function validUpdates(items) {
+  return (items || []).filter(item => {
+    if (typeof item?.title !== 'string' || typeof item?.href !== 'string' || !item.href.trim()) return false
+    const title = item.title.trim().replace(/\s+/g, ' ').toLowerCase()
+    // Reject explicit test labels without matching words such as "latest" or "contest".
+    return title && !/^(?:test|testing)(?:$|\s|[:_-])/.test(title)
+  })
+}
+
 export default function HomePage() {
   const website = useOutletContext() || {}
-  const slides = FALLBACK_SLIDES
+  const backendSlides = website.slides?.filter(Boolean)
+  const slides = backendSlides?.length ? backendSlides : FALLBACK_SLIDES
   const [slideIndex, setSlideIndex] = useState(0)
   const activeSlide = slides[slideIndex % slides.length]
 
-  const officers = FALLBACK_OFFICERS
-  const isRealNews = website.news?.length > 0 && !website.news.some(n => n.title?.toLowerCase().includes('test'))
-  const news = isRealNews ? website.news : FALLBACK_NEWS
+  const backendOfficers = website.officers?.filter(Boolean)
+  const officers = backendOfficers?.length ? backendOfficers : FALLBACK_OFFICERS
+  const validNews = validUpdates(website.news)
+  const news = validNews.length ? validNews : FALLBACK_NEWS
 
-  const isRealCirculars = website.circulars?.length > 0 && !website.circulars.some(c => c.title?.toLowerCase().includes('test'))
-  const circulars = isRealCirculars ? website.circulars : FALLBACK_CIRCULARS
+  const validCirculars = validUpdates(website.circulars)
+  const circulars = validCirculars.length ? validCirculars : FALLBACK_CIRCULARS
 
-  const events = website.events?.length ? website.events : FALLBACK_EVENTS
-  const ticker = FALLBACK_TICKER
+  const backendEvents = website.events?.filter(Boolean) || []
+  const loadedSuccessfully = website.loading === false && !website.error
+  const events = backendEvents.length || loadedSuccessfully ? backendEvents : FALLBACK_EVENTS
+  const ticker = validNews.length ? validNews.slice(0, 5) : FALLBACK_TICKER
+  const backendServices = website.features?.filter(Boolean)
+  const services = backendServices?.length ? backendServices : FALLBACK_SERVICES
+  const [featurePosition, setFeaturePosition] = useState(0)
+  const [featureTransition, setFeatureTransition] = useState(true)
+  const [featuresPaused, setFeaturesPaused] = useState(false)
+  const backendPartners = website.partners?.filter(Boolean)
+  const partners = backendPartners?.length ? backendPartners : FALLBACK_PARTNERS
+  const [partnerPosition, setPartnerPosition] = useState(0)
+  const [partnerTransition, setPartnerTransition] = useState(true)
+  const [partnersPaused, setPartnersPaused] = useState(false)
+  const galleryPreview = website.gallery?.find(item => typeof item?.src === 'string' && item.src.trim())
+  const hasAbout = website.about?.some(text => text.trim())
+
+  useEffect(() => {
+    setFeaturePosition(0)
+    setFeatureTransition(true)
+  }, [services.length])
+
+  useEffect(() => {
+    if (services.length <= 5 || featuresPaused) return undefined
+    const timer = setInterval(() => {
+      setFeatureTransition(true)
+      setFeaturePosition(position => position + 1)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [services.length, featuresPaused])
+
+  useEffect(() => {
+    if (featurePosition !== services.length) return undefined
+    const timer = setTimeout(() => {
+      setFeatureTransition(false)
+      setFeaturePosition(0)
+      requestAnimationFrame(() => setFeatureTransition(true))
+    }, 650)
+    return () => clearTimeout(timer)
+  }, [featurePosition, services.length])
+
+  useEffect(() => {
+    if (partners.length <= 5 || partnersPaused) return undefined
+    const timer = setInterval(() => {
+      setPartnerTransition(true)
+      setPartnerPosition(position => position + 1)
+    }, 4500)
+    return () => clearInterval(timer)
+  }, [partners.length, partnersPaused])
+
+  useEffect(() => {
+    if (partnerPosition !== partners.length) return undefined
+    const timer = setTimeout(() => {
+      setPartnerTransition(false)
+      setPartnerPosition(0)
+      requestAnimationFrame(() => setPartnerTransition(true))
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [partnerPosition, partners.length])
 
   if (website.loading) {
     return (
@@ -142,11 +210,23 @@ export default function HomePage() {
 
   return (
     <>
+      {website.error && (
+        <div className="container" role="alert">
+          <p>Website content could not be loaded. Showing fallback content.</p>
+          {website.retry && <button type="button" className="btn btn-default" onClick={website.retry}>Retry</button>}
+        </div>
+      )}
       {/* ── 1. Hero Slider Banner ────────────────────────────── */}
       <section className="hp-hero" aria-label="MSME Highlights" aria-roledescription="carousel">
         <div className="hp-hero__container">
           <div className="hp-hero__slide">
-            <img src={activeSlide?.src || '/img/hero-slider.jpg'} alt={activeSlide?.alt || 'MSME Madhya Pradesh'} />
+            {activeSlide?.href ? (
+              <a href={activeSlide.href} style={{ display: 'block', height: '100%' }}>
+                <ImageWithFallback src={activeSlide.src} alt={activeSlide.alt || 'MSME Madhya Pradesh'} fallback={<img src="/img/hero-slider.jpg" alt="MSME Madhya Pradesh" />} />
+              </a>
+            ) : (
+              <ImageWithFallback src={activeSlide?.src} alt={activeSlide?.alt || 'MSME Madhya Pradesh'} fallback={<img src="/img/hero-slider.jpg" alt="MSME Madhya Pradesh" />} />
+            )}
             <div className="hp-hero__overlay" aria-hidden="true" />
           </div>
           <button
@@ -167,7 +247,7 @@ export default function HomePage() {
             {slides.map((_, i) => (
               <button
                 key={i}
-                className={`hp-hero__dot${i === slideIndex ? ' active' : ''}`}
+                className={`hp-hero__dot${i === slideIndex % slides.length ? ' active' : ''}`}
                 aria-label={`Slide ${i + 1}`}
                 onClick={() => setSlideIndex(i)}
               />
@@ -185,6 +265,7 @@ export default function HomePage() {
               {[...ticker, ...ticker, ...ticker].map((item, i) => (
                 <a key={i} href={item.href} className="hp-ticker__item">
                   {item.title}
+                  {item.date && <span> ({item.date})</span>}
                 </a>
               ))}
             </div>
@@ -200,7 +281,7 @@ export default function HomePage() {
       <section className="hp-about" id="about" aria-labelledby="hp-about-title">
         <div className="hp-about__title-wrap">
           <h2 className="hp-about__title" id="hp-about-title">
-            Department of Micro, Small & Medium Enterprises
+            {website.departmentName || 'Department of Micro, Small & Medium Enterprises'}
           </h2>
         </div>
         <div className="hp-about__container">
@@ -209,7 +290,9 @@ export default function HomePage() {
           </div>
           <div className="hp-about__content">
             <div className="hp-about__text">
-              <p>{FALLBACK_ABOUT}</p>
+              {hasAbout ? (
+                website.aboutContent?.length ? <WebsiteContent nodes={website.aboutContent} /> : website.about.map((text, index) => <p key={index}>{text}</p>)
+              ) : <p>{FALLBACK_ABOUT}</p>}
             </div>
           </div>
           <div className="hp-about__officer">
@@ -227,29 +310,91 @@ export default function HomePage() {
       </section>
 
       {/* ── 4. Online Services (Teal Card Carousel Section) ── */}
-      <section className="hp-features" id="services" aria-label="Online services">
+      <section
+        className="hp-features"
+        id="services"
+        aria-label="Online services"
+        onMouseEnter={() => setFeaturesPaused(true)}
+        onMouseLeave={() => setFeaturesPaused(false)}
+        onFocus={() => setFeaturesPaused(true)}
+        onBlur={event => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setFeaturesPaused(false)
+        }}
+      >
         <div className="hp-features__card-wrapper">
-          <div className="hp-features__container">
-            {FALLBACK_SERVICES.map((item) => (
-              <a key={item.title} href={item.href} className="hp-features__item">
-                <div className="hp-features__icon-circle">
-                  <i className={`fa ${item.icon}`} aria-hidden="true" />
-                </div>
-                <h3 className="hp-features__name">{item.title}</h3>
-                {item.description && <p className="hp-features__desc">{item.description}</p>}
-              </a>
-            ))}
+          <div className="hp-features__viewport" aria-live="polite">
+            <div
+              className="hp-features__track"
+              style={{
+                '--feature-offset': featurePosition,
+                '--feature-transition': featureTransition ? 'transform 650ms cubic-bezier(.22, .61, .36, 1)' : 'none',
+              }}
+            >
+              {[...services, ...services].map((item, itemIndex) => {
+                const ServiceCard = item.href ? 'a' : 'div'
+                return (
+                  <ServiceCard
+                    key={`${item.href}-${itemIndex}`}
+                    href={item.href || undefined}
+                    className="hp-features__item"
+                    style={{ '--feature-image': item.src ? `url("${item.src}")` : 'none' }}
+                  >
+                    <div className="hp-features__icon-circle">
+                      <ImageWithFallback
+                        src={item.src}
+                        alt={item.title || 'Online service'}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        fallback={<i className={`fa ${item.icon || 'fa-link'}`} aria-hidden="true" />}
+                      />
+                    </div>
+                    <h3 className="hp-features__name">{item.title}</h3>
+                    <span className="hp-features__separator" aria-hidden="true">
+                      <span />
+                    </span>
+                    {item.description && <p className="hp-features__desc">{item.description}</p>}
+                  </ServiceCard>
+                )
+              })}
+            </div>
           </div>
           {/* Controls and dots */}
-          <div className="hp-features__controls">
-            <button className="hp-features__nav-btn" aria-label="Previous service">&#10094;</button>
-            <button className="hp-features__nav-btn" aria-label="Next service">&#10095;</button>
-          </div>
-          <div className="hp-features__dots">
-            {Array.from({ length: 17 }).map((_, i) => (
-              <span key={i} className={`hp-features__dot${i === 8 ? ' active' : ''}`} />
-            ))}
-          </div>
+          {services.length > 5 && (
+            <>
+              <div className="hp-features__controls">
+                <button
+                  className="hp-features__nav-btn"
+                  aria-label="Previous service slide"
+                  onClick={() => {
+                    setFeatureTransition(true)
+                    setFeaturePosition(position => position === 0 ? services.length - 1 : position - 1)
+                  }}
+                >&#10094;</button>
+                <button
+                  className="hp-features__nav-btn"
+                  aria-label="Next service slide"
+                  onClick={() => {
+                    setFeatureTransition(true)
+                    setFeaturePosition(position => position + 1)
+                  }}
+                >&#10095;</button>
+              </div>
+              <div className="hp-features__dots" aria-label="Service slides">
+                {services.map((_, index) => (
+                  <button
+                    type="button"
+                    key={index}
+                    className={`hp-features__dot${index === featurePosition % services.length ? ' active' : ''}`}
+                    aria-label={`Show service slide ${index + 1}`}
+                    aria-current={index === featurePosition % services.length ? 'true' : undefined}
+                    onClick={() => {
+                      setFeatureTransition(true)
+                      setFeaturePosition(index)
+                    }}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -283,10 +428,11 @@ export default function HomePage() {
             </h3>
             <div className="hp-panel__body hp-panel__body--gallery">
               <a href={backendLink('/website/albums')} style={{ width: '100%' }}>
-                <img
-                  src="/img/gallery-meeting.jpg"
-                  alt="MSME Conference and Meeting"
+                <ImageWithFallback
+                  src={galleryPreview?.src}
+                  alt={galleryPreview?.alt || 'MSME gallery'}
                   className="hp-gallery__img"
+                  fallback={<img src="/img/gallery-meeting.jpg" alt="MSME Conference and Meeting" className="hp-gallery__img" />}
                 />
               </a>
             </div>
@@ -300,31 +446,69 @@ export default function HomePage() {
       </section>
 
       {/* ── 6. Partner Logos ───────────────────────────────── */}
-      <section className="hp-partners" aria-label="Our partners">
-        <div className="hp-partners__container">
-          {FALLBACK_PARTNERS.map((item) => (
-            <a
-              key={item.title}
-              href={item.href}
-              className="hp-partners__item"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={item.title}
-            >
-              <span>{item.title}</span>
-            </a>
-          ))}
+      <section
+        className="hp-partners"
+        aria-label="Our partners"
+        onMouseEnter={() => setPartnersPaused(true)}
+        onMouseLeave={() => setPartnersPaused(false)}
+      >
+        <div className="hp-partners__viewport">
+          <div
+            className="hp-partners__container"
+            style={{
+              '--partner-position': partnerPosition,
+              '--partner-transition': partnerTransition ? 'transform 700ms ease' : 'none',
+            }}
+          >
+            {[...partners, ...partners].map((item, i) => (
+              <a
+                key={`${item.href}-${i}`}
+                href={item.href}
+                className="hp-partners__item"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.title}
+              >
+                <ImageWithFallback
+                  src={item.src}
+                  alt={item.title}
+                  style={{ width: '100%', maxWidth: 140, height: 48, objectFit: 'contain' }}
+                  fallback={<span>{item.title}</span>}
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
     </>
   )
 }
 
+function ImageWithFallback({ src, alt, style, className, fallback }) {
+  const [failedSources, setFailedSources] = useState(() => new Set())
+  const [loadedSrc, setLoadedSrc] = useState(null)
+  const failed = failedSources.has(src)
+  useEffect(() => {
+    if (!src || failed || loadedSrc === src) return
+    // CMS hosts can hang without promptly emitting an image error.
+    const timeout = setTimeout(() => {
+      setFailedSources(previous => new Set(previous).add(src))
+    }, 10000)
+    return () => clearTimeout(timeout)
+  }, [src, failed, loadedSrc])
+  if (!src || failed) return fallback
+  return <img key={src} src={src} alt={alt} style={style} className={className}
+    onLoad={() => setLoadedSrc(src)}
+    onError={() => setFailedSources(previous => new Set(previous).add(src))} />
+}
+
 function OfficerCard({ officer }) {
+  if (!officer) return null
   return (
     <figure className="hp-officer">
       <div className="hp-officer__photo">
-        <img src={officer.src} alt={officer.name} />
+        <ImageWithFallback src={officer.src} alt={officer.name}
+          fallback={<span role="img" aria-label="Officer photo unavailable" style={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}><i className="fa fa-user" aria-hidden="true" /></span>} />
       </div>
       <figcaption className="hp-officer__caption">
         <span className="hp-officer__name">{officer.name}</span>

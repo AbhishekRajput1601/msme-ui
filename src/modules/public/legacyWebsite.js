@@ -124,7 +124,9 @@ export function parseLegacyWebsite(html, pageUrl) {
     officers: [...doc.querySelectorAll('.about-with-section .img-holder')].map(node => ({ src: image(node.querySelector('img')), name: text(node.parentElement, '.ribbon > span'), position: text(node.parentElement, '.ribbon small') })).filter(item => item.src),
     about: [...doc.querySelectorAll('.about .content_text_body')].map(node => node.textContent.trim()).filter(Boolean),
     aboutContent: [...doc.querySelectorAll('.about .content_text_body')].flatMap(node => contentNodes(node, pageUrl)),
-    features: [...doc.querySelectorAll('.feature-item')].map(node => ({ src: image(node.querySelector('img')), title: text(node, 'h3'), description: text(node, 'p'), href: safeUrl(node.querySelector('a')?.getAttribute('href'), pageUrl) })).filter(item => item.src && item.href),
+    // Legacy CMS cards can have no destination (javascript:void(0)). Keep their
+    // content while safeUrl removes the unusable link.
+    features: [...doc.querySelectorAll('.feature-item')].map(node => ({ src: image(node.querySelector('img')), title: text(node, 'h3'), description: text(node, 'p'), href: safeUrl(node.querySelector('a')?.getAttribute('href'), pageUrl) })).filter(item => item.title),
     news: items('.panel1 .news-item'), circulars: items('.panel2 .news-item'), events: items('.panel3 .news-item'),
     gallery: [...doc.querySelectorAll('#image-gallery img')].map(img => ({ src: image(img), alt: img.alt })).filter(item => item.src),
     partners: [...doc.querySelectorAll('#our-partner .item')].map(node => ({ src: image(node.querySelector('img')), title: node.querySelector('img')?.alt || '', href: safeUrl(node.querySelector('a')?.getAttribute('href'), pageUrl) })).filter(item => item.src && item.href),
@@ -141,8 +143,15 @@ export function useLegacyWebsite(locale) {
     const url = `${backendUrl('/website/home')}?language=${locale === 'hi' ? 'hi_IN' : 'en_US'}`
     fetch(url, { credentials: 'include', signal: controller.signal })
       .then(response => response.ok ? response.text() : Promise.reject(new Error('Website unavailable')))
-      .then(html => { if (!controller.signal.aborted) setWebsite({ ...parseLegacyWebsite(html, new URL(url, window.location.origin).href), loading: false, error: null }) })
-      .catch(error => { if (!controller.signal.aborted) setWebsite({ ...emptyWebsite, loading: false, error: error.message }) })
+      .then(html => {
+        if (controller.signal.aborted) return
+        const data = parseLegacyWebsite(html, new URL(url, window.location.origin).href)
+        setWebsite({ ...data, loading: false, error: null })
+      })
+      .catch(error => {
+        if (controller.signal.aborted) return
+        setWebsite({ ...emptyWebsite, loading: false, error: error.message })
+      })
     return () => controller.abort()
   }, [locale, attempt])
   return { ...website, retry: () => setAttempt(value => value + 1) }

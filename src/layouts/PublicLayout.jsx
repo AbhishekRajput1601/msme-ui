@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth'
 import { useTranslation } from '../hooks/useTranslation'
 import { getDefaultRouteForRoles } from '../routes/roleRoutes'
 import { ASSETS, backendLink, useLegacyWebsite } from '../modules/public/legacyWebsite'
+import { WebsiteMenuItem } from '../modules/public/WebsiteContent'
 
 export default function PublicLayout() {
   const { authenticated, roles } = useAuth()
@@ -13,6 +14,7 @@ export default function PublicLayout() {
   const [contrast, setContrast] = useState(false)
   const website = useLegacyWebsite(locale)
   const hindi = locale === 'hi'
+  const menu = website.menu || []
   const pathname = useLocation().pathname
   const isAuthPage = ['/login', '/forgot-password', '/forgot-username', '/website/viewforgotpassword', '/website/viewforgotusername'].includes(pathname)
 
@@ -91,9 +93,12 @@ export default function PublicLayout() {
           <div className="public-brand-row">
             <Link className="logo-brand-wrap" to="/">
               <img
-                src="/img/emblem-india.png"
-                alt="State Emblem of India"
+                src={website.departmentLogo || '/img/emblem-india.png'}
+                alt={website.departmentName || 'State Emblem of India'}
                 className="mp-emblem-img"
+                onError={event => {
+                  if (event.currentTarget.getAttribute('src') !== '/img/emblem-india.png') event.currentTarget.src = '/img/emblem-india.png'
+                }}
               />
               <div className="logo-title">
                 <h5>{website.governmentName || (hindi ? 'मध्यप्रदेश शासन' : 'Government of Madhya Pradesh')}</h5>
@@ -112,11 +117,12 @@ export default function PublicLayout() {
               </button>
               <div className="header-msme-badge">
                 <img
-                  src="/img/msme-tree-logo.png"
-                  alt="MSME Logo"
+                  src={website.governmentLogo || '/img/msme-tree-logo.png'}
+                  alt={website.governmentName || 'MSME Logo'}
                   className="header-msme-img"
                   onError={(e) => {
-                    e.currentTarget.src = `${ASSETS}/assets_img/MSME_logo.png`
+                    const fallback = `${ASSETS}/assets_img/MSME_logo.png`
+                    if (e.currentTarget.getAttribute('src') !== fallback) e.currentTarget.src = fallback
                   }}
                 />
               </div>
@@ -126,10 +132,13 @@ export default function PublicLayout() {
 
         {/* ── 3. Main Navigation Bar ── */}
         {!isAuthPage && (
-          <div className="bottom-header" id="skip_navigation" tabIndex={-1}>
+          <div className={`bottom-header${website.menu?.length ? ' backend-menu' : ''}`} id="skip_navigation" tabIndex={-1}>
             <div className="main-nav-inner">
               <nav aria-label="Main navigation" style={{ width: '100%' }}>
                 <ul className="mainmenu-list">
+                  {menu.length ? menu.map((item, index) => (
+                    <WebsiteMenuItem key={`${item.label}-${index}`} item={item} />
+                  )) : <>
                   <li className="nav-home nav-active">
                     <NavLink to="/" end onClick={() => setMenuOpen(false)}>
                       {hindi ? 'होम' : 'HOME'}
@@ -175,6 +184,7 @@ export default function PublicLayout() {
                       MORE <i className="fa fa-caret-down" />
                     </a>
                   </li>
+                  </>}
                 </ul>
               </nav>
             </div>
@@ -191,12 +201,16 @@ export default function PublicLayout() {
       <footer className="footer-section">
         <div className="footer-top-row">
           <ul className="footer-links-list">
+            {website.footerLinks?.length ? website.footerLinks.map((item, index) => (
+              <li key={`${item.href}-${index}`}><a href={item.href}>{item.label}</a></li>
+            )) : <>
             <li><a href="/">{hindi ? 'संपर्क' : 'Contact'}</a></li>
             <li><a href="/terms">{hindi ? 'नियम और शर्तें' : 'Terms & Conditions'}</a></li>
             <li><a href="/copyright">{hindi ? 'कॉपीराइट नीति' : 'Copyright Policy'}</a></li>
             <li><a href="/privacy">{hindi ? 'गोपनीयता नीति' : 'Privacy Policy'}</a></li>
             <li><a href="/hyperlink">{hindi ? 'हाइपरलिंक नीति' : 'Hyperlink Policy'}</a></li>
             <li><a href="/employee">{hindi ? 'कर्मचारी कॉर्नर' : "Employee's Corner"}</a></li>
+            </>}
           </ul>
           <div className="footer-working-hours">
             <span>{hindi ? 'कार्य समय : 10:00 AM से 06:00 PM' : 'Working Hours : 10:00 AM to 06:00 PM'}</span>
@@ -206,7 +220,7 @@ export default function PublicLayout() {
 
         <div className="footer-bottom-row">
           <div className="footer-copy">
-            <span>{website.updated ? `Last Updated On: ${website.updated}` : 'Last Updated On: 02 September, 2026'}</span>
+            {website.updated && <span>Last Updated On: {website.updated}</span>}
             <span>{hindi ? 'सामग्री एमपीएमएसएमई द्वारा प्रदान एवं अनुरक्षित' : 'Content Provided and Maintained by MPMSME'}</span>
           </div>
           <div className="footer-right-col">
