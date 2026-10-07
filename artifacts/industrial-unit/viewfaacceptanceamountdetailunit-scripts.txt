@@ -1,0 +1,121 @@
+
+
+$(function(){
+
+function downloadAcceptanceLetter(applicationId){
+	window.open('downloadfadocument/'+applicationId+'/'+applicationId);
+}
+
+$('.date').datetimepicker({
+		
+		lang:'ch',
+		timepicker:false,
+		format:'d/m/Y',
+		});
+	
+	$('.date').keypress(function() {
+	    
+	    return false;
+	    
+	});
+
+	$(document).on('keypress','.number-only', function(e) { 
+		if(isNaN(this.value+""+String.fromCharCode(e.charCode))) { return false; }
+	})
+	.on('cut copy paste','.number-only', function(e) { 
+		e.preventDefault();
+	});
+	
+	$(document).on('keypress','.number10', function(e) { 
+		 if (this.value.length >= 10) {
+		        return false;
+		    }
+	});
+	
+	$(document).on('keypress','.number6', function(e) { 
+		 if (this.value.length >= 6) {
+		        return false;
+		    }
+	});
+	
+	$(document).on('keypress','.number12', function(e) { 
+		 if (this.value.length >= 12) {
+		        return false;
+		    }
+	});
+	
+	 $('input[type=radio][name=capitalApprove][value=true]').change(function() {
+	      if ($(this).is(':checked')) {
+	            $("#unitAmountDiv").css("display", "");
+	
+	        }
+	    });
+	    $('input[type=radio][name=capitalApprove][value=false]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#unitAmountDiv").css("display", "none");
+
+		        }
+		});
+	
+	    $('input[type=radio][name=interestApprove][value=true]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#interestDiv").css("display", "");
+		
+		        }
+		    });
+		    $('input[type=radio][name=interestApprove][value=false]').change(function() {
+			      if ($(this).is(':checked')) {
+			            $("#interestDiv").css("display", "none");
+
+			        }
+			});
+	    
+		$('input[type=radio][name=vatCstApprove][value=true]').change(function() {
+		      if ($(this).is(':checked')) {
+		           $("#vatDiv").css("display", "");
+		       }
+		   });
+		
+		$('input[type=radio][name=vatCstApprove][value=false]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#vatDiv").css("display", "none");
+		        }
+		});
+	    
+		 $('input[type=radio][name=entryTaxApprove][value=true]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#entryTaxDiv").css("display", "");
+		       }
+		   });
+		
+		 $('input[type=radio][name=entryTaxApprove][value=false]').change(function() {
+			      if ($(this).is(':checked')) {
+			            $("#entryTaxDiv").css("display", "none");
+				        }
+		});    
+		    
+		 $('input[type=radio][name=electricityApprove][value=true]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#electicityDiv").css("display", "");
+		       }
+		   });
+		
+		 $('input[type=radio][name=electricityApprove][value=false]').change(function() {
+			      if ($(this).is(':checked')) {
+			            $("#electicityDiv").css("display", "none");
+				        }
+		});   
+		 
+		 $('input[type=radio][name=mandiFeeApprove][value=true]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#mandiDiv").css("display", "");
+		       }
+		   });
+		
+		 $('input[type=radio][name=mandiFeeApprove][value=false]').change(function() {
+			      if ($(this).is(':checked')) {
+			            $("#mandiDiv").css("display", "none");
+				        }
+		}); 
+
+});

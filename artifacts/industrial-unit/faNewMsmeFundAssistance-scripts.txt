@@ -1,0 +1,113 @@
+
+
+
+
+
+
+ $(function() {
+	$('.date').datetimepicker({
+		lang: 'ch',
+		timepicker: false,
+		format: 'd/m/Y'
+	});
+	$('.date').keypress(function() {
+		return false;
+	});
+	
+});
+
+$('.dateOnlyPicker').datepicker({
+    dateFormat: 'dd/mm/yy',
+    changeMonth: true,
+    changeYear: true
+}); 
+
+$("#unitStartDate").datepicker({
+    dateFormat: "dd/mm/yy"
+});
+
+
+$(function(){
+	
+$('.date').datetimepicker({
+		
+		lang:'ch',
+		timepicker:false,
+		format:'d/m/Y'
+		});
+	
+	$('.date').keypress(function() {
+	    
+	    return false;
+	    
+	});
+
+  $('.number-only').keypress(function(e) {
+	if(isNaN(this.value+""+String.fromCharCode(e.charCode))) return false;
+  })
+ .on("cut copy paste",function(e){
+	e.preventDefault();
+  });
+
+  
+  $(".alpha-only").on("input", function(){
+	  var regexp = /[^a-zA-Z .]/g;
+	  if($(this).val().match(regexp)){
+	    $(this).val( $(this).val().replace(regexp,'') );
+	  }
+	});
+  
+  $('input[name="pinCode"]').keypress(function() {
+	    if (this.value.length >= 6) {
+	        return false;
+	    }
+	});
+
+$('input[name="unitPinCode"]').keypress(function() {
+	    if (this.value.length >= 6) {
+	        return false;
+	    }
+	});
+  
+  $('.number10').keypress(function() {
+	    if (this.value.length >= 10) {
+	        return false;
+	    }
+	});
+  
+  $('.number12').keypress(function() {
+	    if (this.value.length >= 12) {
+	        return false;
+	    }
+	});
+  
+/*   $('#selectUnitType').on('change', function() {
+	  
+	  if(this.value=='Other'){
+		  $('#unitTypeDiv').css("display", "");  
+	  } else {
+		  $('#unitTypeDiv').css("display", "none");   
+	  } 
+
+}); */
+  
+});
+
+function txtQtyChange(event){
+	if (event.shiftKey == true) {
+        return false;
+    }
+    if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190) {
+    	    	return true;
+    } else {
+        return false;
+    }
+    if($(this).val().indexOf('.') !== -1 && event.keyCode == 190){
+    	    return false;
+    }else{
+	    	return true;
+    }
+}
+
+
+

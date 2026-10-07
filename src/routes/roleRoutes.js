@@ -351,6 +351,9 @@ export function resolveLegacyHashRoute(pathname, hash = '') {
   // Preserve applicant IDs and opaque parcel tokens from old land bookmarks.
   if (baseReactPath === '/applicant') {
     const landHash = hash.replace(/^#\/?/, '')
+    if (/^fa\/(?:newapplicantform|newapplicantsingleform|viewfaapplicantdetailunit|viewfaapplicantdetailunitnew|viewfaschemesdetailsunit|fetchfaschemes|viewfadocumentsuploadunit|viewfaapplicantHistory|viewfaDisbursementUnit|viewfaacceptanceamountdetailunit|queryReplyByApplicant|fetchquerybydtic|infradevelopmetform|addUnitDetailsform)(?:\/|$)/.test(landHash)) {
+      return `/applicant/financial-assistance/${landHash.slice(3)}`
+    }
     const patterns = [
         [/^id\/(?:viewESignApplicationDetail|eSignApplicationDetail)\/(\d+)\/(.+)$/, ([, id, token]) => `sign/${id}/${token}`],
         [/^id\/editApplyForLandForm\/(\d+)\/(.+)$/, ([, id, token]) => `correct/${id}/${token}`],

@@ -1,0 +1,635 @@
+/* Industrial Unit Styles - Exact Parity with AngularJS UI */
+
+.industrial-unit-page {
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.industrial-unit-page #industrial-unit-content {
+  padding: 0 10px !important;
+  margin: 0 !important;
+  min-height: auto;
+  background: #fff;
+}
+
+/* ── 1. Page Heading in Middle of Every Page ────────────────────────────── */
+.industrial-unit-page .page-header {
+  text-align: center !important;
+  margin: 8px 0 16px 0 !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid #eee !important;
+}
+
+.industrial-unit-page .page-header h1,
+.industrial-unit-page .page-header h2,
+.industrial-unit-page .page-header h3,
+.industrial-unit-page .page-header h4,
+.industrial-unit-page h1.page-header,
+.industrial-unit-page h2.page-header,
+.industrial-unit-page h3.page-header {
+  text-align: center !important;
+  margin: 0 auto !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  color: #31708f !important;
+}
+
+.industrial-unit-page .panel-heading {
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 8px 15px !important;
+  display: block !important;
+  position: relative !important;
+}
+
+.industrial-unit-page .panel-heading > * {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.industrial-unit-page .panel-heading1 {
+  text-align: center !important;
+  font-size: 16px !important;
+  padding: 8px 15px !important;
+}
+
+.industrial-unit-page .panel-title {
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+.industrial-unit-page .divheadertxt,
+.industrial-unit-page .new-divheadtext {
+  text-align: center !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #31708f !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 8px auto !important;
+  padding: 6px 12px !important;
+  box-sizing: border-box !important;
+}
+
+.industrial-unit-page .headingset {
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #31708f !important;
+  display: inline-block !important;
+  margin: 8px auto !important;
+}
+
+.industrial-unit-page .tab-header {
+  text-align: center !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #31708f !important;
+  width: 100% !important;
+  margin: 5px auto 10px auto !important;
+  box-sizing: border-box !important;
+}
+
+.industrial-unit-page .modal-header,
+.industrial-unit-page .modal-title {
+  text-align: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.industrial-unit-page legend {
+  text-align: center !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+  padding-bottom: 5px !important;
+  margin-bottom: 12px !important;
+}
+
+.industrial-unit-page [align="center"],
+.industrial-unit-page .text-center {
+  text-align: center !important;
+}
+
+/* ── 2. No Extra Spacing: Compact Gutters & Margins ──────────────────────── */
+.industrial-unit-page .page-header:empty,
+.industrial-unit-page h1.page-header:empty,
+.industrial-unit-page h1:empty,
+.industrial-unit-page .row:has(> .col-md-12 > .page-header:empty),
+.industrial-unit-page .row:has(> .col-md-12 > h1:empty) {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  height: 0 !important;
+}
+
+.industrial-unit-page .row.mb-3 > .col-md-6 {
+  float: none !important;
+  margin: 10px auto !important;
+  max-width: 650px !important;
+}
+
+.industrial-unit-page .clearfix {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+}
+
+.industrial-unit-page .panel {
+  margin-bottom: 12px !important;
+  border-radius: 4px !important;
+  border: 1px solid #bce8f1 !important;
+}
+
+.industrial-unit-page .panel-info {
+  border-color: #bce8f1 !important;
+}
+
+.industrial-unit-page .panel-info > .panel-heading {
+  color: #31708f !important;
+  background-color: #d9edf7 !important;
+  border-color: #bce8f1 !important;
+}
+
+.industrial-unit-page .panel-body {
+  padding: 10px 14px !important;
+}
+
+.industrial-unit-page .row {
+  margin-left: -8px !important;
+  margin-right: -8px !important;
+}
+
+.industrial-unit-page [class*="col-"] {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.industrial-unit-page .form-group {
+  margin-bottom: 8px !important;
+}
+
+.industrial-unit-page label {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 2px !important;
+  color: #333 !important;
+  display: inline-block !important;
+}
+
+.industrial-unit-page .alert {
+  padding: 8px 12px !important;
+  margin-bottom: 8px !important;
+  font-size: 13px !important;
+  border-radius: 4px !important;
+}
+
+.industrial-unit-page .Alert-heading {
+  margin: 4px auto 10px auto !important;
+  padding: 6px 14px !important;
+  background-color: #fcf8e3 !important;
+  border: 1px solid #faebcc !important;
+  border-radius: 4px !important;
+  max-width: 90% !important;
+  text-align: center !important;
+}
+
+.industrial-unit-page .Alert-heading p {
+  margin: 0 !important;
+  padding: 2px 0 !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  color: #8a6d3b !important;
+}
+
+.industrial-unit-page .help-block {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+  font-size: 12px !important;
+}
+
+/* ── 3. No Big Input Fields: Legacy Compact Inputs ──────────────────────── */
+.industrial-unit-page .form-control,
+.industrial-unit-page input[type="text"],
+.industrial-unit-page input[type="number"],
+.industrial-unit-page input[type="date"],
+.industrial-unit-page input[type="email"],
+.industrial-unit-page input[type="password"],
+.industrial-unit-page select.form-control,
+.industrial-unit-page select,
+.industrial-unit-page .modern-select {
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  padding: 4px 8px !important;
+  font-size: 13px !important;
+  line-height: 1.42857143 !important;
+  color: #555 !important;
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 3px !important;
+  box-sizing: border-box !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s !important;
+}
+
+.industrial-unit-page .form-control:focus,
+.industrial-unit-page input:focus,
+.industrial-unit-page select:focus {
+  border-color: #66afe9 !important;
+  outline: 0 !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6) !important;
+}
+
+.industrial-unit-page input[type="file"],
+.industrial-unit-page input[type="file"].btn {
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  padding: 2px 6px !important;
+  font-size: 12px !important;
+  line-height: 20px !important;
+  box-sizing: border-box !important;
+}
+
+.industrial-unit-page textarea,
+.industrial-unit-page textarea.form-control {
+  font-size: 13px !important;
+  padding: 5px 8px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 3px !important;
+  color: #555 !important;
+  min-height: 52px !important;
+  box-sizing: border-box !important;
+  line-height: 1.42857143 !important;
+}
+
+/* Inputs inside tables: even more compact to maintain grid density */
+.industrial-unit-page table .form-control,
+.industrial-unit-page table input[type="text"],
+.industrial-unit-page table input[type="number"],
+.industrial-unit-page table select {
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  padding: 2px 6px !important;
+  font-size: 12px !important;
+  border-radius: 2px !important;
+}
+
+.industrial-unit-page .input-group-addon {
+  padding: 4px 10px !important;
+  font-size: 13px !important;
+  height: 32px !important;
+  line-height: 22px !important;
+}
+
+.industrial-unit-page div.form-control:has(input[type="radio"]),
+.industrial-unit-page div.form-control:has(.radio-inline) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 2px 10px !important;
+}
+
+.industrial-unit-page .radio-inline,
+.industrial-unit-page .checkbox-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-bottom: 0 !important;
+  font-weight: normal !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  gap: 4px !important;
+}
+
+.industrial-unit-page input[type="radio"] {
+  margin: 0 4px 0 0 !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+}
+
+.industrial-unit-page input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  margin: 2px 10px 0 0 !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  accent-color: #31708f !important;
+  flex-shrink: 0 !important;
+}
+
+.industrial-unit-page input[type="checkbox"] + span {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #2b3a4a !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  line-height: 1.45 !important;
+  display: inline !important;
+  letter-spacing: 0.1px !important;
+}
+
+.industrial-unit-page .col-md-6:has(> input[type="checkbox"]),
+.industrial-unit-page .col-md-12:has(> input[type="checkbox"]) {
+  display: flex !important;
+  align-items: flex-start !important;
+  padding: 5px 8px !important;
+  border-radius: 4px !important;
+  margin-bottom: 4px !important;
+  min-height: 28px !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.industrial-unit-page .col-md-6:has(> input[type="checkbox"]):hover,
+.industrial-unit-page .col-md-12:has(> input[type="checkbox"]):hover {
+  background-color: #f4f8fb !important;
+}
+
+.industrial-unit-page .col-md-6:has(> input[type="checkbox"]) > input[type="checkbox"],
+.industrial-unit-page .col-md-12:has(> input[type="checkbox"]) > input[type="checkbox"] {
+  margin-top: 2px !important;
+}
+
+.industrial-unit-page label:has([data-translation="application.fa.selectfa"]),
+.industrial-unit-page div:has(> .form-group input[type="checkbox"]) > label,
+.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"]) > label {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #222 !important;
+  display: block !important;
+  margin-top: 4px !important;
+  margin-bottom: 16px !important;
+  line-height: 1.5 !important;
+  white-space: normal !important;
+}
+
+.industrial-unit-page span[data-translation="application.fa.selectfa"] {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #222 !important;
+  display: inline !important;
+}
+
+.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"]),
+.industrial-unit-page .col-md-12:has(> label > span[data-translation="application.fa.selectfa"]) {
+  padding-left: 32px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.industrial-unit-page label:has([data-translation="application.fa.selectfa"]) .aestrick,
+.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"]) > label .aestrick {
+  display: inline !important;
+  margin-left: 3px !important;
+  color: #d9534f !important;
+  vertical-align: baseline !important;
+}
+
+.industrial-unit-page .form-group:has(> .col-md-6 > input[type="checkbox"]) {
+  margin-top: 8px !important;
+  margin-bottom: 18px !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: 28px !important;
+  row-gap: 12px !important;
+}
+
+.industrial-unit-page .form-group:has(> .col-md-6 > input[type="checkbox"]) > .col-md-6 {
+  width: 100% !important;
+  float: none !important;
+  padding: 0 !important;
+}
+
+/* ── 4. Tables, Buttons & Controls ──────────────────────────────────────── */
+.industrial-unit-page .table {
+  margin-bottom: 8px !important;
+  font-size: 13px !important;
+  width: 100% !important;
+}
+
+.industrial-unit-page .table-bordered {
+  border: 1px solid #ddd !important;
+}
+
+.industrial-unit-page .table > thead > tr > th {
+  background-color: #f5f5f5 !important;
+  color: #333 !important;
+  font-weight: 600 !important;
+  padding: 6px 8px !important;
+  vertical-align: middle !important;
+  border: 1px solid #ddd !important;
+}
+
+.industrial-unit-page .table > tbody > tr > td {
+  padding: 5px 8px !important;
+  vertical-align: middle !important;
+  font-size: 13px !important;
+  border: 1px solid #ddd !important;
+}
+
+.industrial-unit-page .btn {
+  padding: 4px 12px !important;
+  font-size: 13px !important;
+  border-radius: 3px !important;
+  line-height: 1.42857143 !important;
+  display: inline-block !important;
+  height: 32px !important;
+  box-sizing: border-box !important;
+}
+
+.industrial-unit-page .btn-primary {
+  background-color: #337ab7 !important;
+  border-color: #2e6da4 !important;
+  color: #fff !important;
+}
+
+.industrial-unit-page .btn-primary:hover {
+  background-color: #286090 !important;
+  border-color: #204d74 !important;
+}
+
+.industrial-unit-page .btn-success {
+  background-color: #5cb85c !important;
+  border-color: #4cae4c !important;
+  color: #fff !important;
+}
+
+.industrial-unit-page .btn-success:hover {
+  background-color: #449d44 !important;
+  border-color: #398439 !important;
+}
+
+.industrial-unit-page .btn-default {
+  background-color: #fff !important;
+  border-color: #ccc !important;
+  color: #333 !important;
+}
+
+.industrial-unit-page .btn-default:hover {
+  background-color: #e6e6e6 !important;
+  border-color: #adadad !important;
+}
+
+.industrial-unit-page .btn-lg {
+  padding: 6px 16px !important;
+  font-size: 14px !important;
+  height: 36px !important;
+}
+
+.industrial-unit-page .btn-sm,
+.industrial-unit-page .btn-xs {
+  padding: 2px 6px !important;
+  font-size: 12px !important;
+  height: 26px !important;
+}
+
+.industrial-unit-page .aestrick {
+  color: #f00 !important;
+  font-weight: bold !important;
+  margin-left: 2px !important;
+}
+
+.industrial-unit-page .res_div {
+  width: 100% !important;
+  overflow-x: auto !important;
+}
+
+.industrial-unit-page .industrial-table-controls {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 6px 0 10px 0 !important;
+  gap: 15px !important;
+  font-size: 13px !important;
+}
+
+.industrial-unit-page .industrial-table-controls select,
+.industrial-unit-page .industrial-table-controls input {
+  border: 1px solid #ccc !important;
+  border-radius: 3px !important;
+  padding: 3px 6px !important;
+  height: 28px !important;
+  font-size: 12px !important;
+}
+
+.industrial-unit-page .industrial-eligibility {
+  z-index: 1060 !important;
+}
+
+.industrial-unit-page .industrial-saving {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1100 !important;
+  padding: 16px 24px !important;
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .2) !important;
+  font-weight: 600 !important;
+}
+
+.industrial-unit-page .tab-pane:not(.active) {
+  display: none !important;
+}
+
+.industrial-unit-page .wizard {
+  margin-bottom: 12px !important;
+}
+
+.industrial-unit-page .wizard .nav-tabs {
+  display: flex !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+  margin-bottom: 15px !important;
+  border-bottom: 2px solid #337ab7 !important;
+  justify-content: center !important;
+}
+
+.industrial-unit-page .wizard .nav-item {
+  flex: 1 !important;
+  text-align: center !important;
+}
+
+.industrial-unit-page .wizard .nav-link {
+  display: block !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #555 !important;
+  text-align: center !important;
+  background: #f7f7f7 !important;
+  border: 1px solid #ddd !important;
+  border-bottom: none !important;
+  border-radius: 4px 4px 0 0 !important;
+  text-decoration: none !important;
+}
+
+.industrial-unit-page .wizard .nav-link.active {
+  color: #fff !important;
+  background-color: #337ab7 !important;
+  border-color: #337ab7 !important;
+}
+
+.industrial-unit-page .wizard .nav-link.disabled {
+  pointer-events: none !important;
+  opacity: .6 !important;
+  background-color: #eee !important;
+}
+
+.industrial-unit-page .wizard .count {
+  display: inline-block !important;
+  margin-left: 6px !important;
+  padding: 1px 6px !important;
+  font-size: 11px !important;
+  font-style: normal !important;
+  border-radius: 10px !important;
+  background: rgba(0, 0, 0, .1) !important;
+}
+
+.industrial-unit-page .wizard .nav-link.active .count {
+  background: #fff !important;
+  color: #337ab7 !important;
+}
+
+.industrial-unit-page .action-buttons a,
+.industrial-unit-page .action-buttons .blue {
+  color: #337ab7 !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+}
+
+.industrial-unit-page .action-buttons a:hover {
+  text-decoration: underline !important;
+  color: #23527c !important;
+}
+
+@media print {
+  .legacy-portal header,
+  .legacy-portal nav,
+  .legacy-portal footer,
+  .legacy-portal #sideNav,
+  .legacy-portal .postLoginHeader,
+  .no-print,
+  .industrial-unit-page button,
+  .industrial-unit-page .alert {
+    display: none !important;
+  }
+  .legacy-portal #page-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

@@ -61,6 +61,7 @@ import LandSigningPage from '../modules/id/applicant/LandSigningPage'
 // Profile & Account Management
 import UserProfilePage from '../modules/profile/UserProfilePage'
 import IndustrialProfilePage from '../modules/profile/IndustrialProfilePage'
+import IndustrialUnitPage from '../modules/industrial-unit/IndustrialUnitPage'
 import ChangePasswordPage from '../modules/profile/ChangePasswordPage'
 
 // List of all department officer roles supported
@@ -170,8 +171,10 @@ export default function AppRoutes() {
         <Route path="land-allotment/notices/:mode/:id/:decisionId" element={<LandNoticesPage />} />
         <Route path="land-allotment/appeal-review/:appealId" element={<LandAnnualReviewPage appeal />} />
         <Route path="land-allotment/sign/:applicantId/:parcelToken" element={<LandSigningPage />} />
-        <Route path="financial-assistance" element={<ApplicantDashboard />} />
-        <Route path="financial-assistance/*" element={<ApplicantDashboard />} />
+        <Route path="financial-assistance" element={<IndustrialUnitPage />} />
+        <Route path="financial-assistance/*" element={<IndustrialUnitPage />} />
+        <Route path="fa" element={<IndustrialUnitPage />} />
+        <Route path="fa/*" element={<IndustrialUnitPage />} />
         <Route path="online-nocs" element={<ApplicantDashboard />} />
         <Route path="msme-award" element={<ApplicantDashboard />} />
         <Route path="bank-details" element={<IndustrialProfilePage />} />
@@ -200,6 +203,7 @@ export default function AppRoutes() {
         <Route path="audit-logs" element={<AdminDashboard />} />
         <Route path="reports" element={<AdminDashboard />} />
         <Route path="settings" element={<AdminDashboard />} />
+        <Route path="fa/*" element={<IndustrialUnitPage />} />
       </Route>
 
       {/* ─── 4. Protected Department Officer Routes ─────────────────────── */}
@@ -219,6 +223,8 @@ export default function AppRoutes() {
         <Route path="applications" element={<DepartmentDashboard />} />
         <Route path="mis-reports" element={<DepartmentDashboard />} />
         <Route path=":roleSubpath/dashboard" element={<DepartmentDashboard />} />
+        <Route path=":roleSubpath/fa/*" element={<IndustrialUnitPage />} />
+        <Route path="fa/*" element={<IndustrialUnitPage />} />
       </Route>
 
       {/* ─── 5. Legacy AngularJS Hash-Route Compatibility Fallbacks ──────── */}

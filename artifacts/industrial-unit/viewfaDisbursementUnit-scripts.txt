@@ -1,0 +1,17 @@
+
+
+        
+             
+/*     function gfg_Run() {
+
+var totalsanctionamt = document.getElementById("totalsanctionamt");
+        var totalDisbursementAmt = document.getElementById("totalDisbursementAmt");
+         var pendingamt = document.getElementById("pendingamt");
+				 var total = parseFloat(totalsanctionamt)+parseFloat(totalDisbursementAmt);
+				 
+				 pendingamt = total;
+				 console.log(val);
+			
+        }
+        */
+    

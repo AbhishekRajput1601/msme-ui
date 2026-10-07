@@ -1,0 +1,124 @@
+
+	// Prevent manual typing
+	$(document).on('keypress paste', '#unitElectCompDate', function (e) {
+	    e.preventDefault();
+	});
+
+    /*
+     * This field lives in the "step2" Bootstrap tab-pane, which is display:none
+     * until the user reaches step 2. Creating the xdsoft datetimepicker while the
+     * field is still hidden leaves it unusable, so the calendar never opened.
+     *
+     * The picker is therefore created lazily on the first focus/click, i.e. once
+     * the tab is visible, and then shown. Delegated binding is used so it keeps
+     * working after AngularJS re-renders the fragment. Options are unchanged:
+     * date only, d/m/Y, nothing after today.
+     */
+    $(function () {
+        function getToday() {
+            const now = new Date();
+            return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        }
+
+        $(document).on('focus click', '#unitElectCompDate', function () {
+            var $el = $(this);
+
+            if (!$el.data('xdsoft_datetimepicker')) {
+                $el.datetimepicker({
+                    timepicker: false,
+                    format: 'd/m/Y',
+                    maxDate: getToday(),
+                    scrollInput: false
+                });
+            }
+
+            $el.datetimepicker('show');
+        });
+    });
+
+
+  // Prevent typing/pasting. Delegated, so it survives the fragment being
+  // re-rendered by AngularJS.
+  $(document).on('keydown paste', '#unitStartDate', function (e) {
+    e.preventDefault();
+  });
+
+  /*
+   * Like the Unit Electricity Composition date above, this field sits in the
+   * "step2" Bootstrap tab-pane, which is display:none until the user reaches
+   * step 2, so the picker is built lazily on first focus/click instead of at
+   * load time.
+   *
+   * The previous version polled every 300ms waiting for scope.schemeYear and
+   * never gave up, which left a timer running forever whenever schemeYear was
+   * not set. Reading the scope at focus time removes the polling entirely -
+   * by then the controller has loaded its data.
+   *
+   * The scheme-year date limits are unchanged:
+   *   2025 -> 24-Feb-2025 onwards, no upper limit
+   *   2021 -> up to 23-Feb-2025
+   *   otherwise -> nothing after today
+   */
+  $(function () {
+    function getToday() {
+      const now = new Date();
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    }
+
+    function getDate(y, m, d) {
+      return new Date(y, m - 1, d); // 1-based month
+    }
+
+    $(document).on('focus click', '#unitStartDate', function () {
+      var $el = $(this);
+      var scope = angular.element(this).scope();
+      var schemeYear = scope ? scope.schemeYear : null;
+
+      // Rebuild when the scheme year changed since the last time, because the
+      // allowed range depends on it.
+      if ($el.data('xdsoft_datetimepicker') && $el.data('builtForSchemeYear') === schemeYear) {
+        $el.datetimepicker('show');
+        return;
+      }
+
+      if ($el.data('xdsoft_datetimepicker')) {
+        try {
+          $el.datetimepicker('destroy');
+        } catch (e) {}
+      }
+
+      var minDate = false;
+      var maxDate = getToday(); // default
+
+      if (schemeYear === '2025') {
+        // From 24-Feb-2025 onward - future dates allowed
+        minDate = getDate(2025, 2, 24);
+        maxDate = false;
+      }
+
+      if (schemeYear === '2021') {
+        // Up to 23-Feb-2025
+        minDate = false;
+        maxDate = getDate(2025, 2, 23);
+      }
+
+      // Keep the already entered / loaded value selected in the calendar.
+      var editValue = $el.val() || (scope && scope.faData && scope.faData.faIndustrialUnitBean
+          ? scope.faData.faIndustrialUnitBean.unitStartDate
+          : null);
+      var parsedEditValue = editValue ? moment(editValue, "DD/MM/YYYY").toDate() : null;
+
+      $el.datetimepicker({
+        timepicker: false,
+        format: 'd/m/Y',
+        minDate: minDate,
+        maxDate: maxDate,
+        scrollInput: false,
+        value: parsedEditValue,
+        defaultDate: parsedEditValue
+      });
+
+      $el.data('builtForSchemeYear', schemeYear);
+      $el.datetimepicker('show');
+    });
+  });

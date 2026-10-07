@@ -1,0 +1,136 @@
+
+
+$(function(){
+	
+$('.date').datetimepicker({
+		
+		lang:'ch',
+		timepicker:false,
+		format:'d/m/Y',
+		});
+	
+	$('.date').keypress(function() {
+	    
+	    return false;
+	    
+	});
+
+  $('.number-only').keypress(function(e) {
+	if(isNaN(this.value+""+String.fromCharCode(e.charCode))) return false;
+  })
+  .on("cut copy paste",function(e){
+	e.preventDefault();
+  });
+
+  
+  $('input[name="pinCode"]').keypress(function() {
+	    if (this.value.length >= 6) {
+	        return false;
+	    }
+	});
+
+$('input[name="unitPinCode"]').keypress(function() {
+	    if (this.value.length >= 6) {
+	        return false;
+	    }
+	});
+  
+  $('.number10').keypress(function() {
+	    if (this.value.length >= 10) {
+	        return false;
+	    }
+	});
+  
+  $(document).ready(function() {
+	  
+	    /*$('input[type=radio][name=vatCstCompIsVikasKhand][value=yes]').change(function() {
+	      if ($(this).is(':checked')) {
+	            $("#vikasKhandDiv1").css("display", "");
+	            $("#vikasKhandDiv2").css("display", "");
+	
+	        }
+	    });
+	    $('input[type=radio][name=vatCstCompIsVikasKhand][value=no]').change(function() {
+		      if ($(this).is(':checked')) {
+		            $("#vikasKhandDiv1").css("display", "none");
+		            $("#vikasKhandDiv2").css("display", "none");
+
+		        }
+		});*/
+	    
+	    $('#selectIndustryType').on('change', function() {
+	    	  if(this.value=='textile'){
+	    		  $('#textileIndDiv').css("display", "");  
+	    	      $('#paidVatCstAmtDiv').css("display", "");
+	    	      if($('#selectActivityType').val()=='cottonGinning'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid CST Amount on Interstate Selling of Cotton Ginning (in Rs.)");
+	    	      }
+	    	      else if($('#selectActivityType').val()=='spinningMill'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid CST Amount on Interstate Selling of Spinning Mill (in Rs.)");
+	    	      }
+	    	      else if($('#selectActivityType').val()=='clotheRegeneration'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid VAT Amount on buying of Cotton Yarn by Regenerative Unit (in Rs.)");
+	    	      }
+	    	      else if($('#selectActivityType').val()=='readymadeGarment'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid VAT and CST Amount on Selling of Readymade Garment/Apparel (in Rs.)");
+	    	      }else{
+	    	    	  $('#paidVatCstAmtDiv').css("display", "none");
+	    	      }
+	    	      
+	    	  }else if (this.value=='others'){
+	    		  $('#textileIndDiv').css("display", "none");  
+	    		  $('#paidVatCstAmtDiv').css("display", "");
+	    		  $("#paidVatCstAmtLabel").text("Amount of Deposited Price Enhanced Tax and Central Sell Tax (In which Price Enhanced Tax on Raw Material Sell not included but Input Tax Rebet is included)");
+	    	  }else{
+	    		  $('#textileIndDiv').css("display", "none");
+	    		  $('#paidVatCstAmtDiv').css("display", "none");
+	    	  }
+	    });
+	    
+	    $('#selectActivityType').on('change', function() {
+	    	      $('#paidVatCstAmtDiv').css("display", "");
+	    	      if(this.value=='cottonGinning'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid CST Amount on Interstate Selling of Cotton Ginning (in Rs.)");
+	    	      }
+	    	      else if(this.value=='spinningMill'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid CST Amount on Interstate Selling of Spinning Mill (in Rs.)");
+	    	      }
+	    	      else if(this.value=='clotheRegeneration'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid VAT Amount on buying of Cotton Yarn by Regenerative Unit (in Rs.)");
+	    	      }
+	    	      else if(this.value=='readymadeGarment'){
+	    	    	  $("#paidVatCstAmtLabel").text("Paid VAT and CST Amount on Selling of Readymade Garment/Apparel (in Rs.)");
+	    	      }else{
+	    	    	  $('#paidVatCstAmtDiv').css("display", "none");
+	    	      }
+	    });
+	    
+	    /*$("input:checkbox").on('change', function() {
+	    	var sectionId="#"+$(this).val();
+	    	if(this.checked){
+	    		$(sectionId).css("display", "");
+	    	}else{
+	    		$(sectionId).css("display", "none");
+	    	}
+       });*/
+	    
+	});
+  
+  
+});
+
+function txtQtyChange(event){
+	if (event.shiftKey == true) {
+        return false;
+    }
+    if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190) {
+    	    	return true;
+    } else {
+        return false;
+    }
+    if($(this).val().indexOf('.') !== -1 && event.keyCode == 190){
+    	    return false;
+    }else{
+	    	return true;
+    }
+}

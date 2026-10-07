@@ -1,0 +1,211 @@
+
+	
+	$('.date').datetimepicker({
+		
+		lang:'ch',
+		timepicker:false,
+		format:'d/m/Y',
+		});
+	
+	$('.date').keypress(function() {
+	    
+	    return false;
+	    
+	});
+	
+	
+		$(function() {
+
+			$(document)
+					.ready(
+							function() {
+
+								/*$('input[type=radio][name=vatCstCompIsVikasKhand][value=yes]').change(function() {
+								  if ($(this).is(':checked')) {
+								        $("#vikasKhandDiv1").css("display", "");
+								        $("#vikasKhandDiv2").css("display", "");
+								
+								    }
+								});
+								$('input[type=radio][name=vatCstCompIsVikasKhand][value=no]').change(function() {
+								      if ($(this).is(':checked')) {
+								            $("#vikasKhandDiv1").css("display", "none");
+								            $("#vikasKhandDiv2").css("display", "none");
+
+								        }
+								});*/
+
+								$('#selectIndustryType')
+										.on(
+												'change',
+												function() {
+													if (this.value == 'textile') {
+														$('#textileIndDiv')
+																.css("display",
+																		"");
+														$('#paidVatCstAmtDiv')
+																.css("display",
+																		"");
+														if ($(
+																'#selectActivityType')
+																.val() == 'cottonGinning') {
+															$(
+																	"#paidVatCstAmtLabel")
+																	.text(
+																			"Paid CST Amount on Interstate Selling of Cotton Ginning (in Rs.)");
+														} else if ($(
+																'#selectActivityType')
+																.val() == 'spinningMill') {
+															$(
+																	"#paidVatCstAmtLabel")
+																	.text(
+																			"Paid CST Amount on Interstate Selling of Spinning Mill (in Rs.)");
+														} else if ($(
+																'#selectActivityType')
+																.val() == 'clotheRegeneration') {
+															$(
+																	"#paidVatCstAmtLabel")
+																	.text(
+																			"Paid VAT Amount on buying of Cotton Yarn by Regenerative Unit (in Rs.)");
+														} else if ($(
+																'#selectActivityType')
+																.val() == 'readymadeGarment') {
+															$(
+																	"#paidVatCstAmtLabel")
+																	.text(
+																			"Paid VAT and CST Amount on Selling of Readymade Garment/Apparel (in Rs.)");
+														} else {
+															$(
+																	'#paidVatCstAmtDiv')
+																	.css(
+																			"display",
+																			"none");
+														}
+
+													} else if (this.value == 'others') {
+														$('#textileIndDiv')
+																.css("display",
+																		"none");
+														$('#paidVatCstAmtDiv')
+																.css("display",
+																		"");
+														$("#paidVatCstAmtLabel")
+																.text(
+																		"Amount of Deposited Price Enhanced Tax and Central Sell Tax (In which Price Enhanced Tax on Raw Material Sell not included but Input Tax Rebet is included)");
+													} else {
+														$('#textileIndDiv')
+																.css("display",
+																		"none");
+														$('#paidVatCstAmtDiv')
+																.css("display",
+																		"none");
+													}
+												});
+
+								$('#selectActivityType')
+										.on(
+												'change',
+												function() {
+													$('#paidVatCstAmtDiv').css(
+															"display", "");
+													if (this.value == 'cottonGinning') {
+														$("#paidVatCstAmtLabel")
+																.text(
+																		"Paid CST Amount on Interstate Selling of Cotton Ginning (in Rs.)");
+													} else if (this.value == 'spinningMill') {
+														$("#paidVatCstAmtLabel")
+																.text(
+																		"Paid CST Amount on Interstate Selling of Spinning Mill (in Rs.)");
+													} else if (this.value == 'clotheRegeneration') {
+														$("#paidVatCstAmtLabel")
+																.text(
+																		"Paid VAT Amount on buying of Cotton Yarn by Regenerative Unit (in Rs.)");
+													} else if (this.value == 'readymadeGarment') {
+														$("#paidVatCstAmtLabel")
+																.text(
+																		"Paid VAT and CST Amount on Selling of Readymade Garment/Apparel (in Rs.)");
+													} else {
+														$('#paidVatCstAmtDiv')
+																.css("display",
+																		"none");
+													}
+												});
+
+								/*$("input:checkbox").on('change', function() {
+									var sectionId="#"+$(this).val();
+									if(this.checked){
+										$(sectionId).css("display", "");
+									}else{
+										$(sectionId).css("display", "none");
+									}
+								});*/
+
+							});
+
+		});
+	
+
+
+function loaddata()
+{
+ var no=document.getElementById( "certificationNumber" );
+	
+ if(name!=null)
+ {
+ $.ajax({
+    		    url : "http://"+document.location.hostname+":"+document.location.port+"/mpmsme/applicant/getcertifcateDetail",
+    		    data: { a:no},
+    		    type: "GET",
+    		    dataType: 'json',
+    		    cors: true ,
+         	 	contentType:'application/json',
+         	 	
+                    headers: {
+						
+						'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                        'Access-Control-Allow-Origin':'*'
+                      	
+                    },
+                   
+         		 
+    		    success: function(data)
+    		    {
+					alert("dd");
+    		        $("#BronzeCertified").val(data.CertificationDetails.BronzeCertified);
+    		        $("#ExpiryDate").val(data.CertificationDetails.ExpiryDate);
+    		        $("#SilverCertified").val(data.CertificationDetails.SilverCertified);
+    		        $("#GoldCertified").val(data.CertificationDetails.GoldCertified);
+    		        
+    		    console.log(data.CertificationDetails.BronzeCertified);
+    		    alert(document.location.pathname);
+    		    },
+    		    error: function (errorThrown)
+    		    {
+    		    	console.log(errorThrown);
+    		 
+    		    }
+    		   });
+ }
+	
+}
+
+
+
+    $(function () {
+        function getToday() {
+            const now = new Date();
+            return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        }
+
+        $('#caFirstSellBillDate').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            maxDate: getToday(),
+            scrollInput: false
+        });
+
+        // Prevent manual typing
+        $('#caFirstSellBillDate').on('keypress paste', function (e) {
+            e.preventDefault();
+        });
+    });

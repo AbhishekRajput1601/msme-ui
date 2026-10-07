@@ -42,7 +42,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const [sidebarHidden, setSidebarHidden] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [copyrightYear] = useState(() => new Date().getFullYear())
-  const [openSubmenus, setOpenSubmenus] = useState({ land: location.pathname.includes('land-allotment') })
+  const [openSubmenus, setOpenSubmenus] = useState({ land: location.pathname.includes('land-allotment'), fa: location.pathname.includes('financial-assistance') || location.pathname.includes('/fa') })
   const { isWarning, countdown, stayLoggedIn, logoutNow } = useSessionTimeout({ timeoutSeconds: 1800, warningSeconds: 120, enabled: true })
   const primaryRole = roles[0]?.replace('ROLE_', '') || 'APPLICANT'
   const formattedRole = useMemo(() => {
