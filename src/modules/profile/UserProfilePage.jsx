@@ -24,6 +24,10 @@ export default function UserProfilePage() {
     fatherOrHusbandFirstName: '',
     fatherOrHusbandMiddleName: '',
     fatherOrHusbandLastName: '',
+    nameOfUnit: '',
+    aadhaarNumber: '',
+    benificiaryUser: '0',
+    samagraId: '',
     emailId: '',
     mobileNumber: '',
     telephoneNumber: '',
@@ -56,7 +60,9 @@ export default function UserProfilePage() {
     permanentCity: '',
     permanentStateId: '20',
     permanentDistrictId: 'Bhopal',
+    permanentTehsilId: '',
     permanentTehsilName: 'Huzur',
+    permanentBlockId: '',
     permanentBlockName: 'Phanda',
     permanentPinCode: '',
   })
@@ -80,11 +86,17 @@ export default function UserProfilePage() {
             ...data,
             userId: data.userId || currentUser?.username || 'APPLICANT',
             roleName: data.roleName || 'ROLE_APPLICANT',
+            nameOfUnit: data.nameOfUnit || '',
+            aadhaarNumber: data.aadhaarNumber || '',
+            benificiaryUser: String(data.benificiaryUser !== undefined ? data.benificiaryUser : '0'),
+            samagraId: data.samagraId || '',
             domicile: data.domicile || 'Yes',
             minority: String(data.minority || '0'),
             physicallyDisabled: String(data.physicallyDisabled || '0'),
             genderId: String(data.genderId || '1'),
             categoryId: String(data.categoryId || '1'),
+            permanentTehsilId: data.permanentTehsilId || '',
+            permanentBlockId: data.permanentBlockId || '',
           }))
         }
       })
@@ -116,7 +128,9 @@ export default function UserProfilePage() {
             permanentCity: prev.city,
             permanentStateId: prev.stateId,
             permanentDistrictId: prev.districtId,
+            permanentTehsilId: prev.tehsilId,
             permanentTehsilName: prev.tehsilId,
+            permanentBlockId: prev.blockId,
             permanentBlockName: prev.blockId,
             permanentPinCode: prev.pinCode,
           }
@@ -477,11 +491,55 @@ export default function UserProfilePage() {
                     </select>
                   </div>
                 </div>
+
+                {formData.categoryId !== '1' && (
+                  <div className="col-md-3 col-sm-6">
+                    <div className="form-group">
+                      <label style={{ fontSize: '11px' }}>
+                        {hindi ? 'जाति प्रमाण पत्र अपलोड (PDF ≤500KB)' : 'Upload Caste Certificate (PDF ≤500KB)'}
+                      </label>
+                      <input
+                        type="file"
+                        name="categoryUpload"
+                        className="form-control"
+                        accept=".pdf,.jpg,.jpeg"
+                        onChange={handleFileChange}
+                        disabled={!isEditing}
+                      />
+                      {files.categoryUpload && (
+                        <div style={{ fontSize: '11px', color: '#2e7d32', marginTop: '2px' }}>
+                          <i className="fa fa-check-circle" /> {files.categoryUpload.name}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Domicile, Minority, Disability */}
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label>
+                      {hindi ? 'इकाई / उद्यम का नाम' : 'Name of Unit / Industry'} <span className="required-star">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="nameOfUnit"
+                      maxLength={100}
+                      className="form-control"
+                      value={formData.nameOfUnit || ''}
+                      onChange={handleChange}
+                      disabled={!isEditing}
+                      placeholder={hindi ? 'इकाई / उद्यम का नाम दर्ज करें' : 'Enter Name of Unit / Industry'}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Domicile, Minority, Disability & Beneficiary */}
               <div className="row" style={{ backgroundColor: '#f9f9f9', padding: '10px 0', margin: '5px 0 15px', border: '1px solid #eee' }}>
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-3 col-sm-6">
                   <label>
                     {hindi ? 'क्या आप मध्य प्रदेश के मूल निवासी हैं?' : 'Are you a Domicile of M.P.?'} <span className="required-star">*</span>
                   </label>
@@ -509,7 +567,7 @@ export default function UserProfilePage() {
                   </div>
                 </div>
 
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-3 col-sm-6">
                   <label>
                     {hindi ? 'क्या आप अल्पसंख्यक वर्ग से हैं?' : 'Do you belong to Minority Category?'} <span className="required-star">*</span>
                   </label>
@@ -537,7 +595,7 @@ export default function UserProfilePage() {
                   </div>
                 </div>
 
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-3 col-sm-6">
                   <label>
                     {hindi ? 'क्या आप दिव्यांग हैं?' : 'Are you Physically Disabled?'} <span className="required-star">*</span>
                   </label>
@@ -564,7 +622,57 @@ export default function UserProfilePage() {
                     </label>
                   </div>
                 </div>
+
+                <div className="col-md-3 col-sm-6">
+                  <label>
+                    {hindi ? 'अ.जा./अ.ज.जा. लाभ प्राप्त करना चाहते हैं?' : 'Avail SC/ST benefits?'} <span className="required-star">*</span>
+                  </label>
+                  <div style={{ marginTop: '5px' }}>
+                    <label className="radio-inline" style={{ marginRight: '15px' }}>
+                      <input
+                        type="radio"
+                        name="benificiaryUser"
+                        value="1"
+                        checked={formData.benificiaryUser === '1'}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                      /> Yes
+                    </label>
+                    <label className="radio-inline">
+                      <input
+                        type="radio"
+                        name="benificiaryUser"
+                        value="0"
+                        checked={formData.benificiaryUser === '0'}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                      /> No
+                    </label>
+                  </div>
+                </div>
               </div>
+
+              {formData.benificiaryUser === '1' && (
+                <div className="row" style={{ marginBottom: '10px' }}>
+                  <div className="col-md-4 col-sm-6">
+                    <div className="form-group">
+                      <label>
+                        {hindi ? 'समग्र आईडी' : 'Samagra ID'} <span className="required-star">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="samagraId"
+                        maxLength={35}
+                        className="form-control"
+                        value={formData.samagraId || ''}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        placeholder={hindi ? 'समग्र आईडी दर्ज करें' : 'Enter Samagra ID'}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Section 3: Contact Details */}
               <div className="gov-sub-heading">
@@ -641,8 +749,38 @@ export default function UserProfilePage() {
                 4. {hindi ? 'पहचान एवं सत्यापन दस्तावेज़' : 'Identity Verification & Statutory Documents'}
               </div>
               <div className="row">
+                {/* Aadhaar Number */}
+                <div className="col-md-3 col-sm-6">
+                  <div className="panel panel-default">
+                    <div className="panel-heading" style={{ fontSize: '13px' }}>
+                      {hindi ? 'आधार विवरण' : 'Aadhaar Identification'}
+                    </div>
+                    <div className="panel-body">
+                      <div className="form-group">
+                        <label>Aadhaar Number (12-digit)</label>
+                        <input
+                          type="text"
+                          name="aadhaarNumber"
+                          maxLength={12}
+                          className="form-control"
+                          value={formData.aadhaarNumber || ''}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/\D/g, '').slice(0, 12)
+                            setFormData((prev) => ({ ...prev, aadhaarNumber: val }))
+                          }}
+                          disabled={!isEditing}
+                          placeholder="123456789012"
+                        />
+                      </div>
+                      <p style={{ fontSize: '11px', color: '#777', marginTop: '10px' }}>
+                        {hindi ? '12 अंकों का वैध आधार नंबर' : 'Valid 12-digit UIDAI number'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* PAN Number */}
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-3 col-sm-6">
                   <div className="panel panel-default">
                     <div className="panel-heading" style={{ fontSize: '13px' }}>
                       {hindi ? 'पैन कार्ड विवरण' : 'Permanent Account Number (PAN)'} <span className="required-star">*</span>
@@ -661,23 +799,28 @@ export default function UserProfilePage() {
                           placeholder="ABCDE1234F"
                         />
                       </div>
-                      {isEditing && (
-                        <div className="form-group">
-                          <label style={{ fontSize: '11px', color: '#666' }}>Upload PAN (PDF/JPEG &lt;500KB)</label>
-                          <input
-                            type="file"
-                            name="panUpload"
-                            accept=".pdf,.jpg,.jpeg"
-                            onChange={handleFileChange}
-                          />
-                        </div>
-                      )}
+                      <div className="form-group" style={{ marginTop: '10px' }}>
+                        <label style={{ fontSize: '11px', color: '#666' }}>Upload PAN (PDF/JPEG &lt;500KB)</label>
+                        <input
+                          type="file"
+                          name="panUpload"
+                          className="form-control"
+                          accept=".pdf,.jpg,.jpeg"
+                          onChange={handleFileChange}
+                          disabled={!isEditing}
+                        />
+                        {files.panUpload && (
+                          <div style={{ fontSize: '11px', color: '#2e7d32', marginTop: '3px' }}>
+                            <i className="fa fa-check-circle" /> {files.panUpload.name}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Proof of Identity */}
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-3 col-sm-6">
                   <div className="panel panel-default">
                     <div className="panel-heading" style={{ fontSize: '13px' }}>
                       {hindi ? 'पहचान का प्रमाण' : 'Proof of Identity (POI)'} <span className="required-star">*</span>
@@ -710,23 +853,28 @@ export default function UserProfilePage() {
                           placeholder="ID Number"
                         />
                       </div>
-                      {isEditing && (
-                        <div className="form-group">
-                          <label style={{ fontSize: '11px', color: '#666' }}>Upload POI (PDF/JPEG &lt;500KB)</label>
-                          <input
-                            type="file"
-                            name="proofOfIdentityUpload"
-                            accept=".pdf,.jpg,.jpeg"
-                            onChange={handleFileChange}
-                          />
-                        </div>
-                      )}
+                      <div className="form-group" style={{ marginTop: '10px' }}>
+                        <label style={{ fontSize: '11px', color: '#666' }}>Upload POI (PDF/JPEG &lt;500KB)</label>
+                        <input
+                          type="file"
+                          name="proofOfIdentityUpload"
+                          className="form-control"
+                          accept=".pdf,.jpg,.jpeg"
+                          onChange={handleFileChange}
+                          disabled={!isEditing}
+                        />
+                        {files.proofOfIdentityUpload && (
+                          <div style={{ fontSize: '11px', color: '#2e7d32', marginTop: '3px' }}>
+                            <i className="fa fa-check-circle" /> {files.proofOfIdentityUpload.name}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Proof of Address */}
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-3 col-sm-6">
                   <div className="panel panel-default">
                     <div className="panel-heading" style={{ fontSize: '13px' }}>
                       {hindi ? 'पते का प्रमाण' : 'Proof of Address (POA)'} <span className="required-star">*</span>
@@ -747,17 +895,22 @@ export default function UserProfilePage() {
                           <option value="Bank Passbook">Bank Passbook</option>
                         </select>
                       </div>
-                      {isEditing && (
-                        <div className="form-group" style={{ marginTop: '20px' }}>
-                          <label style={{ fontSize: '11px', color: '#666' }}>Upload POA (PDF/JPEG &lt;500KB)</label>
-                          <input
-                            type="file"
-                            name="proofOfAddressUpload"
-                            accept=".pdf,.jpg,.jpeg"
-                            onChange={handleFileChange}
-                          />
-                        </div>
-                      )}
+                      <div className="form-group" style={{ marginTop: '10px' }}>
+                        <label style={{ fontSize: '11px', color: '#666' }}>Upload POA (PDF/JPEG &lt;500KB)</label>
+                        <input
+                          type="file"
+                          name="proofOfAddressUpload"
+                          className="form-control"
+                          accept=".pdf,.jpg,.jpeg"
+                          onChange={handleFileChange}
+                          disabled={!isEditing}
+                        />
+                        {files.proofOfAddressUpload && (
+                          <div style={{ fontSize: '11px', color: '#2e7d32', marginTop: '3px' }}>
+                            <i className="fa fa-check-circle" /> {files.proofOfAddressUpload.name}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
