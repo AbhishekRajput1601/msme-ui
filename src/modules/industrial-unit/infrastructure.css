@@ -1,0 +1,41 @@
+/* Infrastructure templates use the original panel/table layout, independently
+   of the compact, centered Industrial Unit wizard overrides. */
+.legacy-portal .infrastructure-page { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; color: #333; }
+.legacy-portal .infrastructure-page .page-header { margin: 40px 0 20px; padding-bottom: 9px; border-bottom: 1px solid #eee; }
+.legacy-portal .infrastructure-page .panel { margin-bottom: 20px; background-color: #fff; border: 1px solid #bce8f1; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
+.legacy-portal .infrastructure-form .panel { display: inline-table; width: 100%; }
+.legacy-portal .infrastructure-page .panel-heading { padding: 10px 15px; color: #31708f; background-color: #d9edf7; border-bottom: 1px solid #bce8f1; border-radius: 3px 3px 0 0; text-align: left; font-weight: 400; }
+.legacy-portal .infrastructure-page .panel-body { padding: 15px; }
+.legacy-portal .infrastructure-page .table { width: 100%; margin-bottom: 20px; border-collapse: collapse; }
+.legacy-portal .infrastructure-page .table > :not(caption) > * > * { padding: 8px; line-height: 1.42857143; vertical-align: top; color: #333; background-color: transparent; box-shadow: none; border-top: 1px solid #ddd; }
+.legacy-portal .infrastructure-page .table > thead > tr > th { vertical-align: bottom; border-bottom: 2px solid #ddd; border-top: 0; }
+.legacy-portal .infrastructure-page .table > tbody > tr.success > td { background-color: #dff0d8; }
+.legacy-portal .infrastructure-page .table > tbody > tr.info > td { background-color: #d9edf7; }
+.legacy-portal .infrastructure-page .table-striped > tbody > tr:nth-of-type(odd) > td { background-color: #f9f9f9; }
+.legacy-portal .infrastructure-page .table-hover > tbody > tr:hover > td { background-color: #f5f5f5; }
+.legacy-portal .infrastructure-page .table-bordered, .legacy-portal .infrastructure-page .table-bordered td, .legacy-portal .infrastructure-page .table-bordered th { border: 1px solid #ddd; }
+.legacy-portal .infrastructure-page .btn { padding: 6px 9px; font-size: 14px; line-height: 1.42857143; border: 1px solid transparent; border-radius: 4px; }
+.legacy-portal .infrastructure-page .btn-primary { color: #fff; background-color: #337ab7; border-color: #2e6da4; }
+.legacy-portal .infrastructure-page .btn-primary:hover { background-color: #286090; border-color: #204d74; }
+.legacy-portal .infrastructure-page .btn-success { color: #fff; background-color: #5cb85c; border-color: #4cae4c; }
+.legacy-portal .infrastructure-page .btn-success:hover { background-color: #449d44; border-color: #398439; }
+.legacy-portal .infrastructure-page .aestrick { color: red; }
+.legacy-portal .infrastructure-page label { font-weight: 700; }
+.legacy-portal .infrastructure-page .form-group { margin-bottom: 15px; }
+.legacy-portal .infrastructure-page .help-block { margin-top: 5px; margin-bottom: 10px; color: #737373; }
+.legacy-portal .infrastructure-page .res_div { overflow-x: auto; }
+.legacy-portal .infrastructure-table-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0; }
+.legacy-portal .infrastructure-table-controls label { font-weight: normal; }
+.legacy-portal .infrastructure-table-controls input, .legacy-portal .infrastructure-table-controls select { border: 1px solid #ccc; border-radius: 4px; padding: 5px 10px; }
+.legacy-portal .infrastructure-table-controls .pagination { margin: 0; }
+.legacy-portal .infrastructure-table-controls button { padding: 6px 12px; border: 1px solid #ddd; background: #fff; color: #337ab7; }
+.legacy-portal .infrastructure-table-controls button[aria-current=page] { color: #fff; background: #337ab7; }
+.legacy-portal .infrastructure-table-controls button:disabled { color: #777; cursor: not-allowed; }
+@media print {
+  body:has(.infrastructure-detail #ms) * { visibility: hidden; }
+  body:has(.infrastructure-detail #ms) .legacy-portal { height: auto; max-height: none; overflow: visible; }
+  body:has(.infrastructure-detail #ms) .portal-body,
+  body:has(.infrastructure-detail #ms) #page-wrapper { display: block; height: auto; overflow: visible; }
+  .infrastructure-detail #ms, .infrastructure-detail #ms * { visibility: visible !important; }
+  .infrastructure-detail #ms { position: absolute; top: 0; left: 0; width: 100%; margin: 0 !important; }
+}

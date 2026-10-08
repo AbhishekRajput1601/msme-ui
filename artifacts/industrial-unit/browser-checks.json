@@ -1,11 +1,18 @@
 {
   "passed": true,
   "mode": "Controlled fixtures; no live submissions",
-  "requests": 61,
+  "requests": 74,
   "dialogs": [
     "Please enter both Investment Amount and Turnover Amount.",
     "Are you sure you want to save the data?",
-    "Are you sure you want to save the data?"
+    "Are you sure you want to save the data?",
+    "Please upload Application Form!",
+    "Please upload Project Report!",
+    "Please upload Land owenership documents!",
+    "Please upload Land use document(Copy of Khasara)!",
+    "Please Map of Land",
+    "Map showing the distance from nearest power station document file size should not exceed 5 MB",
+    "Your application number is 71"
   ],
   "errors": []
 }

@@ -57,6 +57,7 @@ import LandAnnualReviewPage from '../modules/id/applicant/LandAnnualReviewPage'
 import LandReceiptPage from '../modules/id/applicant/LandReceiptPage'
 import LandNoticesPage from '../modules/id/applicant/LandNoticesPage'
 import LandSigningPage from '../modules/id/applicant/LandSigningPage'
+import LandLinkedPage from '../modules/id/applicant/reference/LandLinkedPage'
 
 // Profile & Account Management
 import UserProfilePage from '../modules/profile/UserProfilePage'
@@ -144,7 +145,7 @@ export default function AppRoutes() {
         {/* Pilot Module: Industrial Land Allotment (ID) */}
         <Route path="land-allotment" element={<LandApplicationsPage />} />
         <Route path="land-allotment/new" element={<LandAllotmentPage />} />
-        <Route path="land-allotment/explore" element={<LandAllotmentPage />} />
+        <Route path="land-allotment/explore" element={<LandAllotmentPage undeveloped />} />
         <Route path="land-allotment/detail/:id" element={<ApplicationDetailPage />} />
         <Route path="land-allotment/instructions/:parcelToken" element={<LandInstructionsPage />} />
         <Route path="land-allotment/instructions-undeveloped/:parcelToken" element={<LandInstructionsPage undeveloped />} />
@@ -171,6 +172,7 @@ export default function AppRoutes() {
         <Route path="land-allotment/notices/:mode/:id/:decisionId" element={<LandNoticesPage />} />
         <Route path="land-allotment/appeal-review/:appealId" element={<LandAnnualReviewPage appeal />} />
         <Route path="land-allotment/sign/:applicantId/:parcelToken" element={<LandSigningPage />} />
+        <Route path="land-allotment/reference/*" element={<LandLinkedPage />} />
         <Route path="financial-assistance" element={<IndustrialUnitPage />} />
         <Route path="financial-assistance/*" element={<IndustrialUnitPage />} />
         <Route path="fa" element={<IndustrialUnitPage />} />

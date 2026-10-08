@@ -66,6 +66,10 @@ export default function DepartmentLayout() {
           </svg>
         ),
       },
+      ...(roles.includes('ROLE_FA') ? [{
+        label: 'Application for Infrastructure Development Permission',
+        href: '/department/fa/infradevelopmetList',
+      }] : []),
       {
         label: t('nav.allApplications', 'All Applications Repository'),
         href: '/department/applications',
@@ -85,7 +89,7 @@ export default function DepartmentLayout() {
         ),
       },
     ],
-    [t],
+    [t, roles],
   )
 
   return (

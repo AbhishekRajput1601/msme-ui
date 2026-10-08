@@ -114,9 +114,21 @@ def node(el):
         result['tag'] = 'section'
     return result
 
+NAMES += ['viewfaInfrastructure']
 for name in NAMES:
     path = ROOT / 'pages/applicant/fa' / (name + '.html')
+    if name == 'viewfaInfrastructure':
+        path = ROOT / 'pages/fa' / (name + '.html')
     soup = BeautifulSoup(path.read_text(encoding='utf-8'), 'html.parser')
+    if name == 'viewfaInfrastructure':
+        # Match the tbody inserted by the browser when it parses the old HTML.
+        for table in soup.find_all('table'):
+            rows = table.find_all('tr', recursive=False)
+            if rows:
+                body = soup.new_tag('tbody')
+                rows[0].insert_before(body)
+                for row in rows:
+                    body.append(row.extract())
     for c in soup.find_all(string=lambda s: isinstance(s, Comment)): c.extract()
     inventory[name] = {
         'source': str(path.relative_to(ROOT)),
@@ -138,7 +150,10 @@ lines.append(']\n')
 (OUT / 'expressions.js').write_text('\n'.join(lines), encoding='utf-8')
 (OUT / 'reference.css').write_text('@scope (.industrial-unit-page) {\n' + '\n'.join(dict.fromkeys(styles)) + '\n}\n', encoding='utf-8')
 (OUT / 'views.js').write_text('\n'.join('import '+n+" from './"+n+".json'" for n in NAMES) + '\nexport default {' + ','.join(NAMES) + '}\n', encoding='utf-8')
-translations = {}
+translation_path = OUT / 'translations.json'
+# The application also supplies reviewed translations for other Industrial Unit
+# screens. Recompiling these templates must not discard those entries.
+translations = json.loads(translation_path.read_text(encoding='utf-8')) if translation_path.exists() else {}
 for locale in ['en_US', 'hi_IN']:
     candidates = list(ROOT.parent.rglob('views_' + locale + '.properties'))
     values = {}
@@ -148,8 +163,10 @@ for locale in ['en_US', 'hi_IN']:
             k,v = line.split('=', 1)
             if k.strip() in keys:
                 values[k.strip()] = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m[1], 16)), v.strip())
-    translations[locale[:2]] = values
-(OUT / 'translations.json').write_text(json.dumps(translations, ensure_ascii=False), encoding='utf-8')
+    existing = translations.setdefault(locale[:2], {})
+    for key, value in values.items():
+        existing.setdefault(key, value)
+translation_path.write_text(json.dumps(translations, ensure_ascii=False, indent=2), encoding='utf-8')
 audit = Path('artifacts/industrial-unit')
 audit.mkdir(parents=True, exist_ok=True)
 (audit / 'reference-inventory.json').write_text(json.dumps(inventory, ensure_ascii=False, indent=2), encoding='utf-8')

@@ -11,10 +11,10 @@ const applicantMenu = [
   { key: 'dashboard', label: 'Dashboard', href: '/applicant/dashboard', iconName: 'dashboard' },
   { key: 'fa', label: 'For Established Units(Financial Assistance)', iconName: 'bar-chart-o', children: [
     { label: 'Industrial Unit', href: '/applicant/financial-assistance' },
-    { label: 'Infrastructure Permission', href: '/applicant/financial-assistance/infrastructure' },
+    { label: 'Application for Infrastructure Development Permission', href: '/applicant/financial-assistance/infrastructure' },
     { label: 'Add Unit Details', href: '/applicant/financial-assistance/add-unit' },
   ] },
-  { key: 'land', label: 'Apply for MSME Industrial Land', iconName: 'bar-chart-o', children: [
+  { key: 'land', label: 'Infrastructure Development', iconName: 'bar-chart-o', children: [
     { label: 'Developed Land Allotment', href: '/applicant/land-allotment/new' },
     { label: 'Undeveloped Land Allotment', href: '/applicant/land-allotment/explore' },
     { label: 'Applications List', href: '/applicant/land-allotment' },

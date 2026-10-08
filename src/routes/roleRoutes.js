@@ -308,7 +308,7 @@ export const LEGACY_HASH_TRANSLATIONS = Object.freeze({
   '#/updateprofile': '/profile',
   '#/updateprofileapplicant': '/profile',
   '#/updateindustryprofileapplicant': '/industry-profile',
-  '#/id/landAllotment': '/land-allotment/explore',
+  '#/id/landAllotment': '/land-allotment/new',
   '#/id/landAllotmentUN': '/land-allotment/explore',
   '#/id/landApplications': '/land-allotment',
   '#/id/vacantLands': '/land-allotment/explore',
@@ -347,10 +347,17 @@ export function resolveLegacyHashRoute(pathname, hash = '') {
   cleanPath = cleanPath.replace(/\/+$/, '')
 
   const baseReactPath = LEGACY_PATH_MAP[cleanPath] || '/applicant'
+  const infrastructureHash = hash.replace(/^#\/?/, '')
+  if (baseReactPath.startsWith('/department') && /^(?:fa\/)?(?:infradevelopmetList|viewfaInfrastructure)(?:\/|$)/i.test(infrastructureHash)) {
+    return '/department/fa/' + infrastructureHash.replace(/^fa\//i, '')
+  }
 
   // Preserve applicant IDs and opaque parcel tokens from old land bookmarks.
   if (baseReactPath === '/applicant') {
     const landHash = hash.replace(/^#\/?/, '')
+    const landLists = { 'id/landAllotment':'new', 'id/landAllotmentUN':'explore', 'id/landApplications':'', 'id/annualPayments':'annual', 'id/noticeAppealList':'notices' }
+    if (landHash in landLists) return '/applicant/land-allotment/' + landLists[landHash]
+    if (/^(uploadLOC|viewLOCDetails|locPaymentDetails|reviewLocPayment|id\/retryLOCPayment|id\/updatePossessionLetter|id\/tenderDetails)\//.test(landHash)) return '/applicant/land-allotment/reference/' + landHash
     if (/^fa\/(?:newapplicantform|newapplicantsingleform|viewfaapplicantdetailunit|viewfaapplicantdetailunitnew|viewfaschemesdetailsunit|fetchfaschemes|viewfadocumentsuploadunit|viewfaapplicantHistory|viewfaDisbursementUnit|viewfaacceptanceamountdetailunit|queryReplyByApplicant|fetchquerybydtic|infradevelopmetform|addUnitDetailsform)(?:\/|$)/.test(landHash)) {
       return `/applicant/financial-assistance/${landHash.slice(3)}`
     }

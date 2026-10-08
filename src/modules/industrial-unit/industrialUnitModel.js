@@ -1,6 +1,7 @@
 import { installReferenceActions } from './generated/referenceActions'
 import { createRequests, getUnitData, saveUnitData } from './industrialUnitService'
 import { backendPath, faPath, filter, parseDate } from './viewHelpers'
+import { infrastructureUpload } from './infrastructureModel'
 
 export function productionPolicy(value) {
   const date = parseDate(value)
@@ -101,7 +102,7 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
     setFinalSubmit() { state.saveAsDraft = false; state.saveAndNext = false; state.finalSubmit = true },
     goToPreviousTab(_from, to) { state.step = Number(to.replace('#step','')); state.maxStep = state.step },
     reload() { state.UnitAddressDetailsBean = {}; state.faUnitAddressDetails = {}; refresh() },
-    resetForm() { for (let i = 1; i <= 10; i++) state['doc'+i] = null; document.querySelectorAll('.industrial-unit-page input[type=file]').forEach(el => { el.value = '' }); state.isDisabled = false },
+    resetForm() { for (let i = 1; i <= 10; i++) { state['doc'+i] = null; const input = document.getElementById('doc'+i); if (input) input.value = '' } },
     getTehsils: async blockId => { state.tehsils = await get('fetchtehsilmapbyblock', { blockId }); refresh() },
     async setUnitDetails(id) {
       const unit = state.unitList.find(item => String(item.unitAddressId) === String(id))
@@ -159,14 +160,10 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
     addFaIndustrialSchemeDetails: valid => saveScheme(valid, false),
     addFaTenCRIndustrialSchemeDetails: valid => saveScheme(valid, true),
     saveInfrastructure() {
-      const mapping = ['applicationFileDoc','projectReportFileDoc','ownershipDoc','khasaraDoc','electricalInstallationFileDoc','approachRoadFileDoc','approachRoadNocDoc','waterEstimateDoc','landMapDoc','electricalInstallationMapDoc']
-      const body = new FormData()
-      for (let i = 1; i <= 10; i++) {
-        const file = state['doc'+i]
-        if (!file && [1,2,3,4,9].includes(i)) { window.alert('Please upload ' + mapping[i-1]); return }
-        if (file?.size > 5242880) { window.alert('File size should not exceed 5 MB'); return }
-        if (file) body.append(mapping[i-1], file)
-      }
+      if (state.isDisabled) return
+      let body
+      try { body = infrastructureUpload(state) }
+      catch (error) { window.alert(error.message); return }
       return save(async () => { const response = await post('saveInfrstructureDevelopment', {}); if (!response.id) throw new Error('The server did not return an application ID.'); body.append('id',response.id); const result = await post('uploadInfrastructureDocument',body); state.responseObject = result; state.isDisabled = true; window.alert('Your application number is '+result.id) })
     },
     uploadFADocuments() {

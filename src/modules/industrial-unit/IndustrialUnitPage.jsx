@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import IndustrialView from './IndustrialView'
 import IndustrialUnitList from './IndustrialUnitList'
+import InfrastructurePages from './InfrastructurePages'
 import { createIndustrialState } from './industrialUnitModel'
 import { getUnitData } from './industrialUnitService'
 import './generated/reference.css'
@@ -57,6 +58,7 @@ function UnitContent({ route, id, establishmentType, locale }) {
       signal: abort.signal,
       locale,
     })
+    if (resolveIndustrialView(route) === 'infraDevelopmetForm') model.preserveHeading = true
     setState(model)
 
     if (normalizedRoute === 'viewfadocumentsuploadunit') {
@@ -167,9 +169,13 @@ export default function IndustrialUnitPage() {
   }
 
   const isList = !route || ['new', 'newapplicantform', 'applicantlist', 'list'].includes(route.toLowerCase())
+  if (['infradevelopmetlist', 'viewfainfrastructure'].includes(route.toLowerCase())) {
+    return <InfrastructurePages id={route.toLowerCase() === 'viewfainfrastructure' ? id : undefined} />
+  }
+  const isInfrastructure = resolveIndustrialView(route) === 'infraDevelopmetForm'
 
   return (
-    <div className="industrial-unit-page">
+    <div className={isInfrastructure ? 'infrastructure-page infrastructure-form' : 'industrial-unit-page'}>
       {isList ? (
         <IndustrialUnitList />
       ) : (

@@ -5731,5 +5731,13 @@
       "submitUnitAddressDetails()"
     ],
     "fragments": []
+  },
+  "viewfaInfrastructure": {
+    "source": "pages\\fa\\viewfaInfrastructure.html",
+    "fields": [],
+    "events": [
+      "loadInfrastructureById();"
+    ],
+    "fragments": []
   }
 }

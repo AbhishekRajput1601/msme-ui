@@ -19,6 +19,7 @@ export function parseDate(value) {
 }
 
 export function filter(name, value, pattern) {
+  if (name === 'IND') return Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 }) : '0.00'
   if (name === 'date') {
     const date = parseDate(value)
     if (!date) return ''

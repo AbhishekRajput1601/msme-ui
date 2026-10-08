@@ -4,17 +4,17 @@ import views from './generated/views'
 import translations from './generated/translations.json'
 import { backendPath, faPath, filter, writePath } from './viewHelpers'
 
-const names = { class: 'className', for: 'htmlFor', readonly: 'readOnly', maxlength: 'maxLength', minlength: 'minLength', colspan: 'colSpan', rowspan: 'rowSpan', tabindex: 'tabIndex', autocomplete: 'autoComplete', novalidate: 'noValidate', cellpadding: 'cellPadding', cellspacing: 'cellSpacing', 'accept-charset': 'acceptCharset' }
+const names = { enctype: 'encType', class: 'className', for: 'htmlFor', readonly: 'readOnly', maxlength: 'maxLength', minlength: 'minLength', colspan: 'colSpan', rowspan: 'rowSpan', tabindex: 'tabIndex', autocomplete: 'autoComplete', novalidate: 'noValidate', cellpadding: 'cellPadding', cellspacing: 'cellSpacing', 'accept-charset': 'acceptCharset' }
 const booleans = new Set(['disabled','required','checked','readOnly','multiple','hidden','noValidate'])
 const evaluate = (id, s) => {
   if (id == null) return undefined
-  try { return expressions[id](s) } catch (error) { if (error instanceof TypeError) return undefined; throw error }
+  try { return (s.expressionBundle || expressions)[id](s) } catch (error) { if (error instanceof TypeError) return undefined; throw error }
 }
 const interpolate = (parts, s) => parts?.map(part => typeof part === 'number' ? evaluate(part, s) ?? '' : part).join('') || ''
 const css = value => Object.fromEntries(String(value).split(';').filter(v => v.includes(':')).map(v => { const at = v.indexOf(':'); return [v.slice(0, at).trim().replace(/-([a-z])/g, (_,c) => c.toUpperCase()), v.slice(at + 1).trim().replace(/\s*!important$/, '')] }))
 
 function run(id, s, root) {
-  try { const result = expressions[id]?.(s); Promise.resolve(result).catch(error => { root.error = error.message; root.notify() }) }
+  try { const result = (root.expressionBundle || expressions)[id]?.(s); Promise.resolve(result).catch(error => { root.error = error.message; root.notify() }) }
   catch (error) { root.error = error.message }
   root.notify()
 }
@@ -44,6 +44,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     if (formRef.current) { validation(formRef.current,root,false); root.notify() }
   }, [node,root])
   if (node.text) return interpolate(node.text, s)
+  if (node.tag === 'table' && node.attrs?.id?.[0] === 'dynamic-table' && root.renderTable) return root.renderTable(node)
   if (node.fragment) return <ViewNodes nodes={views[node.fragment]} scope={s} root={root} />
   if (node.repeat && !repeated) {
     const items = evaluate(node.repeat.items, s) || []
@@ -74,8 +75,8 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     attrs.style = { ...attrs.style, display: root.step === +tab[1] ? 'block' : 'none' }
     delete attrs.hidden
   }
-  if (attrs.href?.startsWith('#')) attrs.href = faPath(attrs.href)
-  else if (attrs.href && !/^(https?:|\/|\.|javascript:)/.test(attrs.href)) attrs.href = backendPath(attrs.href)
+  if (attrs.href?.startsWith('#')) attrs.href = (root.resolveLink || faPath)(attrs.href)
+  else if (attrs.href && !/^(https?:|\/|\.|javascript:)/.test(attrs.href)) attrs.href = (root.documentPath || backendPath)(attrs.href)
   if (attrs.href?.startsWith('javascript:')) attrs.href = '#'
   if (attrs.src?.startsWith('../')) attrs.src = '/legacy/' + attrs.src.slice(3)
   if (attrs.src?.startsWith('/mpmsme/image/')) attrs.src = '/image/' + attrs.src.slice('/mpmsme/image/'.length)
@@ -88,7 +89,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (node.blur != null) attrs.onBlur = () => run(node.blur, s, root)
   if (node.inline_click) attrs.onClick = e => {
     e.preventDefault()
-    if (/print/.test(node.inline_click)) window.print()
+    if (/print/.test(node.inline_click)) (root.print || (() => window.print()))()
     else if (/history.back/.test(node.inline_click)) root.goBackToBatch()
     else { const id = node.inline_click.match(/#([\w]+)/)?.[1]; if (id) document.getElementById(id)?.click() }
   }
@@ -101,6 +102,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     const value = evaluate(node.read, s)
     const file = attrs.type === 'file'
     if (/\bdate\b/.test(attrs.className || '') && !file) attrs.type = 'date'
+    if (root.prepareField) root.prepareField(attrs, node)
     if (attrs.type === 'checkbox') attrs.checked = Boolean(value)
     else if (attrs.type === 'radio') attrs.checked = String(value) === String(attrs.value)
     else if (!file) attrs.value = attrs.type === 'date' ? filter('date', value, 'yyyy-MM-dd') : value ?? ''
@@ -140,6 +142,11 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   }
   if (node.tag === 'button' && !attrs.type) attrs.type = node.click != null ? 'button' : 'submit'
   if (node.tag === 'button' && attrs.type === 'submit') attrs.disabled ||= root.saving
+  if (node.tag === 'a' && attrs.disabled) {
+    attrs['aria-disabled'] = true
+    attrs.tabIndex = -1
+    attrs.onClick = e => e.preventDefault()
+  }
   // Native file controls retain the exact field names and upload bindings.
   let children = <ViewNodes nodes={node.children} scope={s} root={root} />
   const currentLocale = root?.locale || 'en'
@@ -170,7 +177,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     }
   }
   if (node.tag === 'img' && !attrs.src) return null
-  if (node.tag === 'h1' && attrs.className?.includes('page-header') && (!node.children || node.children.length === 0)) return null
+  if (!root.preserveHeading && node.tag === 'h1' && attrs.className?.includes('page-header') && (!node.children || node.children.length === 0)) return null
   if (['input','img','br','hr','wbr','source','area','col'].includes(node.tag)) return React.createElement(node.tag, attrs)
   return React.createElement(node.tag, attrs, children)
 }
@@ -178,5 +185,5 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
 function ViewNodes({ nodes = [], scope, root }) {
   return nodes.map((node, index) => <ViewNode key={index} node={node} scope={scope} root={root} />)
 }
-export default function IndustrialView({ name, state }) { return <ViewNodes nodes={views[name]} scope={state} root={state} /> }
+export default function IndustrialView({ name, state, nodes }) { return <ViewNodes nodes={nodes || (state.viewBundle || views)[name]} scope={state} root={state} /> }
 export { evaluate, validation }

@@ -69,6 +69,7 @@ try {
   events.set('Runtime.exceptionThrown', event => errors.push(event.exceptionDetails.text))
   await cdp('Runtime.enable')
   await cdp('Page.enable')
+  await cdp('Emulation.setDeviceMetricsOverride',{width:1440,height:1200,deviceScaleFactor:1,mobile:false})
 
   const requests = []
   const dialogs = []
@@ -83,11 +84,14 @@ try {
     faRequiredAssistanceBean:{selectedOptions:{},caExpInvDetailsBean:[{}],pharmaExpInvDetailsBeans:[{}]},
   }
   let rejectProfile = true
+  let role = 'ROLE_APPLICANT'
+  let rejectInfrastructure = false
+  const infrastructure = { id: 71, applicantName: 'Infrastructure Applicant', districtName: 'Bhopal', applicationFileDocId: 1, projectReportId: 2, ownershipDocId: 3, khasaraDocId: 4, electricalInstallationFileDocId: 5, approachRoadFileDocId: 6, approachRoadNocDocId: 7, waterEstimateDocId: 8, landMapDocId: 9, electricalInstallationMapDocId: 10 }
   events.set('Fetch.requestPaused', async event => {
     const url=new URL(event.request.url), endpoint=url.pathname.split('/').at(-1)
-    requests.push({path:url.pathname,method:event.request.method,body:event.request.postData || ''})
+    requests.push({path:url.pathname,query:url.search,method:event.request.method,body:event.request.postData || ''})
     let data={},status=200
-    if (url.pathname.endsWith('/api/session/current-user')) data={authenticated:true,username:'fixture-applicant',displayName:'Test Applicant',roles:['ROLE_APPLICANT']}
+    if (url.pathname.endsWith('/api/session/current-user')) data={authenticated:true,username:'fixture-applicant',displayName:'Test Applicant',roles:[role]}
     else if (url.pathname.endsWith('/api/shell/menu')) data=[]
     else if (url.pathname.includes('fetchfaapplicants/Unit')) data={aaData:[{applicationId:'17',submittedOn:'07/10/2026',establishmentType:'Unit',unitOrInstName:'Fixture Manufacturing Unit',status:'Draft',currentStatusId:1}],iTotalDisplayRecords:1,iTotalRecords:1}
     else if (endpoint==='fetchUserIndustrialDetails' || endpoint==='fetchUserIndustrialDetailsByApplicationId') data=structuredClone(profileData)
@@ -102,11 +106,15 @@ try {
     else if (endpoint==='fetchfaapplicantdetail') data=profileData
     else if (endpoint==='fetchfaschemesdetail') data={applicationId:'17',selectedOptions:{}}
     else if (endpoint==='fetchquerybydtic') data={comments:'Supply the missing certificate'}
+    else if (endpoint==='saveInfrstructureDevelopment') data={id:71}
+    else if (endpoint==='uploadInfrastructureDocument') data=rejectInfrastructure ? {errorMessage:'Upload rejected'} : {id:71}
+    else if (endpoint==='fetchInfrastructureById') data=infrastructure
+    else if (endpoint==='fetchInfrastructureList') data={aaData:[{...infrastructure,createdDate:'07/10/2026'}],iTotalDisplayRecords:26,iTotalRecords:26}
     else if (url.pathname.includes('/download')) { status=404 }
     try {await cdp('Fetch.fulfillRequest',{requestId:event.requestId,responseCode:status,responseHeaders:[{name:'Content-Type',value:'application/json'}],body:Buffer.from(JSON.stringify(data)).toString('base64')})} catch {}
   })
   await cdp('Fetch.enable',{patterns:[{urlPattern:'*/backend/*'},{urlPattern:'*/mpmsme/*'}]})
-  const navigate=async route=>{await cdp('Page.navigate',{url:base+route});await waitFor('document.readyState === "complete" && !!document.querySelector(".industrial-unit-page")')}
+  const navigate=async route=>{await cdp('Page.navigate',{url:base+route});await waitFor('document.readyState === "complete" && !!document.querySelector(".industrial-unit-page, .infrastructure-page")')}
   const fill=async(selector,value)=>evaluate(`(()=>{const el=document.querySelector(${JSON.stringify(selector)});Object.getOwnPropertyDescriptor(el.tagName==='SELECT'?HTMLSelectElement.prototype:HTMLInputElement.prototype,'value').set.call(el,${JSON.stringify(value)});el.dispatchEvent(new Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));})()`)
   await navigate('/applicant/financial-assistance')
   await waitFor('document.body.textContent.includes("Fixture Manufacturing Unit")')
@@ -147,11 +155,56 @@ try {
   await navigate('/applicant/financial-assistance/viewfaapplicantHistory/17/Unit')
   await waitFor('document.body.textContent.includes("Financial Assistance")')
   await navigate('/applicant/financial-assistance/infrastructure')
+  await waitFor('!!document.querySelector("#doc10")')
   assert.equal(await evaluate('document.querySelectorAll("input[type=file]").length'),10)
+  const submitInfrastructure = () => evaluate('document.querySelector(".infrastructure-page form").requestSubmit()')
+  const attach = (n, size=30) => evaluate(`(()=>{const el=document.querySelector('#doc${n}');const files=new DataTransfer();files.items.add(new File([new Uint8Array(${size})],'test.pdf',{type:'application/pdf'}));el.files=files.files;el.dispatchEvent(new Event('change',{bubbles:true}));})()`)
+  for (const [n, message] of [[1,'Please upload Application Form!'],[2,'Please upload Project Report!'],[3,'Please upload Land owenership documents!'],[4,'Please upload Land use document(Copy of Khasara)!'],[9,'Please Map of Land']]) {
+    await submitInfrastructure()
+    await waitFor('!document.querySelector(".industrial-saving")')
+    assert.equal(dialogs.at(-1),message)
+    await attach(n)
+  }
+  await attach(10,5242881)
+  await submitInfrastructure()
+  assert.equal(dialogs.at(-1),'Map showing the distance from nearest power station document file size should not exceed 5 MB')
+  for (const n of [5,6,7,8,10]) await attach(n)
+  rejectInfrastructure=true
+  await submitInfrastructure()
+  await waitFor('document.body.textContent.includes("Upload rejected")')
+  assert.equal(await evaluate('document.querySelector(".infrastructure-page button[type=submit]").disabled'),false)
+  rejectInfrastructure=false
+  await submitInfrastructure()
+  await waitFor('document.querySelector(".infrastructure-page button[type=submit]").disabled && !document.querySelector(".industrial-saving")')
+  assert.equal(dialogs.at(-1),'Your application number is 71')
+  await evaluate('[...document.querySelectorAll(".infrastructure-page button")].find(el=>el.textContent==="Cancel").click()')
+  assert.equal(await evaluate('[...document.querySelectorAll("input[type=file]")].every(el=>!el.files.length)'),true)
+  assert.equal(await evaluate('document.querySelector(".infrastructure-page button[type=submit]").disabled'),true)
+  fs.writeFileSync(path.join(output,'infrastructure-form.png'),Buffer.from((await cdp('Page.captureScreenshot',{format:'png',captureBeyondViewport:true})).data,'base64'))
   await navigate('/applicant/financial-assistance/add-unit')
   await waitFor('!!document.querySelector("form[name=faUnitAddressDetails]")')
   await navigate('/applicant/financial-assistance/queryReplyByApplicant/17/Unit')
   await waitFor('document.body.textContent.includes("Supply the missing certificate")')
+  role='ROLE_FA'
+  await navigate('/fa/home#/infradevelopmetList')
+  await waitFor('document.body.textContent.includes("Infrastructure Applicant")')
+  assert.ok(requests.some(r=>r.path==='/mpmsme/fa/fetchInfrastructureList'))
+  await evaluate('[...document.querySelectorAll(".pagination button")].find(el=>el.textContent==="Next").click()')
+  await waitFor('document.body.textContent.includes("Showing 11 to 20")')
+  assert.ok(requests.some(r=>r.query.includes('iDisplayStart=10')))
+  await fill('input[type=search]','Bhopal')
+  await waitFor('document.body.textContent.includes("Showing 1 to 10")')
+  assert.ok(requests.some(r=>r.query.includes('sSearch=Bhopal')))
+  await click('#dynamic-table tbody a')
+  await waitFor('!!document.querySelector("#ms") && document.body.textContent.includes("Infrastructure Applicant")')
+  assert.equal(await evaluate('document.querySelectorAll("#ms a[href*=downloadInfrastructuredocument]").length'),10)
+  assert.ok(await evaluate('[...document.querySelectorAll("#ms a")].every(a=>a.getAttribute("href").startsWith("/mpmsme/fa/downloadInfrastructuredocument/"))'))
+  await evaluate('window.print=()=>{window.printCalled=true}')
+  await click('img[title="Print Filled Form"]')
+  assert.equal(await evaluate('window.printCalled'),true)
+  fs.writeFileSync(path.join(output,'infrastructure-detail.png'),Buffer.from((await cdp('Page.captureScreenshot',{format:'png',captureBeyondViewport:true})).data,'base64'))
+  await evaluate('[...document.querySelectorAll(".infrastructure-page a")].find(el=>el.textContent==="Back").click()')
+  await waitFor('!!document.querySelector("#dynamic-table")')
   assert.deepEqual(errors,[])
   fs.writeFileSync(path.join(output,'browser-checks.json'),JSON.stringify({passed:true,mode:'Controlled fixtures; no live submissions',requests:requests.length,dialogs,errors},null,2))
   console.log('Industrial Unit browser checks passed.')

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "mode": "Controlled fixtures; no live submissions or payments",
+  "requests": 122,
+  "dialogs": [
+    "Are you sure to submit the form?",
+    "Are you sure to submit the form?",
+    "Are you sure to submit the form?",
+    "Are you sure you want to eSign the Application Form?",
+    "Are you sure you want to eSign the Application Form?"
+  ],
+  "runtimeErrors": []
+}

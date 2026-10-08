@@ -1,0 +1,192 @@
+@scope (.land-reference-page[data-view="vacantLandList"]) {
+
+		/* Fix line wrapping */
+		#dynamic-table th:nth-child(3),
+		#dynamic-table td:nth-child(3) {
+			min-width: 200px !important;
+			max-width: 200px !important;
+			white-space: normal !important;
+			word-break: keep-all !important;
+			line-height: 22px;
+		}
+	
+
+.red-text {
+	color: red;
+}
+
+.center-text-large {
+	text-align: center;
+	font-size: 1.5 em;
+}
+
+}
+@scope (.land-reference-page[data-view="vacantLandListUN"]) {
+
+		/* Fix line wrapping */
+		#dynamic-table th:nth-child(3),
+		#dynamic-table td:nth-child(3) {
+			min-width: 200px !important;
+			max-width: 200px !important;
+			white-space: normal !important;
+			word-break: keep-all !important;
+			line-height: 22px;
+		}
+	
+
+.red-text {
+	color: red;
+}
+
+.center-text-large {
+	text-align: center;
+	font-size: 1.5 em;
+}
+
+}
+@scope (.land-reference-page[data-view="applicationList"]) {
+
+        /* Fix line wrapping for Plot Numbers */
+        #dynamic-table th:nth-child(5),
+        #dynamic-table td:nth-child(5) {
+            min-width: 200px !important;
+            max-width: 200px !important;
+            white-space: normal !important;
+            word-break: keep-all !important;
+            line-height: 22px;
+        }
+
+        /* Make last columns wider for action buttons */
+        #dynamic-table th:nth-child(10),
+        #dynamic-table td:nth-child(10),
+        #dynamic-table th:nth-child(9),
+        #dynamic-table td:nth-child(9) {
+            min-width: 250px;
+        }
+
+        /* Scrollable wrapper */
+        .res_div {
+            overflow-x: auto;
+            width: 100%;
+        }
+    
+
+		/* Fix line wrapping */
+		#dynamic-table th:nth-child(3),
+		#dynamic-table td:nth-child(3) {
+			min-width: 300px !important;
+			max-width: 300px !important;
+			white-space: normal !important;
+			word-break: keep-all !important;
+			line-height: 22px;
+		}
+	
+}
+@scope (.land-reference-page[data-view="annualPayments"]) {
+
+}
+@scope (.land-reference-page[data-view="noticeAppealList"]) {
+
+}
+@scope (.land-reference-page[data-view="applicantAnnualPayment"]) {
+
+}
+@scope (.land-reference-page[data-view="viewAnnualPaymentHistory"]) {
+
+}
+@scope (.land-reference-page[data-view="viewAnnualPaymentDetails"]) {
+
+}
+@scope (.land-reference-page[data-view="enterCompliance"]) {
+
+}
+@scope (.land-reference-page[data-view="viewCompliance"]) {
+
+}
+@scope (.land-reference-page[data-view="newAppeal"]) {
+
+}
+@scope (.land-reference-page[data-view="newAppealForIC"]) {
+
+}
+@scope (.land-reference-page[data-view="viewAppeal"]) {
+
+}
+@scope (.land-reference-page[data-view="viewAppealForIC"]) {
+
+}
+@scope (.land-reference-page[data-view="viewAppealHearing"]) {
+
+}
+@scope (.land-reference-page[data-view="enterConditionalComplianceZO"]) {
+
+}
+@scope (.land-reference-page[data-view="enterConditionalComplianceIC"]) {
+
+}
+@scope (.land-reference-page[data-view="viewZOConditionalDecision"]) {
+
+}
+@scope (.land-reference-page[data-view="viewICConditionalDecision"]) {
+
+}
+@scope (.land-reference-page[data-view="uploadLOCLetter"]) {
+
+}
+@scope (.land-reference-page[data-view="viewLOCDetails"]) {
+
+}
+@scope (.land-reference-page[data-view="uploadPossessionLetter"]) {
+
+}
+@scope (.land-reference-page[data-view="idInstruction"]) {
+
+}
+@scope (.land-reference-page[data-view="idInstructionUL"]) {
+
+	.fee-list {
+		list-style: decimal inside;
+		padding-left: 0;
+		max-width: 800px;
+	}
+
+	.fee-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 0.25rem 0;
+		border-bottom: 0px solid transparent;
+	}
+
+	.fee-left {
+		flex: 1 1 60%;
+		word-break: break-word;
+	}
+
+	/* left column (plot area) */
+	.fee-right {
+		flex: 0 0 35%;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	/* fee column */
+	@media (max-width: 600px) {
+		.fee-item {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.fee-right {
+			text-align: left;
+			white-space: normal;
+		}
+	}
+
+
+	.fee-header {
+		font-weight: bold;
+	}
+
+}

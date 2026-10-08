@@ -63,6 +63,7 @@ export default defineConfig({
         bypass: (req) => {
           const accept = req.headers['accept'] || ''
           const url = req.url || ''
+          if (req.method === 'GET' && accept.includes('text/html') && url.startsWith('/applicant/land-allotment/')) return '/index.html'
           if (req.method === 'GET' && accept.includes('text/html') && publicPagePath(url.split('?')[0])) return '/index.html'
           // Allow captcha image, static scripts/css, or API requests through to Tomcat:
           if (
