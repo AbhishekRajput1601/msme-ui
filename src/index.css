@@ -4,6 +4,8 @@
 @import "./styles/legacy-adaptations.css";
 @import "./styles/home-page.css";
 @import "./styles/profile-pages.css";
+@import "./styles/portal-headings.css";
+@import "./styles/portal-reports.css";
 
 @theme {
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;

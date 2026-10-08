@@ -1,0 +1,115 @@
+/* Shared View/Print report presentation for Industrial Unit and Infrastructure. */
+.legacy-portal #page-wrapper :is(.industrial-unit-page, .infrastructure-detail) #ms {
+  background: #fff;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 4px;
+  padding: 20px !important;
+  margin-top: 18px !important;
+}
+.legacy-portal #page-wrapper #ms .report-heading {
+  display: block;
+  text-align: center;
+  padding: 0 0 16px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #337ab7;
+  color: #23527c;
+}
+.legacy-portal #page-wrapper #ms .report-heading p { margin: 0 0 6px; font-size: 13px; }
+.legacy-portal #page-wrapper #ms .report-heading h2 { margin: 0; font-size: 22px; font-weight: 700; }
+.legacy-portal .report-print-button { display: inline-flex; align-items: center; gap: 8px; }
+.legacy-portal .report-print-button img { width: 20px; height: 20px; object-fit: contain; }
+
+@media print {
+  @page { size: A4 portrait; margin: 14mm 12mm; }
+
+  body:has(.legacy-portal #ms),
+  body:has(.legacy-portal #ms) #root,
+  body:has(.legacy-portal #ms) .legacy-portal,
+  .legacy-portal :has(#ms) {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    float: none !important;
+  }
+  /* Remove non-report siblings rather than leaving invisible blank space. */
+  body:has(.legacy-portal #ms) > :not(:has(#ms)),
+  .legacy-portal:has(#ms) > :not(:has(#ms)),
+  .legacy-portal :has(#ms) > :not(#ms):not(:has(#ms)) {
+    display: none !important;
+  }
+  body:has(.legacy-portal #ms) .legacy-portal #page-wrapper #ms {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    float: none !important;
+    color: #111 !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+  .legacy-portal #page-wrapper #ms,
+  .legacy-portal #page-wrapper #ms * {
+    visibility: visible !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .legacy-portal #page-wrapper #ms .report-heading {
+    display: block !important;
+    border-bottom: 1.5pt solid #333;
+    padding-bottom: 10pt;
+    margin-bottom: 12pt;
+    break-after: avoid;
+  }
+  .legacy-portal #page-wrapper #ms .report-heading h2 { font-size: 16pt !important; color: #111 !important; }
+  .legacy-portal #page-wrapper #ms .report-heading p { font-size: 10pt !important; color: #333 !important; }
+  .legacy-portal #page-wrapper #ms div[class*="col-md"] {
+    float: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+  }
+  .legacy-portal #page-wrapper #ms table {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 0 10pt !important;
+    table-layout: auto !important;
+    font-size: 10pt !important;
+  }
+  .legacy-portal #page-wrapper #ms thead { display: table-header-group !important; }
+  .legacy-portal #page-wrapper #ms tr { break-inside: avoid; page-break-inside: avoid; }
+  .legacy-portal #page-wrapper #ms :is(td, th) {
+    border: 0.5pt solid #999 !important;
+    padding: 6pt 7pt !important;
+    color: #111 !important;
+    background: #fff !important;
+    vertical-align: top !important;
+    overflow-wrap: anywhere;
+  }
+  .legacy-portal #page-wrapper #ms :is(th, td[colspan="4"]) {
+    background: #eee !important;
+    font-weight: 700 !important;
+    print-color-adjust: exact;
+  }
+  .legacy-portal #page-wrapper #ms :is(td, th) :is(span, label, p, a) {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    color: #111 !important;
+    margin: 0 !important;
+  }
+  .legacy-portal #page-wrapper #ms a::after { content: none !important; }
+  .legacy-portal #page-wrapper #ms :is(button, .btn, input[type="file"]) { display: none !important; }
+}

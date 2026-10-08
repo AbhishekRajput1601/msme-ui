@@ -20,6 +20,7 @@ export default function InfrastructurePages({ id }) {
   const [, render] = useReducer(n => n + 1, 0)
   const state = useMemo(() => ({
     faData: {}, initialized: new Set(), locale, notify: render, preserveHeading: true,
+    reportTitle: 'Infrastructure Development Permission',
     loadInfrastructureById() { },
     goBackToBatch: () => navigate(-1),
     resolveLink: () => listPath,

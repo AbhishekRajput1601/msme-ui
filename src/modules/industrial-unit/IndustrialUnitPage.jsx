@@ -6,6 +6,7 @@ import IndustrialUnitList from './IndustrialUnitList'
 import InfrastructurePages from './InfrastructurePages'
 import { createIndustrialState } from './industrialUnitModel'
 import { getUnitData } from './industrialUnitService'
+import translations from './generated/translations.json'
 import './generated/reference.css'
 import './industrial-unit.css'
 
@@ -138,7 +139,14 @@ function UnitContent({ route, id, establishmentType, locale }) {
           </div>
         </div>
       ) : view ? (
-        <IndustrialView name={view} state={state} />
+        <>
+          {view === 'infraDevelopmetForm' && (
+            <h1 className="infrastructure-application-heading">
+              Infrastructure Development Permission &gt;&gt; {translations[locale]?.['application.selfemployment.applicationform'] || 'Application Form'}
+            </h1>
+          )}
+          <IndustrialView name={view} state={state} />
+        </>
       ) : (
         <div className="alert alert-danger text-center" style={{ textAlign: 'center' }}>
           This Industrial Unit page was not found.

@@ -1,18 +1,606 @@
-.land-reference-page { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; color: #333; }
-.land-reference-page .page-header { margin: 40px 0 20px; padding-bottom: 9px; border-bottom: 1px solid #eee; }
-.land-reference-page .res_div, .land-reference-page .table-responsive { overflow-x: auto; width: 100%; }
-.land-reference-page .panel-heading { text-align: left; }
+.land-reference-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1e293b;
+}
+
+.land-reference-page .page-header {
+  margin: 20px 0 15px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Ensure outer wrappers don't double scroll and allow full width */
+.land-reference-page .res_div_1500,
+.land-reference-page .table-responsive,
+.land-reference-page .res_div {
+  overflow-x: visible !important;
+  width: 100% !important;
+}
+
+.land-reference-page .panel {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.land-reference-page .panel-heading {
+  text-align: left;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 18px;
+  font-weight: 600;
+  color: #1e3a8a;
+  font-size: 15px;
+}
+
+.land-reference-page .panel-body {
+  padding: 18px;
+}
+
 .land-reference-page .form-group { margin-bottom: 15px; }
-.land-reference-page .aestrick { color: red; }
+.land-reference-page .aestrick { color: #dc2626; font-weight: bold; }
 .land-reference-page .form-control { font-size: 14px; }
-.land-reference-page .land-table-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:10px 0; }
-.land-reference-page .land-table-controls label { font-weight:normal; white-space:nowrap; }
-.land-reference-page .land-table-controls input, .land-reference-page .land-table-controls select { border:1px solid #ccc; border-radius:4px; padding:5px 10px; font-size:14px; }
-.land-reference-page .pagination { display:flex; margin:0; }
-.land-reference-page .pagination button { background:#fff; border:1px solid #ddd; color:#337ab7; padding:6px 12px; }
-.land-reference-page .pagination button[aria-current=page] { background:#337ab7; color:#fff; }
-.land-reference-page .pagination button:disabled { color:#777; cursor:not-allowed; }
-.land-reference-page .land-sort { border:0; background:transparent; color:inherit; font:inherit; font-weight:inherit; }
+
+/* ── Table Controls Bar ────────────────────────────────────────────── */
+.land-reference-page .land-table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.land-reference-page .land-table-controls .land-control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.land-reference-page .land-table-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: #475569;
+  font-size: 13px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.land-reference-page .land-table-controls select,
+.land-reference-page .land-table-controls input[type="search"] {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #1e293b;
+  background-color: #ffffff;
+  transition: all 0.15s ease-in-out;
+}
+
+.land-reference-page .land-table-controls select:focus,
+.land-reference-page .land-table-controls input[type="search"]:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.land-reference-page .land-table-controls input[type="search"] {
+  min-width: 200px;
+}
+
+.land-reference-page .land-table-controls .search-label {
+  font-weight: 600;
+  color: #334155;
+}
+
+/* ── Table Loading State ───────────────────────────────────────────── */
+.land-reference-page .land-table-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.land-reference-page .loading-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #bfdbfe;
+  border-top-color: #1d4ed8;
+  border-radius: 50%;
+  animation: landSpin 0.75s linear infinite;
+  display: inline-block;
+}
+
+@keyframes landSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Scrollable Table Container ────────────────────────────────────── */
+.land-reference-page .land-table-scroll-container {
+  overflow-x: auto;
+  overflow-y: visible;
+  width: 100%;
+  border: 1px solid #90bddc;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin: 10px 0 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #90bddc #f1f5f9;
+}
+
+.land-reference-page .land-table-scroll-container::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.land-reference-page .land-table-scroll-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.land-reference-page .land-table-scroll-container::-webkit-scrollbar-thumb {
+  background: #90bddc;
+  border-radius: 4px;
+}
+
+.land-reference-page .land-table-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #3071a9;
+}
+
+/* ── Table Base Styling: Theme Blue Borders ────────────────────────── */
+.land-reference-page table.land-styled-table,
+.land-reference-page #dynamic-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  font-size: 13px;
+  background: #ffffff;
+  border: 1px solid #3071a9 !important;
+}
+
+/* Table Header: as old (#428bca) but a little darker (#3071a9), solid color, blue border */
+.land-reference-page #dynamic-table thead th {
+  background: #3071a9 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px 10px;
+  border: 1px solid #286090 !important;
+  white-space: nowrap;
+  letter-spacing: normal;
+  user-select: none;
+}
+
+.land-reference-page #dynamic-table thead th:last-child {
+  border-right: 1px solid #286090 !important;
+}
+
+.land-reference-page #dynamic-table thead th * {
+  color: #ffffff !important;
+}
+
+/* Sorting Header Button */
+.land-reference-page .land-sort {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #ffffff !important;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.land-reference-page .land-sort-indicator {
+  font-size: 11px;
+  opacity: 0.85;
+  color: #ffffff !important;
+}
+
+.land-reference-page .land-sort:hover .land-sort-indicator,
+.land-reference-page .land-sort.active .land-sort-indicator {
+  opacity: 1;
+  color: #ffffff !important;
+}
+
+/* Table Body Cells: Blue grid lines */
+.land-reference-page #dynamic-table td,
+.land-reference-page #dynamic-table tbody td {
+  padding: 8px 10px;
+  border: 1px solid #90bddc !important;
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333333;
+  background: #ffffff;
+}
+
+/* Standard Zebra Striping */
+.land-reference-page #dynamic-table tbody tr:nth-of-type(odd) td {
+  background-color: #f9f9f9;
+}
+
+/* Standard Row Hover */
+.land-reference-page #dynamic-table tbody tr:hover td {
+  background-color: #f5f5f5 !important;
+}
+
+/* No records message */
+.land-reference-page .no-records-cell {
+  padding: 20px !important;
+  color: #777777;
+  font-size: 13px;
+  background-color: #ffffff !important;
+  border: 1px solid #90bddc !important;
+}
+
+/* Sticky First Column (S.No.) */
+.land-reference-page #dynamic-table thead th:nth-child(1),
+.land-reference-page #dynamic-table tbody td:nth-child(1) {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  text-align: center;
+  font-weight: normal;
+  border-right: 2px solid #3071a9 !important;
+}
+
+.land-reference-page #dynamic-table thead th:nth-child(1) {
+  z-index: 12;
+  background: #3071a9 !important;
+  border: 1px solid #286090 !important;
+  border-right: 2px solid #286090 !important;
+}
+
+.land-reference-page #dynamic-table tbody tr:nth-of-type(odd) td:nth-child(1) {
+  background-color: #f9f9f9;
+}
+
+.land-reference-page #dynamic-table tbody tr:nth-of-type(even) td:nth-child(1) {
+  background-color: #ffffff;
+}
+
+.land-reference-page #dynamic-table tbody tr:hover td:nth-child(1) {
+  background-color: #f5f5f5 !important;
+}
+
+/* ── Table Footer & Pagination (as old) ────────────────────────────── */
+.land-reference-page .land-table-footer {
+  margin-top: 10px;
+}
+
+.land-reference-page .land-table-info {
+  font-size: 13px;
+  color: #333333;
+}
+
+.land-reference-page .pagination {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+}
+
+.land-reference-page .pagination button {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  color: #337ab7;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.land-reference-page .pagination button:hover:not(:disabled) {
+  background: #eee;
+  border-color: #ddd;
+  color: #23527c;
+}
+
+.land-reference-page .pagination button[aria-current=page] {
+  background: #337ab7;
+  border-color: #337ab7;
+  color: #ffffff;
+}
+
+.land-reference-page .pagination button:disabled {
+  color: #777777;
+  border-color: #ddd;
+  background: #ffffff;
+  cursor: not-allowed;
+}
+
+/* ── Buttons and Links in Cells: As old ────────────────────────────── */
+.land-reference-page #dynamic-table td a,
+.land-reference-page #dynamic-table td a.blue,
+.land-reference-page .action-buttons a,
+.land-reference-page .action-buttons a.blue {
+  color: #337ab7 !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  display: inline !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+}
+
+.land-reference-page #dynamic-table td a:hover,
+.land-reference-page #dynamic-table td a.blue:hover,
+.land-reference-page .action-buttons a:hover,
+.land-reference-page .action-buttons a.blue:hover {
+  color: #23527c !important;
+  text-decoration: underline !important;
+  transform: none !important;
+}
+
+/* ── DEVELOPED LAND ALLOTMENT TABLE COLUMN LAYOUT ──────────────────── */
+/* Column 2: Area & Location */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(2),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(2) {
+  min-width: 200px;
+  max-width: 260px;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+/* Column 3: Plot No. */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(3),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(3) {
+  min-width: 110px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Column 4: Purpose */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(4),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(4) {
+  min-width: 130px;
+  white-space: normal;
+}
+
+/* Column 5: Plot Size (in sqm) */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(5),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(5) {
+  min-width: 120px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Columns 6-12: Fee & Rent Breakdown */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(6),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(6),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(7),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(7),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(8),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(8),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(9),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(9),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(10),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(10),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(11),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(11),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(12),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(12) {
+  min-width: 130px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Column 13: Total Amount (Rs.) */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(13),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(13) {
+  min-width: 135px;
+  text-align: right;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Column 14: Advance Premium (25%) */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(14),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(14) {
+  min-width: 140px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Columns 15, 16: EOI Dates */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(15),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(15),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(16),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(16) {
+  min-width: 120px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Column 17: Reserved Category */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(17),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(17) {
+  min-width: 135px;
+  text-align: center;
+}
+
+/* Column 18: Industry Area */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(18),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(18) {
+  min-width: 130px;
+}
+
+/* Column 19: Industry Category Name */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(19),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(19) {
+  min-width: 150px;
+}
+
+/* Column 20: Total Applications Received */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(20),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(20) {
+  min-width: 120px;
+  text-align: center;
+}
+
+/* Column 21: Plot Map */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(21),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(21) {
+  min-width: 145px;
+  text-align: center;
+}
+
+/* Column 22: KML Page Map */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(22),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(22) {
+  min-width: 130px;
+  text-align: center;
+}
+
+/* Column 23: Action */
+.land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(23),
+.land-reference-page[data-view="vacantLandList"] #dynamic-table td:nth-child(23) {
+  min-width: 110px;
+  text-align: center;
+}
+
+/* ── UNDEVELOPED LAND ALLOTMENT TABLE COLUMN LAYOUT ────────────────── */
+/* Column 2: Area & Location */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(2),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(2) {
+  min-width: 200px;
+  max-width: 260px;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+/* Column 3: Survey No. */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(3),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(3) {
+  min-width: 110px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Column 4: Purpose */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(4),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(4) {
+  min-width: 130px;
+  white-space: normal;
+}
+
+/* Column 5: Area Size (in sqm) */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(5),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(5) {
+  min-width: 120px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Columns 6-9: Premium, Lease Rent, Security Deposit, Other Rent */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(6),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(6),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(7),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(7),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(8),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(8),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(9),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(9) {
+  min-width: 130px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Column 10: Total Amount (Rs.) */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(10),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(10) {
+  min-width: 135px;
+  text-align: right;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Column 11: Advance Premium (25%) */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(11),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(11) {
+  min-width: 140px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Columns 12, 13: EOI Start / End Date & Time */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(12),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(12),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(13),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(13) {
+  min-width: 140px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Column 14: Industry Category Name */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(14),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(14) {
+  min-width: 150px;
+}
+
+/* Column 15: Total Applications Received */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(15),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(15) {
+  min-width: 120px;
+  text-align: center;
+}
+
+/* Column 16: Land Map/Location */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(16),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(16) {
+  min-width: 145px;
+  text-align: center;
+}
+
+/* Column 17: View Map (KML) */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(17),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(17) {
+  min-width: 130px;
+  text-align: center;
+}
+
+/* Column 18: Action */
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table th:nth-child(18),
+.land-reference-page[data-view="vacantLandListUN"] #dynamic-table td:nth-child(18) {
+  min-width: 110px;
+  text-align: center;
+}
+
 @media print {
   body:has(.land-reference-page) .portal-body, body:has(.land-reference-page) #page-wrapper, body:has(.land-reference-page) .legacy-portal { overflow:visible; height:auto; max-height:none; }
 }

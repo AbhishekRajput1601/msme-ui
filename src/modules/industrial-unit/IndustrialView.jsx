@@ -170,10 +170,13 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
       JSON.stringify(node.children || []).includes('Download')
     if (hasDownloadDoc && (attrs.href || node.attrs?.href)) {
       attrs.className = ((attrs.className || '') + ' download-doc-link').trim()
+      attrs.target = '_blank'
+      attrs.rel = 'noopener noreferrer'
     }
   }
   // Native file controls retain the exact field names and upload bindings.
   let children = <ViewNodes nodes={node.children} scope={s} root={root} />
+  if (attrs.id === 'ms') children = <><header className="report-heading"><p>Government of Madhya Pradesh<br />Department of Micro, Small &amp; Medium Enterprises</p><h2>{root.reportTitle || 'Industrial Unit Application'}</h2></header>{children}</>
   const currentLocale = root?.locale || 'en'
   if (node.translation) {
     attrs['data-translation'] = node.translation
@@ -202,6 +205,10 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
       const options = Array.isArray(values) ? values : Object.entries(values).map(([key,value])=>({key,value}))
       children = <>{children}{options.map(item => <option key={item[match[2]]} value={item[match[2]]}>{item[match[3]]}</option>)}</>
     }
+  }
+  if (node.tag === 'img' && attrs.title === 'Print Filled Form') {
+    const { onClick, ...icon } = attrs
+    return <button type="button" className="btn btn-primary report-print-button" onClick={onClick}><img {...icon} alt="" />Print / Save PDF</button>
   }
   if (node.tag === 'img' && !attrs.src) return null
   if (!root.preserveHeading && node.tag === 'h1' && attrs.className?.includes('page-header') && (!node.children || node.children.length === 0)) return null

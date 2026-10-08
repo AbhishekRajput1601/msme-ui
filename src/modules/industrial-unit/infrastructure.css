@@ -22,8 +22,89 @@
 }
 
 .legacy-portal .infrastructure-form .panel {
-  display: inline-table;
+  display: block;
   width: 100%;
+}
+
+.legacy-portal .infrastructure-form .infrastructure-application-heading {
+  margin: 0 0 20px;
+  padding: 18px 20px;
+  background: #337ab7;
+  color: #fff;
+  border-radius: 4px;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.legacy-portal .infrastructure-form .panel > .panel-heading,
+.legacy-portal .infrastructure-form #industrial-unit-content > .row:has(.page-header:empty) {
+  display: none !important;
+}
+
+/* Keep this upload form's controls aligned with its Action column. */
+.legacy-portal .infrastructure-form .table {
+  table-layout: fixed;
+  margin-bottom: 0;
+}
+
+.legacy-portal .infrastructure-form .table > thead > tr > th:first-child {
+  width: 70%;
+}
+
+.legacy-portal .infrastructure-form .table > thead > tr > th:last-child {
+  width: 30%;
+}
+
+.legacy-portal .infrastructure-form .table > tbody > tr > td {
+  background: #fff !important;
+  box-shadow: none !important;
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.legacy-portal .infrastructure-form .table > tbody > tr > td:last-child {
+  text-align: center;
+}
+
+.legacy-portal .infrastructure-form .table input[type="file"] {
+  width: 260px !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.legacy-portal .infrastructure-form form > .col-md-12[align="center"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 30%;
+  margin-left: 70%;
+  padding: 20px 12px;
+  float: none;
+}
+
+.legacy-portal .infrastructure-form form > .col-md-12[align="center"] > .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  min-height: 36px;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .legacy-portal .infrastructure-form .table > thead > tr > th:first-child {
+    width: 55%;
+  }
+  .legacy-portal .infrastructure-form .table > thead > tr > th:last-child {
+    width: 45%;
+  }
+  .legacy-portal .infrastructure-form form > .col-md-12[align="center"] {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 .legacy-portal :is(.infrastructure-page, .infrastructure-form, .infrastructure-detail) .panel-heading,

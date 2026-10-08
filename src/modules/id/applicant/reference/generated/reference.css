@@ -1,46 +1,22 @@
 @scope (.land-reference-page[data-view="vacantLandList"]) {
-
-		/* Fix line wrapping */
-		#dynamic-table th:nth-child(3),
-		#dynamic-table td:nth-child(3) {
-			min-width: 200px !important;
-			max-width: 200px !important;
-			white-space: normal !important;
-			word-break: keep-all !important;
-			line-height: 22px;
-		}
-	
-
 .red-text {
 	color: red;
 }
 
 .center-text-large {
 	text-align: center;
-	font-size: 1.5 em;
+	font-size: 1.5em;
 }
 
 }
 @scope (.land-reference-page[data-view="vacantLandListUN"]) {
-
-		/* Fix line wrapping */
-		#dynamic-table th:nth-child(3),
-		#dynamic-table td:nth-child(3) {
-			min-width: 200px !important;
-			max-width: 200px !important;
-			white-space: normal !important;
-			word-break: keep-all !important;
-			line-height: 22px;
-		}
-	
-
 .red-text {
 	color: red;
 }
 
 .center-text-large {
 	text-align: center;
-	font-size: 1.5 em;
+	font-size: 1.5em;
 }
 
 }

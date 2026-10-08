@@ -69,19 +69,130 @@ export default function LandReferenceTable({ name, node, state }) {
   const count = result.count || 0, page = Math.floor(start / length), pages = Math.ceil(count / length)
   return <div className="land-datatable">
     {result.error && <div className="alert alert-danger" role="alert">{result.error}</div>}
-    <div className="land-table-controls"><label>Show <select value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10,25,50,100].map(n => <option key={n}>{n}</option>)}</select> entries</label><label>Search: <input placeholder={config.placeholder} value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} /></label></div>
-    {result.loading && <div role="status">Processing...</div>}
-    <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={!!result.loading}>
-      <thead><tr>{headers.map((header,i) => <th key={i} aria-sort={sort?.column === i ? sort.direction === 'asc' ? 'ascending' : 'descending' : undefined}>{config.sortable[i] ? <button type="button" className="land-sort" onClick={() => setSort({ column:i, direction:sort?.column === i && sort.direction === 'asc' ? 'desc' : 'asc' })}><IndustrialView nodes={header.children} state={state} /></button> : <IndustrialView nodes={header.children} state={state} />}</th>)}</tr></thead>
-      <tbody>{result.data.map((row,index) => {
-        const cells = referenceCells(name,row,start+index)
-        return <tr key={row.applicantId || row.vacantLandId || index}>{config.columns.map((column,i) => <td key={i}>{i in cells ? <CellMarkup html={cells[i]} locale={state.locale} /> : column?.endsWith('plotNumber') ? String(readPath(row,column) || '-').match(/.{1,27}/g)?.map((part,n) => <React.Fragment key={n}>{n > 0 && <br />}{part}</React.Fragment>) : String(readPath(row,column) ?? '')}</td>)}</tr>
-      })}{!result.data.length && <tr><td colSpan={headers.length}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}</tbody>
-    </table>
-    <div className="land-table-controls"><span>Showing {count ? start+1 : 0} to {Math.min(start+length,count)} of {count} entries{result.total > count && ` (filtered from ${result.total} total entries)`}</span><div className="pagination">
-      <button disabled={!start || result.loading} onClick={() => setStart(0)}>First</button><button disabled={!start || result.loading} onClick={() => setStart(start-length)}>Previous</button>
-      {Array.from({ length:Math.min(pages,5) },(_,i) => Math.max(0,Math.min(page-2,pages-5))+i).map(n => <button key={n} aria-current={n === page ? 'page' : undefined} disabled={result.loading} onClick={() => setStart(n*length)}>{n+1}</button>)}
-      <button disabled={start+length >= count || result.loading} onClick={() => setStart(start+length)}>Next</button><button disabled={start+length >= count || result.loading} onClick={() => setStart((pages-1)*length)}>Last</button>
-    </div></div>
+    <div className="land-table-controls">
+      <div className="land-control-group">
+        <label>
+          Show{' '}
+          <select
+            value={length}
+            onChange={e => {
+              setLength(Number(e.target.value))
+              setStart(0)
+            }}
+          >
+            {[10, 25, 50, 100].map(n => (
+              <option key={n}>{n}</option>
+            ))}
+          </select>{' '}
+          entries
+        </label>
+      </div>
+      <div className="land-control-group">
+        <label>
+          <span className="search-label">Search: </span>
+          <input
+            type="search"
+            placeholder={config.placeholder || 'Search...'}
+            value={search}
+            onChange={e => {
+              setSearch(e.target.value)
+              setStart(0)
+            }}
+          />
+        </label>
+      </div>
+    </div>
+    {result.loading && <div className="land-table-loading" role="status"><span className="loading-spinner"></span> Processing...</div>}
+    <div className="land-table-scroll-container">
+      <table id="dynamic-table" className="table table-striped table-bordered table-hover land-styled-table" aria-busy={!!result.loading}>
+        <thead>
+          <tr>
+            {headers.map((header, i) => (
+              <th
+                key={i}
+                aria-sort={sort?.column === i ? (sort.direction === 'asc' ? 'ascending' : 'descending') : undefined}
+                className={config.sortable[i] ? 'is-sortable' : ''}
+              >
+                {config.sortable[i] ? (
+                  <button
+                    type="button"
+                    className={`land-sort ${sort?.column === i ? 'active' : ''}`}
+                    onClick={() =>
+                      setSort({
+                        column: i,
+                        direction: sort?.column === i && sort.direction === 'asc' ? 'desc' : 'asc',
+                      })
+                    }
+                  >
+                    <span className="land-sort-text"><IndustrialView nodes={header.children} state={state} /></span>
+                    <span className="land-sort-indicator">
+                      {sort?.column === i ? (sort.direction === 'asc' ? ' ▲' : ' ▼') : ' ⇅'}
+                    </span>
+                  </button>
+                ) : (
+                  <IndustrialView nodes={header.children} state={state} />
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {result.data.map((row, index) => {
+            const cells = referenceCells(name, row, start + index)
+            return (
+              <tr key={row.applicantId || row.vacantLandId || index}>
+                {config.columns.map((column, i) => (
+                  <td key={i}>
+                    {i in cells ? (
+                      <CellMarkup html={cells[i]} locale={state.locale} />
+                    ) : column?.endsWith('plotNumber') ? (
+                      String(readPath(row, column) || '-')
+                        .match(/.{1,27}/g)
+                        ?.map((part, n) => (
+                          <React.Fragment key={n}>
+                            {n > 0 && <br />}
+                            {part}
+                          </React.Fragment>
+                        ))
+                    ) : (
+                      String(readPath(row, column) ?? '')
+                    )}
+                  </td>
+                ))}
+              </tr>
+            )
+          })}
+          {!result.data.length && (
+            <tr>
+              <td colSpan={headers.length} className="text-center no-records-cell">
+                {search ? 'No matching records found' : 'No data available in table'}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+    <div className="land-table-controls land-table-footer">
+      <div className="land-table-info">
+        Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries
+        {result.total > count && ` (filtered from ${result.total} total entries)`}
+      </div>
+      <div className="pagination">
+        <button disabled={!start || result.loading} onClick={() => setStart(0)} title="First page">« First</button>
+        <button disabled={!start || result.loading} onClick={() => setStart(start - length)} title="Previous page">‹ Prev</button>
+        {Array.from({ length: Math.min(pages, 5) }, (_, i) => Math.max(0, Math.min(page - 2, pages - 5)) + i).map(n => (
+          <button
+            key={n}
+            aria-current={n === page ? 'page' : undefined}
+            disabled={result.loading}
+            onClick={() => setStart(n * length)}
+          >
+            {n + 1}
+          </button>
+        ))}
+        <button disabled={start + length >= count || result.loading} onClick={() => setStart(start + length)} title="Next page">Next ›</button>
+        <button disabled={start + length >= count || result.loading} onClick={() => setStart((pages - 1) * length)} title="Last page">Last »</button>
+      </div>
+    </div>
   </div>
 }
