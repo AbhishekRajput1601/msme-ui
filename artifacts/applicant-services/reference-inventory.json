@@ -1,0 +1,2238 @@
+{
+  "addBankDetails": {
+    "source": "pages\\bank\\addBankDetails.html",
+    "fields": [
+      {
+        "name": "bankName_{{$index}}",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "BankDetailsBean.selectedBank",
+        "ng-options": "category as category.value for category in bankList track by category.key",
+        "ng-init": "loadBanks()",
+        "required": ""
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "BankDetailsBean.accountHolderName",
+        "name": "accountHolderName",
+        "ng-pattern": "/^[a-zA-Z ]+$/",
+        "maxlength": "50"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "BankDetailsBean.accountNumber",
+        "name": "accountNumber",
+        "id": "accountNumber",
+        "data-ng-pattern": "/^\\d{8,16}$/",
+        "maxlength": "16"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "BankDetailsBean.ifscCode",
+        "name": "ifscCode",
+        "ng-change": "BankDetailsBean.ifscCode = BankDetailsBean.ifscCode.toUpperCase()",
+        "ng-pattern": "/^[A-Za-z]{4}0[A-Za-z0-9]{6}$/",
+        "maxlength": "11",
+        "style": "text-transform:uppercase"
+      },
+      {
+        "data-ng-disabled": "disabled",
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "BankDetailsBean.chequefile",
+        "id": "chequefile",
+        "accept": "application/pdf"
+      }
+    ],
+    "events": [
+      "BankDetailsBean.ifscCode = BankDetailsBean.ifscCode.toUpperCase()",
+      "addBank()",
+      "loadBanks()"
+    ]
+  },
+  "banksList": {
+    "source": "pages\\bank\\banksList.html",
+    "fields": [
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "editBankData.bankName",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "editBankData.accountHolderName",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "editBankData.accountNumber",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "editBankData.ifscCode",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "editBankData.status",
+        "required": ""
+      }
+    ],
+    "events": [
+      "cancelEdit()",
+      "fetchBankList()",
+      "updateBank()"
+    ]
+  },
+  "mpidcServices": {
+    "source": "pages\\applicant\\mpidcServices.html",
+    "fields": [],
+    "events": []
+  },
+  "applicantAwardList": {
+    "source": "pages\\msme\\applicantAwardList.html",
+    "fields": [],
+    "events": [
+      "fetchAwards()"
+    ]
+  },
+  "applyMsmeAwardForm": {
+    "source": "pages\\msme\\applyMsmeAwardForm.html",
+    "fields": [
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardData.financialYearString",
+        "name": "startDate",
+        "readonly": "readonly"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "awardData.awardDescription",
+        "name": "awardDescription",
+        "readonly": "readonly"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitName",
+        "name": "unitName",
+        "maxlength": "200"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "womenEntrepreneur",
+        "data-ng-model": "awardFormData.womenEntrepreneur",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "womenEntrepreneur",
+        "data-ng-model": "awardFormData.womenEntrepreneur",
+        "value": "false"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "differentlyEntrepreneur",
+        "data-ng-model": "awardFormData.differentlyEntrepreneur",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "differentlyEntrepreneur",
+        "data-ng-model": "awardFormData.differentlyEntrepreneur",
+        "value": "false"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "indvPartnerDetails.indvPartnerName",
+        "name": "indvPartnerName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectType",
+        "data-ng-model": "indvPartnerDetails.type",
+        "class": [
+          "form-control"
+        ],
+        "name": "type_{{$index}}",
+        "required": "required"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "indvPartnerDetails.stake",
+        "name": "stake_{{$index}}",
+        "maxlength": "3"
+      },
+      {
+        "id": "selectIndustryType",
+        "data-ng-model": "awardFormData.industryType",
+        "class": [
+          "form-control"
+        ],
+        "name": "industryType_{{$index}}",
+        "required": "required"
+      },
+      {
+        "id": "selectCategory",
+        "data-ng-model": "awardFormData.masterCategoryId",
+        "class": [
+          "form-control"
+        ],
+        "required": "required",
+        "name": "applicantCategory"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitAddress",
+        "name": "unitAddress",
+        "maxlength": "300"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitMobileNo",
+        "name": "unitMobileNo",
+        "data-ng-pattern": "/^[0-9][0-9]{9}$/",
+        "maxlength": "10"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "email",
+        "data-ng-model": "awardFormData.unitEmailId",
+        "name": "unitEmailId",
+        "maxlength": "45"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.authPersonName",
+        "name": "authPersonName",
+        "maxlength": "200"
+      },
+      {
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.authPersonMobileNo",
+        "name": "authPersonMobileNo",
+        "maxlength": "10"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "required",
+        "type": "text",
+        "data-ng-model": "awardFormData.gstNo",
+        "name": "gstNo",
+        "maxlength": "40"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.uamNo",
+        "name": "uamNo",
+        "maxlength": "30"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.uamRegDate",
+        "name": "uamRegDate"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.fixedAssetsList[$index].details",
+        "name": "details_{{i}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.fixedAssetsList[$index].amount",
+        "name": "fixedAssets_value_{{i}}",
+        "onkeydown": "return txtQtyChange(event);",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disabled",
+        "value": "Total",
+        "style": "font-weight: bold; text-align: right;"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "calcTotal(awardFormData.fixedAssetsList)"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.employmentList[$index].details",
+        "name": "details_{{i}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.employmentList[$index].amount",
+        "name": "employment_value_{{i}}",
+        "onkeydown": "return txtQtyChange(event);",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disabled",
+        "value": "Total",
+        "style": "font-weight: bold; text-align: right;"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "calcEmploymentTotal(awardFormData.employmentList)"
+      },
+      {
+        "maxlength": "5",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.perEmpBonafide",
+        "name": "perEmpBonafide"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "productDetails.productName",
+        "name": "productName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "productDetails.productionCapacity",
+        "name": "productionCapacity_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "productDetails.remarks",
+        "name": "remarks_{{$index}}",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "estPlantMachine.estPlantMachineName",
+        "name": "estPlantMachineName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectEstPlantMachineType",
+        "data-ng-model": "estPlantMachine.estPlantMachineType",
+        "class": [
+          "form-control"
+        ],
+        "name": "estPlantMachineType_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "estPlantMachine.estPlantMachineCost",
+        "name": "estPlantMachineCost_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbProductName",
+        "name": "capacityEstbProductName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectYear",
+        "data-ng-model": "capacityEstb.capacityEstbYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "capacityEstbYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbProdCapacity",
+        "name": "capacityEstbProdCapacity_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbCapacityAchieved",
+        "name": "capacityEstbCapacityAchieved_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbPercentage",
+        "name": "capacityEstbPercentage_{{$index}}",
+        "maxlength": "6"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyQualityCertificate",
+        "data-ng-model": "awardFormData.anyQualityCertificate",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyQualityCertificate",
+        "data-ng-model": "awardFormData.anyQualityCertificate",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.anyQualityCertificate=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.qualityCertificationDesc",
+        "name": "qualityCertificationDesc",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectAnnualProdCostYear",
+        "required": "required",
+        "data-ng-model": "annualProdCost.annualProdCostYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "annualProdCostYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "annualProdCost.annualProdCostCost",
+        "name": "annualProdCostCost_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectSalesProfitYear",
+        "required": "required",
+        "data-ng-model": "salesProfit.profitYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "salesProfitYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "salesProfit.profit",
+        "name": "salesProfitProfit_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "salesProfit.profitPer",
+        "name": "salesProfitProfitPer_{{$index}}",
+        "maxlength": "6"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "salesProfit.profitRemarks",
+        "name": "salesProfitRemarks_{{$index}}",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectNetProfitYear",
+        "required": "required",
+        "data-ng-model": "netProfit.profitYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "netProfitYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "netProfit.profit",
+        "name": "netProfitProfit_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "netProfit.profitPer",
+        "name": "netProfitProfitPer_{{$index}}",
+        "maxlength": "6"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "netProfit.profitRemarks",
+        "name": "netProfitRemarks_{{$index}}",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anySpecialProgram",
+        "data-ng-model": "awardFormData.anySpecialProgram",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anySpecialProgram",
+        "data-ng-model": "awardFormData.anySpecialProgram",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.anySpecialProgram=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.specialProgramDesc",
+        "name": "specialProgramDesc",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyStateOfTheArt",
+        "data-ng-model": "awardFormData.anyStateOfTheArt",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyStateOfTheArt",
+        "data-ng-model": "awardFormData.anyStateOfTheArt",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.anyStateOfTheArt=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.stateOfTheArtDesc",
+        "name": "stateOfTheArtDesc",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "exportInfo.exportInfoProductName",
+        "name": "exportInfoProductName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectExportInfoCountry",
+        "data-ng-model": "exportInfo.exportInfoCountry",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoCountry_{{$index}}"
+      },
+      {
+        "id": "selectExportInfoYear",
+        "data-ng-model": "exportInfo.exportInfoYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "exportInfo.exportInfoQuantity",
+        "name": "exportInfoQuantity_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "id": "selectFyFrom",
+        "data-ng-model": "exportInfo.exportInfoFyFrom",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoFyFrom_{{$index}}"
+      },
+      {
+        "id": "selectFyTo",
+        "data-ng-model": "exportInfo.exportInfoFyTo",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoFyTo_{{$index}}"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "areStartupCategory",
+        "data-ng-model": "awardFormData.areStartupCategory",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "areStartupCategory",
+        "data-ng-model": "awardFormData.areStartupCategory",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.areStartupCategory=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.startupCategoryDetails",
+        "name": "startupCategoryDetails",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "isUnitInvolvedCsr",
+        "data-ng-model": "awardFormData.isUnitInvolvedCsr",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "isUnitInvolvedCsr",
+        "data-ng-model": "awardFormData.isUnitInvolvedCsr",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.isUnitInvolvedCsr=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitInvolvedCsrDetails",
+        "name": "unitInvolvedCsrDetails",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "polluControlInfo.polluControlInfoName",
+        "name": "polluControlInfoName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "polluControlInfo.polluControlInfoCost",
+        "name": "polluControlInfoCost_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "id": "selectPolluControlInfoEstYear",
+        "data-ng-model": "polluControlInfo.polluControlInfoEstYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "polluControlInfoEst_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.contributionOwners}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.fundingAgencyName}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.fundingAgencyAddress}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.loanFinancialAgency}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.loanAnyOtherSource}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.contributionOwners",
+        "name": "infoFinMgmt.contributionOwners",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.fundingAgencyName",
+        "name": "infoFinMgmt.fundingAgencyName",
+        "maxlength": "150"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.fundingAgencyAddress",
+        "name": "infoFinMgmt.fundingAgencyAddress",
+        "maxlength": "150"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.loanFinancialAgency",
+        "name": "infoFinMgmt.loanFinancialAgency",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.loanAnyOtherSource",
+        "name": "infoFinMgmt.loanAnyOtherSource",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoLoanRepayment.infoInstalmentType}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoLoanRepayment.infoInstalmentAmt}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoLoanRepayment.infoLoanRepayment}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectInstalmentType",
+        "data-ng-model": "awardFormData.infoLoanRepayment.instalmentType",
+        "class": [
+          "form-control"
+        ],
+        "name": "infoLoanRepayment.instalmentType"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoLoanRepayment.instalmentAmt",
+        "name": "infoLoanRepayment.instalmentAmt",
+        "maxlength": "13"
+      },
+      {
+        "id": "selectRepaymentType",
+        "data-ng-model": "awardFormData.infoLoanRepayment.repaymentType",
+        "class": [
+          "form-control"
+        ],
+        "name": "infoLoanRepayment.repaymentType"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectInfoTaxRepaymentYear",
+        "data-ng-model": "infoTaxRepayment.infoTaxRepaymentYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "infoTaxRepaymentYear_{{$index}}"
+      },
+      {
+        "id": "selectAgencyDeptName",
+        "data-ng-model": "infoTaxRepayment.agencyDeptName",
+        "class": [
+          "form-control"
+        ],
+        "name": "agencyDeptName_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "infoTaxRepayment.infoTaxRepaymentAmount",
+        "name": "infoTaxRepaymentAmount_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "anyOtherInfo.anyOtherInfoDesc",
+        "name": "anyOtherInfoDesc_{{$index}}",
+        "maxlength": "700"
+      },
+      {
+        "type": "checkbox",
+        "required": "required",
+        "data-ng-model": "awardFormData.checkDeclaration",
+        "name": "checkDeclaration"
+      }
+    ],
+    "events": [
+      "addMsmeApplicationAwardDetails(awardForm.$valid)",
+      "addRow(awardFormData.anyOtherInfoList)",
+      "addRow(awardFormData.estPlantMachineList)",
+      "addRow(awardFormData.indvPartnerDetailsList)",
+      "addRow(awardFormData.infoTaxRepaymentList)",
+      "addRow(awardFormData.polluControlInfoList)",
+      "addRow(awardFormData.productDetailsList)",
+      "applyFormInit()",
+      "draftMsmeApplicationAwardDetails()",
+      "removeRow(awardFormData.anyOtherInfoList)",
+      "removeRow(awardFormData.estPlantMachineList)",
+      "removeRow(awardFormData.indvPartnerDetailsList)",
+      "removeRow(awardFormData.infoTaxRepaymentList)",
+      "removeRow(awardFormData.polluControlInfoList)",
+      "removeRow(awardFormData.productDetailsList)"
+    ]
+  },
+  "editMsmeAwardForm": {
+    "source": "pages\\msme\\editMsmeAwardForm.html",
+    "fields": [
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardData.financialYearString",
+        "name": "startDate",
+        "readonly": "readonly"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "awardData.awardDescription",
+        "name": "awardDescription",
+        "readonly": "readonly"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitName",
+        "name": "unitName",
+        "maxlength": "200"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "womenEntrepreneur",
+        "data-ng-model": "awardFormData.womenEntrepreneur",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "womenEntrepreneur",
+        "data-ng-model": "awardFormData.womenEntrepreneur",
+        "value": "false"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "differentlyEntrepreneur",
+        "data-ng-model": "awardFormData.differentlyEntrepreneur",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "differentlyEntrepreneur",
+        "data-ng-model": "awardFormData.differentlyEntrepreneur",
+        "value": "false"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "indvPartnerDetails.indvPartnerName",
+        "name": "indvPartnerName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectType",
+        "data-ng-model": "indvPartnerDetails.type",
+        "class": [
+          "form-control"
+        ],
+        "name": "type_{{$index}}",
+        "required": "required"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "indvPartnerDetails.stake",
+        "name": "stake_{{$index}}",
+        "maxlength": "3"
+      },
+      {
+        "id": "selectIndustryType",
+        "data-ng-model": "awardFormData.industryType",
+        "class": [
+          "form-control"
+        ],
+        "name": "industryType_{{$index}}",
+        "required": "required"
+      },
+      {
+        "id": "selectCategory",
+        "data-ng-model": "awardFormData.masterCategoryId",
+        "class": [
+          "form-control"
+        ],
+        "required": "required",
+        "name": "applicantCategory"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitAddress",
+        "name": "unitAddress",
+        "maxlength": "300"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitMobileNo",
+        "name": "unitMobileNo",
+        "maxlength": "10"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "email",
+        "data-ng-model": "awardFormData.unitEmailId",
+        "name": "unitEmailId",
+        "maxlength": "45"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.authPersonName",
+        "name": "authPersonName",
+        "maxlength": "200"
+      },
+      {
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.authPersonMobileNo",
+        "name": "authPersonMobileNo",
+        "maxlength": "10"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.gstNo",
+        "name": "gstNo",
+        "maxlength": "40"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.uamNo",
+        "name": "uamNo",
+        "maxlength": "30"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.uamRegDate",
+        "name": "uamRegDate"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.fixedAssetsList[$index].details",
+        "name": "details_{{i}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.fixedAssetsList[$index].amount",
+        "name": "fixedAssets_value_{{i}}",
+        "onkeydown": "return txtQtyChange(event);",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disabled",
+        "value": "Total",
+        "style": "font-weight: bold; text-align: right;"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "calcTotal(awardFormData.fixedAssetsList)"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.employmentList[$index].details",
+        "name": "details_{{i}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.employmentList[$index].amount",
+        "name": "employment_value_{{i}}",
+        "onkeydown": "return txtQtyChange(event);",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disabled",
+        "value": "Total",
+        "style": "font-weight: bold; text-align: right;"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "calcEmploymentTotal(awardFormData.employmentList)"
+      },
+      {
+        "maxlength": "5",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.perEmpBonafide",
+        "name": "perEmpBonafide"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "productDetails.productName",
+        "name": "productName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "productDetails.productionCapacity",
+        "name": "productionCapacity_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "productDetails.remarks",
+        "name": "remarks_{{$index}}",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "estPlantMachine.estPlantMachineName",
+        "name": "estPlantMachineName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectEstPlantMachineType",
+        "data-ng-model": "estPlantMachine.estPlantMachineType",
+        "class": [
+          "form-control"
+        ],
+        "name": "estPlantMachineType_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "estPlantMachine.estPlantMachineCost",
+        "name": "estPlantMachineCost_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbProductName",
+        "name": "capacityEstbProductName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectYear",
+        "data-ng-model": "capacityEstb.capacityEstbYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "capacityEstbYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbProdCapacity",
+        "name": "capacityEstbProdCapacity_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbCapacityAchieved",
+        "name": "capacityEstbCapacityAchieved_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "capacityEstb.capacityEstbPercentage",
+        "name": "capacityEstbPercentage_{{$index}}",
+        "maxlength": "6"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyQualityCertificate",
+        "data-ng-model": "awardFormData.anyQualityCertificate",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyQualityCertificate",
+        "data-ng-model": "awardFormData.anyQualityCertificate",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.anyQualityCertificate=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.qualityCertificationDesc",
+        "name": "qualityCertificationDesc",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectAnnualProdCostYear",
+        "required": "required",
+        "data-ng-model": "annualProdCost.annualProdCostYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "annualProdCostYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "annualProdCost.annualProdCostCost",
+        "name": "annualProdCostCost_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectSalesProfitYear",
+        "required": "required",
+        "data-ng-model": "salesProfit.profitYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "salesProfitYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "salesProfit.profit",
+        "name": "salesProfitProfit_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "salesProfit.profitPer",
+        "name": "salesProfitProfitPer_{{$index}}",
+        "maxlength": "6"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "salesProfit.profitRemarks",
+        "name": "salesProfitRemarks_{{$index}}",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectNetProfitYear",
+        "required": "required",
+        "data-ng-model": "netProfit.profitYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "netProfitYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "netProfit.profit",
+        "name": "netProfitProfit_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "netProfit.profitPer",
+        "name": "netProfitProfitPer_{{$index}}",
+        "maxlength": "6"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "required",
+        "data-ng-model": "netProfit.profitRemarks",
+        "name": "netProfitRemarks_{{$index}}",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anySpecialProgram",
+        "data-ng-model": "awardFormData.anySpecialProgram",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anySpecialProgram",
+        "data-ng-model": "awardFormData.anySpecialProgram",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.anySpecialProgram=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.specialProgramDesc",
+        "name": "specialProgramDesc",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyStateOfTheArt",
+        "data-ng-model": "awardFormData.anyStateOfTheArt",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "anyStateOfTheArt",
+        "data-ng-model": "awardFormData.anyStateOfTheArt",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.anyStateOfTheArt=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.stateOfTheArtDesc",
+        "name": "stateOfTheArtDesc",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "exportInfo.exportInfoProductName",
+        "name": "exportInfoProductName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "id": "selectExportInfoCountry",
+        "data-ng-model": "exportInfo.exportInfoCountry",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoCountry_{{$index}}"
+      },
+      {
+        "id": "selectExportInfoYear",
+        "data-ng-model": "exportInfo.exportInfoYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoYear_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "exportInfo.exportInfoQuantity",
+        "name": "exportInfoQuantity_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "id": "selectFyFrom",
+        "data-ng-model": "exportInfo.exportInfoFyFrom",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoFyFrom_{{$index}}"
+      },
+      {
+        "id": "selectFyTo",
+        "data-ng-model": "exportInfo.exportInfoFyTo",
+        "class": [
+          "form-control"
+        ],
+        "name": "exportInfoFyTo_{{$index}}"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "areStartupCategory",
+        "data-ng-model": "awardFormData.areStartupCategory",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "areStartupCategory",
+        "data-ng-model": "awardFormData.areStartupCategory",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.areStartupCategory=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.startupCategoryDetails",
+        "name": "startupCategoryDetails",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "isUnitInvolvedCsr",
+        "data-ng-model": "awardFormData.isUnitInvolvedCsr",
+        "value": "true"
+      },
+      {
+        "type": "radio",
+        "required": "required",
+        "name": "isUnitInvolvedCsr",
+        "data-ng-model": "awardFormData.isUnitInvolvedCsr",
+        "value": "false"
+      },
+      {
+        "data-ng-required": "awardFormData.isUnitInvolvedCsr=='true'",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.unitInvolvedCsrDetails",
+        "name": "unitInvolvedCsrDetails",
+        "maxlength": "300"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "polluControlInfo.polluControlInfoName",
+        "name": "polluControlInfoName_{{$index}}",
+        "maxlength": "200"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "polluControlInfo.polluControlInfoCost",
+        "name": "polluControlInfoCost_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "id": "selectPolluControlInfoEstYear",
+        "data-ng-model": "polluControlInfo.polluControlInfoEstYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "polluControlInfoEst_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.contributionOwners}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.fundingAgencyName}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.fundingAgencyAddress}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.loanFinancialAgency}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoFinMgmt.loanAnyOtherSource}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.contributionOwners",
+        "name": "infoFinMgmt.contributionOwners",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.fundingAgencyName",
+        "name": "infoFinMgmt.fundingAgencyName",
+        "maxlength": "150"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.fundingAgencyAddress",
+        "name": "infoFinMgmt.fundingAgencyAddress",
+        "maxlength": "150"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.loanFinancialAgency",
+        "name": "infoFinMgmt.loanFinancialAgency",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoFinMgmt.loanAnyOtherSource",
+        "name": "infoFinMgmt.loanAnyOtherSource",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoLoanRepayment.infoInstalmentType}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoLoanRepayment.infoInstalmentAmt}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "th:value": "#{application.msme.infoLoanRepayment.infoLoanRepayment}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectInstalmentType",
+        "data-ng-model": "awardFormData.infoLoanRepayment.instalmentType",
+        "class": [
+          "form-control"
+        ],
+        "name": "infoLoanRepayment.instalmentType"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "awardFormData.infoLoanRepayment.instalmentAmt",
+        "name": "infoLoanRepayment.instalmentAmt",
+        "maxlength": "13"
+      },
+      {
+        "id": "selectRepaymentType",
+        "data-ng-model": "awardFormData.infoLoanRepayment.repaymentType",
+        "class": [
+          "form-control"
+        ],
+        "name": "infoLoanRepayment.repaymentType"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectInfoTaxRepaymentYear",
+        "data-ng-model": "infoTaxRepayment.infoTaxRepaymentYear",
+        "class": [
+          "form-control"
+        ],
+        "name": "infoTaxRepaymentYear_{{$index}}"
+      },
+      {
+        "id": "selectAgencyDeptName",
+        "data-ng-model": "infoTaxRepayment.agencyDeptName",
+        "class": [
+          "form-control"
+        ],
+        "name": "agencyDeptName_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "infoTaxRepayment.infoTaxRepaymentAmount",
+        "name": "infoTaxRepaymentAmount_{{$index}}",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{$index + 1}}",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "anyOtherInfo.anyOtherInfoDesc",
+        "name": "anyOtherInfoDesc_{{$index}}",
+        "maxlength": "700"
+      },
+      {
+        "type": "checkbox",
+        "required": "required",
+        "data-ng-model": "awardFormData.checkDeclaration",
+        "name": "checkDeclaration"
+      }
+    ],
+    "events": [
+      "addMsmeApplicationAwardDetails(awardForm.$valid)",
+      "addRow(awardFormData.anyOtherInfoList)",
+      "addRow(awardFormData.estPlantMachineList)",
+      "addRow(awardFormData.indvPartnerDetailsList)",
+      "addRow(awardFormData.infoTaxRepaymentList)",
+      "addRow(awardFormData.polluControlInfoList)",
+      "addRow(awardFormData.productDetailsList)",
+      "draftMsmeApplicationAwardDetails()",
+      "editFormInit()",
+      "removeRow(awardFormData.anyOtherInfoList)",
+      "removeRow(awardFormData.estPlantMachineList)",
+      "removeRow(awardFormData.indvPartnerDetailsList)",
+      "removeRow(awardFormData.infoTaxRepaymentList)",
+      "removeRow(awardFormData.polluControlInfoList)",
+      "removeRow(awardFormData.productDetailsList)"
+    ]
+  },
+  "viewMsmeAwardForm": {
+    "source": "pages\\msme\\viewMsmeAwardForm.html",
+    "fields": [],
+    "events": [
+      "downloadMsmeAwardDocument(applicantDocument.documentTypeCode)",
+      "viewFormInit()"
+    ]
+  },
+  "msmeAwardDocUploadForm": {
+    "source": "pages\\msme\\msmeAwardDocUploadForm.html",
+    "fields": [
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_QUALITY_CERT"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_SPL_PROG_SCHEME_LEV"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_STATE_OF_ART_TECH"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_STARTUP_CATEGORY"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_UNIT_INVOLVED_CSR"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_UAM_EM1_REGISTRATION"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.Deed_under_Indian_Partnership_Act"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.Certificate_of_Category_of_Unit"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_AUTH_LETTER_AUTHE_PERSON"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.MSME_AWARD_INFO_TAX_REPAYMENT"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "awardData.anyOtherInfoListDoc_{{$index}}"
+      }
+    ],
+    "events": [
+      "loadMSMEAwardDocumentsInit()",
+      "uploadMSMEAwardDocuments()"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+.applicant-services-page { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #333; }
+.applicant-services-page #industrial-unit-content { margin: 0; padding: 0 15px; }
+.applicant-services-page .service-table-controls { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; gap: 15px; flex-wrap: wrap; }
+.applicant-services-page .service-table-controls input, .applicant-services-page .service-table-controls select { border: 1px solid #ccc; border-radius: 4px; padding: 6px 10px; background: white; }
+.applicant-services-page .pagination button { border: 1px solid #ddd; padding: 6px 12px; color: #337ab7; background: white; }
+.applicant-services-page .pagination button:disabled { color: #777; cursor: default; }
+.applicant-services-page .pagination button[aria-current=page] { color: white; background: #337ab7; }
+.applicant-services-page .services-loading { padding: 8px 15px; }
+@media print {
+  body:has(.applicant-services-page #awardForm) * { visibility: hidden; }
+  .applicant-services-page #awardForm, .applicant-services-page #awardForm * { visibility: visible; }
+  .applicant-services-page #awardForm { position: absolute; left: 0; top: 0; width: 100%; }
+}
+@media print { body:has(.applicant-services-page) .navbar, body:has(.applicant-services-page) .sidebar, .applicant-services-page .btn { display: none !important; } body:has(.applicant-services-page) #page-wrapper { margin: 0 !important; } }

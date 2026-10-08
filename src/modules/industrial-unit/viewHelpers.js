@@ -36,6 +36,8 @@ export function filter(name, value, pattern) {
 export const faPath = hash => {
   const path = String(hash).replace(/^#\/?/, '')
   const profiles = { updateindustryprofileapplicant: '/applicant/industry-profile', updateprofileapplicant: '/applicant/profile', dashboard: '/applicant/dashboard' }
+  if (path === 'bank/addBankDetails') return '/applicant/bank-details/new'
+  if (path === 'bank/banksList') return '/applicant/bank-details'
   return profiles[path] || `/applicant/financial-assistance/${path.replace(/^fa\//, '')}`
 }
 

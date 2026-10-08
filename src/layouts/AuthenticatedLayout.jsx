@@ -9,7 +9,7 @@ import ConfirmDialog from '../components/modals/ConfirmDialog'
 
 const applicantMenu = [
   { key: 'dashboard', label: 'Dashboard', href: '/applicant/dashboard', iconName: 'dashboard' },
-  { key: 'fa', label: 'For Established Units(Financial Assistance)', iconName: 'bar-chart-o', children: [
+  { key: 'fa', label: 'For Established Units (Financial Assistance)', iconName: 'bar-chart-o', children: [
     { label: 'Industrial Unit', href: '/applicant/financial-assistance' },
     { label: 'Application for Infrastructure Development Permission', href: '/applicant/financial-assistance/infrastructure' },
     { label: 'Add Unit Details', href: '/applicant/financial-assistance/add-unit' },
@@ -24,7 +24,7 @@ const applicantMenu = [
   { key: 'noc', label: 'Online NOCs on MPIDC', href: '/applicant/online-nocs', iconName: 'dashboard' },
   { key: 'award', label: 'MSME Award', href: '/applicant/msme-award', iconName: 'trophy' },
   { key: 'bank', label: 'Bank Details', iconName: 'bank', children: [
-    { label: 'Add Bank Details', href: '/applicant/industry-profile' },
+    { label: 'Add Bank Details', href: '/applicant/bank-details/new' },
     { label: 'Banks List', href: '/applicant/bank-details' },
   ] },
 ]
@@ -42,7 +42,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const [sidebarHidden, setSidebarHidden] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [copyrightYear] = useState(() => new Date().getFullYear())
-  const [openSubmenus, setOpenSubmenus] = useState({ land: location.pathname.includes('land-allotment'), fa: location.pathname.includes('financial-assistance') || location.pathname.includes('/fa') })
+  const [openSubmenus, setOpenSubmenus] = useState({ bank: location.pathname.includes('bank-details'), land: location.pathname.includes('land-allotment'), fa: location.pathname.includes('financial-assistance') || location.pathname.includes('/fa') })
   const { isWarning, countdown, stayLoggedIn, logoutNow } = useSessionTimeout({ timeoutSeconds: 1800, warningSeconds: 120, enabled: true })
   const primaryRole = roles[0]?.replace('ROLE_', '') || 'APPLICANT'
   const formattedRole = useMemo(() => {
@@ -178,7 +178,6 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
     </header>
     <div className="portal-body">
       <aside id="sideNav" className="sidebar" aria-label={`${portalTitle} navigation`}>
-        <button id="sidebarToggle" aria-label={sidebarHidden ? 'Show navigation' : 'Hide navigation'} aria-expanded={!sidebarHidden} onClick={() => setSidebarHidden(!sidebarHidden)}><i className={`fa fa-angle-double-${sidebarHidden ? 'right' : 'left'}`} /></button>
         <nav>
           <ul className="nav" id="side-menu">
             {menu.map((item, index) => (
@@ -232,6 +231,16 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
           </ul>
         </nav>
       </aside>
+      <button
+        id="sidebarToggle"
+        type="button"
+        aria-label={sidebarHidden ? 'Show navigation' : 'Hide navigation'}
+        aria-expanded={!sidebarHidden}
+        title={sidebarHidden ? 'Expand Sidebar' : 'Collapse Sidebar'}
+        onClick={() => setSidebarHidden(!sidebarHidden)}
+      >
+        <i className={`fa fa-angle-double-${sidebarHidden ? 'right' : 'left'}`} />
+      </button>
       <main id="page-wrapper" className={location.pathname.includes('land-allotment') || location.pathname.includes('profile') || location.pathname.includes('password') ? 'formstyle1' : 'portal-content'}>
         <Outlet />
         <footer id="footer">

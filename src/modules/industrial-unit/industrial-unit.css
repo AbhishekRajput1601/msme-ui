@@ -31,55 +31,119 @@
 .industrial-unit-page h3.page-header {
   text-align: center !important;
   margin: 0 auto !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   font-size: 18px !important;
-  color: #31708f !important;
+  color: #23527c !important;
 }
 
-.industrial-unit-page .panel-heading {
+.industrial-unit-page .panel-heading,
+.industrial-unit-page .panel-info>.panel-heading {
   text-align: center !important;
   font-size: 14px !important;
-  font-weight: 600 !important;
-  padding: 8px 15px !important;
+  font-weight: 700 !important;
+  padding: 10px 15px !important;
   display: block !important;
   position: relative !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: none !important;
+  border-color: #2e6da4 !important;
 }
 
-.industrial-unit-page .panel-heading > * {
+.industrial-unit-page .panel-heading>*,
+.industrial-unit-page .panel-info>.panel-heading>* {
   text-align: center !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.industrial-unit-page .panel-heading h1,
+.industrial-unit-page .panel-heading h2,
+.industrial-unit-page .panel-heading h3,
+.industrial-unit-page .panel-heading h4,
+.industrial-unit-page .panel-heading h5 {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.industrial-unit-page .panel-heading a,
+.industrial-unit-page .panel-info>.panel-heading a {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+}
+
+.industrial-unit-page .panel-heading a:hover,
+.industrial-unit-page .panel-info>.panel-heading a:hover {
+  color: #e0f2fe !important;
+  text-decoration: underline !important;
 }
 
 .industrial-unit-page .panel-heading1 {
   text-align: center !important;
   font-size: 16px !important;
   padding: 8px 15px !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
 }
 
 .industrial-unit-page .panel-title {
   text-align: center !important;
   margin: 0 auto !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
 }
 
+/* ── Section Headings within Form: Address Details ( Unit ), Organization Details, etc. ── */
 .industrial-unit-page .divheadertxt,
-.industrial-unit-page .new-divheadtext {
+.industrial-unit-page .new-divheadtext,
+.industrial-unit-page h3.divheadertxt,
+.industrial-unit-page h3.new-divheadtext {
   text-align: center !important;
-  font-size: 15px !important;
-  font-weight: 600 !important;
-  color: #31708f !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: none !important;
+  border: 1px solid #2e6da4 !important;
+  border-radius: 4px !important;
   width: 100% !important;
   max-width: 100% !important;
-  margin: 8px auto !important;
-  padding: 6px 12px !important;
+  margin: 14px auto 10px auto !important;
+  padding: 8px 14px !important;
   box-sizing: border-box !important;
+  line-height: 1.4 !important;
+  white-space: normal !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Ensure all text, spans, and parentheses in section headers stay inline, white, and bold */
+.industrial-unit-page .divheadertxt *,
+.industrial-unit-page .new-divheadtext *,
+.industrial-unit-page h3.divheadertxt *,
+.industrial-unit-page h3.new-divheadtext *,
+.industrial-unit-page .divheadertxt span,
+.industrial-unit-page .new-divheadtext span,
+.industrial-unit-page h3.divheadertxt span,
+.industrial-unit-page h3.new-divheadtext span {
+  display: inline !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;
+  white-space: normal !important;
+  text-align: center !important;
 }
 
 .industrial-unit-page .headingset {
   text-align: center !important;
   font-size: 14px !important;
   font-weight: 600 !important;
-  color: #31708f !important;
+  color: #23527c !important;
   display: inline-block !important;
   margin: 8px auto !important;
 }
@@ -87,11 +151,21 @@
 .industrial-unit-page .tab-header {
   text-align: center !important;
   font-size: 15px !important;
-  font-weight: 600 !important;
-  color: #31708f !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: none !important;
   width: 100% !important;
   margin: 5px auto 10px auto !important;
+  padding: 8px 14px !important;
+  border-radius: 4px !important;
   box-sizing: border-box !important;
+}
+
+.industrial-unit-page .tab-header * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  display: inline !important;
 }
 
 .industrial-unit-page .modal-header,
@@ -128,7 +202,7 @@
   height: 0 !important;
 }
 
-.industrial-unit-page .row.mb-3 > .col-md-6 {
+.industrial-unit-page .row.mb-3>.col-md-6 {
   float: none !important;
   margin: 10px auto !important;
   max-width: 650px !important;
@@ -143,17 +217,97 @@
 .industrial-unit-page .panel {
   margin-bottom: 12px !important;
   border-radius: 4px !important;
-  border: 1px solid #bce8f1 !important;
+  border: 1px solid #2e6da4 !important;
 }
 
 .industrial-unit-page .panel-info {
-  border-color: #bce8f1 !important;
+  border-color: #2e6da4 !important;
 }
 
-.industrial-unit-page .panel-info > .panel-heading {
-  color: #31708f !important;
-  background-color: #d9edf7 !important;
-  border-color: #bce8f1 !important;
+.industrial-unit-page .panel-info>.panel-heading {
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: none !important;
+  border-color: #2e6da4 !important;
+  font-weight: 700 !important;
+}
+
+.industrial-unit-page .panel-heading a {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+}
+
+.industrial-unit-page .panel-heading a:hover {
+  color: #e0f2fe !important;
+  text-decoration: underline !important;
+}
+
+/* ── 2a. Table Styling: Theme Blue Heading & Blue Lines ────────────────────── */
+.industrial-unit-page table,
+.industrial-unit-page .table,
+.industrial-unit-page #dynamic-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border: 1px solid #337ab7 !important;
+  margin-bottom: 15px !important;
+  background-color: #ffffff !important;
+}
+
+/* Table Heading: Website Theme Blue with White Text */
+.industrial-unit-page table thead th,
+.industrial-unit-page .table thead th,
+.industrial-unit-page .table>thead>tr>th,
+.industrial-unit-page #dynamic-table thead th,
+.industrial-unit-page table th {
+  background-color: #337ab7 !important;
+  background-image: linear-gradient(180deg, #337ab7 0%, #286090 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #23527c !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 8px 10px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  letter-spacing: 0.3px !important;
+}
+
+.industrial-unit-page table thead th *,
+.industrial-unit-page .table thead th *,
+.industrial-unit-page #dynamic-table thead th * {
+  color: #ffffff !important;
+}
+
+/* Table Lines: Theme Blue Borders */
+.industrial-unit-page .table-bordered,
+.industrial-unit-page .table-bordered th,
+.industrial-unit-page .table-bordered td,
+.industrial-unit-page table th,
+.industrial-unit-page table td,
+.industrial-unit-page .table>tbody>tr>td,
+.industrial-unit-page .table>tbody>tr>th,
+.industrial-unit-page .table>tfoot>tr>td,
+.industrial-unit-page .table>tfoot>tr>th,
+.industrial-unit-page #dynamic-table td,
+.industrial-unit-page #dynamic-table th {
+  border: 1px solid #90bddc !important;
+  vertical-align: middle !important;
+}
+
+.industrial-unit-page .table>thead>tr>th,
+.industrial-unit-page #dynamic-table>thead>tr>th {
+  border-bottom: 2px solid #23527c !important;
+}
+
+/* Subtle Theme Blue Striping & Hover */
+.industrial-unit-page .table-striped>tbody>tr:nth-of-type(odd),
+.industrial-unit-page .table-striped>tbody>tr:nth-of-type(odd)>td {
+  background-color: #f4f8fc !important;
+}
+
+.industrial-unit-page .table-hover>tbody>tr:hover,
+.industrial-unit-page .table-hover>tbody>tr:hover>td {
+  background-color: #eaf3fb !important;
 }
 
 .industrial-unit-page .panel-body {
@@ -246,15 +400,108 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6) !important;
 }
 
+.industrial-unit-page .form-group label:not(.radio-inline):not(.checkbox-inline) {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+}
+
+.industrial-unit-page label span+span {
+  margin-left: 4px;
+}
+
+.industrial-unit-page .aestrick {
+  margin-left: 3px;
+  color: #d9534f;
+}
+
+.industrial-unit-page div.form-group:not(.divheadertxt):not(.new-divheadtext):not(h1):not(h2):not(h3):not(h4)>span:not(.aestrick):not(.help-block):not(.text-danger) {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+  font-weight: normal;
+}
+
 .industrial-unit-page input[type="file"],
-.industrial-unit-page input[type="file"].btn {
-  height: 28px !important;
-  min-height: 28px !important;
-  max-height: 28px !important;
-  padding: 2px 6px !important;
-  font-size: 12px !important;
-  line-height: 20px !important;
-  box-sizing: border-box !important;
+.industrial-unit-page input[type="file"].btn,
+.industrial-unit-page input[type="file"].btn-primary,
+.industrial-unit-page .form-file-input {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #333 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  line-height: normal !important;
+  width: auto !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  display: block !important;
+  margin-top: 5px !important;
+  margin-bottom: 6px !important;
+  clear: both !important;
+}
+
+.industrial-unit-page input[type="file"]::file-selector-button,
+.industrial-unit-page input[type="file"].btn::file-selector-button,
+.industrial-unit-page input[type="file"].btn-primary::file-selector-button,
+.industrial-unit-page .form-file-input::file-selector-button,
+.industrial-unit-page input[type="file"]::-webkit-file-upload-button,
+.industrial-unit-page input[type="file"].btn::-webkit-file-upload-button,
+.industrial-unit-page input[type="file"].btn-primary::-webkit-file-upload-button,
+.industrial-unit-page .form-file-input::-webkit-file-upload-button {
+  background-color: #efefef !important;
+  color: #000000 !important;
+  border: 1px solid #767676 !important;
+  border-radius: 2px !important;
+  padding: 2px 8px !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  margin-right: 8px !important;
+  line-height: normal !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.industrial-unit-page input[type="file"]::file-selector-button:hover,
+.industrial-unit-page input[type="file"].btn::file-selector-button:hover,
+.industrial-unit-page input[type="file"].btn-primary::file-selector-button:hover,
+.industrial-unit-page .form-file-input::file-selector-button:hover,
+.industrial-unit-page input[type="file"]::-webkit-file-upload-button:hover,
+.industrial-unit-page input[type="file"].btn::-webkit-file-upload-button:hover,
+.industrial-unit-page input[type="file"].btn-primary::-webkit-file-upload-button:hover,
+.industrial-unit-page .form-file-input::-webkit-file-upload-button:hover {
+  background-color: #e5e5e5 !important;
+  border-color: #4f4f4f !important;
+}
+
+.industrial-unit-page .form-group input[type="file"]+a,
+.industrial-unit-page .form-group input[type="file"]~a,
+.industrial-unit-page .download-doc-link {
+  display: block !important;
+  margin-top: 6px !important;
+  margin-bottom: 4px !important;
+  clear: both !important;
+  color: #337ab7 !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  width: fit-content !important;
+}
+
+.industrial-unit-page .download-doc-link:hover,
+.industrial-unit-page .form-group input[type="file"]~a:hover {
+  text-decoration: underline !important;
+  color: #23527c !important;
 }
 
 .industrial-unit-page textarea,
@@ -330,7 +577,7 @@
   flex-shrink: 0 !important;
 }
 
-.industrial-unit-page input[type="checkbox"] + span {
+.industrial-unit-page input[type="checkbox"]+span {
   font-size: 14px !important;
   font-weight: 500 !important;
   color: #2b3a4a !important;
@@ -357,14 +604,14 @@
   background-color: #f4f8fb !important;
 }
 
-.industrial-unit-page .col-md-6:has(> input[type="checkbox"]) > input[type="checkbox"],
-.industrial-unit-page .col-md-12:has(> input[type="checkbox"]) > input[type="checkbox"] {
+.industrial-unit-page .col-md-6:has(> input[type="checkbox"])>input[type="checkbox"],
+.industrial-unit-page .col-md-12:has(> input[type="checkbox"])>input[type="checkbox"] {
   margin-top: 2px !important;
 }
 
 .industrial-unit-page label:has([data-translation="application.fa.selectfa"]),
-.industrial-unit-page div:has(> .form-group input[type="checkbox"]) > label,
-.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"]) > label {
+.industrial-unit-page div:has(> .form-group input[type="checkbox"])>label,
+.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"])>label {
   font-size: 15px !important;
   font-weight: 600 !important;
   color: #222 !important;
@@ -390,7 +637,7 @@
 }
 
 .industrial-unit-page label:has([data-translation="application.fa.selectfa"]) .aestrick,
-.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"]) > label .aestrick {
+.industrial-unit-page .col-md-12:has(> .form-group input[type="checkbox"])>label .aestrick {
   display: inline !important;
   margin-left: 3px !important;
   color: #d9534f !important;
@@ -406,7 +653,7 @@
   row-gap: 12px !important;
 }
 
-.industrial-unit-page .form-group:has(> .col-md-6 > input[type="checkbox"]) > .col-md-6 {
+.industrial-unit-page .form-group:has(> .col-md-6 > input[type="checkbox"])>.col-md-6 {
   width: 100% !important;
   float: none !important;
   padding: 0 !important;
@@ -423,7 +670,7 @@
   border: 1px solid #ddd !important;
 }
 
-.industrial-unit-page .table > thead > tr > th {
+.industrial-unit-page .table>thead>tr>th {
   background-color: #f5f5f5 !important;
   color: #333 !important;
   font-weight: 600 !important;
@@ -432,7 +679,7 @@
   border: 1px solid #ddd !important;
 }
 
-.industrial-unit-page .table > tbody > tr > td {
+.industrial-unit-page .table>tbody>tr>td {
   padding: 5px 8px !important;
   vertical-align: middle !important;
   font-size: 13px !important;
@@ -547,62 +794,168 @@
 }
 
 .industrial-unit-page .wizard {
-  margin-bottom: 12px !important;
+  margin-bottom: 16px !important;
 }
 
+.industrial-unit-page .wizard .wizard-inner {
+  margin-bottom: 6px !important;
+}
+
+/* 1. Gap between tabs */
 .industrial-unit-page .wizard .nav-tabs {
   display: flex !important;
-  padding-left: 0 !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+  padding: 4px 0 !important;
   list-style: none !important;
-  margin-bottom: 15px !important;
-  border-bottom: 2px solid #337ab7 !important;
+  margin-bottom: 16px !important;
+  border-bottom: none !important;
   justify-content: center !important;
+  align-items: stretch !important;
+  background: transparent !important;
 }
 
 .industrial-unit-page .wizard .nav-item {
-  flex: 1 !important;
+  flex: 1 1 0 !important;
+  max-width: 320px !important;
   text-align: center !important;
+  margin: 0 !important;
+  list-style: none !important;
 }
 
+/* 2. Small, compact tab box with theme styling */
 .industrial-unit-page .wizard .nav-link {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
   padding: 8px 12px !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
-  color: #555 !important;
+  color: #1f4e79 !important;
   text-align: center !important;
-  background: #f7f7f7 !important;
-  border: 1px solid #ddd !important;
-  border-bottom: none !important;
-  border-radius: 4px 4px 0 0 !important;
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px !important;
   text-decoration: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
+.industrial-unit-page .wizard .nav-link > span:first-child,
+.industrial-unit-page .wizard .nav-link .fa {
+  display: block !important;
+  font-size: 14px !important;
+  color: #337ab7 !important;
+  margin: 0 auto 2px auto !important;
+  line-height: 1 !important;
+}
+
+/* 3. Inner text pill: small compact size, NO GREEN (crisp white background & navy text) */
+.industrial-unit-page .wizard .nav-link > span+span,
+.industrial-unit-page .wizard .wizard-inner .nav-link > span+span,
+.industrial-unit-page .wizard .wizard-inner .nav-link>span+span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  min-width: unset !important;
+  width: auto !important;
+  padding: 4px 10px !important;
+  background: #ffffff !important;
+  color: #1f4e79 !important;
+  border: 1px solid #d0dbe5 !important;
+  border-radius: 4px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
+  margin: 2px auto 0 auto !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Active tab container and inner pill */
 .industrial-unit-page .wizard .nav-link.active {
-  color: #fff !important;
+  color: #ffffff !important;
   background-color: #337ab7 !important;
-  border-color: #337ab7 !important;
+  background-image: none !important;
+  border-color: #2e6da4 !important;
+  box-shadow: 0 2px 6px rgba(51, 122, 183, 0.25) !important;
 }
 
+.industrial-unit-page .wizard .nav-link.active > span:first-child,
+.industrial-unit-page .wizard .nav-link.active .fa {
+  color: #ffffff !important;
+}
+
+.industrial-unit-page .wizard .nav-link.active > span+span,
+.industrial-unit-page .wizard .wizard-inner .nav-link.active > span+span {
+  background: #ffffff !important;
+  color: #1f4e79 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  font-weight: 700 !important;
+}
+
+/* 5. Inactive hover */
+.industrial-unit-page .wizard .nav-link:not(.active):not(.disabled):hover {
+  background: #eef5fb !important;
+  border-color: #90bddc !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+.industrial-unit-page .wizard .nav-link:not(.active):not(.disabled):hover > span+span {
+  border-color: #90bddc !important;
+  color: #143e6a !important;
+}
+
+/* 6. Disabled state */
 .industrial-unit-page .wizard .nav-link.disabled {
   pointer-events: none !important;
-  opacity: .6 !important;
-  background-color: #eee !important;
+  opacity: 0.75 !important;
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
 }
 
+.industrial-unit-page .wizard .nav-link.disabled > span:first-child {
+  color: #64748b !important;
+}
+
+.industrial-unit-page .wizard .nav-link.disabled > span+span {
+  background: #f8fafc !important;
+  color: #64748b !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* 7. Step count badge */
 .industrial-unit-page .wizard .count {
-  display: inline-block !important;
-  margin-left: 6px !important;
-  padding: 1px 6px !important;
-  font-size: 11px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 50% !important;
+  background: #1f4e79 !important;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
   font-style: normal !important;
-  border-radius: 10px !important;
-  background: rgba(0, 0, 0, .1) !important;
+  margin-left: 4px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
 }
 
 .industrial-unit-page .wizard .nav-link.active .count {
-  background: #fff !important;
-  color: #337ab7 !important;
+  background: #1f4e79 !important;
+  color: #ffffff !important;
+}
+
+.industrial-unit-page .wizard .nav-link.disabled .count {
+  background: #94a3b8 !important;
+  color: #ffffff !important;
 }
 
 .industrial-unit-page .action-buttons a,
@@ -618,6 +971,7 @@
 }
 
 @media print {
+
   .legacy-portal header,
   .legacy-portal nav,
   .legacy-portal footer,
@@ -628,6 +982,7 @@
   .industrial-unit-page .alert {
     display: none !important;
   }
+
   .legacy-portal #page-wrapper {
     margin: 0 !important;
     padding: 0 !important;

@@ -20,7 +20,7 @@ export default function InfrastructurePages({ id }) {
   const [, render] = useReducer(n => n + 1, 0)
   const state = useMemo(() => ({
     faData: {}, initialized: new Set(), locale, notify: render, preserveHeading: true,
-    loadInfrastructureById() {},
+    loadInfrastructureById() { },
     goBackToBatch: () => navigate(-1),
     resolveLink: () => listPath,
     documentPath: value => '/mpmsme/fa/' + value,
@@ -56,13 +56,13 @@ function InfrastructureList({ locale }) {
     const abort = new AbortController()
     setBusy(true); setError('')
     const params = { sEcho: 1, iDisplayStart: start, iDisplayLength: length, sSearch: search, iColumns: 5, iSortingCols: 0, iSortCol_0: 0, sSortDir_0: 'asc' }
-    ;['id', 'createdDate', 'applicantName', 'districtName', null].forEach((key, i) => {
-      params['mDataProp_' + i] = key ?? ''
-      params['bSortable_' + i] = false
-      params['bSearchable_' + i] = true
-      params['sSearch_' + i] = ''
-      params['bRegex_' + i] = false
-    })
+      ;['id', 'createdDate', 'applicantName', 'districtName', null].forEach((key, i) => {
+        params['mDataProp_' + i] = key ?? ''
+        params['bSortable_' + i] = false
+        params['bSearchable_' + i] = true
+        params['sSearch_' + i] = ''
+        params['bRegex_' + i] = false
+      })
     fetchInfrastructure('fetchInfrastructureList', params, abort.signal)
       .then(result => { if (!abort.signal.aborted) setData(result) })
       .catch(err => { if (!abort.signal.aborted) setError(err.message) })
@@ -75,13 +75,13 @@ function InfrastructureList({ locale }) {
   return <div id="industrial-unit-content">
     <div className="row"><div className="col-md-12"><h1 className="page-header" /></div></div>
     <div className="row"><div className="panel panel-info">
-      <div className="panel-heading">{t('application.fa.title', 'Financial Assistance')} &gt; <Link style={{ textDecoration: 'none', color: '#31708f' }} to="/department/fa/dticfapendingapplicantsunit">{t('application.fa.industrialUnit', 'Industrial Unit')}</Link></div>
+      <div className="panel-heading">{t('application.fa.title', 'Financial Assistance')} &gt; <Link style={{ textDecoration: 'underline', color: '#ffffff', fontWeight: 700 }} to="/department/fa/dticfapendingapplicantsunit">{t('application.fa.industrialUnit', 'Industrial Unit')}</Link></div>
       <div className="panel-body"><div className="row">
         {error && <div className="text-error" style={{ color: 'red' }} role="alert"><strong>Error!</strong><p>{error}</p></div>}
         {busy && <div id="processing-message" role="status">Processing...</div>}
         <div className="res_div">
           <div className="infrastructure-table-controls">
-            <label>Show <select aria-label="Entries per page" value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10,25,50,100].map(n => <option key={n}>{n}</option>)}</select> entries</label>
+            <label>Show <select aria-label="Entries per page" value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10, 25, 50, 100].map(n => <option key={n}>{n}</option>)}</select> entries</label>
             <label>Search: <input type="search" value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} /></label>
           </div>
           <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={busy}>

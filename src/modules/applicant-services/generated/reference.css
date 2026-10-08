@@ -1,0 +1,185 @@
+@scope (.applicant-services-page[data-view="addBankDetails"]) {
+
+.btn.btn-primary.btn-xs {
+	color: #000;
+	height: 37px;
+	padding: 3px 0 0px 7px;
+	background: #cccccc36;
+	border-color: #ccccccd9;
+	border-radius: 0;
+}
+
+p.help-block {
+	position: absolute;
+}
+
+button.remove.css-btn, button.addfields.css-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	width: 40px;
+	margin-top: 25px;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.new-divheadtext {
+	width: 100%;
+}
+
+.custom-scroll2 {
+	overflow-x: hidden;
+	width: 100%;
+	display: -webkit-inline-box;
+	border-bottom: 1px dashed #ccc;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+
+button.addfields.css-btn {
+	margin-left: 15px;
+}
+
+.page-header {
+	font-size: 24px;
+}
+
+label span {
+	font-size: 12px;
+}
+
+.form-control {
+	line-height: 24px;
+	font-size: 14px;
+	min-height: 30px !important;
+}
+
+label+span {
+	font-size: 12px;
+}
+
+input[type="file"] {
+	width: 100%
+}
+
+.submit-btn-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+	padding-top: 20px;
+}
+
+}
+@scope (.applicant-services-page[data-view="banksList"]) {
+
+        .table thead tr th.th-styling {
+            background: #428BCA;
+            color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .table tbody tr td.rows-styling {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .page-header {
+            font-size: 24px;
+        }
+    
+}
+@scope (.applicant-services-page[data-view="mpidcServices"]) {
+
+}
+@scope (.applicant-services-page[data-view="applicantAwardList"]) {
+
+}
+@scope (.applicant-services-page[data-view="applyMsmeAwardForm"]) {
+
+      .blink {
+        animation: blinker 2s linear infinite;
+        color: red;
+       }
+      @keyframes blinker {  
+        50% { opacity: 0; }
+       }
+       .blink-one {
+         animation: blinker-one 1s linear infinite;
+       }
+       @keyframes blinker-one {  
+         0% { opacity: 0; }
+       }
+       .blink-two {
+         animation: blinker-two 1.4s linear infinite;
+       }
+       @keyframes blinker-two {  
+         100% { opacity: 0; }
+       }
+    
+}
+@scope (.applicant-services-page[data-view="editMsmeAwardForm"]) {
+
+
+
+.addbtn{
+    text-align: center;
+    background-color: #ededed;
+    border-style: solid;
+    border-color: #b3b3b3;
+    border-width: 1px 1px 1px 1px;
+    float: right;
+    width: 67px;
+    margin-top: -19px;
+    
+}
+
+.delbtn{
+   text-align: center;
+    background-color: #ededed;
+    border-style: solid;
+    border-color: #b3b3b3;
+    border-width: 1px 1px 1px 1px;
+    width: 67px;
+}
+.blink {
+	animation: blinker 2s linear infinite;
+	color: red;
+}
+
+@keyframes blinker { 50% {
+	opacity: 0;
+}
+
+}
+.blink-one {
+	animation: blinker-one 1s linear infinite;
+}
+
+@keyframes blinker-one { 0% {
+	opacity: 0;
+}
+
+}
+.blink-two {
+	animation: blinker-two 1.4s linear infinite;
+}
+
+@keyframes blinker-two { 100% {
+	opacity: 0;
+}
+}
+
+}
+@scope (.applicant-services-page[data-view="viewMsmeAwardForm"]) {
+
+}
+@scope (.applicant-services-page[data-view="msmeAwardDocUploadForm"]) {
+
+}

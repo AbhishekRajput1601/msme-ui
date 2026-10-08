@@ -20,11 +20,12 @@ function run(id, s, root) {
 }
 
 function validation(form, root, submitted = true) {
+  const previous = root[form.name || 'form']
   const state = { $submitted: submitted || root[form.name || 'form']?.$submitted || false, $valid: true, $invalid: false, $error: {} }
   for (const el of form.elements) {
     if (el.disabled || !el.willValidate) continue
     const error = { required: el.validity.valueMissing, pattern: el.validity.patternMismatch, min: el.validity.rangeUnderflow, max: el.validity.rangeOverflow, number: el.validity.badInput, email: el.validity.typeMismatch }
-    state[el.name] = { $error: error, $invalid: !el.validity.valid, $valid: el.validity.valid, $touched: true }
+    state[el.name] = { $error: error, $invalid: !el.validity.valid, $valid: el.validity.valid, $touched: root.trackTouched ? !!previous?.[el.name]?.$touched : true }
     if (!el.validity.valid) state.$valid = false
   }
   state.$invalid = !state.$valid
@@ -45,7 +46,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   }, [node,root])
   if (node.text) return interpolate(node.text, s)
   if (node.tag === 'table' && node.attrs?.id?.[0] === 'dynamic-table' && root.renderTable) return root.renderTable(node)
-  if (node.fragment) return <ViewNodes nodes={views[node.fragment]} scope={s} root={root} />
+  if (node.fragment) return <ViewNodes nodes={(root.viewBundle || views)[node.fragment]} scope={s} root={root} />
   if (node.repeat && !repeated) {
     const items = evaluate(node.repeat.items, s) || []
     return Object.entries(items).map(([key, value], index) => {
@@ -66,6 +67,14 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (node.class != null) {
     const value = evaluate(node.class, s)
     attrs.className = (attrs.className || '') + ' ' + (typeof value === 'object' ? Object.entries(value || {}).filter(([,v]) => v).map(([k]) => k).join(' ') : value || '')
+  }
+  if (attrs.type === 'file') {
+    const cleaned = (attrs.className || '')
+      .split(/\s+/)
+      .filter(c => !['btn', 'btn-primary', 'btn-xs', 'btn-sm', 'btn-default', 'btn-success', 'form-control-file', 'w100'].includes(c))
+      .join(' ')
+      .trim()
+    attrs.className = (cleaned ? cleaned + ' ' : '') + 'form-file-input'
   }
   // The surrounding React layout already supplies page-wrapper and its margins.
   if (attrs.id === 'page-wrapper') attrs.id = 'industrial-unit-content'
@@ -90,6 +99,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (node.inline_click) attrs.onClick = e => {
     e.preventDefault()
     if (/print/.test(node.inline_click)) (root.print || (() => window.print()))()
+    else if (root.inlineAction) root.inlineAction(node.inline_click)
     else if (/history.back/.test(node.inline_click)) root.goBackToBatch()
     else { const id = node.inline_click.match(/#([\w]+)/)?.[1]; if (id) document.getElementById(id)?.click() }
   }
@@ -101,20 +111,23 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (node.model) {
     const value = evaluate(node.read, s)
     const file = attrs.type === 'file'
+    const objectOptions = node.options?.match(/^(\w+) as \1\.(\w+) for \1 in (\w+) track by \1\.(\w+)$/)
     if (/\bdate\b/.test(attrs.className || '') && !file) attrs.type = 'date'
     if (root.prepareField) root.prepareField(attrs, node)
     if (attrs.type === 'checkbox') attrs.checked = Boolean(value)
     else if (attrs.type === 'radio') attrs.checked = String(value) === String(attrs.value)
-    else if (!file) attrs.value = attrs.type === 'date' ? filter('date', value, 'yyyy-MM-dd') : value ?? ''
+    else if (!file) attrs.value = objectOptions ? value?.[objectOptions[4]] ?? '' : attrs.type === 'date' ? filter('date', value, 'yyyy-MM-dd') : value ?? ''
     if (node.pattern) attrs.pattern = node.pattern.replace(/^\//, '').replace(/\/[a-z]*$/, '')
     attrs.onChange = e => {
       let value = file ? e.target.files?.[0] : attrs.type === 'checkbox' ? e.target.checked : attrs.type === 'number' ? e.target.value === '' ? '' : Number(e.target.value) : e.target.value
+      if (objectOptions) value = (s[objectOptions[3]] || []).find(item => String(item[objectOptions[4]]) === e.target.value) || null
       if (attrs.type === 'date') value = filter('date', value, 'dd/MM/yyyy')
       if (node.maxValue != null && evaluate(node.maxValue, s) && Number(value) > Number(evaluate(node.maxValue,s))) {
         window.alert('The value exceeds ' + evaluate(node.maxValue,s)); value = ''
       }
       if (/\balpha-only\b/.test(attrs.className || '') && typeof value === 'string') value = value.replace(/[^a-zA-Z .]/g,'')
-      writePath(s, node.model, value)
+      if (root.writeField) root.writeField(s, node.model, value)
+      else writePath(s, node.model, value)
       if (node.change != null) run(node.change, s, root)
       if (file && node.inline_change) root.previewFile(value, attrs.id)
       root.notify()
@@ -138,14 +151,26 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     attrs.ref = formRef
     attrs.noValidate = true
     attrs.onChange = e => { validation(e.currentTarget, root, false); root.notify() }
+    if (root.trackTouched) attrs.onBlur = e => {
+      const state = validation(e.currentTarget, root, false)
+      if (state[e.target.name]) state[e.target.name].$touched = true
+      root.notify()
+    }
     attrs.onSubmit = e => { e.preventDefault(); if (root.saving) return; validation(e.currentTarget, root); run(node.submit, s, root) }
   }
   if (node.tag === 'button' && !attrs.type) attrs.type = node.click != null ? 'button' : 'submit'
   if (node.tag === 'button' && attrs.type === 'submit') attrs.disabled ||= root.saving
-  if (node.tag === 'a' && attrs.disabled) {
-    attrs['aria-disabled'] = true
-    attrs.tabIndex = -1
-    attrs.onClick = e => e.preventDefault()
+  if (node.tag === 'a') {
+    if (attrs.disabled) {
+      attrs['aria-disabled'] = true
+      attrs.tabIndex = -1
+      attrs.onClick = e => e.preventDefault()
+    }
+    const hasDownloadDoc = JSON.stringify(node.children || []).includes('Download uploaded doc') ||
+      JSON.stringify(node.children || []).includes('Download')
+    if (hasDownloadDoc && (attrs.href || node.attrs?.href)) {
+      attrs.className = ((attrs.className || '') + ' download-doc-link').trim()
+    }
   }
   // Native file controls retain the exact field names and upload bindings.
   let children = <ViewNodes nodes={node.children} scope={s} root={root} />
@@ -169,6 +194,8 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     }
   }
   if (node.options) {
+    const objectMatch = node.options.match(/^(\w+) as \1\.(\w+) for \1 in (\w+) track by \1\.(\w+)$/)
+    if (objectMatch) children = <>{children}{(s[objectMatch[3]] || []).map(item => <option key={item[objectMatch[4]]} value={item[objectMatch[4]]}>{item[objectMatch[2]]}</option>)}</>
     const match = node.options.match(/^(\w+)\.(\w+) as \w+\.(\w+) for \w+ in (\w+)/)
     if (match) {
       const values = s[match[4]] || []
@@ -178,6 +205,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   }
   if (node.tag === 'img' && !attrs.src) return null
   if (!root.preserveHeading && node.tag === 'h1' && attrs.className?.includes('page-header') && (!node.children || node.children.length === 0)) return null
+  if (node.tag === 'input' && root.renderDate && /\bdate\b/.test(attrs.className || '')) return root.renderDate(attrs)
   if (['input','img','br','hr','wbr','source','area','col'].includes(node.tag)) return React.createElement(node.tag, attrs)
   return React.createElement(node.tag, attrs, children)
 }

@@ -1,41 +1,364 @@
 /* Infrastructure templates use the original panel/table layout, independently
    of the compact, centered Industrial Unit wizard overrides. */
-.legacy-portal .infrastructure-page { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; color: #333; }
-.legacy-portal .infrastructure-page .page-header { margin: 40px 0 20px; padding-bottom: 9px; border-bottom: 1px solid #eee; }
-.legacy-portal .infrastructure-page .panel { margin-bottom: 20px; background-color: #fff; border: 1px solid #bce8f1; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
-.legacy-portal .infrastructure-form .panel { display: inline-table; width: 100%; }
-.legacy-portal .infrastructure-page .panel-heading { padding: 10px 15px; color: #31708f; background-color: #d9edf7; border-bottom: 1px solid #bce8f1; border-radius: 3px 3px 0 0; text-align: left; font-weight: 400; }
-.legacy-portal .infrastructure-page .panel-body { padding: 15px; }
-.legacy-portal .infrastructure-page .table { width: 100%; margin-bottom: 20px; border-collapse: collapse; }
-.legacy-portal .infrastructure-page .table > :not(caption) > * > * { padding: 8px; line-height: 1.42857143; vertical-align: top; color: #333; background-color: transparent; box-shadow: none; border-top: 1px solid #ddd; }
-.legacy-portal .infrastructure-page .table > thead > tr > th { vertical-align: bottom; border-bottom: 2px solid #ddd; border-top: 0; }
-.legacy-portal .infrastructure-page .table > tbody > tr.success > td { background-color: #dff0d8; }
-.legacy-portal .infrastructure-page .table > tbody > tr.info > td { background-color: #d9edf7; }
-.legacy-portal .infrastructure-page .table-striped > tbody > tr:nth-of-type(odd) > td { background-color: #f9f9f9; }
-.legacy-portal .infrastructure-page .table-hover > tbody > tr:hover > td { background-color: #f5f5f5; }
-.legacy-portal .infrastructure-page .table-bordered, .legacy-portal .infrastructure-page .table-bordered td, .legacy-portal .infrastructure-page .table-bordered th { border: 1px solid #ddd; }
-.legacy-portal .infrastructure-page .btn { padding: 6px 9px; font-size: 14px; line-height: 1.42857143; border: 1px solid transparent; border-radius: 4px; }
-.legacy-portal .infrastructure-page .btn-primary { color: #fff; background-color: #337ab7; border-color: #2e6da4; }
-.legacy-portal .infrastructure-page .btn-primary:hover { background-color: #286090; border-color: #204d74; }
-.legacy-portal .infrastructure-page .btn-success { color: #fff; background-color: #5cb85c; border-color: #4cae4c; }
-.legacy-portal .infrastructure-page .btn-success:hover { background-color: #449d44; border-color: #398439; }
-.legacy-portal .infrastructure-page .aestrick { color: red; }
-.legacy-portal .infrastructure-page label { font-weight: 700; }
-.legacy-portal .infrastructure-page .form-group { margin-bottom: 15px; }
-.legacy-portal .infrastructure-page .help-block { margin-top: 5px; margin-bottom: 10px; color: #737373; }
-.legacy-portal .infrastructure-page .res_div { overflow-x: auto; }
-.legacy-portal .infrastructure-table-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0; }
-.legacy-portal .infrastructure-table-controls label { font-weight: normal; }
-.legacy-portal .infrastructure-table-controls input, .legacy-portal .infrastructure-table-controls select { border: 1px solid #ccc; border-radius: 4px; padding: 5px 10px; }
-.legacy-portal .infrastructure-table-controls .pagination { margin: 0; }
-.legacy-portal .infrastructure-table-controls button { padding: 6px 12px; border: 1px solid #ddd; background: #fff; color: #337ab7; }
-.legacy-portal .infrastructure-table-controls button[aria-current=page] { color: #fff; background: #337ab7; }
-.legacy-portal .infrastructure-table-controls button:disabled { color: #777; cursor: not-allowed; }
+.legacy-portal .infrastructure-page {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+}
+
+.legacy-portal .infrastructure-page .page-header {
+  margin: 40px 0 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+.legacy-portal .infrastructure-page .panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #bce8f1;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.legacy-portal .infrastructure-form .panel {
+  display: inline-table;
+  width: 100%;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form, .infrastructure-detail) .panel-heading,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form, .infrastructure-detail) .panel-info > .panel-heading {
+  padding: 10px 15px !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: none !important;
+  border-bottom: 1px solid #2e6da4 !important;
+  border-color: #2e6da4 !important;
+  border-radius: 3px 3px 0 0 !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form, .infrastructure-detail) .panel-heading *,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form, .infrastructure-detail) .panel-heading a {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.legacy-portal .infrastructure-page .panel-body {
+  padding: 15px;
+}
+
+.legacy-portal .infrastructure-page .table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border: 1px solid #337ab7;
+}
+
+.legacy-portal .infrastructure-page .table> :not(caption)>*>* {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: middle;
+  color: #333;
+  background-color: transparent;
+  box-shadow: none;
+  border-top: 1px solid #90bddc;
+}
+
+.legacy-portal .infrastructure-page .table>thead>tr>th {
+  background-color: #337ab7;
+  background-image: linear-gradient(180deg, #337ab7 0%, #286090 100%);
+  color: #ffffff !important;
+  border: 1px solid #23527c;
+  border-bottom: 2px solid #23527c;
+  font-weight: 600;
+  text-align: center;
+}
+
+.legacy-portal .infrastructure-page .table>thead>tr>th * {
+  color: #ffffff !important;
+}
+
+.legacy-portal .infrastructure-page .table>tbody>tr.success>td {
+  background-color: #dff0d8;
+}
+
+.legacy-portal .infrastructure-page .table>tbody>tr.info>td {
+  background-color: #d9edf7;
+}
+
+.legacy-portal .infrastructure-page .table-striped>tbody>tr:nth-of-type(odd)>td {
+  background-color: #f4f8fc;
+}
+
+.legacy-portal .infrastructure-page .table-hover>tbody>tr:hover>td {
+  background-color: #eaf3fb;
+}
+
+.legacy-portal .infrastructure-page .table-bordered,
+.legacy-portal .infrastructure-page .table-bordered td,
+.legacy-portal .infrastructure-page .table-bordered th {
+  border: 1px solid #90bddc;
+}
+
+.legacy-portal .infrastructure-page .btn {
+  padding: 6px 9px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.legacy-portal .infrastructure-page .btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-group label:not(.radio-inline):not(.checkbox-inline) {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) label span+span {
+  margin-left: 4px;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .aestrick {
+  margin-left: 3px;
+  color: #d9534f;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) div.form-group:not(.divheadertxt):not(.new-divheadtext):not(h1):not(h2):not(h3):not(h4)>span:not(.aestrick):not(.help-block):not(.text-danger) {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+  font-weight: normal;
+}
+
+/* ── Section Headings within Infrastructure Forms ── */
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) :is(.divheadertxt, .new-divheadtext, h3.divheadertxt, h3.new-divheadtext) {
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: none !important;
+  border: 1px solid #2e6da4 !important;
+  border-radius: 4px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 14px auto 10px auto !important;
+  padding: 8px 14px !important;
+  box-sizing: border-box !important;
+  line-height: 1.4 !important;
+  white-space: normal !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) :is(.divheadertxt, .new-divheadtext, h3.divheadertxt, h3.new-divheadtext) *,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) :is(.divheadertxt, .new-divheadtext, h3.divheadertxt, h3.new-divheadtext) span {
+  display: inline !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"],
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn-primary,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-file-input {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #333 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  line-height: normal !important;
+  width: auto !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  display: block !important;
+  margin-top: 5px !important;
+  margin-bottom: 6px !important;
+  clear: both !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"]::file-selector-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn::file-selector-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn-primary::file-selector-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-file-input::file-selector-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"]::-webkit-file-upload-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn::-webkit-file-upload-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn-primary::-webkit-file-upload-button,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-file-input::-webkit-file-upload-button {
+  background-color: #efefef !important;
+  color: #000000 !important;
+  border: 1px solid #767676 !important;
+  border-radius: 2px !important;
+  padding: 2px 8px !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  margin-right: 8px !important;
+  line-height: normal !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"]::file-selector-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn::file-selector-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn-primary::file-selector-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-file-input::file-selector-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"]::-webkit-file-upload-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn::-webkit-file-upload-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) input[type="file"].btn-primary::-webkit-file-upload-button:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-file-input::-webkit-file-upload-button:hover {
+  background-color: #e5e5e5 !important;
+  border-color: #4f4f4f !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-group input[type="file"]+a,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-group input[type="file"]~a,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .download-doc-link {
+  display: block !important;
+  margin-top: 6px !important;
+  margin-bottom: 4px !important;
+  clear: both !important;
+  color: #337ab7 !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  width: fit-content !important;
+}
+
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .download-doc-link:hover,
+.legacy-portal :is(.infrastructure-page, .infrastructure-form) .form-group input[type="file"]~a:hover {
+  text-decoration: underline !important;
+  color: #23527c !important;
+}
+
+.legacy-portal .infrastructure-page .btn-primary:hover {
+  background-color: #286090;
+  border-color: #204d74;
+}
+
+.legacy-portal .infrastructure-page .btn-success {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.legacy-portal .infrastructure-page .btn-success:hover {
+  background-color: #449d44;
+  border-color: #398439;
+}
+
+.legacy-portal .infrastructure-page .aestrick {
+  color: red;
+}
+
+.legacy-portal .infrastructure-page label {
+  font-weight: 700;
+}
+
+.legacy-portal .infrastructure-page .form-group {
+  margin-bottom: 15px;
+}
+
+.legacy-portal .infrastructure-page .help-block {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
+}
+
+.legacy-portal .infrastructure-page .res_div {
+  overflow-x: auto;
+}
+
+.legacy-portal .infrastructure-table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.legacy-portal .infrastructure-table-controls label {
+  font-weight: normal;
+}
+
+.legacy-portal .infrastructure-table-controls input,
+.legacy-portal .infrastructure-table-controls select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.legacy-portal .infrastructure-table-controls .pagination {
+  margin: 0;
+}
+
+.legacy-portal .infrastructure-table-controls button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #337ab7;
+}
+
+.legacy-portal .infrastructure-table-controls button[aria-current=page] {
+  color: #fff;
+  background: #337ab7;
+}
+
+.legacy-portal .infrastructure-table-controls button:disabled {
+  color: #777;
+  cursor: not-allowed;
+}
+
 @media print {
-  body:has(.infrastructure-detail #ms) * { visibility: hidden; }
-  body:has(.infrastructure-detail #ms) .legacy-portal { height: auto; max-height: none; overflow: visible; }
+  body:has(.infrastructure-detail #ms) * {
+    visibility: hidden;
+  }
+
+  body:has(.infrastructure-detail #ms) .legacy-portal {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
   body:has(.infrastructure-detail #ms) .portal-body,
-  body:has(.infrastructure-detail #ms) #page-wrapper { display: block; height: auto; overflow: visible; }
-  .infrastructure-detail #ms, .infrastructure-detail #ms * { visibility: visible !important; }
-  .infrastructure-detail #ms { position: absolute; top: 0; left: 0; width: 100%; margin: 0 !important; }
+  body:has(.infrastructure-detail #ms) #page-wrapper {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .infrastructure-detail #ms,
+  .infrastructure-detail #ms * {
+    visibility: visible !important;
+  }
+
+  .infrastructure-detail #ms {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 !important;
+  }
 }

@@ -366,9 +366,10 @@ button.portal-lang-capsule:hover,
   margin: 0 4px !important;
 }
 
-/* 2. Bottom Thin Blue Stripe (Matches sidebar blue #314dab) */
+/* 2. Bottom Blue Stripe (Matches sidebar blue #314dab) */
 .portal-header-bottom-stripe {
-  height: 12px !important;
+  height: 16px !important;
+  min-height: 16px !important;
   width: 100% !important;
   background: #314dab !important;
   margin: 0 !important;

@@ -355,6 +355,9 @@ export function resolveLegacyHashRoute(pathname, hash = '') {
   // Preserve applicant IDs and opaque parcel tokens from old land bookmarks.
   if (baseReactPath === '/applicant') {
     const landHash = hash.replace(/^#\/?/, '')
+    const serviceRoutes = { mpidcServices:'/applicant/online-nocs', msmeAwardList:'/applicant/msme-award', 'bank/addBankDetails':'/applicant/bank-details/new', 'bank/banksList':'/applicant/bank-details' }
+    if (serviceRoutes[landHash]) return serviceRoutes[landHash]
+    if (/^(applyMsmeAward|editMsmeAward|viewMsmeAwardForm|uploadMsmeAwardDocs)\//.test(landHash)) return '/applicant/msme-award/' + landHash
     const landLists = { 'id/landAllotment':'new', 'id/landAllotmentUN':'explore', 'id/landApplications':'', 'id/annualPayments':'annual', 'id/noticeAppealList':'notices' }
     if (landHash in landLists) return '/applicant/land-allotment/' + landLists[landHash]
     if (/^(uploadLOC|viewLOCDetails|locPaymentDetails|reviewLocPayment|id\/retryLOCPayment|id\/updatePossessionLetter|id\/tenderDetails)\//.test(landHash)) return '/applicant/land-allotment/reference/' + landHash

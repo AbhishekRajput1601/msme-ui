@@ -1,0 +1,28 @@
+{
+  "ported": [
+    "addMsmeApplicationAwardDetails",
+    "addRow",
+    "applyFormInit",
+    "calcEmploymentTotal",
+    "calcTotal",
+    "downloadMsmeAwardDocument",
+    "draftMsmeApplicationAwardDetails",
+    "editFormInit",
+    "initializeVariousFormLists",
+    "loadMSMEAwardDocumentsInit",
+    "loadMsmeAwardDetailsById",
+    "loadMsmeAwardDocumentsList",
+    "removeRow",
+    "uploadMSMEAwardDocuments",
+    "viewFormInit"
+  ],
+  "manual": [
+    "addBank",
+    "cancelEdit",
+    "fetchAwards",
+    "fetchBankList",
+    "loadBanks",
+    "updateBank"
+  ],
+  "missing": []
+}

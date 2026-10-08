@@ -39,6 +39,7 @@ import NotFoundPage from '../modules/common/NotFoundPage'
 
 // Protected Dashboards
 import ApplicantDashboard from '../modules/applicant/ApplicantDashboard'
+import ApplicantServicesPage from '../modules/applicant-services/ApplicantServicesPage'
 import AdminDashboard from '../modules/admin/AdminDashboard'
 import DepartmentDashboard from '../modules/department/DepartmentDashboard'
 
@@ -177,9 +178,14 @@ export default function AppRoutes() {
         <Route path="financial-assistance/*" element={<IndustrialUnitPage />} />
         <Route path="fa" element={<IndustrialUnitPage />} />
         <Route path="fa/*" element={<IndustrialUnitPage />} />
-        <Route path="online-nocs" element={<ApplicantDashboard />} />
-        <Route path="msme-award" element={<ApplicantDashboard />} />
-        <Route path="bank-details" element={<IndustrialProfilePage />} />
+        <Route path="online-nocs" element={<ApplicantServicesPage name="mpidcServices" />} />
+        <Route path="msme-award" element={<ApplicantServicesPage name="applicantAwardList" />} />
+        <Route path="msme-award/applyMsmeAward/:id" element={<ApplicantServicesPage name="applyMsmeAwardForm" />} />
+        <Route path="msme-award/editMsmeAward/:id/:applicationId" element={<ApplicantServicesPage name="editMsmeAwardForm" />} />
+        <Route path="msme-award/viewMsmeAwardForm/:id/:applicationId" element={<ApplicantServicesPage name="viewMsmeAwardForm" />} />
+        <Route path="msme-award/uploadMsmeAwardDocs/:id/:applicationId" element={<ApplicantServicesPage name="msmeAwardDocUploadForm" />} />
+        <Route path="bank-details" element={<ApplicantServicesPage name="banksList" />} />
+        <Route path="bank-details/new" element={<ApplicantServicesPage name="addBankDetails" />} />
         <Route path="status" element={<LandApplicationsPage />} />
         <Route path="grievances" element={<ApplicantDashboard />} />
         <Route path="profile" element={<UserProfilePage />} />

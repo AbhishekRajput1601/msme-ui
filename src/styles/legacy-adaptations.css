@@ -98,8 +98,10 @@
 .legacy-portal .portal-dropdown :is(a, button):hover { background: #f07e01; }
 .legacy-portal .loginas { position: absolute; right: 0; bottom: 15px; margin: 0; background: #059eb7; color: #fff; padding: 7px 15px; font-size: 14px; border-radius: 7px 7px 0 0; border-bottom: 1px dashed #fff; }
 .legacy-portal .portal-body { display: flex; flex: 1; align-items: stretch; min-height: 0; overflow: hidden; position: relative; }
-.legacy-portal #sideNav { width: 250px; flex: 0 0 250px; height: 100%; max-height: 100%; overflow-y: auto; overflow-x: hidden; background: #314dab; position: relative; z-index: 10; }
-.legacy-portal #sidebarToggle { position: absolute; top: 0; left: auto; right: -26px; width: 26px; z-index: 5; }
+.legacy-portal #sideNav { width: 250px; flex: 0 0 250px; height: 100%; max-height: 100%; overflow-y: auto; overflow-x: hidden; background: #314dab; position: relative; z-index: 10; transition: width 0.15s ease, flex-basis 0.15s ease; }
+.legacy-portal #sidebarToggle { position: absolute !important; top: 4px !important; left: 258px !important; right: auto !important; width: 32px !important; height: 34px !important; background: #f07e01 !important; color: #fff !important; border: 1px solid #d86f00 !important; border-radius: 4px !important; padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 14px !important; font-weight: bold !important; cursor: pointer !important; z-index: 25 !important; transition: left 0.15s ease, background-color 0.15s ease !important; box-shadow: 0 2px 4px rgba(0,0,0,0.18) !important; }
+.legacy-portal #sidebarToggle:hover { background: #d86f00 !important; }
+.legacy-portal #sidebarToggle i { color: #fff !important; font-size: 14px !important; line-height: 1 !important; }
 .legacy-portal #side-menu { display: block; margin: 0; padding: 0; list-style: none; }
 .legacy-portal #side-menu li { width: 100%; border-bottom: 1px solid #3c5ec7; }
 .legacy-portal #side-menu .portal-menu-item { display: flex; align-items: flex-start; gap: 8px; width: 100%; padding: 10px 15px; text-align: left; color: #fff; background: transparent; border: 0; font-size: 14px; line-height: 20px; text-decoration: none; cursor: pointer; }
@@ -112,8 +114,9 @@
 .legacy-portal #side-menu .nav-second-level a:hover, .legacy-portal #side-menu .nav-second-level a.active { background: #f07e01 !important; color: #fff !important; }
 .legacy-portal #side-menu .nav-second-level li { border-bottom: none; }
 .legacy-portal #page-wrapper { margin: 0; padding: 25px 30px 40px 30px; flex: 1; min-width: 0; width: auto; height: 100%; overflow-y: auto; overflow-x: hidden; background: #fff; display: flex; flex-direction: column; }
-.legacy-portal.sidebar-hidden #sideNav { width: 0; flex-basis: 0; }
-.legacy-portal.sidebar-hidden #sideNav > nav { display: none; }
+.legacy-portal.sidebar-hidden #sideNav { width: 0 !important; flex: 0 0 0 !important; min-width: 0 !important; }
+.legacy-portal.sidebar-hidden #sideNav > nav { display: none !important; }
+.legacy-portal.sidebar-hidden #sidebarToggle { left: 8px !important; border-radius: 4px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important; }
 .legacy-portal #footer { margin-top: auto; padding-top: 40px; }
 .legacy-portal #footer p { margin: 0; padding: 10px 15px; background: #202126; color: #fff; text-align: center; font-size: 14px; }
 .legacy-portal #footer a { color: #fff; }
@@ -123,6 +126,112 @@
 .legacy-portal .table a { color: #337ab7; }
 .legacy-portal .formstyle1 > div > .panel { margin-top: 0; }
 .legacy-portal :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea) { border: 1px solid #ccc; border-radius: 4px; padding: 6px 12px; color: #555; font-size: 14px; line-height: 1.42857143; box-shadow: inset 0 1px 1px #00000013; }
+.legacy-portal .form-group label:not(.radio-inline):not(.checkbox-inline) {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+}
+.legacy-portal label span + span {
+  margin-left: 4px;
+}
+.legacy-portal .aestrick {
+  margin-left: 3px;
+  color: #d9534f;
+}
+.legacy-portal div.form-group:not(.divheadertxt):not(.new-divheadtext):not(h1):not(h2):not(h3):not(h4):not(.panel-heading):not(.tab-header) > span:not(.aestrick):not(.help-block):not(.text-danger) {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+  font-weight: normal;
+}
+.legacy-portal :is(.divheadertxt, .new-divheadtext, h3.divheadertxt, h3.new-divheadtext, .panel-heading, .tab-header) > span,
+.legacy-portal :is(.divheadertxt, .new-divheadtext, h3.divheadertxt, h3.new-divheadtext, .panel-heading, .tab-header) span {
+  display: inline !important;
+  color: #ffffff !important;
+  font-size: inherit !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;
+  white-space: normal !important;
+}
+.legacy-portal input[type="file"],
+.legacy-portal input[type="file"].btn,
+.legacy-portal input[type="file"].btn-primary,
+.legacy-portal .form-file-input {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #333 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  line-height: normal !important;
+  width: auto !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  display: block !important;
+  margin-top: 5px !important;
+  margin-bottom: 6px !important;
+  clear: both !important;
+}
+.legacy-portal input[type="file"]::file-selector-button,
+.legacy-portal input[type="file"].btn::file-selector-button,
+.legacy-portal input[type="file"].btn-primary::file-selector-button,
+.legacy-portal .form-file-input::file-selector-button,
+.legacy-portal input[type="file"]::-webkit-file-upload-button,
+.legacy-portal input[type="file"].btn::-webkit-file-upload-button,
+.legacy-portal input[type="file"].btn-primary::-webkit-file-upload-button,
+.legacy-portal .form-file-input::-webkit-file-upload-button {
+  background-color: #efefef !important;
+  color: #000000 !important;
+  border: 1px solid #767676 !important;
+  border-radius: 2px !important;
+  padding: 2px 8px !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  margin-right: 8px !important;
+  line-height: normal !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.legacy-portal input[type="file"]::file-selector-button:hover,
+.legacy-portal input[type="file"].btn::file-selector-button:hover,
+.legacy-portal input[type="file"].btn-primary::file-selector-button:hover,
+.legacy-portal .form-file-input::file-selector-button:hover,
+.legacy-portal input[type="file"]::-webkit-file-upload-button:hover,
+.legacy-portal input[type="file"].btn::-webkit-file-upload-button:hover,
+.legacy-portal input[type="file"].btn-primary::-webkit-file-upload-button:hover,
+.legacy-portal .form-file-input::-webkit-file-upload-button:hover {
+  background-color: #e5e5e5 !important;
+  border-color: #4f4f4f !important;
+}
+.legacy-portal .form-group input[type="file"] + a,
+.legacy-portal .form-group input[type="file"] ~ a,
+.legacy-portal .download-doc-link {
+  display: block !important;
+  margin-top: 6px !important;
+  margin-bottom: 4px !important;
+  clear: both !important;
+  color: #337ab7 !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  width: fit-content !important;
+}
+.legacy-portal .download-doc-link:hover,
+.legacy-portal .form-group input[type="file"] ~ a:hover {
+  text-decoration: underline !important;
+  color: #23527c !important;
+}
 .legacy-portal :is(input, select, textarea):focus { border-color: #66afe9; box-shadow: inset 0 1px 1px #00000013, 0 0 8px #66afe999; outline: 0; }
 .legacy-portal label { font-size: 14px; text-transform: none; letter-spacing: normal; }
 .legacy-portal .portal-button { font-size: 14px; padding: 6px 12px; border-radius: 4px; box-shadow: none; font-weight: 400; }
