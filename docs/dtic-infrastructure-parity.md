@@ -21,9 +21,12 @@ the backend. Three server-only details/receipt pages are converted to inert Reac
 elements; embedded scripts and event-handler strings are not executed.
 
 Presentation retains the reference field order, Bootstrap column structure,
-Helvetica typography, blue tables, pale-blue section headings and original button
+Helvetica typography, blue tables and original button
 labels. Scoped spacing, focus states, table scrolling and mobile form columns
-improve usability. Native date controls replace the old jQuery date widgets.
+improve usability. At the user's request, page and section headings now match the
+blue table headers with white text, and uploads use styled native file buttons.
+Malformed nested plot-summary rows are flattened into aligned label/value rows.
+Native date controls replace the old jQuery date widgets.
 Malformed legacy markup, missing parent model objects, the edit-form dropdown
 race, missing-notice access and broken source links are repaired.
 

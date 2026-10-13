@@ -109,7 +109,7 @@ try {
   await cdp('Page.addScriptToEvaluateOnNewDocument',{source:'window.confirm=()=>true;window.alert=()=>{}'})
   await viewport(1366)
   const problems = []
-  for (const route of routes) {
+  for (const route of routes.filter(route=>!process.env.UI_CHECK_PATH || route.path===process.env.UI_CHECK_PATH)) {
     const url='/department/dtic/'+route.path.replace(/:[A-Za-z]+/g,'1')
     await navigate(url,'.dtic-infrastructure')
     await new Promise(resolve=>setTimeout(resolve,300))
@@ -123,8 +123,13 @@ try {
     if (['dticCreateIndustrialArea','dticCreateCollectorRate','dticCreateIndustrialAreaRate','entervacantland','dticLandAllotment','dticLandAcquisition','noticeList','backlogLandAllotment'].includes(route.path)) {
       await screenshot(route.path)
     }
+    if (route.path==='id/viewAppliedApplicants/:vacantLandId') await screenshot('applicant-plot-details')
+    if (route.path==='entervacantland') {
+      await evaluate('document.querySelector("input[type=file]").scrollIntoView({block:"center"})')
+      await screenshot('vacant-land-upload')
+    }
   }
-  for (const route of routes.filter(route=>route.views.length>1)) {
+  for (const route of routes.filter(route=>!process.env.UI_CHECK_PATH && route.views.length>1)) {
     for (const name of route.views.slice(0,-1)) {
       viewOverride=name
       await navigate('/department/dtic/'+route.path.replace(/:[A-Za-z]+/g,'1'),'.dtic-infrastructure')

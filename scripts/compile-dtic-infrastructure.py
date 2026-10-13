@@ -71,6 +71,22 @@ while pending:
         if el.get('data-ng-keyup'): el['data-ng-change'] = el.get('data-ng-change', '') + ';' + el['data-ng-keyup']
         if el.get('ng-maxlength'): el['maxlength'] = el['ng-maxlength']
     for table in soup.find_all('table'):
+        # A missing </tr> in the applicant summary nested all later rows inside
+        # the area-name row. Keep those rows at the same table level.
+        for row in list(table.find_all('tr')):
+            if row.parent.name == 'tr':
+                parent = row.parent
+                siblings = list(parent.find_all('tr', recursive=False))
+                for sibling in reversed(siblings): parent.insert_after(sibling.extract())
+        if table.find(attrs={'th:text': '#{application.id.plotDetails}'}):
+            table['class'] = table.get('class', []) + ['infrastructure-plot-details']
+            table.parent['class'] = table.parent.get('class', []) + ['infrastructure-plot-container']
+            for row in table.find_all('tr'):
+                cells = row.find_all(['td','th'], recursive=False)
+                if len(cells) == 2 and not cells[0].has_attr('colspan'):
+                    cells[0]['colspan'] = '2'; cells[1]['colspan'] = '4'
+                elif len(cells) == 4:
+                    cells[0]['colspan'] = '2'; cells[2]['colspan'] = '2'
         direct = table.find_all('tr', recursive=False)
         if direct:
             tbody = soup.new_tag('tbody'); direct[0].insert_before(tbody)
