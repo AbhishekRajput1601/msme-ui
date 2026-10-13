@@ -1,0 +1,461 @@
+{
+  "templates": [
+    {
+      "name": "faNewMsmeFundAssistance",
+      "source": "pages\\applicant\\fa\\faNewMsmeFundAssistance.html",
+      "fields": 2,
+      "options": 0,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "checkProductionDate",
+        "loadUserIndustrialDetails",
+        "openForm"
+      ],
+      "conditions": 5
+    },
+    {
+      "name": "editFaNewMsmeFundAssistance",
+      "source": "pages\\applicant\\fa\\editFaNewMsmeFundAssistance.html",
+      "fields": 0,
+      "options": 0,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "loadUserIndustrialDetailsByApplicationId"
+      ],
+      "conditions": 6
+    },
+    {
+      "name": "faIndustrialProfileDetails",
+      "source": "pages\\applicant\\fa\\faIndustrialProfileDetails.html",
+      "fields": 47,
+      "options": 19,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "addFaIndustrialProfileDetails",
+        "fetchBankList1",
+        "fetchDistrictTehsilBlockByDistrict",
+        "fetchPanDetailsFromUserProfile",
+        "fetchPresentAddDistrictByState",
+        "fetchUnitAddressDetailsList1",
+        "setSaveAndNext",
+        "setUnitDetails"
+      ],
+      "conditions": 80
+    },
+    {
+      "name": "faIndustrialUnitDetails",
+      "source": "pages\\applicant\\fa\\faIndustrialUnitDetails.html",
+      "fields": 35,
+      "options": 8,
+      "tables": 1,
+      "modals": 0,
+      "actions": [
+        "addFaIndustrialUnitDetails",
+        "addFaNewChoice",
+        "goToPreviousTab",
+        "loadIndustryDetails",
+        "onFaUnitCheckBoxSelected",
+        "onProductNameChange",
+        "removeFaChoice",
+        "setSaveAndNext",
+        "showFaExpansionTable",
+        "showTextBox"
+      ],
+      "conditions": 64
+    },
+    {
+      "name": "faIndustrialSchemeDetails",
+      "source": "pages\\applicant\\fa\\faIndustrialSchemeDetails.html",
+      "fields": 149,
+      "options": 8,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "addFaIndustrialSchemeDetails",
+        "addNewHeadwise",
+        "addNewHeadwise1",
+        "fetchZEDCertificationDetails",
+        "goToPreviousTab",
+        "onCheckBoxSelected",
+        "removeHeadwise",
+        "removeHeadwise1",
+        "setFinalSubmit"
+      ],
+      "conditions": 174
+    },
+    {
+      "name": "faTenCr_scheme",
+      "source": "pages\\applicant\\fa\\faTenCr_scheme.html",
+      "fields": 125,
+      "options": 24,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "addFaTenCRIndustrialSchemeDetails",
+        "addNewHeadwise",
+        "addNewHeadwise1",
+        "fetchZEDCertificationDetails",
+        "loadBanks",
+        "loadFinancialYearNew",
+        "onCheckBoxSelected",
+        "removeHeadwise",
+        "removeHeadwise1"
+      ],
+      "conditions": 165
+    },
+    {
+      "name": "viewFADetailUnitNew2",
+      "source": "pages\\applicant\\fa\\viewFADetailUnitNew2.html",
+      "fields": 0,
+      "options": 0,
+      "tables": 40,
+      "modals": 0,
+      "actions": [
+        "downloadFaDocuments",
+        "goBackToBatch",
+        "loadIndustryDetails",
+        "loadUserIndustrialDetailsByApplicationId"
+      ],
+      "conditions": 240
+    },
+    {
+      "name": "viewFASchemesFormUnit",
+      "source": "pages\\applicant\\fa\\viewFASchemesFormUnit.html",
+      "fields": 62,
+      "options": 108,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "addFASchemeDetails",
+        "addNewHeadwise",
+        "loadFASchemeDetails",
+        "onCheckBoxSelected",
+        "onFYToChanges",
+        "onFYToChangesForCompVATCST",
+        "onIndustryTypeSelected",
+        "removeHeadwise"
+      ],
+      "conditions": 86
+    },
+    {
+      "name": "viewFASchemesUnit",
+      "source": "pages\\applicant\\fa\\viewFASchemesUnit.html",
+      "fields": 65,
+      "options": 0,
+      "tables": 0,
+      "modals": 0,
+      "actions": [
+        "loadFASchemesDetail",
+        "onCheckBoxSelected"
+      ],
+      "conditions": 16
+    },
+    {
+      "name": "viewFADocUploadUnitForm",
+      "source": "pages\\applicant\\fa\\viewFADocUploadUnitForm.html",
+      "fields": 15,
+      "options": 0,
+      "tables": 1,
+      "modals": 0,
+      "actions": [
+        "loadFADocumentsInit",
+        "uploadFADocuments"
+      ],
+      "conditions": 16
+    },
+    {
+      "name": "viewFADocumentsUploadUnit",
+      "source": "pages\\applicant\\fa\\viewFADocumentsUploadUnit.html",
+      "fields": 0,
+      "options": 0,
+      "tables": 1,
+      "modals": 0,
+      "actions": [
+        "downloadFADocument",
+        "loadFADocumentsList"
+      ],
+      "conditions": 0
+    },
+    {
+      "name": "faHistory",
+      "source": "pages\\applicant\\fa\\faHistory.html",
+      "fields": 0,
+      "options": 0,
+      "tables": 2,
+      "modals": 0,
+      "actions": [
+        "faDisbursementUnitView",
+        "goBackToBatch",
+        "loadFAApplicantDetail",
+        "loadHistory"
+      ],
+      "conditions": 9
+    },
+    {
+      "name": "viewfaDisbursementUnit",
+      "source": "pages\\applicant\\fa\\viewfaDisbursementUnit.html",
+      "fields": 3,
+      "options": 0,
+      "tables": 2,
+      "modals": 0,
+      "actions": [
+        "downloadFaDocumentsByApplicant",
+        "fetchDisbursementsDetails"
+      ],
+      "conditions": 0
+    },
+    {
+      "name": "viewfaacceptanceamountdetailunit",
+      "source": "pages\\applicant\\fa\\viewfaacceptanceamountdetailunit.html",
+      "fields": 17,
+      "options": 0,
+      "tables": 1,
+      "modals": 0,
+      "actions": [
+        "downloadFaDocumentsByApplicant",
+        "loadFAMSMEDetailUnitForSanction"
+      ],
+      "conditions": 42
+    },
+    {
+      "name": "infraDevelopmetForm",
+      "source": "pages\\applicant\\fa\\infraDevelopmetForm.html",
+      "fields": 10,
+      "options": 0,
+      "tables": 1,
+      "modals": 0,
+      "actions": [
+        "resetForm",
+        "saveInfrastructure"
+      ],
+      "conditions": 0
+    },
+    {
+      "name": "addUnitDetails",
+      "source": "pages\\applicant\\fa\\addUnitDetails.html",
+      "fields": 14,
+      "options": 10,
+      "tables": 1,
+      "modals": 0,
+      "actions": [
+        "fetchDistrictTehsilBlockByDistrict",
+        "fetchUnitAddressDetailsList",
+        "getTehsils",
+        "loadApplicantAndDistricts",
+        "reload",
+        "sectorofinductry1",
+        "submitUnitAddressDetails"
+      ],
+      "conditions": 2
+    },
+    {
+      "name": "viewfaInfrastructure",
+      "source": "pages\\fa\\viewfaInfrastructure.html",
+      "fields": 0,
+      "options": 0,
+      "tables": 3,
+      "modals": 0,
+      "actions": [
+        "loadInfrastructureById"
+      ],
+      "conditions": 10
+    }
+  ],
+  "missingFields": [],
+  "missingActions": [],
+  "sources": [
+    {
+      "path": "angular\\applicant\\fa\\controller.js",
+      "sha256": "ef97624357c182ede27cdcc2a6bfbd7cb2919e4b859888567def057c1c4c61ef",
+      "controllerFunctions": 177,
+      "httpEndpoints": [
+        "addFundingAssistDetails",
+        "addGrievance",
+        "addInbucatorCapacityEnhDetails",
+        "addIncubationDetails",
+        "addIncubationRegistration",
+        "addIncubatorCenterDetails",
+        "addIncubatorOrganizingEvent",
+        "addIncubatorStartupFundingAssistance",
+        "addLeaseRentalAssisDetails",
+        "addPatentAssisDetails",
+        "addProductStartupAssisDetails",
+        "addStartUpBenefitsRegistration",
+        "addStartUpRegistration",
+        "addStartupUserDetails",
+        "addSupportQuery",
+        "addfaapplicantdocuments",
+        "authenticateotpforaadhaarekyc",
+        "checkForReApplyFlag",
+        "checkUsername",
+        "fAStartupFundingAssistanceDetailsById/",
+        "fa/addFaIndustrialProfileDetails",
+        "fa/addFaIndustrialSchemeDetails",
+        "fa/addFaIndustrialUnitDetails",
+        "fa/addfaapplicantdetail",
+        "fa/addfaapplicantschemedetails",
+        "fa/fetchHistory",
+        "fa/fetchfaapplicant",
+        "fa/fetchfaapplicantdetail",
+        "fa/fetchfaschemes/",
+        "fa/fetchfaschemesdetail",
+        "fa/fetchquerybydtic",
+        "fa/submitQueryReply",
+        "fetchAllIndustryCategory",
+        "fetchBankDetails",
+        "fetchBanksMap",
+        "fetchCities",
+        "fetchDisbursementsUpload",
+        "fetchFAIncubatorFundingAssistanceDetailsById/",
+        "fetchFAMSMEDetailUnitForSanction",
+        "fetchFAMSMEDetailsForDisbursment",
+        "fetchFAStartupFundingAssistanceDetailsById/",
+        "fetchFinancialYear",
+        "fetchFinancialYearNew",
+        "fetchIndentors",
+        "fetchIndustries",
+        "fetchInfrastructureIdList",
+        "fetchLease/",
+        "fetchMsmeDetailSelectionByApplicationId",
+        "fetchSectors",
+        "fetchStartupDomains",
+        "fetchUserDetails",
+        "fetchUserIndustrialDetails",
+        "fetchUserIndustrialDetailsByApplicationId",
+        "fetchUserSchemeDetailsByApplicationId",
+        "fetchallstates",
+        "fetchalltehsilsmap",
+        "fetchcategoriesmap",
+        "fetchdepartmentmap",
+        "fetchdistrictblockmapbydistrictid",
+        "fetchdistrictidbyname",
+        "fetchdistrictmapbystate",
+        "fetchdistrictnamebyid",
+        "fetchdistrictsmap",
+        "fetchdistricttehsilmapbydistrictid",
+        "fetchdticmapbydistrict",
+        "fetchfaapplicantdocumentslist",
+        "fetchindustrialareamapbydistrict",
+        "fetchstateidbyname",
+        "fetchtehsilblocknamebyid",
+        "fetchuamactivitiesbytype",
+        "fetchuamdetails",
+        "finduamactivitiesidbyname",
+        "generateotpforaadhaarekyc",
+        "getEndDate/",
+        "getMessage/budget.ho.removeScheme",
+        "getMessage/common.confirmToSave",
+        "getMessage/common.invalidOtp",
+        "getMessage/common.otp",
+        "getMessage/fa.applicant.UAMDeatils",
+        "getMessage/fa.applicant.UAMError",
+        "getMessage/fa.applicant.aadhaar",
+        "getMessage/fa.applicant.detailsSubmit",
+        "getMessage/fa.applicant.ekycError",
+        "getMessage/fa.applicant.form",
+        "getMessage/fa.applicant.fy",
+        "getcertifcateDetail/",
+        "https://loginzed.msme.gov.in/msme/GetDetailsByUdyam?token=A06F4178A4144E99A78B46F226583DD51C4D902F608B4197A965C2B65A27DF62E1482E93612&udyamNumber=",
+        "loadGrievanceFormById/",
+        "loadIncubationFormById/",
+        "loadStartupBenefitsFormById/",
+        "loadStartupFormById/",
+        "saveInfrstructureDevelopment",
+        "submitIncubatorFaTakeAction",
+        "submitStartupFaTakeAction",
+        "updateGrievanceDocuments",
+        "updateIncubationDocuments",
+        "updateStartupBenefitsDocuments",
+        "updateStartupDocuments",
+        "uploadFaIndustrialSchemeDocument",
+        "uploadFaIndustrialUnitDocument",
+        "uploadFundingAssisDetailsDocument",
+        "uploadIncubatorOrganizingEventDocument",
+        "uploadIncubatorStartupFundingAssistanceDocument",
+        "uploadInfrastructureDocument"
+      ]
+    },
+    {
+      "path": "angular\\applicant\\routing.js",
+      "sha256": "e1be57f5d6902e298ff3f431354034c26edfe2af9fb2df3ebb72130cd7ac9bd4",
+      "controllerFunctions": 0,
+      "httpEndpoints": []
+    },
+    {
+      "path": "angular\\common\\CommonController.js",
+      "sha256": "28a57590d4876dc518db8520ddf8c809bceec21134edc5d2a8f3fbd674773b8c",
+      "controllerFunctions": 67,
+      "httpEndpoints": [
+        "addmsmedetail",
+        "dochangepassword",
+        "dochangepasswordgenerateotp",
+        "dofirstpasswordchange",
+        "fetchAllConstitutionFirm",
+        "fetchAllIndustryCategory",
+        "fetchBanksMap",
+        "fetchBlocksMap",
+        "fetchGender",
+        "fetchHistoryByLetterId/",
+        "fetchIndustrialAreaList",
+        "fetchLetterDetail/",
+        "fetchPanDetailsByUserId?userId=",
+        "fetchSamagraDetails",
+        "fetchUserDetails",
+        "fetchUserIndustrialDetail/",
+        "fetchUserIndustrialDetails",
+        "fetchalldistrictsmap",
+        "fetchallstates",
+        "fetchalltehsilsmap",
+        "fetchblockmapbydistrictid",
+        "fetchcategoriesmap",
+        "fetchdesignationmap",
+        "fetchdistrictblockmapbydistrictid",
+        "fetchdistrictmapbystate",
+        "fetchdistricttehsilmapbydistrictid",
+        "fetchindustrialareamapbydistrict",
+        "fetchmanufacturingenterprisereport",
+        "fetchmasteruserstatusmap",
+        "fetchmsmedetailbyid",
+        "fetchofficeaddresssbyofficeid",
+        "fetchserviceenterprisereport",
+        "fetchuamactivitiesbytype",
+        "fetchusergroupsmap",
+        "fetchusersbygroupcode/",
+        "getMessage/common.confirmToSave",
+        "getStatusList",
+        "updateDepartmentUser",
+        "updateProcessSubmit",
+        "updateUser",
+        "updateUserIndustrialProfile",
+        "updateUserIndustrialProfilePartners",
+        "updateUserIndustrialRegNocList",
+        "uploadMsmeDetailDocument",
+        "verifyUserPasswordExpiry"
+      ]
+    },
+    {
+      "path": "angular\\dtic\\routing.js",
+      "sha256": "0cede29b70efeb5ef41c3f7f5b797b16440d5d5dc3723b2c04e626cdeb2f3819",
+      "controllerFunctions": 0,
+      "httpEndpoints": []
+    },
+    {
+      "path": "css\\bootstrap.min.css",
+      "sha256": "08c201b05ee368a22f9d0958b0ae03da23cb1bfda011b6611c70366dc50b7d51",
+      "controllerFunctions": 0,
+      "httpEndpoints": []
+    },
+    {
+      "path": "css\\sb-admin-2.css",
+      "sha256": "af04e74153158fd86a3cba1b045b79f4648f8eeaa4895c2a7f64dab2d01c3d4c",
+      "controllerFunctions": 0,
+      "httpEndpoints": []
+    }
+  ],
+  "limitations": [
+    "Static inventory and binding coverage do not prove visual parity or live backend behavior."
+  ]
+}

@@ -1,0 +1,486 @@
+{
+  "updateprofile": {
+    "source": "pages\\section\\updateprofile.html",
+    "fields": [
+      {
+        "name": "userId",
+        "required": "",
+        "id": "userId",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.userId",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "role",
+        "required": "",
+        "id": "role",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.roleName",
+        "data-ng-disabled": "true",
+        "maxlength": "40"
+      },
+      {
+        "name": "role",
+        "required": "",
+        "id": "role",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.roleName",
+        "data-ng-disabled": "true",
+        "maxlength": "40"
+      },
+      {
+        "name": "group",
+        "id": "group",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.userGroupDescription",
+        "data-ng-disabled": "true",
+        "maxlength": "30"
+      },
+      {
+        "name": "firstName",
+        "required": "",
+        "id": "firstName",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.firstName",
+        "data-ng-disabled": "disabled",
+        "maxlength": "25"
+      },
+      {
+        "name": "middleName",
+        "id": "middleName",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.middleName",
+        "data-ng-disabled": "disabled",
+        "maxlength": "20"
+      },
+      {
+        "name": "lastName",
+        "required": "",
+        "id": "lastName",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.lastName",
+        "data-ng-disabled": "disabled",
+        "maxlength": "25"
+      },
+      {
+        "name": "emailId",
+        "id": "emailId",
+        "class": [
+          "form-control"
+        ],
+        "type": "email",
+        "data-ng-model": "signupData.emailId",
+        "data-ng-disabled": "disabled",
+        "maxlength": "40"
+      },
+      {
+        "required": "",
+        "name": "mobileNumber",
+        "id": "mobileNumber",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.mobileNumber",
+        "data-ng-disabled": "disabled",
+        "maxlength": "10"
+      },
+      {
+        "name": "designation",
+        "id": "designation",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.aadhaarNumber",
+        "data-ng-disabled": "disabled",
+        "maxlength": "12"
+      },
+      {
+        "name": "telephoneNumber",
+        "id": "telephoneNumber",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.telephoneNumber",
+        "data-ng-disabled": "disabled",
+        "maxlength": "20"
+      },
+      {
+        "name": "gender",
+        "id": "gender",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "signupData.genderId",
+        "data-ng-disabled": "disabled",
+        "data-ng-init": "loadGender()"
+      },
+      {
+        "name": "designation",
+        "id": "designation",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "signupData.designationCode",
+        "data-ng-disabled": "true",
+        "data-ng-init": "loadDesignation()"
+      },
+      {
+        "name": "officeLocation",
+        "id": "officeLocation",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "signupData.officeLocation",
+        "data-ng-disabled": "true"
+      },
+      {
+        "name": "officeAdd1",
+        "id": "officeAdd1",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officeAddress1",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "officeAdd2",
+        "id": "officeAdd2",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officeAddress2",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "officeAdd3",
+        "id": "officeAdd3",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officeAddress3",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "officestate",
+        "id": "officestate",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officeAddState",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "officedist",
+        "id": "officedist",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officeDistrict",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "officetehsil",
+        "id": "officetehsil",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officeTehsil",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "name": "officepincode",
+        "id": "officepincode",
+        "class": [
+          "form-control",
+          "alpha-only"
+        ],
+        "type": "text",
+        "data-ng-value": "respondentOffices.officePinCode",
+        "data-ng-disabled": "true",
+        "maxlength": "20"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.address1",
+        "name": "address1",
+        "maxlength": "20",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.address2",
+        "name": "address2",
+        "maxlength": "20",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.address3",
+        "name": "city",
+        "maxlength": "20",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "name": "presentAddState",
+        "id": "selectPresentAddState",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "signupData.stateId",
+        "data-ng-disabled": "disabled",
+        "data-ng-change": "fetchPresentAddDistrictByState(signupData.stateId)"
+      },
+      {
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "signupData.districtId",
+        "data-ng-change": "fetchTehsilByDistrict(signupData.districtId)",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "name": "tehsil",
+        "id": "selectTehsil",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "signupData.tehsilId",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.pinCode",
+        "name": "pinCode",
+        "data-ng-pattern": "/^(\\+\\d{1,3}[- ]?)?\\d{6}$/",
+        "maxlength": "6",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "type": "checkbox",
+        "data-ng-disabled": "disabled",
+        "data-ng-model": "sameAsAbovecheck",
+        "name": "sameAsAbovecheck",
+        "data-ng-change": "setSameAddress()"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.permanentAddress1",
+        "name": "permanentAddress1",
+        "maxlength": "50",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.permanentAddress2",
+        "name": "permanentAddress2",
+        "maxlength": "50",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.permanentAddress3",
+        "name": "permanentAddress3",
+        "maxlength": "20",
+        "data-ng-disabled": "disabled"
+      },
+      {
+        "name": "permanentAddState",
+        "id": "selectPermanentAddState",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "signupData.permanentStateId",
+        "data-ng-disabled": "disabled",
+        "data-ng-change": "fetchPermanentAddDistrictByState(signupData.permanentStateId)"
+      },
+      {
+        "id": "selectpermanentDistrict",
+        "class": [
+          "form-control"
+        ],
+        "name": "permanentDistrict",
+        "data-ng-disabled": "disabled",
+        "data-ng-model": "signupData.permanentDistrictId",
+        "data-ng-change": "fetchPermanentTehsilByDistrict(signupData.permanentDistrictId)"
+      },
+      {
+        "name": "permanentTehsil",
+        "id": "selectpermanentTehsil",
+        "data-ng-model": "signupData.permanentTehsilId",
+        "data-ng-disabled": "disabled",
+        "class": [
+          "form-control"
+        ]
+      },
+      {
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "signupData.permanentPinCode",
+        "name": "permanentPinCode",
+        "data-ng-pattern": "/^(\\+\\d{1,3}[- ]?)?\\d{6}$/",
+        "maxlength": "6",
+        "data-ng-disabled": "disabled"
+      }
+    ],
+    "events": [
+      "fetchPermanentAddDistrictByState(signupData.permanentStateId)",
+      "fetchPermanentTehsilByDistrict(signupData.permanentDistrictId)",
+      "fetchPresentAddDistrictByState(signupData.stateId)",
+      "fetchTehsilByDistrict(signupData.districtId)",
+      "loadDesignation()",
+      "loadGender()",
+      "loadUserDetails()",
+      "setSameAddress()",
+      "toggleCaseForm()",
+      "updateDepartmentUserProfile(signupForm.$valid)"
+    ]
+  },
+  "changepassword": {
+    "source": "pages\\section\\changepassword.html",
+    "fields": [
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "password-input"
+        ],
+        "type": "{{showCurrentPassword ? 'text' : 'password'}}",
+        "data-ng-model": "changePasswordData.currentPassword",
+        "name": "currentPassword",
+        "autocomplete": "off",
+        "ng-blur": "hidePassword('showCurrentPassword')"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "password-input"
+        ],
+        "type": "{{showNewPassword ? 'text' : 'password'}}",
+        "data-ng-model": "changePasswordData.password",
+        "id": "changePasswordData.password",
+        "name": "password",
+        "autocomplete": "off",
+        "data-ng-minlength": "6",
+        "maxlength": "15",
+        "ng-blur": "hidePassword('showNewPassword')"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "password-input"
+        ],
+        "type": "{{showConfirmPassword ? 'text' : 'password'}}",
+        "data-ng-model": "changePasswordData.confirmPassword",
+        "name": "confirmPassword",
+        "autocomplete": "off",
+        "ng-blur": "hidePassword('showConfirmPassword')"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "changePasswordData.otp",
+        "name": "otp",
+        "maxlength": "6",
+        "autocomplete": "off"
+      }
+    ],
+    "events": [
+      "changePasswordData.password=''",
+      "changePasswordFunction(changePasswordForm.$valid)",
+      "changePasswordFunction1()",
+      "hidePassword('showConfirmPassword')",
+      "hidePassword('showCurrentPassword')",
+      "hidePassword('showNewPassword')",
+      "toggleConfirmPassword($event)",
+      "toggleCurrentPassword($event)",
+      "toggleNewPassword($event)",
+      "verifyUserPasswordExpiry()"
+    ]
+  }
+}

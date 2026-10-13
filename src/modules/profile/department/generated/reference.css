@@ -1,0 +1,75 @@
+@scope (.department-profile-page) {
+
+input.ng-pristine+ul#strength {
+	display: none;
+}
+
+ul#strength {
+	display: block !important;
+	list-style: none;
+	margin: 0;
+	margin: 10px;
+	padding: 0;
+	vertical-align: 2px;
+}
+
+.point:last-child {
+	margin: 0 !important;
+}
+
+.point {
+	background: #DDD;
+	border-radius: 2px;
+	display: inline-block;
+	height: 5px;
+	margin-right: 1px;
+	width: 18.7%;
+}
+
+/* Remove native eye icon for password fields */
+input[type="password"]::-ms-reveal, input[type="password"]::-ms-clear {
+	display: none; /* For Edge */
+}
+
+/* Container for the password fields */
+.password-container {
+	position: relative;
+}
+
+/* Style for the password input */
+.password-input {
+	width: 100%;
+	padding-right: 35px; /* Space for the eye icon */
+}
+
+/* Eye icon position */
+.password-toggle {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	cursor: pointer;
+	font-size: 18px;
+	color: #666;
+	user-select: none; /* Prevent text selection on click */
+}
+
+.password-toggle:hover {
+	color: #333; /* Darker color on hover */
+}
+
+/* Reduce padding for the button */
+.password-toggle {
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+/* Remove default input border in Edge */
+input[type="password"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+}
