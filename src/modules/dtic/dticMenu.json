@@ -1,0 +1,575 @@
+[
+  {
+    "key": "dtic-0",
+    "label": {
+      "en": "Dashboard",
+      "hi": "डेशबोर्ड"
+    },
+    "translationKey": "application.selfemployment.dashboard",
+    "iconName": "dashboard",
+    "legacyHref": "#dashboard",
+    "href": "/department/dtic/dashboard"
+  },
+  {
+    "key": "dtic-1",
+    "label": {
+      "en": "GIS Portal Layer",
+      "hi": "GIS Portal Layer"
+    },
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-1-0",
+        "label": {
+          "en": "Gis Portal Login",
+          "hi": "Gis Portal Login"
+        },
+        "legacyHref": "https://mpmsme.gov.in:8080/msme_app/js/MP/home.aspx",
+        "href": "https://mpmsme.gov.in:8080/msme_app/js/MP/home.aspx",
+        "target": "_blank"
+      },
+      {
+        "key": "dtic-1-1",
+        "label": {
+          "en": "Gis General Map Page",
+          "hi": "Gis General Map Page"
+        },
+        "legacyHref": "https://esriservices.mp.gov.in/portal/apps/webappviewer/index.html?id=6a73775d516e450b845ad27fd4ccffe4#",
+        "href": "https://esriservices.mp.gov.in/portal/apps/webappviewer/index.html?id=6a73775d516e450b845ad27fd4ccffe4#",
+        "target": "_blank"
+      }
+    ]
+  },
+  {
+    "key": "dtic-2",
+    "label": {
+      "en": "PowerBi Dashboard",
+      "hi": "PowerBi Dashboard"
+    },
+    "iconName": "bar-chart-o",
+    "legacyHref": "#powerBiDashbord",
+    "href": "/mpmsme/dtic/home#powerBiDashbord"
+  },
+  {
+    "key": "dtic-3",
+    "label": {
+      "en": "Self Employment",
+      "hi": "स्‍वरोजगार"
+    },
+    "translationKey": "application.selfemployment.selfemployment",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-3-0",
+        "label": {
+          "en": "Mukhyamantri Self-Employment",
+          "hi": "मुख्‍यमंत्री स्‍वरोजगार"
+        },
+        "translationKey": "application.selfemployment.mpselfemployment",
+        "legacyHref": "#dticpendingapplicants",
+        "href": "/mpmsme/dtic/home#dticpendingapplicants"
+      },
+      {
+        "key": "dtic-3-1",
+        "label": {
+          "en": "Yuva Udhyami Yojana",
+          "hi": "युवा उद्यमी योजना"
+        },
+        "translationKey": "application.selfemployment.yuvaudhamiyojna",
+        "legacyHref": "#dticpendingyuvaudhami",
+        "href": "/mpmsme/dtic/home#dticpendingyuvaudhami"
+      }
+    ]
+  },
+  {
+    "key": "dtic-4",
+    "label": {
+      "en": "Financial Assistance",
+      "hi": "वित्‍तीय सहायता"
+    },
+    "translationKey": "application.fa.title",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-4-0",
+        "label": {
+          "en": "Industrial Unit",
+          "hi": "औद्योगिक इकाई"
+        },
+        "translationKey": "application.fa.industrialUnit",
+        "legacyHref": "#dticfapendingapplicantsunit",
+        "href": "/mpmsme/dtic/home#dticfapendingapplicantsunit"
+      },
+      {
+        "key": "dtic-4-1",
+        "label": {
+          "en": "Apparel Training Institution",
+          "hi": "अपेरल प्रशिक्षण संस्‍थान"
+        },
+        "translationKey": "application.fa.apparelTrainingInstitution",
+        "legacyHref": "#dticfapendingapplicantsapparel",
+        "href": "/mpmsme/dtic/home#dticfapendingapplicantsapparel"
+      }
+    ]
+  },
+  {
+    "key": "dtic-5",
+    "label": {
+      "en": "MSME",
+      "hi": "एमएसएमई"
+    },
+    "translationKey": "application.msme.msme",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-5-0",
+        "label": {
+          "en": "Applications List",
+          "hi": "आवेदनों की सूची"
+        },
+        "translationKey": "application.msme.applications",
+        "legacyHref": "#viewapplicationlist",
+        "href": "/mpmsme/dtic/home#viewapplicationlist"
+      },
+      {
+        "key": "dtic-5-1",
+        "label": {
+          "en": "Reports",
+          "hi": "प्रतिवेदन/रिपोर्ट"
+        },
+        "translationKey": "application.msme.reports",
+        "iconName": "bar-chart-o",
+        "children": [
+          {
+            "key": "dtic-5-1-0",
+            "label": {
+              "en": "Service Enterprise Report",
+              "hi": "सेवा उद्यम प्रतिवेदन/रिपोर्ट"
+            },
+            "translationKey": "application.msme.serviceenterprisereport",
+            "legacyHref": "#serviceenterprisereportform",
+            "href": "/mpmsme/dtic/home#serviceenterprisereportform"
+          },
+          {
+            "key": "dtic-5-1-1",
+            "label": {
+              "en": "Manufacturing Enterprise Report",
+              "hi": "निर्माण उद्यम प्रतिवेदन"
+            },
+            "translationKey": "application.msme.manufacturingenterprisereport",
+            "legacyHref": "#manufacturingenterprisereportform",
+            "href": "/mpmsme/dtic/home#manufacturingenterprisereportform"
+          },
+          {
+            "key": "dtic-5-1-2",
+            "label": {
+              "en": "Micro Level Report",
+              "hi": "सूक्ष्‍म श्रेणी प्रतिवेदन"
+            },
+            "translationKey": "application.msme.microlevelreport",
+            "legacyHref": "#microlevelreportform",
+            "href": "/mpmsme/dtic/home#microlevelreportform"
+          },
+          {
+            "key": "dtic-5-1-3",
+            "label": {
+              "en": "Small Level Report",
+              "hi": "लघु श्रेणी प्रतिवेदन"
+            },
+            "translationKey": "application.msme.smalllevelreport",
+            "legacyHref": "#smalllevelreportform",
+            "href": "/mpmsme/dtic/home#smalllevelreportform"
+          },
+          {
+            "key": "dtic-5-1-4",
+            "label": {
+              "en": "Medium Level Report",
+              "hi": "मध्‍यम श्रेणी प्रतिवेदन"
+            },
+            "translationKey": "application.msme.mediumlevelreport",
+            "legacyHref": "#mediumlevelreportform",
+            "href": "/mpmsme/dtic/home#mediumlevelreportform"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "dtic-6",
+    "label": {
+      "en": "Infrastructure Development",
+      "hi": "अधोसंरचना विकास"
+    },
+    "translationKey": "application.id.title",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-6-0",
+        "label": {
+          "en": "Industrial Area Master Creation",
+          "hi": "औद्योगिक क्षेत्र मास्‍टर क्रियेशन"
+        },
+        "translationKey": "application.id.industrialAreaMasterCreation",
+        "legacyHref": "#dticCreateIndustrialArea",
+        "href": "/mpmsme/dtic/home#dticCreateIndustrialArea"
+      },
+      {
+        "key": "dtic-6-1",
+        "label": {
+          "en": "Approved Rate Master Creation",
+          "hi": "अनुमोदित दर मास्टर निर्माण"
+        },
+        "translationKey": "application.id.collectorRateMasterCreation",
+        "legacyHref": "#dticCreateCollectorRate",
+        "href": "/mpmsme/dtic/home#dticCreateCollectorRate"
+      },
+      {
+        "key": "dtic-6-2",
+        "label": {
+          "en": "Industrial Area Wise Rate",
+          "hi": "औद्योगिक क्षेत्रवार दर"
+        },
+        "translationKey": "application.id.industrialAreaWiseRate",
+        "legacyHref": "#dticCreateIndustrialAreaRate",
+        "href": "/mpmsme/dtic/home#dticCreateIndustrialAreaRate"
+      },
+      {
+        "key": "dtic-6-3",
+        "label": {
+          "en": "Enter Vacant Land/shed",
+          "hi": "रिक्‍त भूमि दर्ज करें"
+        },
+        "translationKey": "application.id.enterVacantLand",
+        "legacyHref": "#entervacantland",
+        "href": "/mpmsme/dtic/home#entervacantland"
+      },
+      {
+        "key": "dtic-6-4",
+        "label": {
+          "en": "Land Allotment",
+          "hi": "भू-आवंटन"
+        },
+        "translationKey": "application.id.landallotment",
+        "legacyHref": "#dticLandAllotment",
+        "href": "/mpmsme/dtic/home#dticLandAllotment"
+      },
+      {
+        "key": "dtic-6-5",
+        "label": {
+          "en": "Land Acquisition",
+          "hi": "भू-अर्जन"
+        },
+        "translationKey": "application.id.landAcquisition",
+        "legacyHref": "#dticLandAcquisition",
+        "href": "/mpmsme/dtic/home#dticLandAcquisition"
+      },
+      {
+        "key": "dtic-6-6",
+        "label": {
+          "en": "Notice and Appeal",
+          "hi": "सूचना और अपील"
+        },
+        "translationKey": "application.id.noticeAndAppeal",
+        "legacyHref": "#noticeList",
+        "href": "/mpmsme/dtic/home#noticeList"
+      },
+      {
+        "key": "dtic-6-7",
+        "label": {
+          "en": "Backlog Land Allotment Entries",
+          "hi": "बैकलॉग भूमि आवंटन प्रविष्टियां"
+        },
+        "translationKey": "application.id.backlogEntries",
+        "legacyHref": "#backlogLandAllotment",
+        "href": "/mpmsme/dtic/home#backlogLandAllotment"
+      }
+    ]
+  },
+  {
+    "key": "dtic-7",
+    "label": {
+      "en": "Budget & Planning",
+      "hi": "बजट एवं योजना"
+    },
+    "translationKey": "application.planning.budgetPlanning",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-7-0",
+        "label": {
+          "en": "Allocated Budget Details",
+          "hi": "आवंटित बजट विवरण"
+        },
+        "translationKey": "application.planning.allocatedBudgetDetails",
+        "legacyHref": "#allocatedBudgetDetails",
+        "href": "/mpmsme/dtic/home#allocatedBudgetDetails"
+      },
+      {
+        "key": "dtic-7-1",
+        "label": {
+          "en": "Demand Budget Details",
+          "hi": "बजट मांग विवरण"
+        },
+        "translationKey": "application.planning.demandBudgetDetails",
+        "legacyHref": "#demandBudgetDetails",
+        "href": "/mpmsme/dtic/home#demandBudgetDetails"
+      },
+      {
+        "key": "dtic-7-2",
+        "label": {
+          "en": "Uses & Surrender Details",
+          "hi": "उपयोग एवं समर्पण विवरण"
+        },
+        "translationKey": "application.planning.usesSurrenderDetails",
+        "legacyHref": "#usesSurrenderDetails",
+        "href": "/mpmsme/dtic/home#usesSurrenderDetails"
+      }
+    ]
+  },
+  {
+    "key": "dtic-8",
+    "label": {
+      "en": "Coordination",
+      "hi": "समन्‍वय"
+    },
+    "translationKey": "application.coordination.coordination",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-8-0",
+        "label": {
+          "en": "Inspection Details",
+          "hi": "निरीक्षण का विवरण"
+        },
+        "translationKey": "application.coordination.inspectionDetails",
+        "legacyHref": "#inspectionDetails",
+        "href": "/mpmsme/dtic/home#inspectionDetails"
+      }
+    ]
+  },
+  {
+    "key": "dtic-9",
+    "label": {
+      "en": "Audit",
+      "hi": "ऑडिट"
+    },
+    "translationKey": "application.audit.audit",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-9-0",
+        "label": {
+          "en": "Internal Audit List",
+          "hi": "आंतरिक ऑडिट सूची"
+        },
+        "translationKey": "application.audit.internalAuditList",
+        "legacyHref": "#internalAuditList",
+        "href": "/mpmsme/dtic/home#internalAuditList"
+      },
+      {
+        "key": "dtic-9-1",
+        "label": {
+          "en": "External Audit",
+          "hi": "बाह्य ऑडिट"
+        },
+        "translationKey": "application.audit.externalAudit",
+        "iconName": "bar-chart-o",
+        "children": [
+          {
+            "key": "dtic-9-1-0",
+            "label": {
+              "en": "List of compliance of Audit report of Auditor General",
+              "hi": "महालेखाकार के निरीक्षण प्रतिवेदन की कार्यवाही (ऑडिट सूची)"
+            },
+            "translationKey": "application.audit.externalAuditList1",
+            "iconName": "dashboard",
+            "legacyHref": "#externalauditlist",
+            "href": "/mpmsme/dtic/home#externalauditlist"
+          },
+          {
+            "key": "dtic-9-1-1",
+            "label": {
+              "en": "Status of factual details",
+              "hi": "तथ्‍यात्मक विवरण की स्थिति"
+            },
+            "translationKey": "application.audit.factualDetailsForm",
+            "iconName": "dashboard",
+            "legacyHref": "#factualdetaillist",
+            "href": "/mpmsme/dtic/home#factualdetaillist"
+          },
+          {
+            "key": "dtic-9-1-2",
+            "label": {
+              "en": "Status of Proforma Clause",
+              "hi": "प्रारूप कंडिका की स्थिति"
+            },
+            "translationKey": "application.audit.proformaClause",
+            "iconName": "dashboard",
+            "legacyHref": "#proformaclauselist",
+            "href": "/mpmsme/dtic/home#proformaclauselist"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "dtic-10",
+    "label": {
+      "en": "CM-CS Monit Section",
+      "hi": "सीएम-सीएस मॉनिट कक्ष"
+    },
+    "translationKey": "application.cmcs.section",
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-10-0",
+        "label": {
+          "en": "Letter List",
+          "hi": "पत्र सूची"
+        },
+        "translationKey": "application.cmcs.LetterList",
+        "iconName": "dashboard",
+        "legacyHref": "#letterList",
+        "href": "/mpmsme/dtic/home#letterList"
+      }
+    ]
+  },
+  {
+    "key": "dtic-11",
+    "label": {
+      "en": "Enrolment",
+      "hi": "Enrolment"
+    },
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-11-0",
+        "label": {
+          "en": "Manage Enrolment",
+          "hi": "Manage Enrolment"
+        },
+        "iconName": "bar-chart-o",
+        "legacyHref": "#enrolmentList",
+        "href": "/mpmsme/dtic/home#enrolmentList"
+      }
+    ]
+  },
+  {
+    "key": "dtic-12",
+    "label": {
+      "en": "Supplier/Facility Master",
+      "hi": "Supplier/Facility Master"
+    },
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-12-0",
+        "label": {
+          "en": "Supplier Mgmt.",
+          "hi": "Supplier Mgmt."
+        },
+        "iconName": "dashboard",
+        "legacyHref": "#supplierNameList",
+        "href": "/mpmsme/dtic/home#supplierNameList"
+      },
+      {
+        "key": "dtic-12-1",
+        "label": {
+          "en": "Facility Name Mgmt.",
+          "hi": "Facility Name Mgmt."
+        },
+        "iconName": "dashboard",
+        "legacyHref": "#supplyNameList",
+        "href": "/mpmsme/dtic/home#supplyNameList"
+      }
+    ]
+  },
+  {
+    "key": "dtic-13",
+    "label": {
+      "en": "OX Forms",
+      "hi": "OX Forms"
+    },
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-13-0",
+        "label": {
+          "en": "Ox-1",
+          "hi": "Ox-1"
+        },
+        "iconName": "dashboard",
+        "legacyHref": "#ox1Form",
+        "href": "/mpmsme/dtic/home#ox1Form"
+      },
+      {
+        "key": "dtic-13-1",
+        "label": {
+          "en": "Ox-2",
+          "hi": "Ox-2"
+        },
+        "iconName": "dashboard",
+        "legacyHref": "#ox2Form",
+        "href": "/mpmsme/dtic/home#ox2Form"
+      },
+      {
+        "key": "dtic-13-2",
+        "label": {
+          "en": "Ox-3",
+          "hi": "Ox-3"
+        },
+        "iconName": "dashboard",
+        "legacyHref": "#ox3Form",
+        "href": "/mpmsme/dtic/home#ox3Form"
+      },
+      {
+        "key": "dtic-13-3",
+        "label": {
+          "en": "Ox-4",
+          "hi": "Ox-4"
+        },
+        "iconName": "dashboard",
+        "legacyHref": "#ox4Form",
+        "href": "/mpmsme/dtic/home#ox4Form"
+      }
+    ]
+  },
+  {
+    "key": "dtic-14",
+    "label": {
+      "en": "Legacy data",
+      "hi": "Legacy data"
+    },
+    "iconName": "bar-chart-o",
+    "legacyHref": "#legacyData",
+    "href": "/mpmsme/dtic/home#legacyData"
+  },
+  {
+    "key": "dtic-15",
+    "label": {
+      "en": "Land Reports",
+      "hi": "Land Reports"
+    },
+    "iconName": "bar-chart-o",
+    "children": [
+      {
+        "key": "dtic-15-0",
+        "label": {
+          "en": "Complete Data Of Land Applicant",
+          "hi": "Complete Data Of Land Applicant"
+        },
+        "legacyHref": "#completeDataOfLandApplicant",
+        "href": "/mpmsme/dtic/home#completeDataOfLandApplicant"
+      },
+      {
+        "key": "dtic-15-1",
+        "label": {
+          "en": "Esign and payment pendency report",
+          "hi": "Esign and payment pendency report"
+        },
+        "legacyHref": "#esignPaymentPendencyReport",
+        "href": "/mpmsme/dtic/home#esignPaymentPendencyReport"
+      }
+    ]
+  }
+]

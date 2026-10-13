@@ -1,0 +1,35 @@
+/* Keep the Angular portal's palette, typography, column layout and field order. */
+.legacy-portal .dtic-infrastructure { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px; line-height:1.42857143; }
+.legacy-portal .dtic-infrastructure .panel-info { border:1px solid #bce8f1; border-radius:5px; background:#fff; }
+.legacy-portal .dtic-infrastructure .panel-heading { background:#d9edf7; color:#31708f; padding:12px 15px; border-bottom:1px solid #bce8f1; }
+/* Exempt these reference pages from the newer portal-wide blue heading redesign. */
+.legacy-portal #page-wrapper .dtic-infrastructure .panel-heading {
+  background:#d9edf7 !important; color:#31708f !important; border-color:#bce8f1 !important;
+  font-size:16px !important; padding:10px 15px !important; font-weight:600 !important;
+}
+.legacy-portal #page-wrapper .dtic-infrastructure .divheadertxt {
+  background:#d9edf7 !important; color:brown !important; font-size:14px !important; padding:5px 10px !important;
+}
+.legacy-portal #page-wrapper .dtic-infrastructure :is(.panel-heading,.divheadertxt) :is(span,div,a,strong,h1,h2,h3,h4,h5,h6) {
+  color:inherit !important; font-size:inherit !important; font-weight:inherit !important;
+}
+.legacy-portal .dtic-infrastructure .panel-body { padding:15px; display:flow-root; }
+.legacy-portal .dtic-infrastructure .form-group { margin-bottom:15px; }
+.legacy-portal .dtic-infrastructure .form-control { min-height:34px; border:1px solid #ccc; border-radius:4px; padding:6px 12px; font-size:14px; }
+.legacy-portal .dtic-infrastructure .form-control:focus { border-color:#66afe9; outline:2px solid #66afe930; }
+.legacy-portal .dtic-infrastructure .table-responsive { max-width:100%; overflow-x:auto; }
+.legacy-portal .dtic-infrastructure .modal { position:fixed; inset:0; z-index:1060; overflow:auto; background:#0007; padding:24px 12px; }
+.legacy-portal .dtic-infrastructure .modal-dialog { max-width:900px; width:95%; margin:20px auto; }
+.legacy-portal .dtic-infrastructure .modal-content { background:#fff; border-radius:5px; box-shadow:0 5px 15px #0005; }
+.legacy-portal .dtic-infrastructure .modal-header,
+.legacy-portal .dtic-infrastructure .modal-body,
+.legacy-portal .dtic-infrastructure .modal-footer { padding:15px; }
+.legacy-portal .dtic-infrastructure .modal-header { border-bottom:1px solid #e5e5e5; }
+.legacy-portal .dtic-infrastructure .modal-footer { border-top:1px solid #e5e5e5; }
+.legacy-portal .dtic-infrastructure .modal .close { float:right; font-size:24px; border:0; background:transparent; }
+.legacy-portal .dtic-infrastructure .radio-inline input { margin-right:5px; }
+.legacy-portal .dtic-infrastructure .esignHtml { overflow-x:auto; }
+@media (max-width:767px) {
+  .legacy-portal .dtic-infrastructure [class*="col-md-"] { width:100%; float:none; }
+  .legacy-portal .dtic-infrastructure .panel-body { padding:12px; }
+}

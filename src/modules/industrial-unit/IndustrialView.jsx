@@ -24,33 +24,43 @@ function validation(form, root, submitted = true) {
   const state = { $submitted: submitted || root[form.name || 'form']?.$submitted || false, $valid: true, $invalid: false, $error: {} }
   for (const el of form.elements) {
     if (el.disabled || !el.willValidate) continue
-    const error = { required: el.validity.valueMissing, pattern: el.validity.patternMismatch, min: el.validity.rangeUnderflow, max: el.validity.rangeOverflow, number: el.validity.badInput, email: el.validity.typeMismatch }
+    const error = { required: el.validity.valueMissing, pattern: el.validity.patternMismatch, min: el.validity.rangeUnderflow, max: el.validity.rangeOverflow, number: el.validity.badInput, email: el.validity.typeMismatch, maxlength: el.validity.tooLong, minlength: el.validity.tooShort }
     state[el.name] = { $error: error, $invalid: !el.validity.valid, $valid: el.validity.valid, $touched: root.trackTouched ? !!previous?.[el.name]?.$touched : true }
     if (!el.validity.valid) state.$valid = false
   }
   state.$invalid = !state.$valid
+  state.$setUntouched = () => { for (const field of Object.values(state)) if (field && typeof field === 'object' && '$touched' in field) field.$touched = false }
+  state.$setPristine = () => { state.$submitted = false; state.$pristine = true; state.$dirty = false }
   root[form.name || 'form'] = state
   return state
 }
 
 function ViewNode({ node, scope: s, root, repeated = false }) {
   const formRef = useRef(null)
+  const initializedRef = useRef(null)
+  const conditionMet = node.if == null || !!evaluate(node.if, s)
   useEffect(() => {
-    if (node.init != null && !root.initialized.has(node)) {
+    if (conditionMet && node.init != null && (root.initializePerInstance ? initializedRef.current !== root : !root.initialized.has(node))) {
+      initializedRef.current = root
       root.initialized.add(node)
       run(node.init, s, root)
     }
-  }, [node, root, s])
+  }, [node, root, s, conditionMet])
   useEffect(() => {
     if (formRef.current) { validation(formRef.current,root,false); root.notify() }
   }, [node,root])
   if (node.text) return interpolate(node.text, s)
+  if (root.renderNode) {
+    const rendered = root.renderNode(node, s)
+    if (rendered !== undefined) return rendered
+  }
   if (node.tag === 'table' && node.attrs?.id?.[0] === 'dynamic-table' && root.renderTable) return root.renderTable(node)
   if (node.fragment) return <ViewNodes nodes={(root.viewBundle || views)[node.fragment]} scope={s} root={root} />
   if (node.repeat && !repeated) {
     const items = evaluate(node.repeat.items, s) || []
     return Object.entries(items).map(([key, value], index) => {
       const child = Object.create(s)
+      child.$parent = s
       const [first, second] = node.repeat.names
       child[first] = second ? key : value
       if (second) child[second] = value
@@ -62,7 +72,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   const attrs = Object.fromEntries(Object.entries(node.attrs || {}).map(([key,value]) => [names[key] || key, interpolate(value, s)]))
   for (const key of booleans) if (key in attrs) attrs[key] = true
   for (const key of ['disabled','required','checked','value']) if (node[key] != null) attrs[key] = evaluate(node[key], s) ?? (key === 'value' ? '' : false)
-  if (attrs.style) attrs.style = css(attrs.style)
+  if ('style' in attrs) attrs.style = css(attrs.style)
   if ((node.show != null && !evaluate(node.show, s)) || (node.hide != null && evaluate(node.hide, s))) attrs.style = { ...attrs.style, display: 'none' }
   if (node.class != null) {
     const value = evaluate(node.class, s)
@@ -122,6 +132,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
       let value = file ? e.target.files?.[0] : attrs.type === 'checkbox' ? e.target.checked : attrs.type === 'number' ? e.target.value === '' ? '' : Number(e.target.value) : e.target.value
       if (objectOptions) value = (s[objectOptions[3]] || []).find(item => String(item[objectOptions[4]]) === e.target.value) || null
       if (attrs.type === 'date') value = filter('date', value, 'dd/MM/yyyy')
+      if (root.convertFieldValue) value = root.convertFieldValue(value, attrs, node)
       if (node.maxValue != null && evaluate(node.maxValue, s) && Number(value) > Number(evaluate(node.maxValue,s))) {
         window.alert('The value exceeds ' + evaluate(node.maxValue,s)); value = ''
       }
@@ -180,7 +191,8 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   const currentLocale = root?.locale || 'en'
   if (node.translation) {
     attrs['data-translation'] = node.translation
-    const text = translations[currentLocale]?.[node.translation] || translations.en?.[node.translation]
+    const dictionary = root.translations || translations
+    const text = dictionary[currentLocale]?.[node.translation] || dictionary.en?.[node.translation]
     if (text) {
       children = text
     } else if (!node.children || node.children.length === 0) {
@@ -190,7 +202,8 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     }
   }
   if (node.valueTranslation) {
-    const valText = translations[currentLocale]?.[node.valueTranslation] || translations.en?.[node.valueTranslation]
+    const dictionary = root.translations || translations
+    const valText = dictionary[currentLocale]?.[node.valueTranslation] || dictionary.en?.[node.valueTranslation]
     if (valText) attrs.value = valText
     else if (!attrs.value) {
       attrs.value = node.valueTranslation.split('.').pop().replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim()
@@ -206,6 +219,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
       children = <>{children}{options.map(item => <option key={item[match[2]]} value={item[match[2]]}>{item[match[3]]}</option>)}</>
     }
   }
+  if (root.prepareElement) root.prepareElement(attrs, node, s)
   if (node.tag === 'img' && attrs.title === 'Print Filled Form') {
     const { onClick, ...icon } = attrs
     return <button type="button" className="btn btn-primary report-print-button" onClick={onClick}><img {...icon} alt="" />Print / Save PDF</button>

@@ -42,6 +42,8 @@ import ApplicantDashboard from '../modules/applicant/ApplicantDashboard'
 import ApplicantServicesPage from '../modules/applicant-services/ApplicantServicesPage'
 import AdminDashboard from '../modules/admin/AdminDashboard'
 import DepartmentDashboard from '../modules/department/DepartmentDashboard'
+import DticPage from '../modules/dtic/DticPage'
+import dticRoutes from '../modules/dtic/dticRoutes'
 
 // Pilot Module: Industrial Land Allotment (ID)
 import LandApplicationsPage from '../modules/id/applicant/LandApplicationsPage'
@@ -230,6 +232,9 @@ export default function AppRoutes() {
         <Route path="fa-approvals" element={<DepartmentDashboard />} />
         <Route path="applications" element={<DepartmentDashboard />} />
         <Route path="mis-reports" element={<DepartmentDashboard />} />
+        <Route path="dtic" element={<Navigate to="/department/dtic/dashboard" replace />} />
+        {dticRoutes.map(route => <Route key={route.path} path={`dtic/${route.path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />)}
+        <Route path="dtic/*" element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />
         <Route path=":roleSubpath/dashboard" element={<DepartmentDashboard />} />
         <Route path=":roleSubpath/fa/*" element={<IndustrialUnitPage />} />
         <Route path="fa/*" element={<IndustrialUnitPage />} />
@@ -239,10 +244,18 @@ export default function AppRoutes() {
       {/* Catches URLs emitted by Spring Security redirect handlers */}
       <Route path="/applicant/home" element={<LegacyHashRedirect />} />
       <Route path="/applicant/home2" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/applicant/home" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/applicant/home2" element={<LegacyHashRedirect />} />
       <Route path="/adminSection/home" element={<LegacyHashRedirect />} />
       <Route path="/adminSection/home2" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/adminSection/home" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/adminSection/home2" element={<LegacyHashRedirect />} />
       <Route path="/dtic/home" element={<LegacyHashRedirect />} />
       <Route path="/dtic/home2" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/dtic/home" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/dtic/home2" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/:roleHome/home" element={<LegacyHashRedirect />} />
+      <Route path="/mpmsme/:roleHome/home2" element={<LegacyHashRedirect />} />
       <Route path="/dtfc/home" element={<LegacyHashRedirect />} />
       <Route path="/dtfc/home2" element={<LegacyHashRedirect />} />
       <Route path="/bank/home" element={<LegacyHashRedirect />} />

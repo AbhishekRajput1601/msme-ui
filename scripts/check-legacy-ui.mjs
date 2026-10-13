@@ -155,7 +155,9 @@ try {
   await screenshot('admin-desktop')
   role = 'ROLE_DTIC'
   await navigate('/department/dtic/dashboard', '.legacy-dashboard')
-  assert.equal(await evaluate(exists('#sideNav a[href="/department/land-scrutiny"]')), true)
+  assert.equal(await evaluate(exists('.dtic-navigation')), true)
+  assert.equal(await evaluate('document.querySelectorAll("#side-menu > li").length'), 16)
+  assert.equal(await evaluate(exists('#sideNav a[href="/department/land-scrutiny"]')), false)
   await noOverflow('Department dashboard')
   await screenshot('department-desktop')
   role = null

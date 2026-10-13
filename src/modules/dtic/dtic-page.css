@@ -1,0 +1,588 @@
+.dtic-table-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Keep the legacy MSME list arrangement, with quieter borders and consistent spacing. */
+.legacy-portal .dtic-msme-list .panel-info {
+  border: 1px solid #c5dfea;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 3px 14px #244b7010;
+}
+.legacy-portal .dtic-msme-list .panel-heading {
+  padding: 15px 20px;
+  border: 0;
+  border-radius: 5px;
+  background: #d9eef6;
+  color: #16374b;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+.legacy-portal .dtic-msme-list .panel-heading a {
+  color: #b52f35 !important;
+}
+.legacy-portal .dtic-msme-list .panel-body {
+  padding: 20px 12px 24px;
+}
+.legacy-portal .dtic-msme-list .dtic-table-controls {
+  margin: 0 0 16px;
+  gap: 16px;
+}
+.legacy-portal .dtic-msme-list .dtic-table-controls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: 500;
+  min-width: 0;
+}
+.legacy-portal .dtic-msme-list .dtic-table-controls input,
+.legacy-portal .dtic-msme-list .dtic-table-controls select {
+  height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #d5dee7;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 14px;
+}
+.legacy-portal .dtic-msme-list input[type="search"] {
+  width: 280px;
+  max-width: 100%;
+  min-width: 0;
+}
+.legacy-portal .dtic-msme-list .dtic-add-msme {
+  display: inline-flex !important;
+  align-items: center;
+  min-height: 40px;
+  background: #178552 !important;
+  border-color: #178552 !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+.legacy-portal .dtic-msme-list .dtic-add-msme:hover {
+  background: #106a40 !important;
+}
+.legacy-portal .dtic-msme-list .dtic-table-scroll {
+  border: 1px solid #cadcea;
+  border-radius: 5px;
+}
+.legacy-portal .dtic-msme-list #dynamic-table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+}
+.legacy-portal .dtic-msme-list #dynamic-table th {
+  background: #478ccb;
+  color: white;
+  padding: 13px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-color: #ffffff45;
+  vertical-align: middle;
+}
+.legacy-portal .dtic-msme-list #dynamic-table td {
+  padding: 12px;
+  border-color: #e0e8ef;
+}
+.legacy-portal .dtic-msme-list .dtic-table-footer {
+  margin: 16px 0 0;
+  padding: 0;
+}
+.legacy-portal .dtic-msme-list :is(input, select, a, button):focus-visible {
+  outline: 3px solid #78b9eb;
+  outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .legacy-portal .dtic-msme-list .panel-info { padding: 10px; }
+  .legacy-portal .dtic-msme-list .panel-body { padding: 16px 0; }
+  .legacy-portal .dtic-msme-list .dtic-table-actions { width: 100%; }
+  .legacy-portal .dtic-msme-list .dtic-table-actions label { flex: 1 1 100%; }
+  .legacy-portal .dtic-msme-list input[type="search"] { flex: 1; width: 0; }
+  .legacy-portal .dtic-msme-list #dynamic-table { min-width: 850px; }
+}
+
+.dtic-page,
+.legacy-portal .dtic-page {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
+.dtic-page #dtic-page-content,
+.legacy-portal .dtic-page #dtic-page-content {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.dtic-page .dtic-table-scroll,
+.legacy-portal .dtic-page .dtic-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* DataTables Empty State Centering */
+.dtic-page td.dataTables_empty,
+.legacy-portal .dtic-page td.dataTables_empty,
+.dtic-page table tbody tr td[colspan],
+.legacy-portal .dtic-page table tbody tr td[colspan],
+td.dataTables_empty {
+  text-align: center !important;
+  vertical-align: middle !important;
+  padding: 22px 14px !important;
+  color: #666 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  background-color: #fdfdfd !important;
+}
+
+/* DTIC Table Controls Header & Footer */
+.dtic-table-controls,
+.legacy-portal .dtic-table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.dtic-table-controls input,
+.dtic-table-controls select,
+.legacy-portal .dtic-table-controls input,
+.legacy-portal .dtic-table-controls select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 13px;
+}
+
+/* Table Footer & Pagination */
+.dtic-table-footer,
+.legacy-portal .dtic-table-footer {
+  margin-top: 14px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dtic-table-footer .dataTables_info,
+.legacy-portal .dtic-table-footer .dataTables_info {
+  font-size: 13px;
+  color: #555;
+  padding: 4px 0;
+}
+
+.dtic-table-footer .dataTables_paginate,
+.legacy-portal .dtic-table-footer .dataTables_paginate {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dtic-table-footer .pagination,
+.legacy-portal .dtic-table-footer .pagination {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.dtic-table-footer .pagination > li,
+.legacy-portal .dtic-table-footer .pagination > li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.dtic-table-footer .pagination > li > button,
+.dtic-table-footer .pagination > li > span,
+.legacy-portal .dtic-table-footer .pagination > li > button,
+.legacy-portal .dtic-table-footer .pagination > li > span {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  min-width: 36px;
+  height: 34px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.42857143;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  margin-left: -1px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  outline: none;
+  user-select: none;
+}
+
+.dtic-table-footer .pagination > li:first-child > button,
+.dtic-table-footer .pagination > li:first-child > span,
+.legacy-portal .dtic-table-footer .pagination > li:first-child > button,
+.legacy-portal .dtic-table-footer .pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.dtic-table-footer .pagination > li:last-child > button,
+.dtic-table-footer .pagination > li:last-child > span,
+.legacy-portal .dtic-table-footer .pagination > li:last-child > button,
+.legacy-portal .dtic-table-footer .pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.dtic-table-footer .pagination > li > button:hover:not(:disabled),
+.legacy-portal .dtic-table-footer .pagination > li > button:hover:not(:disabled) {
+  background-color: #e6f0fa;
+  border-color: #b8d2eb;
+  color: #23527c;
+  z-index: 1;
+}
+
+.dtic-table-footer .pagination > li.active > span,
+.legacy-portal .dtic-table-footer .pagination > li.active > span {
+  z-index: 2;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  border-color: #337ab7 !important;
+  cursor: default;
+  font-weight: 600;
+}
+
+.dtic-table-footer .pagination > li.disabled > button,
+.dtic-table-footer .pagination > li > button:disabled,
+.legacy-portal .dtic-table-footer .pagination > li.disabled > button,
+.legacy-portal .dtic-table-footer .pagination > li > button:disabled {
+  color: #999999 !important;
+  background-color: #f7f7f7 !important;
+  border-color: #e2e2e2 !important;
+  cursor: not-allowed !important;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Button & Action Centering */
+.dtic-page [align="center"],
+.legacy-portal .dtic-page [align="center"] {
+  text-align: center !important;
+}
+
+/* Center single-column action buttons in DTIC rows (e.g. Generate TFC Letter) */
+.dtic-page .row > .col-md-6[align="center"]:only-child,
+.dtic-page .row > .col-md-6[align="center"]:last-child:first-child,
+.dtic-page .col-md-6:has(> a[href*="viewtfcletterform"]),
+.dtic-page .col-md-6:has(> .btn-success:only-child),
+.legacy-portal .dtic-page .row > .col-md-6[align="center"]:only-child,
+.legacy-portal .dtic-page .row > .col-md-6[align="center"]:last-child:first-child,
+.legacy-portal .dtic-page .col-md-6:has(> a[href*="viewtfcletterform"]),
+.legacy-portal .dtic-page .col-md-6:has(> .btn-success:only-child) {
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  margin: 22px auto !important;
+}
+
+.dtic-page a[href*="viewtfcletterform"],
+.legacy-portal .dtic-page a[href*="viewtfcletterform"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 15px auto !important;
+}
+
+/* Button Styling Across DTIC */
+.dtic-page .btn,
+.legacy-portal .dtic-page .btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 22px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.42857143 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  transition: all 0.15s ease-in-out !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  text-decoration: none !important;
+}
+
+.dtic-page .btn:hover,
+.legacy-portal .dtic-page .btn:hover {
+  text-decoration: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18) !important;
+  transform: translateY(-1px);
+}
+
+.dtic-page .btn:active,
+.legacy-portal .dtic-page .btn:active {
+  transform: translateY(0);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Button Spacing & Gap */
+.dtic-page .btn + .btn,
+.dtic-page button + .btn,
+.dtic-page .btn + button,
+.dtic-page button + button,
+.dtic-page a.btn + a.btn,
+.dtic-page .btn + a.btn,
+.dtic-page a.btn + button,
+.legacy-portal .dtic-page .btn + .btn,
+.legacy-portal .dtic-page button + .btn,
+.legacy-portal .dtic-page .btn + button,
+.legacy-portal .dtic-page button + button,
+.legacy-portal .dtic-page a.btn + a.btn,
+.legacy-portal .dtic-page .btn + a.btn,
+.legacy-portal .dtic-page a.btn + button {
+  margin-left: 14px !important;
+}
+
+/* Containers with buttons */
+.dtic-page [align="center"]:has(.btn),
+.dtic-page [align="center"]:has(button),
+.dtic-page .col-md-12[align="center"],
+.legacy-portal .dtic-page [align="center"]:has(.btn),
+.legacy-portal .dtic-page [align="center"]:has(button),
+.legacy-portal .dtic-page .col-md-12[align="center"] {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin-top: 20px !important;
+  margin-bottom: 14px !important;
+  width: 100% !important;
+  float: none !important;
+}
+
+/* Button Colors */
+.dtic-page .btn-primary,
+.legacy-portal .dtic-page .btn-primary {
+  color: #ffffff !important;
+  background-color: #0275d8 !important;
+  border-color: #0267bf !important;
+}
+
+.dtic-page .btn-primary:hover,
+.dtic-page .btn-primary:focus,
+.legacy-portal .dtic-page .btn-primary:hover,
+.legacy-portal .dtic-page .btn-primary:focus {
+  background-color: #025aa5 !important;
+  border-color: #014c8c !important;
+  color: #ffffff !important;
+}
+
+.dtic-page .btn-info,
+.legacy-portal .dtic-page .btn-info {
+  color: #ffffff !important;
+  background-color: #17a2b8 !important;
+  border-color: #138496 !important;
+}
+
+.dtic-page .btn-info:hover,
+.dtic-page .btn-info:focus,
+.legacy-portal .dtic-page .btn-info:hover,
+.legacy-portal .dtic-page .btn-info:focus {
+  background-color: #138496 !important;
+  border-color: #117a8b !important;
+  color: #ffffff !important;
+}
+
+.dtic-page .btn-success,
+.legacy-portal .dtic-page .btn-success {
+  color: #ffffff !important;
+  background-color: #28a745 !important;
+  border-color: #218838 !important;
+}
+
+.dtic-page .btn-success:hover,
+.dtic-page .btn-success:focus,
+.legacy-portal .dtic-page .btn-success:hover,
+.legacy-portal .dtic-page .btn-success:focus {
+  background-color: #218838 !important;
+  border-color: #1e7e34 !important;
+  color: #ffffff !important;
+}
+
+.dtic-page .btn-default,
+.legacy-portal .dtic-page .btn-default {
+  color: #333333 !important;
+  background-color: #ffffff !important;
+  border-color: #cccccc !important;
+}
+
+.dtic-page .btn-default:hover,
+.dtic-page .btn-default:focus,
+.legacy-portal .dtic-page .btn-default:hover,
+.legacy-portal .dtic-page .btn-default:focus {
+  background-color: #e6e6e6 !important;
+  border-color: #adadad !important;
+  color: #333333 !important;
+}
+
+/* Form Layout (e.g. viewtfcletterform) */
+.dtic-page form[name="tfcLetterForm"],
+.legacy-portal .dtic-page form[name="tfcLetterForm"] {
+  width: 100%;
+  max-width: 680px;
+  margin: 20px auto !important;
+  float: none !important;
+}
+
+.dtic-page form[name="tfcLetterForm"] > .col-md-6,
+.legacy-portal .dtic-page form[name="tfcLetterForm"] > .col-md-6 {
+  width: 100% !important;
+  float: none !important;
+  padding: 0 !important;
+}
+
+.dtic-page form[name="tfcLetterForm"] .form-group,
+.legacy-portal .dtic-page form[name="tfcLetterForm"] .form-group {
+  margin-bottom: 18px;
+}
+
+.dtic-page form[name="tfcLetterForm"] .form-group label,
+.legacy-portal .dtic-page form[name="tfcLetterForm"] .form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.dtic-page form[name="tfcLetterForm"] input[type="date"],
+.dtic-page form[name="tfcLetterForm"] input.form-control,
+.legacy-portal .dtic-page form[name="tfcLetterForm"] input[type="date"],
+.legacy-portal .dtic-page form[name="tfcLetterForm"] input.form-control {
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  font-size: 14px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dtic-page form[name="tfcLetterForm"] input[type="date"]:focus,
+.dtic-page form[name="tfcLetterForm"] input.form-control:focus,
+.legacy-portal .dtic-page form[name="tfcLetterForm"] input[type="date"]:focus,
+.legacy-portal .dtic-page form[name="tfcLetterForm"] input.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+/* Action Links & Modals */
+.dtic-action-link,
+.legacy-portal .dtic-action-link {
+  color: #337ab7;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.dtic-action-link:hover,
+.legacy-portal .dtic-action-link:hover {
+  text-decoration: underline;
+}
+
+.dtic-modal-backdrop,
+.legacy-portal .dtic-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: #0008;
+  z-index: 1055;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.dtic-modal,
+.legacy-portal .dtic-modal {
+  width: 92%;
+  max-width: 1500px;
+  background: #fff;
+  border-radius: 6px;
+  padding-top: 16px;
+  box-shadow: 0 5px 15px #0008;
+}
+
+.dtic-modal .modal-body,
+.legacy-portal .dtic-modal .modal-body {
+  padding: 15px;
+}
+
+.dtic-modal .modal-footer,
+.legacy-portal .dtic-modal .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 15px;
+}
+
+.dtic-comment-modal,
+.legacy-portal .dtic-comment-modal {
+  width: 600px;
+  max-width: 92%;
+  background: white;
+  border-radius: 4px;
+}
+
+.dtic-comment-modal .modal-header,
+.legacy-portal .dtic-comment-modal .modal-header {
+  background: #0277bd;
+  color: white;
+  padding: 12px 18px;
+}
+
+.dtic-amount,
+.legacy-portal .dtic-amount {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+.dtic-amount strong,
+.legacy-portal .dtic-amount strong {
+  white-space: nowrap;
+}
+
+@media print {
+  .legacy-portal:has(.dtic-page) #sideNav,
+  .legacy-portal:has(.dtic-page) header,
+  .legacy-portal:has(.dtic-page) #sidebarToggle,
+  .dtic-page button {
+    display: none !important;
+  }
+}

@@ -1,0 +1,78 @@
+import { useEffect, useReducer, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from '../../hooks/useTranslation'
+import IndustrialView from '../industrial-unit/IndustrialView'
+import { createDticState } from './dticModel'
+import { dticRequest } from './dticService'
+import routes from './dticRoutes'
+import InfrastructurePage from './infrastructure/InfrastructurePage'
+import views from './generated/views.json'
+import translations from './generated/translations.json'
+import { expressions } from './generated/expressions'
+import tables from './generated/tables.json'
+import DticTable from './DticTable'
+import DticAgenda from './DticAgenda'
+import './generated/reference.css'
+import './dtic-page.css'
+import './dtic-msme-form.css'
+
+export function matchDticRoute(pathname) {
+  const segments = pathname.replace(/^\/department\/dtic(?:\/|$)/i, '').replace(/\/+$/, '').split('/').filter(Boolean)
+  for (const route of routes) {
+    const pattern = route.path.split('/')
+    if (segments.length !== pattern.length || pattern.some((part,i) => !part.startsWith(':') && part.toLowerCase() !== segments[i].toLowerCase())) continue
+    const params = Object.fromEntries(pattern.flatMap((part,i) => part.startsWith(':') ? [[part.slice(1),decodeURIComponent(segments[i])]] : []))
+    return { route, params }
+  }
+  return null
+}
+
+export default function DticPage() {
+  const location = useLocation(), { locale } = useTranslation()
+  const match = matchDticRoute(location.pathname)
+  if (match?.route.controller === 'DTICIDController') return <InfrastructurePage key={location.pathname+locale} match={match} locale={locale} />
+  return <DticContent key={location.pathname+locale} match={matchDticRoute(location.pathname)} locale={locale} />
+}
+
+function DticContent({ match, locale }) {
+  const navigate = useNavigate(), [,render] = useReducer(n => n+1,0)
+  const [content,setContent] = useState(null), [error,setError] = useState('')
+  useEffect(() => {
+    if (!match) return
+    const abort = new AbortController()
+    const { route,params } = match
+    const state = createDticState({ params,navigate,locale,controller:route.controller,signal:abort.signal,notify:() => { if (!abort.signal.aborted) render() } })
+    Object.assign(state,{ expressionBundle:expressions,viewBundle:views,translations })
+    async function initialize() {
+      let name = route.views.at(-1)
+      if (route.views.length > 1) {
+        try {
+          const data = await dticRequest('get','fetchFAMSMEDetailUnitForSanction',{ applicationId:params.applicationId || params.applicationIds },abort.signal)
+          const hasDecision = route.path.startsWith('fazonal') ? data?.zonalMeetingDate != null : params.establishmentType?.toLowerCase() === 'institute' ? !!data?.applicationId : data?.meetingDate != null
+          if (hasDecision) name = route.views[0]
+        } catch {
+          // If fetch fails or no sanction data exists yet, remain on the primary view
+        }
+      }
+      state.renderTable = tables[name] ? node => <DticTable name={name} node={node} state={state} /> : undefined
+      state.renderNode = node => {
+        const id = node.attrs?.id?.[0]
+        if (['historyModal','assistRemarkModal','eligibleModal'].includes(id)) return null
+        return undefined
+      }
+      if (!abort.signal.aborted) setContent({ state,name })
+    }
+    initialize().catch(error => { if (!abort.signal.aborted) setError(error.message) })
+    return () => abort.abort()
+  }, [navigate,locale,match])
+  if (!match) return <div className="alert alert-danger">This DTIC page has not yet been migrated.</div>
+  if (error) return <div className="alert alert-danger" role="alert">{error}</div>
+  if (!content) return <p role="status">Loading....</p>
+  const { state,name } = content
+  return <div className={`dtic-page${name === 'dtic/msmeapplicationlist' ? ' dtic-msme-list' : ''}${name === 'dtic/viewmsmeform' ? ' dtic-msme-form' : ''}`}>
+    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
+    {(state.busy || state.saving) && <p role="status">Loading....</p>}
+    <IndustrialView name={name} state={state} />
+    {state.agendaOpen && <DticAgenda state={state} />}
+  </div>
+}

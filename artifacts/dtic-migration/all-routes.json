@@ -1,0 +1,897 @@
+[
+  {
+    "route": "/updateprofile",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: 'updateprofile',\n\t\t\t\tcontroller: 'CommonController'\n\t\t\t}"
+  },
+  {
+    "route": "/changepassword",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: 'changepassword',\n\t\t\t\tcontroller: 'CommonController'\n\t\t\t}"
+  },
+  {
+    "route": "/firstPasswordChange",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: 'firstPasswordChange',\n\t\t\t\tcontroller: 'CommonController'\n\t\t\t}"
+  },
+  {
+    "route": "/success",
+    "controller": null,
+    "templateExpression": "templateUrl: 'success'\n\t\t\t}"
+  },
+  {
+    "route": "/dashboard",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dashboard',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewtotalapplications",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewtotalapplications',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewnewapplications",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewnewapplications',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplierInfo",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'supplierInfo',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewsendbackapplications",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewsendbackapplications',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewresubmittedapplications",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewresubmittedapplications',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationsacceptedbydtic",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicationsacceptedbydtic',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationsrejectedbydtic",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicationsrejectedbydtic',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationsacceptedbydtfc",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicationsacceptedbydtfc',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationsrejectedbydtfc",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicationsrejectedbydtfc',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationsacceptedbybank",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicationsacceptedbybank',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationsrejectedbybank",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicationsrejectedbybank',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticpendingapplicants",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dticpendingapplicants',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicantdetail/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewapplicantdetail',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewyuapplicantdetail/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'viewyuapplicantdetail',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewdocumentdetail/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'viewdocumentdetail/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewyudocumentdetail/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'viewyudocumentdetail/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewschemedetailform/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'viewschemedetailform/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewprojectreportform/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'viewprojectreportform/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewyuprojectreportform/:applicantId",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'viewyuprojectreportform/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticpendingyuvaudhami",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dticpendingyuvaudhami',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticinprocessapplicants",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dticinprocessapplicants',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticinprocessyuvaudhami",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dticinprocessyuvaudhami',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticresubmittedapplicants",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dticresubmittedapplicants',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticresubmittedyuvaudhami",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: 'dticresubmittedyuvaudhami',\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewtfcletterform/:schemeType",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'viewtfcletterform/' + params.schemeType; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewapplicationlist",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'viewapplicationlist',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewmsmedetail/:msmeDetailId",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: function(params) { return 'viewmsmedetail/' + params.msmeDetailId; },\n\t\t\t\tcontroller: 'DTICMSMEController',\n\t\t\t\ttitle: 'MSME-Form'\n\t\t\t}"
+  },
+  {
+    "route": "/viewmsmeform",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'viewmsmeform',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/serviceenterprisereportform",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'serviceenterprisereportform',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/manufacturingenterprisereportform",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'manufacturingenterprisereportform',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/microlevelreportform",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'microlevelreportform',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/smalllevelreportform",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'smalllevelreportform',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/mediumlevelreportform",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: 'mediumlevelreportform',\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewmsmeeditform/:msmeDetailId",
+    "controller": "DTICMSMEController",
+    "templateExpression": "templateUrl: function(params) { return 'viewmsmeeditform/' + params.msmeDetailId; },\n\t\t\t\tcontroller: 'DTICMSMEController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticfapendingapplicantsunit",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'dticfapendingapplicantsunit',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/powerBiDashbord",
+    "controller": "IDTICFAController",
+    "templateExpression": "templateUrl: 'powerBiDashbord',\n\t\t\t\tcontroller: 'IDTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaapplicantHistory/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewFaHistory/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController',\n\t\t\t\ttitle: 'FA-Progress Details'\n\t\t\t}"
+  },
+  {
+    "route": "/dticfapendingapplicantsapparel",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'dticfapendingapplicantsapparel',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticfapendingapplicants",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'dticfapendingapplicants',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/faacceptanceamountdetailapparel/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faacceptanceamountdetailapparel/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/faacceptanceamountdetailunit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faacceptanceamountdetailunit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewfaacceptanceamountdetailunit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewfaacceptanceamountdetailunit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fazonalacceptanceamountdetail/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'fazonalacceptanceamountdetail/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/faInspectionStatusUnit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faInspectionStatusUnit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/querybydtic/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'querybydtic/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\n\t\t\t}"
+  },
+  {
+    "route": "/faCommitteeStatusUnit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faCommitteeStatusUnit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewfaCommitteeStatusUnit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewfaCommitteeStatusUnit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController',\n\t\t\t\ttitle: 'FA-Progress Details'\n\t\t\t}"
+  },
+  {
+    "route": "/faCommitteesStatusUnit/:applicationIds/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faCommitteesStatusUnit/' + params.applicationIds + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/faDisbursementUnit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faDisbursementUnit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/faOtherUploadDocuments/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faOtherUploadDocuments/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewfaDisbursementUnit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewfaDisbursementUnit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewdownloadfaacceptanceform/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewdownloadfaacceptanceform/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewdownloadfazonalacceptanceform/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewdownloadfazonalacceptanceform/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaschemesdetailsunit/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'fa/viewfaschemesdetailsunit/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaschemesdetailsapparel/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'fa/viewfaschemesdetailsapparel/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/fetchfaschemes/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'fa/fetchfaschemes/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfadocumentsuploadunit/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'fa/viewfadocumentsuploadunit/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfadocumentsuploadapparel/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'fa/viewfadocumentsuploadapparel/' + params.applicationId; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaapplicantdetailunit/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/viewfaapplicantdetailunit/',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaapplicantdetailunitnew/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/viewfaapplicantdetailunitnew/',\n\t\t\t\tcontroller: 'DTICFAController',\n\t\t\t\ttitle: 'FA-Industrial Unit-Scheme Form'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaapplicantdetailapparel/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/viewfaapplicantdetailapparel/',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/viewfaapplicantdetailapparelnew/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/viewfaapplicantdetailapparelnew/',\n\t\t\t\tcontroller: 'DTICFAController',\n\t\t\t\ttitle: 'FA-Apparel Institution-Scheme Form'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/newapplicantform",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/newapplicantform',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/newapplicantformapparel",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/newapplicantformapparel',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/id/viewDocumentsUpload/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'id/viewDocumentsUpload/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticLandAllotment",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'dticLandAllotment',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/eSingAOLetter",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'eSingAOLetter',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/legacyData",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'legacyData',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/entervacantland",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'entervacantLand',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/id/viewAppliedApplicants/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewAppliedApplicants/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/eSingAOLetter/:applicantId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'eSingAOLetter/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/tenderDetails/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'tenderDetails/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/openGroupLOI/:applicantId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'groupLoi/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/id/editVacantLandDetail/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'editVacantLandDetail/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/id/editViewLegacyData/:id",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'editViewLegacyData/' + params.id; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/id/viewIdApplicantHistory/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewIdHistory/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/idInspectionStatus/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'idInspectionStatus/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/updateLOI/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'updateLOI/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewUploadDownloadLOI/:applicantId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewUploadDownloadLOI/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewLOCDetails/:applicantId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewLOCDetails/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/locPaymentDetails/:locChallanId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'locPaymentDetails/' + params.locChallanId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/uploadBankCoveringLetter/:applicantId/:schemeCategory",
+    "controller": "DTICSelfEmploymentController",
+    "templateExpression": "templateUrl: function(params) { return 'uploadBankCoveringLetter/' + params.applicantId + '/' + params.schemeCategory; },\n\t\t\t\tcontroller: 'DTICSelfEmploymentController'\n\t\t\t}"
+  },
+  {
+    "route": "/updateLeaseDeed/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'updateLeaseDeed/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/updatePossessionLetter/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'updatePossessionLetter/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticLandAcquisition",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'dticLandAcquisition',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/faapplicants",
+    "controller": "ZonalFAController",
+    "templateExpression": "templateUrl: 'faapplicants',\n\t\t\t\tcontroller: 'ZonalFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewfaapplicantdetail/:applicationId",
+    "controller": "ZonalFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewfaapplicantdetail/' + params.applicationId; },\n\t\t\t\tcontroller: 'ZonalFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewfaschemesdetails/:applicationId",
+    "controller": "ZonalFAController",
+    "templateExpression": "templateUrl: function(params) { return 'viewfaschemesdetails/' + params.applicationId; },\n\t\t\t\tcontroller: 'ZonalFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/downloadForm/:name",
+    "controller": null,
+    "templateExpression": "templateUrl: function(params) { return 'download/' + params.name; },\n\t\t\t}"
+  },
+  {
+    "route": "/faZonalStatusUnit/:applicationId/:establishmentType",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: function(params) { return 'faZonalStatusUnit/' + params.applicationId + '/' + params.establishmentType; },\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  },
+  {
+    "route": "/id/viewApplicationDetail/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewApplicationDetail/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewAllotmentLetter/:applicantId/:vacantLandId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewAllotmentLetter/' + params.applicantId + '/' + params.vacantLandId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/allocatedBudgetDetails",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: 'allocatedBudgetDetails',\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/allocatedBudgetDetails/:financialYearId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'allocatedBudgetDetails/' + params.financialYearId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/allocatedBudgetDetails/:financialYearId/:quarterId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'allocatedBudgetDetails/' + params.financialYearId + '/' + params.quarterId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/headsBudgetDetails/:financialYearId/:quarterId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'headsBudgetDetails/' + params.financialYearId + '/' + params.quarterId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/demandBudgetDetails",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: 'demandBudgetDetails',\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/demandBudgetDetails/:financialYearId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'demandBudgetDetails/' + params.financialYearId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/generateBudgetDemand/:financialYearId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'generateBudgetDemand/' + params.financialYearId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewBudgetDemand/:dticDemandId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'viewBudgetDemand/' + params.dticDemandId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/printBudgetDemand/:dticDemandId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "title: 'Budget & Planning: DTIC Budget Demand',\n\t\t\t\ttemplateUrl: function(params) { return 'printBudgetDemand/' + params.dticDemandId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewAllocatedBudgetDemand/:dticDemandId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'viewAllocatedBudgetDemand/' + params.dticDemandId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/usesSurrenderDetails",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'usesSurrenderDetails'; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/usesSurrenderDetails/:financialYearId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'usesSurrenderDetails/' + params.financialYearId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewUsesSurrender/:financialYearId/:quarterId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "templateUrl: function(params) { return 'viewUsesSurrender/' + params.financialYearId + '/' + params.quarterId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/printUsesSurrender/:financialYearId/:quarterId",
+    "controller": "DTICBudgetPlanningController",
+    "templateExpression": "title: 'Budget & Planning: DTIC Budget Used/Surrender',\n\t\t\t\ttemplateUrl: function(params) { return 'printUsesSurrender/' + params.financialYearId + '/' + params.quarterId; },\n\t\t\t\tcontroller: 'DTICBudgetPlanningController'\n\t\t\t}"
+  },
+  {
+    "route": "/inspectionDetails",
+    "controller": "DTICCoordinationController",
+    "templateExpression": "templateUrl: 'inspectionDetails',\n\t\t\t\tcontroller: 'DTICCoordinationController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewRoster/:inspectionOfficeId",
+    "controller": "DTICCoordinationController",
+    "templateExpression": "templateUrl: function(params) { return 'viewRoster/' + params.inspectionOfficeId; },\n\t\t\t\tcontroller: 'DTICCoordinationController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewEditRoster/:inspectionOfficeId",
+    "controller": "DTICCoordinationController",
+    "templateExpression": "templateUrl: function(params) { return 'viewEditRoster/' + params.inspectionOfficeId; },\n\t\t\t\tcontroller: 'DTICCoordinationController'\n\t\t\t}"
+  },
+  {
+    "route": "/printRoster/:inspectionOfficeId",
+    "controller": "DTICCoordinationController",
+    "templateExpression": "title: 'Coordination: Print Roster',\n\t\t\t\ttemplateUrl: function(params) { return 'printRoster/' + params.inspectionOfficeId; },\n\t\t\t\tcontroller: 'DTICCoordinationController'\n\t\t\t}"
+  },
+  {
+    "route": "/letterList",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: 'letterList',\n\t\t\t\tcontroller: 'CommonController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewLetter/:letterId",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: function(params) { return 'viewLetter/' + params.letterId; },\n\t\t\t\tcontroller: 'CommonController',\n\t\t\t\ttitle: 'CMCS-Letter Details'\n\t\t\t}"
+  },
+  {
+    "route": "/updateProcess/:letterId",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: function(params) { return 'updateProcess/' + params.letterId; },\n\t\t\t\tcontroller: 'CommonController'\n\t\t\t}"
+  },
+  {
+    "route": "/loadHistory/:letterId",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: function(params) { return 'loadHistory/' + params.letterId; },\n\t\t\t\tcontroller: 'CommonController',\n\t\t\t\ttitle: 'CMCS-Progress Details'\n\t\t\t}"
+  },
+  {
+    "route": "/dticCreateIndustrialArea",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'dticCreateIndustrialArea',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticCreateCollectorRate",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'dticCreateCollectorRate',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewCollectorRate/:collectorRateId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewCollectorRate/' + params.collectorRateId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/editIndustrialArea/:locationId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'editIndustrialArea/' + params.locationId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticCreateIndustrialAreaRate",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'dticCreateIndustrialAreaRate',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticViewIndustrialAreaRate/:industrialAreaRateId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'dticViewIndustrialAreaRate/' + params.industrialAreaRateId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/internalAuditList",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: 'internalAuditListForDTIC',\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewInternalAudit/:rosterId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'viewInternalAudit/' + params.rosterId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/externalauditlist",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: 'externalAuditListForDTIC',\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewExternalAudit/:rosterId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'viewExternalAudit/' + params.rosterId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticExternalAuditEnterOpinion/:rosterId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'dticExternalAuditEnterOpinion/' + params.rosterId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticInternalAuditEnterOpinion/:rosterId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'dticInternalAuditEnterOpinion/' + params.rosterId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/factualdetaillist",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: 'factualDetailListForDTIC',\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewFactualDetail/:factualDetailId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'viewFactualDetail/' + params.factualDetailId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticFactualDetailEnterOpinion/:factualDetailId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'dticFactualDetailEnterOpinion/' + params.factualDetailId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/proformaclauselist",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: 'proformaClauseListForDTIC',\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/dticProformaClauseEnterOpinion/:proformaId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'dticProformaClauseEnterOpinion/' + params.proformaId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewProformaClause/:proformaId",
+    "controller": "AuditDTICController",
+    "templateExpression": "templateUrl: function(params) { return 'viewProformaClause/' + params.proformaId; },\n\t\t\t\tcontroller: 'AuditDTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/noticeList",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'noticeList',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/backlogLandAllotment",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'backlogLandAllotment',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewIssueNotice/:applicantId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewIssueNotice/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/reviewCompliance/:noticeId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'reviewCompliance/' + params.noticeId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewNoticeHistory/:noticeId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewNoticeHistory/' + params.noticeId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewAnnualPaymentHistory/:applicantId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewAnnualPaymentHistory/' + params.applicantId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/reviewConditionalComplianceZO/:hearingId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewReviewConditionalComplianceZO/' + params.hearingId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/reviewConditionalComplianceZO/:hearingId/:decisionId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewReviewConditionalComplianceZO/' + params.hearingId + '/' + params.decisionId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewConditionalDecisionZO/:hearingId/:decisionId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewConditionalDecisionZO/' + params.hearingId + '/' + params.decisionId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/reviewConditionalComplianceIC/:hearingId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewReviewConditionalComplianceIC/' + params.hearingId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/reviewConditionalComplianceIC/:hearingId/:decisionId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewReviewConditionalComplianceIC/' + params.hearingId + '/' + params.decisionId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewConditionalDecisionIC/:hearingId/:decisionId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewConditionalDecisionIC/' + params.hearingId + '/' + params.decisionId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewZOAppeal/:appealId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewZOAppeal/' + params.appealId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewZOAppealHearing/:appealHearingId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewZOAppealHearing/' + params.appealHearingId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewICAppeal/:appealId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewICAppeal/' + params.appealId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewICAppealHearing/:appealHearingId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewICAppealHearing/' + params.appealHearingId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewAnnualPaymentDetails/:paymentId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) { return 'viewAnnualPaymentDetails/' + params.paymentId; },\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/updateprofile",
+    "controller": "CommonController",
+    "templateExpression": "templateUrl: 'updateprofile',\n\t\t\t\tcontroller: 'CommonController'\n\t\t\t}"
+  },
+  {
+    "route": "/addSupplyNameForm",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'addSupplyNameForm',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewEditSupplyName/:id",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: function(params) { return 'viewEditSupplyName/' + params.id; },\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewEditSupplierName/:id",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: function(params) { return 'viewEditSupplierName/' + params.id; },\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplyNameList",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'supplyNameList',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplierNameList",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'supplierNameList',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplierList",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'supplierList',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplierForm",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'supplierForm',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplyList",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'supplyList',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/supplyForm",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'supplyForm',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox1List",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox1List',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox1Form",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox1Form',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox2List",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox2List',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox2Form",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox2Form',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox3List",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox3List',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox3Form",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox3Form',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox4List",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox4List',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/ox4Form",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'ox4Form',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/report1",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'report1',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/report2",
+    "controller": "DTICController",
+    "templateExpression": "templateUrl: 'report2',\n\t\t\t\tcontroller: 'DTICController'\n\t\t\t}"
+  },
+  {
+    "route": "/enrolmentList",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'enrolmentList',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/viewenrolmentform/:userId",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: function(params) {\n\t\t\t\t\treturn 'viewenrolmentform/' + params.userId;\n\t\t\t\t},\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/completeDataOfLandApplicant",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'completeDataOfLandApplicant',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/esignPaymentPendencyReport",
+    "controller": "DTICIDController",
+    "templateExpression": "templateUrl: 'esignPaymentPendencyReport',\n\t\t\t\tcontroller: 'DTICIDController'\n\t\t\t}"
+  },
+  {
+    "route": "/fa/financialAssistanceTracking/:applicationId",
+    "controller": "DTICFAController",
+    "templateExpression": "templateUrl: 'fa/financialAssistanceTracking/',\n\t\t\t\tcontroller: 'DTICFAController'\n\t\t\t}"
+  }
+]

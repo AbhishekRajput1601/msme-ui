@@ -29,7 +29,7 @@ const applicantMenu = [
   ] },
 ]
 
-export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = 'MSME Portal' }) {
+export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = 'MSME Portal', renderSidebar }) {
   const { currentUser, logout, roles } = useAuth()
   const { locale, toggleLocale } = useTranslation()
   const navigate = useNavigate()
@@ -178,7 +178,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
     </header>
     <div className="portal-body">
       <aside id="sideNav" className="sidebar" aria-label={`${portalTitle} navigation`}>
-        <nav>
+        {renderSidebar ? renderSidebar(() => setMobileMenuOpen(false)) : <nav>
           <ul className="nav" id="side-menu">
             {menu.map((item, index) => (
               <li key={item.key || `${item.href}-${index}`}>
@@ -229,7 +229,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
               </li>
             ))}
           </ul>
-        </nav>
+        </nav>}
       </aside>
       <button
         id="sidebarToggle"

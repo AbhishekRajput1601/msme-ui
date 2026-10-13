@@ -1,0 +1,10 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewEditLeagcyData(@PathVariable String id) {
+
+		logger.info("Inside the DTIC Controller for editViewLegacyData");
+		ModelAndView modelAndView = null;
+		modelAndView = new ModelAndView("dtic/dticViewEditLegacyData");
+		return modelAndView;
+	}
+
+	

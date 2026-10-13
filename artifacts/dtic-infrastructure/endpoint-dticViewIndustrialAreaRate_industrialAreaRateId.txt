@@ -1,0 +1,8 @@
+, method = RequestMethod.GET)
+	public ModelAndView dticViewIndustrialAreaRate(@PathVariable Long industrialAreaRateId,
+			HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/viewIndustrialAreaRate");
+		return modelAndView;
+	}
+
+	

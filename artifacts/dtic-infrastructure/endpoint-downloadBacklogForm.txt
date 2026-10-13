@@ -1,0 +1,42 @@
+, method = RequestMethod.GET)
+	public ModelAndView downloadBacklogForm() {
+		Map<String, Object> model = new LinkedHashMap<String, Object>();
+
+		User user = getUserDetail();
+		SignupBean signupBean = commonService.fetchUserDetailsByUserId(user.getUsername());
+		model.put("userDetails", signupBean);
+
+		AddressBean addressBean = commonService.fetchAddressByUserIdAndAddressType(user.getUsername(),
+				MPIndustryConstants.OFFICE_ADDRESS_ID);
+		model.put("addressDetails", addressBean);
+
+		
+
+		List<IndustrialAreaBean> industrialAreaList = idService.fetchIndustrialAreas();
+		model.put("industrialAreaList", industrialAreaList);
+
+		List<CustomMap> purposeList = idService.fetchPurposeList();
+		model.put("purposeList", purposeList);
+
+		List<CustomMap> categoryList = userService.fetchCategories();
+		model.put("categoryList", categoryList);
+
+		List<CustomMap> genderList = commonService.fetchMasterGender();
+		model.put("genderList", genderList);
+
+		List<CustomMap> stateList = commonService.fetchAllStates();
+		model.put("stateList", stateList);
+
+		List<CustomMap> districtList = commonService.fetchStateDistrictsByState(0L);
+		model.put("districtList", districtList);
+
+		List<CustomMap> tehsilList = commonService.fetchDistrictTehsilsByDistrict(0L);
+		model.put("tehsilList", tehsilList);
+
+		List<CustomMap> blockList = commonService.fetchDistrictBlocksByDistrictId(0L);
+		model.put("tehsilBlockList", blockList);
+
+		return new ModelAndView("excelView1", model);
+	}
+
+	

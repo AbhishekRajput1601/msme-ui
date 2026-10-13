@@ -1,0 +1,361 @@
+@scope (.dtic-page) {
+
+	table td{text-align:left!important}
+	input{width:100%}
+.myflex .col-md-6 label {
+    margin-right: 15px;
+}
+.myflex .col-md-6 {
+    display: grid
+;
+    grid-template-columns: 40% 50% auto;
+}
+	.myflex .col-md-6 input[type="file"] {
+    font-size: 12px;
+}
+	
+
+
+@media screen and (max-width:1340px){
+.frmlbl label {height:40px;}
+
+}
+
+
+
+@media screen and (max-width:1512px){
+.frmlbl label {height:40px;}
+
+}
+
+
+/* All rules are SCOPED to .fa-track so this partial cannot leak styles into (and
+   break) the shared DTIC layout/tables. Functionality/bindings are unchanged. */
+.fa-track {
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+	color: rgb(21, 27, 30);
+	padding: 15px 0;
+}
+.fa-track * {
+	box-sizing: border-box;
+}
+
+.app-header {
+	background-color: white;
+	border-top: 3px solid #d32f2f;
+	padding: 12px 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.header-logo {
+	width: 50px;
+	height: 50px;
+	background-color: #d32f2f;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.header-title {
+	display: flex;
+	flex-direction: column;
+}
+
+.header-title h1 {
+	font-size: 14px;
+	font-weight: 600;
+	color: #333;
+	margin: 0;
+}
+
+.header-title p {
+	font-size: 12px;
+	color: #666;
+	margin: 2px 0 0 0;
+}
+
+.header-right {
+	background-color: #d32f2f;
+	color: white;
+	padding: 8px 15px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.breadcrumb-section {
+	background-color: #0277bd;
+	color: white;
+	padding: 12px 20px;
+	font-size: 13px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.breadcrumb-section::before {
+	content: "<<";
+	margin-right: 10px;
+}
+
+.main-content {
+	flex: 1;
+	margin-left: 245px;
+	padding: 20px;
+	background-color: #f5f5f5;
+}
+
+.content-wrapper {
+	background-color: white;
+	border-radius: 4px;
+	padding: 25px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.fa-track .header {
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 22px 25px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	max-width: 1150px;
+	margin: 0 auto;
+}
+
+.fa-track h2 {
+	color: #0277bd;
+	margin-bottom: 22px;
+	font-size: 20px;
+	font-weight: 600;
+	border-bottom: 2px solid #e0e0e0;
+	padding-bottom: 12px;
+}
+
+.fa-track .table-wrapper {
+	background-color: white;
+	border-radius: 4px;
+	overflow-x: auto;
+	margin-bottom: 20px;
+}
+
+.fa-track td, .fa-track th {
+	border: 1px solid #ddd;
+	padding: 12px;
+}
+
+.fa-track table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-top: 0;
+}
+
+.fa-track th {
+	background-color: #0277bd;
+	color: white;
+	font-weight: 600;
+	text-align: left;
+	font-size: 14px;
+}
+
+.fa-track td {
+	background-color: white;
+	font-size: 13px;
+}
+
+.fa-track tbody tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+.fa-track tbody tr:hover {
+	background-color: #f5f5f5;
+}
+
+.fa-track .eligible-input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 13px;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+
+.fa-track .eligible-input:focus {
+	outline: none;
+	border-color: #0277bd;
+	box-shadow: 0 0 5px rgba(2, 119, 189, 0.3);
+	background-color: #f0f7ff;
+}
+
+.fa-track .button-group {
+	margin-top: 25px;
+	padding-top: 20px;
+	border-top: 1px solid #e0e0e0;
+	display: flex;
+	gap: 10px;
+}
+
+.fa-track .btn {
+	padding: 12px 28px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+}
+
+.fa-track .btn-success {
+	background-color: #4caf50;
+	color: white;
+}
+
+.fa-track .btn-success:hover {
+	background-color: #45a049;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.fa-track .btn-reset {
+	background-color: #757575;
+	color: white;
+}
+
+.fa-track .btn-reset:hover {
+	background-color: #616161;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.fa-track .no-data-message {
+	padding: 20px;
+	background-color: #fff3cd;
+	border: 1px solid #ffc107;
+	border-radius: 4px;
+	margin-top: 20px;
+	text-align: center;
+	color: #856404;
+	font-weight: 500;
+}
+
+.fa-track .status-yes {
+	color: #4caf50;
+	font-weight: bold;
+}
+
+#scrollTopBtn {
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	display: none;
+	background-color: #0277bd;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	border-radius: 4px;
+	cursor: pointer;
+	z-index: 1000;
+	font-size: 16px;
+	transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+	background-color: #01579b;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.app-footer {
+	background-color: #333;
+	color: white;
+	text-align: center;
+	padding: 15px;
+	font-size: 12px;
+	margin-left: 245px;
+	border-top: 1px solid #555;
+}
+
+.app-footer a {
+	color: #4fc3f7;
+	text-decoration: none;
+}
+
+@media print {
+	.fa-track .button-group, .fa-track #scrollTopBtn {
+		display: none;
+	}
+	.fa-track table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+	.fa-track th, .fa-track td {
+		border: 1px solid #ccc;
+		padding: 8px;
+	}
+	.fa-track th {
+		background-color: #0277bd;
+		color: white;
+	}
+}
+
+.hindi-heading {
+	font-family: "Kruti Dev 010";
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.hindi-data {
+	font-family: "Kruti Dev 010";
+	font-size: 14px;
+}
+
+
+.panel-heading .text-center div {
+    min-height: 40px;
+    margin-top: 10px;
+}
+
+
+.table {
+  width: 100%;
+  max-width: 100%;
+}
+
+
+textarea {
+	max-width:100%;
+}
+.formstyle1 .divheadertxt {
+    margin: 10px 0;    
+}
+
+
+textarea {
+	max-width: 100%;
+}
+.formstyle1 .divheadertxt {
+    margin: 10px 0;    
+}
+
+
+.ay {margin-bottom: 0;}
+.ay td {border-right: 1px solid #ddd;}
+.ay tr:first-child td{border-top: 0;}
+.ay tr td:last-child {border-right: 0;}
+
+}

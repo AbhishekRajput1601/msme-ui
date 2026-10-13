@@ -1,0 +1,18 @@
+/* DTIC menu rules from css/sb-admin-2.css, scoped to avoid changing other roles. */
+.legacy-portal .dtic-navigation { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; }
+.legacy-portal .dtic-navigation #side-menu li { border-bottom: 1px solid #e7e7e7; }
+.legacy-portal .dtic-navigation #side-menu .dtic-menu-link { position: relative; display: block; width: 100%; padding: 10px 15px; border: 0; border-radius: 0; background: transparent; color: #fff; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.legacy-portal .dtic-navigation #side-menu .dtic-menu-link:hover,
+.legacy-portal .dtic-navigation #side-menu .dtic-menu-link:focus { background: #f07e01 !important; }
+.legacy-portal .dtic-navigation #side-menu .dtic-menu-link > i { float: left; min-height: 30px; margin-right: 10px; position: relative; top: 3px; }
+.legacy-portal .dtic-navigation .arrow { float: right; }
+.legacy-portal .dtic-navigation .arrow::before { content: "\f104"; }
+.legacy-portal .dtic-navigation .active > .dtic-menu-link > .arrow::before { content: "\f107"; }
+.legacy-portal .dtic-navigation #side-menu .nav { display: block; width: 100%; margin: 0; padding: 0; list-style: none; }
+.legacy-portal .dtic-navigation #side-menu .nav li { border-bottom: 0; }
+.legacy-portal .dtic-navigation #side-menu .nav .dtic-menu-link { padding-left: 35px; background: #223c93; border-bottom: 1px solid #0000002e; }
+.legacy-portal .dtic-navigation #side-menu .nav .dtic-menu-link::before { content: "\f111"; font-family: FontAwesome; font-size: 8px; color: #fff; position: absolute; left: 20px; top: 15px; }
+.legacy-portal .dtic-navigation [hidden] { display: none !important; }
+.legacy-portal .dtic-navigation #side-menu .nav .dtic-menu-link[aria-current="page"],
+.legacy-portal .dtic-navigation #side-menu > .active > .dtic-menu-link { background: #f07e01 !important; color: #fff; }
+.legacy-portal .dtic-navigation #side-menu .dtic-menu-link:focus-visible { outline: 2px solid white; outline-offset: -3px; }

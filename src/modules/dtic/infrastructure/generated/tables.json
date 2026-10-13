@@ -1,0 +1,46 @@
+{
+  "dtic/dticVacantLandList": {
+    "endpoint": "fetchLandAllotmentList",
+    "columns": [
+      null,
+      null,
+      "plotNumber",
+      "purposeName",
+      "plotShed",
+      "totalPlotArea",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "category",
+      null,
+      null,
+      "totalApplicationReceived",
+      null,
+      null,
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "dtic/id/applicantListForNotice": {
+    "endpoint": "fetchApplicationForNoticeList",
+    "columns": [
+      null,
+      "applicationId",
+      "fullName",
+      "submittedOn",
+      null,
+      "vacantLandBean.plotNumber",
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  }
+}

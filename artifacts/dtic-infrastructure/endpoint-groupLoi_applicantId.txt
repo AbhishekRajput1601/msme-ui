@@ -1,0 +1,8 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewGroupLOI(@PathVariable("applicantId") Long applicantId) {
+		ModelAndView modelAndView = new ModelAndView("dtic/groupLoi2"); 
+		modelAndView.addObject("applicantBean", applicantId); 
+		return modelAndView;
+	}
+
+	

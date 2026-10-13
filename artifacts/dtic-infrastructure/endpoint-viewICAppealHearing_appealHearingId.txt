@@ -1,0 +1,7 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewICAppealHearing(@PathVariable Long appealHearingId, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/id/viewICAppealHearing");
+		return modelAndView;
+	}
+
+	

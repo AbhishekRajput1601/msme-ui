@@ -1,0 +1,7 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewNoticeList(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/id/applicantListForNotice");
+		return modelAndView;
+	}
+
+	

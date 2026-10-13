@@ -1,0 +1,9 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewEditSupplyName(@PathVariable Long id, HttpServletRequest request) {
+		ModelAndView modelAndView = null;
+		User user = getUserDetail();
+		modelAndView = new ModelAndView("dtic/viewEditSupplyNameForm");
+		return modelAndView;
+	}
+
+	

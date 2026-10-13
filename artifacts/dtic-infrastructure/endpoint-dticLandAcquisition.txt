@@ -1,0 +1,19 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewLandAcquisitionForm(HttpServletRequest request) {
+
+		
+
+		
+
+		List<VacantLandBean> vacantLandBeanList = idService.fetchVacantLandsByDistrictId(null);
+
+		if (vacantLandBeanList.size() > 0) {
+			ModelAndView modelAndView = new ModelAndView("dtic/dticVacantLandList");
+			return modelAndView;
+		}
+
+		ModelAndView modelAndView = new ModelAndView("dtic/dticVacantLandForm");
+		return modelAndView;
+	}
+
+	

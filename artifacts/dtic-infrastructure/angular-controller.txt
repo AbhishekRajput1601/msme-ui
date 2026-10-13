@@ -1,0 +1,5204 @@
+'DTICIDController',
+		function($scope, $sce, $loading, $rootScope, $window, $compile,
+			$filter, $routeParams, $http, $timeout, $parse, Idle,
+			Keepalive, $uibModal) {
+
+			$scope.started = false;
+
+			function closeModals() {
+				if ($scope.warning) {
+					$scope.warning.close();
+					$scope.warning = null;
+				}
+
+				if ($scope.timedout) {
+					$scope.timedout.close();
+					$scope.timedout = null;
+				}
+			}
+
+			$scope.$on('IdleStart', function() {
+				closeModals();
+
+				// $scope.warning = $uibModal.open({
+				// templateUrl: 'warning-dialog.html',
+				// windowClass: 'modal-danger'
+				// });
+			});
+
+			$scope.$on('IdleEnd', function() {
+				closeModals();
+			});
+			//legacy Data Code 
+			// Function to handle checkbox change event
+			$scope.verifyLegacyEntity = function() {
+				var isConfirmed = window.confirm("Are you sure you want to verify this entity?");
+				if (isConfirmed) {
+					$scope.id = $routeParams.id;
+					$loading.start('sample-1');
+					$http.post('verifyLegacyEntity', $scope.id, {
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					}).then(function(response) {
+						// Handle success response
+						if (response.status === 201) {
+							// Successfully created
+							$scope.responseObject = response.data; // Assuming response.data contains ResponseObject
+							alert($scope.responseObject.successMessage);
+							$window.location.href = '#/legacyData'; // Redirect or update UI
+
+						}
+						$loading.finish('sample-1');
+					}).catch(function(error) {
+						// Handle error response
+						$loading.finish('sample-1'); // Ensure loading ends
+						if (error.status === 400) {
+							// Bad request
+							$scope.responseObject = error.data; // Assuming error.data contains ResponseObject
+							alert($scope.responseObject.errorMessage);
+
+						} else {
+							// Other errors
+							alert("An unexpected error occurred: " + error.statusText);
+						}
+					});
+
+
+
+				}
+			};
+
+			// Function for handling checkbox selection
+			$scope.checkSelection = function(item) {
+				// This function will be triggered when a checkbox is clicked
+				console.log('Item selected:', item.selected);
+			};
+
+			$scope.saveLegacyData = function() {
+				$loading.start('sample-1');
+				const legacyData = {
+					id: $scope.id,
+					zone: $scope.zone,
+					district: $scope.district,
+					industrialArea: $scope.industrialArea,
+					dticName: $scope.dticName,
+					plotNo: $scope.plotNo,
+					areaInSqm: $scope.areaInSqm,
+					locationType: $scope.locationType,
+					purpose: $scope.purpose,
+					nameOfUnit: $scope.nameOfUnit,
+					constitutionOfTheFirm: $scope.constitutionOfTheFirm,
+					nameOfAllottee: $scope.nameOfAllottee,
+					categoryAllottee: $scope.categoryAllottee,
+					ownerGender: $scope.ownerGender,
+					allotmentType: $scope.allotmentType,
+					loiDate: $scope.loiDate,
+					dateOfAllotmentOrTransferOrder: $scope.dateOfAllotmentOrTransferOrder,
+					premiumAmount: $scope.premiumAmount,
+					leaseRent: $scope.leaseRent,
+					developmentCharge: $scope.developmentCharge,
+					maintenanceCharge: $scope.maintenanceCharge,
+					otherCharges: $scope.otherCharges,
+					leaseDeedExecutionDate: $scope.leaseDeedExecutionDate,
+					possessionDate: $scope.possessionDate,
+					leaseStartDate: $scope.leaseStartDate,
+					leaseEndDate: $scope.leaseEndDate,
+					dateOfProduction: $scope.dateOfProduction,
+					productsManufacturing: $scope.productsManufacturing,
+					categoryOfIndustry: $scope.categoryOfIndustry,
+					investment: $scope.investment,
+					employment: $scope.employment,
+					currentStatus: $scope.currentStatus,
+					statusOfPlots: $scope.statusOfPlots,
+					additionalInformation: $scope.additionalInformation,
+					verifyedEntity: $scope.verifyedEntity,
+				};
+				$http.post('dticlegacyData', legacyData, {
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function(response) {
+					// Handle success response
+					if (response.status === 201) {
+						// Successfully created
+						$scope.responseObject = response.data; // Assuming response.data contains ResponseObject
+						alert($scope.responseObject.successMessage);
+
+					}
+					$loading.finish('sample-1');
+				}).catch(function(error) {
+					// Handle error response
+					$loading.finish('sample-1'); // Ensure loading ends
+					if (error.status === 400) {
+						// Bad request
+						$scope.responseObject = error.data; // Assuming error.data contains ResponseObject
+						alert($scope.responseObject.errorMessage);
+					} else {
+						// Other errors
+						alert("An unexpected error occurred: " + error.statusText);
+					}
+				});
+			};
+
+			$scope.loadLegacyDataWithID = function() {
+				$loading.start('sample-1');
+				if ($routeParams.id) {
+					$scope.id = $routeParams.id;
+					var responseLegacyData = $http
+						.get('fetchLegacyDataWithID/' + $scope.id);
+					responseLegacyData.success(function(data, status,
+						headers, config) {
+						$scope.id = data.id;
+						$scope.zone = data.zone;
+						$scope.district = data.district;
+						$scope.industrialArea = data.industrialArea;
+						$scope.dticName = data.dticName;
+						$scope.plotNo = data.plotNo;
+						$scope.areaInSqm = data.areaInSqm;
+						$scope.locationType = data.locationType;
+						$scope.purpose = data.purpose;
+						$scope.nameOfUnit = data.nameOfUnit;
+						$scope.constitutionOfTheFirm = data.constitutionOfTheFirm;
+						$scope.nameOfAllottee = data.nameOfAllottee;
+						$scope.categoryAllottee = data.categoryAllottee;
+						$scope.ownerGender = data.ownerGender;
+						$scope.allotmentType = data.allotmentType;
+						$scope.loiDate = data.loiDate;
+						$scope.dateOfAllotmentOrTransferOrder = data.dateOfAllotmentOrTransferOrder;
+						$scope.premiumAmount = data.premiumAmount;
+						$scope.leaseRent = data.leaseRent;
+						$scope.developmentCharge = data.developmentCharge;
+						$scope.maintenanceCharge = data.maintenanceCharge;
+						$scope.otherCharges = data.otherCharges;
+						$scope.leaseDeedExecutionDate = data.leaseDeedExecutionDate;
+						$scope.possessionDate = data.possessionDate;
+						$scope.leaseStartDate = data.leaseStartDate;
+						$scope.leaseEndDate = data.leaseEndDate;
+						$scope.dateOfProduction = data.dateOfProduction;
+						$scope.productsManufacturing = data.productsManufacturing;
+						$scope.categoryOfIndustry = data.categoryOfIndustry;
+						$scope.investment = data.investment;
+						$scope.employment = data.employment;
+						$scope.currentStatus = data.currentStatus;
+						$scope.statusOfPlots = data.statusOfPlots;
+						$scope.additionalInformation = data.additionalInformation;
+					});
+					$loading.finish('sample-1');
+				}
+			};
+
+			$scope.legacyDataList = function() {
+
+				$loading.start('sample-1');
+				$timeout(function() {
+					$scope.verify = false;
+					$scope.legacyDataList = [];
+					$scope.legacyDataList = fetchHistoricDataListDTIC();  // Your DataTable initialization
+				}, 0);
+
+
+			};
+
+
+			$scope.fetchDticWiseCompleteDataOfLandApplicant = function() {
+				$loading.start('sample-1');
+				$scope.errorMessage = '';
+				$rootScope.dticResponseObject = '';
+
+				if ($scope.month && $scope.year) {
+					$http.get('fetchDticWiseCompleteDataOfLandApplicant', {
+						params: {
+							month: $scope.month,
+							year: $scope.year
+						}
+					}).then(function(response) {
+						$rootScope.dticResponseObject = response.data;
+					}).catch(function(error) {
+						$scope.errorMessage = $sce.trustAsHtml(error.data || 'Something went wrong.');
+					}).finally(function() {
+						$loading.finish('sample-1'); // stop loader only after request finishes
+					});
+				} else {
+					$scope.errorMessage = $sce.trustAsHtml('Please select month and year');
+					$loading.finish('sample-1'); // stop loader if validation fails
+				}
+			};
+			$scope.esignPaymentPendencyReportBean = function() {
+				$loading.start('sample-1');
+				$scope.errorMessage = '';
+				$rootScope.dticResponseObject = '';
+
+				if ($scope.month && $scope.year) {
+					$http.get('fetchEsignPaymentPendencyReport', {
+						params: {
+							month: $scope.month,
+							year: $scope.year
+						}
+					}).then(function(response) {
+						$rootScope.esignResponseObject = response.data;
+					}).catch(function(error) {
+						$scope.errorMessage = $sce.trustAsHtml(error.data || 'Something went wrong.');
+					}).finally(function() {
+						$loading.finish('sample-1'); // stop loader only after request finishes
+					});
+				} else {
+					$scope.errorMessage = $sce.trustAsHtml('Please select month and year');
+					$loading.finish('sample-1'); // stop loader if validation fails
+				}
+			};
+
+			$scope.getYear = function() {
+				$scope.years = [];
+
+				var currentYear = new Date().getFullYear(); // Get current year
+				var startYear = 2015; // Starting year
+
+				for (var y = startYear; y <= currentYear; y++) {
+					$scope.years.push(y);
+				}
+			};
+			$scope.getYear();
+
+			$scope.esignListExportToExcel = function() {
+				var table = document.getElementById('dataTable');
+				var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+				var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+				saveAs(new Blob([wbout], { type: "application/octet-stream" }), 'esign_and_payment_pendency_report.xlsx');
+			};
+
+			$scope.landApplicantListExportToExcel = function() {
+				var table = document.getElementById('dataTable');
+				var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+				var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+				saveAs(new Blob([wbout], { type: "application/octet-stream" }), 'applicant_wise_complete_land_details.xlsx');
+			};
+
+			$scope.loadIndustrialArea = function() {
+				$loading.start('sample-1');
+				var responseIndusAreas = $http
+					.get('fetchIndustrialAreaListDTIC');
+
+				responseIndusAreas.success(function(data, status,
+					headers, config) {
+					$scope.industrialAreaList = data;
+					$loading.finish('sample-1');
+				});
+			};
+
+			$scope.loadCategoryOfIndustry = function() {
+				$loading.start('sample-1');
+				var responseIndusAreas = $http
+					.get('fatchCategoryOfIndustryDTIC');
+
+				responseIndusAreas.success(function(data, status,
+					headers, config) {
+					$scope.categoryOfIndustryList = data;
+					$loading.finish('sample-1');
+				});
+			};
+
+
+			$scope.loadPurpose = function() {
+				$loading.start('sample-1');
+				var responseIndusAreas = $http
+					.get('fetchPurposeAreaListDTIC');
+
+				responseIndusAreas.success(function(data, status,
+					headers, config) {
+					$scope.industrialPurposeList = data;
+					$loading.finish('sample-1');
+				});
+			};
+
+			$scope.searchByLegecyDataFilters = function() {
+				$loading.start('sample-1');
+				reDraw();
+			};
+
+			$scope.loadIndustrialAreaByDistrictForLegacy = function(districtId) {
+				$loading.start('sample-1');
+				var responseIndusAreas = $http
+					.get('fetchIndustrialAreaListforLegacyDTIC/' + districtId);
+
+				responseIndusAreas.success(function(data, status,
+					headers, config) {
+					$scope.industrialAreaList = data;
+					$loading.finish('sample-1');
+				});
+			};
+			//Legacy data
+			$scope.legacyData = {
+
+				industrialAreaId: "",
+				locationType: "",
+				purpose: "",
+				categoryAllottee: "",
+				ownerGender: "",
+				allotmentType: "",
+				categoryOfIndustry: "",
+				currentStatus: ""
+			};
+			$scope.historicListExportToExcel = function() {
+				// Gather the filter parameters
+				var params = {
+					industrialArea: $scope.legacyData.industrialAreaId,
+					locationType: $scope.legacyData.locationType,
+					purpose: $scope.legacyData.purpose,
+					categoryAllottee: $scope.legacyData.categoryAllottee,
+					ownerGender: $scope.legacyData.ownerGender,
+					allotmentType: $scope.legacyData.allotmentType,
+					categoryOfIndustry: $scope.legacyData.categoryOfIndustry,
+					currentStatus: $scope.legacyData.currentStatus
+				};
+
+				var queryString = Object.keys(params)
+					.map(key => key + '=' + encodeURIComponent(params[key]))
+					.join('&')
+
+				$window.open('historicListExportToExcelDTIC?' + queryString, '_blank');
+			};
+
+			// End Legacy Data
+			$scope
+				.$on(
+					'IdleTimeout',
+					function() {
+						closeModals();
+						var language = $('#language').val();
+						if (language == 'en_US') {
+							alert("Your Session has expired, Please relogin.");
+						} else if (language == 'hi_IN') {
+							alert("आपका सत्र समाप्त हो गया है, कृपया पुनः प्रवेश करें।");
+						}
+						$window.location.reload();
+						// $scope.timedout = $uibModal.open({
+						// templateUrl: 'timedout-dialog.html',
+						// windowClass: 'modal-danger'
+						// });
+					});
+
+			$rootScope.responseObject = '';
+
+			$scope.startOrStopSpinner = function(isStart) {
+
+				if (isStart) {
+					$loading.start('sample-1');
+				} else {
+					$loading.finish('sample-1');
+				}
+
+			};
+
+			//$Rakesh
+			$scope.loadEnrolment = function() {
+				$loading.start('sample-1');
+				fetchEnrolment();
+			};
+			//Rakesh
+
+			$scope.downloadDocument = function(documentType) {
+
+				$window.open('downloadIdDocument/' + documentType + '/'
+					+ $routeParams.applicantId);
+
+			};
+
+			$scope.loadDocumentsList = function() {
+
+				$scope.vacantLandId = $routeParams.vacantLandId;
+				$scope.applicantId = $routeParams.applicantId;
+
+				$loading.start('sample-1');
+				var responsePromise = $http
+					.get(
+						'id/fetchDocumentsList',
+						{
+							params: {
+								'applicantId': $routeParams.applicantId
+							}
+						});
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.applicantDocumentsList = data;
+					$scope.applicantId = $routeParams.applicantId;
+					$loading.finish('sample-1');
+				});
+			};
+
+			$scope.calTotalEmployment = function(dataArray,
+				withPrecision) {
+				var total = 0;
+				angular.forEach(dataArray, function(data) {
+					total += Number(data.empNumber || 0);
+				})
+				if (withPrecision) {
+					return parseFloat(total).toFixed(2);
+				} else {
+					return parseFloat(total).toFixed(0);
+				}
+			};
+
+			$scope.loadPage = function() {
+				$scope.vacantLandId = $routeParams.vacantLandId;
+				$scope.applicantId = $routeParams.applicantId;
+			}
+
+			$scope.addInspectionStatus = function(isValid) {
+
+				if (!isValid) {
+					return false;
+				}
+				$http.get('getMessage/common.confirmToSave').then(function(response) {
+					/*if (confirm("Are you sure to delete this entry?")) {*/
+					if (confirm(response.data.value)) {
+
+						if ($scope.faMsmeDetailData.decisionDate) {
+							$scope.faMsmeDetailData.decisionDate = $filter(
+								'date')(
+									$scope.faMsmeDetailData.decisionDate,
+									'dd/MM/yyyy');
+						}
+
+						$scope.faMsmeDetailData.applicationId = $routeParams.applicantId;
+
+						$loading.start('sample-1');
+						var responsePromise = $http.post(
+							'id/addInspectionStatus',
+							$scope.faMsmeDetailData);
+
+						responsePromise
+							.success(function(data, status, headers, config) {
+
+								$rootScope.responseObject = data;
+
+								if ($rootScope.responseObject.successMessage != null) {
+
+									$window.location.href = '#id/viewAppliedApplicants' + '/' + $routeParams.vacantLandId;
+								}
+
+								$loading.finish('sample-1');
+
+							});
+					}
+				});
+
+
+
+			};
+
+
+			$scope.loadVacantLandFormDetail = function() {
+
+				$loading.start('sample-1');
+				var responseIndusAreas = $http
+					.get('fetchIndustrialAreaList');
+
+				responseIndusAreas.success(function(data, status,
+					headers, config) {
+					$scope.industrialAreaList = data;
+					$loading.finish('sample-1');
+				});
+
+				//Code by Atul
+				$scope.fetchCategoryOfIndustry();
+
+				var districtId;
+				var dticId;
+				$scope.vacantLandData = {};
+				/*
+				 * $scope.vacantLandData.totalPlotArea = 0;
+				 * $scope.vacantLandData.premiumCharges = 0.00;
+				 * $scope.vacantLandData.developmentCharges = 0.00;
+				 * $scope.vacantLandData.maintenanceCharges = 0.00;
+				 * $scope.vacantLandData.leaseRent = 0.00;
+				 * $scope.vacantLandData.totalAmount = 0.00;
+				 */
+
+				$loading.start('sample-2');
+				var responseDistricts = $http
+					.get('fetchdticdistrictsmap');
+
+				responseDistricts.success(function(data, status,
+					headers, config) {
+					$scope.districts = data;
+					angular.forEach($scope.districts,
+						function(district) {
+							districtId = district.key;
+						});
+					// alert(districtId);
+					$scope.fetchTehsilByDistrict(districtId);
+					$scope.vacantLandData.districtId = districtId + "";
+					$loading.finish('sample-2');
+				});
+
+				$loading.start('sample-3');
+				var responsedtic = $http.get('fetchdticmap');
+
+				responsedtic.success(function(data, status, headers,
+					config) {
+					$scope.dticList = data;
+					for (var i in $scope.dticList) {
+						dticId = i;
+					}
+					// alert(dticId);
+					$scope.vacantLandData.dticId = dticId + "";
+					$loading.finish('sample-3');
+				});
+
+				$loading.start('sample-4');
+				var responsePurposes = $http.get('fetchPurposeList');
+
+				responsePurposes.success(function(data, status,
+					headers, config) {
+					$scope.purposeList = data;
+					$loading.finish('sample-4');
+				});
+
+				
+
+
+			};
+
+			$scope.fetchTehsilByDistrict = function(districtId) {
+
+				$loading.start('sample-4');
+				var responseTehsils = $http.get(
+					'fetchtehsilmapbydistrict', {
+					params: {
+						'districtId': districtId
+					}
+				});
+				responseTehsils.success(function(data, status, headers,
+					config) {
+					$scope.tehsils = data;
+					$loading.finish('sample-4');
+				});
+			};
+
+			$scope.fetchIndustrialAreaLocations = function(
+				industrialAreaId, edit) {
+				// $scope.vacantLandData.locationId=null;
+				$scope.industrialAreaLocations = null;
+				$scope.vacantLandData.tehsilId = null;
+				if (null != industrialAreaId) {
+					$loading.start('sample-1');
+
+					var responsePromise = $http
+						.get(
+							'fetchIndustrialAreaLocations',
+							{
+								params: {
+									'industrialAreaId': industrialAreaId
+								}
+							});
+					responsePromise
+						.success(function(data, status, headers,
+							config) {
+							$scope.industrialAreaLocations = data;
+							$loading.finish('sample-1');
+							if (null != data[0]) {
+								$scope.vacantLandData.tehsilId = data[0].tehsilId
+									+ "";
+							}
+
+							if (!edit) {
+								$scope.vacantLandData.locationId = "";
+							}
+						});
+
+					/*if ($scope.vacantLandData.totalPlotArea) {
+						$scope.fetchRatesByIndustrialAreaId(
+								industrialAreaId,
+								$scope.vacantLandData.totalPlotArea);
+					}
+					$scope.loadVacantLandList(industrialAreaId);*/
+				}
+			}
+
+			$scope.loadVacantLandList = function(collectorRateId) {
+				if (collectorRateId) {
+					$loading.start('sample-1');
+					var responseLands = $http
+						.get(
+							'fetchVacantLandList',
+							{
+								params: {
+									'collectorRateId': collectorRateId
+								}
+							});
+					responseLands.success(function(data, status,
+						headers, config) {
+						$scope.vacantLandList = data;
+						$loading.finish('sample-1');
+					});
+
+					if ($scope.vacantLandData.totalPlotArea) {
+						$scope.fetchRatesByIndustrialAreaId(
+							collectorRateId,
+							$scope.vacantLandData.totalPlotArea);
+					}
+				}
+			};
+
+			$scope.downloadVacantLandGoogleMap = function(vacantLandId) {
+				$window.open('downloadVacantLandGoogleMap/' + vacantLandId);
+			};
+			// 9 oct google map
+			$scope.downloadVacantLandMap = function(vacantLandId) {
+				$window.open('downloadVacantLandMap/' + vacantLandId);
+			};
+			$scope.downloadHoldReleaseDoc = function(vacantLandId) {
+				$window.open('downloadHoldReleaseDoc/' + vacantLandId);
+			}
+			$scope.initialize = function() {
+				var hiddenValue = document.getElementById('vId').value.trim();
+				$scope.populateForm(true, hiddenValue);
+			};
+			/*$scope.populateForm = function(edit) {
+
+
+				if ($routeParams.vacantLandId) {
+
+					$scope.vacantLandId = $routeParams.vacantLandId;
+
+					//$scope.vacantLandId = vacantLandId;
+					$loading.start('sample-10');
+
+					var responsePromise = $http
+						.get('fetchvacantlanddetail/'
+							+ $scope.vacantLandId);
+					responsePromise
+						.success(function(data, status, headers,
+							config) {
+
+							$scope.vacantLandData = data;
+							 $scope.vacantLandData.kmlUpload= $scope.vacantLandData.mapFileName;
+							if ($scope.vacantLandData.googleMap && $scope.vacantLandData.googleMap.trim() !== '') {
+								$scope.vacantLandData.hasGoogleMap = true; // checkbox checked
+							} else {
+								$scope.vacantLandData.hasGoogleMap = false; // checkbox unchecked
+							}
+							if ($scope.vacantLandData.kmlUpload && $scope.vacantLandData.kmlUpload.trim() !== '') {
+								$scope.vacantLandData.kmlUpload = true; // checkbox checked
+							} else {
+								$scope.vacantLandData.kmlUpload = false; // checkbox unchecked
+							}
+
+							$scope.vacantLandData.industrialAreaId = data.industrialAreaId + "";
+
+							$scope.fyCollectorRatesList;
+							var response = $http.get('loadFYCollectorRates/' + $scope.vacantLandData.industrialAreaId);
+							response.success(function(data2, status, headers, config) {
+								$scope.fyCollectorRatesList = data2;
+
+								if ($scope.fyCollectorRatesList.length > 0) {
+									$scope.vacantLandData.collectorRateId = data.collectorRateId + "";
+								} else {
+									$scope.vacantLandData.collectorRateId = "";
+								}
+							});
+
+							$scope.fetchIndustrialAreaLocations(data.industrialAreaId, edit);
+
+							$scope.vacantLandData.locationId = data.locationId
+								+ "";
+							$scope.vacantLandData.districtId = data.districtId
+								+ "";
+							$scope.vacantLandData.dticId = data.dticId
+								+ "";
+							$scope.vacantLandData.vacantLandTehsil = data.tehsilId
+								+ "";
+							$scope.vacantLandData.mapImage = "";
+							$scope.vacantLandData.category = data.category;
+							$scope.vacantLandData.categoryOfIndustryId = data.industrialCategory;
+							$scope.vacantLandData.otherRentChargeReson = data.otherRentChargesReason;
+							if (data.otherRentCharges != 0.0) {
+								$scope.vacantLandData.totalAmountHidden = data.totalAmount - data.otherRentCharges;
+							} else {
+								$scope.vacantLandData.totalAmountHidden = data.totalAmount;
+							}
+
+							$scope.vacantLandData.newArea = data.newArea;
+
+
+							$loading.finish('sample-10');
+						});
+				}
+
+			};*/
+			$scope.populateForm = function(edit) {
+
+				if ($routeParams.vacantLandId) {
+					$scope.vacantLandId = $routeParams.vacantLandId;
+					$loading.start('sample-10');
+
+					var responsePromise = $http.get('fetchvacantlanddetail/' + $scope.vacantLandId);
+
+					responsePromise.success(function(data, status, headers, config) {
+						$scope.vacantLandData = data;
+
+						// --- Checkbox handling ---
+						$scope.vacantLandData.kmlUpload = $scope.vacantLandData.mapFileName;
+						$scope.vacantLandData.hasGoogleMap = !!($scope.vacantLandData.googleMap && $scope.vacantLandData.googleMap.trim() !== '');
+						$scope.vacantLandData.kmlUpload = !!($scope.vacantLandData.kmlUpload && $scope.vacantLandData.kmlUpload.trim() !== '');
+
+						$scope.vacantLandData.industrialAreaId = data.industrialAreaId + "";
+
+						// --- Load Collector Rate List ---
+						var response = $http.get('loadFYCollectorRates/' + $scope.vacantLandData.industrialAreaId);
+						response.success(function(data2) {
+							$scope.fyCollectorRatesList = data2;
+							if ($scope.fyCollectorRatesList.length > 0) {
+								$scope.vacantLandData.collectorRateId = data.collectorRateId + "";
+							} else {
+								$scope.vacantLandData.collectorRateId = "";
+							}
+						});
+
+						$scope.fetchIndustrialAreaLocations(data.industrialAreaId, edit);
+
+						$scope.vacantLandData.locationId = data.locationId + "";
+						$scope.vacantLandData.districtId = data.districtId + "";
+						$scope.vacantLandData.dticId = data.dticId + "";
+						$scope.vacantLandData.vacantLandTehsil = data.tehsilId + "";
+						$scope.vacantLandData.mapImage = "";
+						$scope.vacantLandData.category = data.category;
+						$scope.vacantLandData.categoryOfIndustryId = data.industrialCategory;
+						$scope.vacantLandData.otherRentChargeReson = data.otherRentChargesReason;
+
+						if (data.otherRentCharges != 0.0) {
+							$scope.vacantLandData.totalAmountHidden = data.totalAmount - data.otherRentCharges;
+						} else {
+							$scope.vacantLandData.totalAmountHidden = data.totalAmount;
+						}
+
+						$scope.vacantLandData.newArea = data.newArea;
+
+						// ✅ --- Draw Polygon on Map if coordinates available ---
+						if (data.kmlPoints && data.kmlPoints.length > 0) {
+							try {
+								$rootScope.responseObject = data.kmlPoints; // storing full list for later use
+								let polygonCoords = [];
+
+								for (let i = 0; i < data.kmlPoints.length; i++) {
+									const lat = parseFloat(data.kmlPoints[i].lattitude);
+									const lon = parseFloat(data.kmlPoints[i].longitude);
+									if (!isNaN(lat) && !isNaN(lon)) {
+										polygonCoords.push([lat, lon]);
+									}
+								}
+
+								if (polygonCoords.length > 0) {
+									if (typeof geojsonLayer !== "undefined" && geojsonLayer != null) {
+										map.removeLayer(geojsonLayer);
+										geojsonLayer = null;
+									}
+
+									geojsonLayer = L.polygon(polygonCoords, {
+										color: "blue",
+										weight: 2,
+										fillColor: "lightblue",
+										fillOpacity: 0.5
+									}).addTo(map);
+
+									map.fitBounds(geojsonLayer.getBounds());
+								}
+
+							} catch (innerErr) {
+								console.error("Error drawing polygon:", innerErr);
+							}
+						}
+						
+						var selectedId = $scope.vacantLandData.industrialAreaId;
+
+										if (!$scope.industrialAreaList || $scope.industrialAreaList.length === 0) {
+											console.error("industrialAreaList is null or empty");
+											$scope.loadIndustrialAreaTable();
+											alert(111);
+										}
+										// Find the selected area object by key
+
+										var selectedArea = $scope.industrialAreaList.find(function(item) {
+											return item.key == selectedId;
+										});
+
+										if (selectedArea.value && selectedArea.value.indexOf("Undeveloped Land") !== -1) {
+											// 1. Auto-select Old
+											$scope.vacantLandData.newArea = "Old";
+
+											// 2. Hide the radio field
+											$scope.showNewAreaField = false;
+
+										} else {
+											// For any other area:
+											$scope.showNewAreaField = true;
+											
+										}
+	
+										
+						
+						$loading.finish('sample-10');
+					});
+				}
+			};
+
+
+			$scope.fetchVacantLandTehsilByDistrict = function(
+				districtId) {
+
+				$loading.start('sample-1');
+				var responseDistricts = $http.get('fetchalltehsilsmap',
+					{
+						params: {
+							'districtId': districtId
+						}
+					});
+
+				responseDistricts.success(function(data, status,
+					headers, config) {
+					$scope.vacantLandTehsils = data;
+					$loading.finish('sample-1');
+				});
+
+			};
+
+			$scope.onDateChange = function() {
+				$scope.bookingDateGreater = false;
+				//alert($scope.vacantLandData.bookingStartDate.substr(12,2));
+			};
+			// new function End date should not exceed current financial year
+			$scope.onEndDateChange = function() {
+				var sdate = $scope.vacantLandData.bookingStartDate;
+				var year = sdate.substr(6, 4)
+				var month = sdate.substr(3, 2)
+				if (month > 3)
+					var year1 = parseInt(year) + 1;
+				else
+					var year1 = year;
+				var newDate = new Date(year1 + "/04/01");
+				var eDate = $scope.vacantLandData.bookingEndDate;
+				var day1 = eDate.substr(0, 2);
+				var month1 = eDate.substr(3, 2);
+				var year1 = eDate.substr(6, 4)
+				var endDate = new Date(year1 + "/" + month1 + "/" + day1);
+				if (endDate >= newDate) {
+					alert("End date should not exceed current financial year !!")
+					return false;
+				}
+				$scope.bookingDateGreater = false;
+			};
+			///// new function to reset application
+			$scope.applicationReset = function() {
+
+				var responsePromise = $http
+					.get('applicationReset/'
+						+ $routeParams.applicantId);
+				responsePromise.success(function(data, status, headers,
+					config) {
+					alert("Application Reseted!!");
+					$window.location.href = '#dticLandAllotment';
+					$loading.finish('sample-1');
+				});
+
+			}
+			//// merge application page
+			$scope.loadApplicationList = function() {
+				$loading.start('sample-1');
+
+				fetchApplicationList();
+			};
+			$scope.loadApplicantDetails = function() {
+				$loading.start('sample-1');
+				//alert($routeParams.applicantId);
+				var responsePromise = $http
+					.get('fetchApplicantDetails/'
+						+ $routeParams.applicantId);
+				responsePromise.success(function(data, status, headers, config) {
+					$scope.historyList = data;
+					$loading.finish('sample-1');
+				});
+
+				//	
+				//fetchApplicantDetails($routeParams.applicantId);
+			};
+			$scope.mergeApp = function() {
+				var landArea = 0;
+				//var temp=0;
+
+				for (var i = 0; i < $scope.historyList.length; i++) {
+					if ($scope.historyList[i].selected) {
+						alert($scope.historyList[i].vacantLandBean[i].districtId);
+						//alert($scope.historyList[i].totalPresentAndSubsequentArea);
+						//temp=parseInt($scope.historyList[i].totalPresentAndSubsequentArea,10);
+						landArea += parseInt($scope.historyList[i].totalPresentAndSubsequentArea, 10);
+					}
+
+				}
+
+
+
+			};
+			/*$scope.selectedIds= function selectedId() {
+				return filter($scope.selectIds, { selected: true });
+			  };*/
+			$scope.checkFileSize = function(files) {
+				if (files && files.length > 0) {
+					const file = files[0];
+					const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
+
+					if (file.size > maxSizeInBytes) {
+						alert("File size exceeds 2MB. Please upload a smaller PDF.");
+						// Reset the input
+						angular.element(document.querySelector('input[type="file"]')).val(null);
+						$scope.formData.document = null;
+						$scope.$apply(); // Apply changes to scope
+					} else if (file.type !== 'application/pdf') {
+						alert("Only PDF files are allowed.");
+						angular.element(document.querySelector('input[type="file"]')).val(null);
+						$scope.formData.document = null;
+						$scope.$apply();
+					}
+				}
+			};
+
+
+			$scope.addVacantLandDetailFunction = function(isValid,
+				mapImage, mapFile) {
+
+				/*
+				 * if (!isValid || !mapImage){ $scope.fileAbsent = true;
+				 * return false; }
+				 */
+				if (!isValid || $scope.maxSizeError || $scope.fileExtentionError) {
+					return false;
+				}
+				var fd = new FormData();
+
+				if (mapImage) {
+					fd.append('mapImage', mapImage);
+				}
+				if (mapFile) {
+					fd.append('mapFile', mapFile); // append KML
+				}
+
+				if ($routeParams.vacantLandId) {
+
+					fd
+						.append('vacantLandId',
+							$routeParams.vacantLandId);
+				}
+
+				var bookingStartDate;
+				var bookingEndDate;
+				if ($scope.vacantLandData.bookingStartDate) {
+					var arr = $scope.vacantLandData.bookingStartDate
+						.split('/');
+					var timeArr = (arr[2].split(' '))[1].split(':');
+					bookingStartDate = new Date((arr[2].split(' '))[0],
+						arr[1] - 1, arr[0], timeArr[0]);
+					// bookingStartDate = new Date(bookingStartDate);
+				}
+				if ($scope.vacantLandData.bookingEndDate) {
+					var arr = $scope.vacantLandData.bookingEndDate
+						.split('/');
+					var timeArr = (arr[2].split(' '))[1].split(':');
+					bookingEndDate = new Date((arr[2].split(' '))[0],
+						arr[1] - 1, arr[0], timeArr[0]);
+					// bookingEndDate = new Date(bookingEndDate);
+
+					if (bookingStartDate >= bookingEndDate) {
+						$scope.bookingDateGreater = true;
+						alert("Booking End Date cannot be before the Booking Start Date!");
+						return false;
+					}
+				}
+
+				fd.append('collectorRateId',
+					$scope.vacantLandData.collectorRateId)
+				fd.append('locationId',
+					$scope.vacantLandData.locationId);
+				fd.append('districtId',
+					$scope.vacantLandData.districtId);
+				fd.append('dticId', $scope.vacantLandData.dticId)
+				fd.append('tehsilId', $scope.vacantLandData.tehsilId);
+				fd.append('purposeId', $scope.vacantLandData.purposeId);
+				fd.append('plotNumber',
+					$scope.vacantLandData.plotNumber);
+				/*
+				 * fd.append('plotLength',
+				 * $scope.vacantLandData.plotLength);
+				 * fd.append('plotWidth',
+				 * $scope.vacantLandData.plotWidth);
+				 */
+				fd.append('totalPlotArea',
+					$scope.vacantLandData.totalPlotArea);
+				fd.append('premiumCharges',
+					$scope.vacantLandData.premiumCharges);
+				fd.append('developmentCharges',
+					$scope.vacantLandData.developmentCharges);
+				fd.append('maintenanceCharges',
+					$scope.vacantLandData.maintenanceCharges);
+				fd.append('leaseRent', $scope.vacantLandData.leaseRent);
+				fd.append('advanceRent', $scope.vacantLandData.advanceRent);
+
+				fd.append('otherRentCharges', $scope.vacantLandData.otherRentCharges || 0);
+
+				fd.append('securityDeposit', $scope.vacantLandData.securityDeposit);
+				fd.append('totalAmount',
+					$scope.vacantLandData.totalAmount);
+				fd.append('bookingStartDate',
+					$scope.vacantLandData.bookingStartDate);
+				fd.append('bookingEndDate',
+					$scope.vacantLandData.bookingEndDate);
+				//By Atul
+				fd.append('newArea', $scope.vacantLandData.newArea);
+
+				// new change
+				fd.append('googleMap', $scope.vacantLandData.googleMap);
+				fd.append('plotShed', $scope.vacantLandData.plotShed);
+				fd.append('category', $scope.vacantLandData.category);
+				fd.append('industrialCategory', $scope.vacantLandData.categoryOfIndustryId);
+				fd.append('otherRentChargesReason', $scope.vacantLandData.otherRentChargeReson);
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post('addVacantlandDetail',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						$timeout(
+							function() {
+								$rootScope.responseObject.errorMessage = null;
+							}, 5000);
+
+						if ($rootScope.responseObject.successMessage != null) {
+
+							$window.location.href = '#dticLandAllotment';
+						}
+
+						$loading.finish('sample-1');
+					});
+
+			}; // addVacantLandDetailFunction
+
+			//8 oct
+			// Function to auto-process KML if already present
+			$scope.initKml = function() {
+				if ($scope.vacantLandData.wdtKmlFile) {
+					// Show KML section
+					$scope.vacantLandData.kmlUpload = true;
+
+					// Call the processing function
+					$scope.processKmlFile();
+				}
+			};
+			//atul
+			$scope.editVacantLandDetailFunction = function(isValid,
+				mapImage, mapFile) {
+
+				/*
+				 * if (!isValid || !mapImage){ $scope.fileAbsent = true;
+				 * return false; }
+				 */
+				if (!isValid || $scope.maxSizeError || $scope.fileExtentionError) {
+					return false;
+				}
+				var fd = new FormData();
+
+
+				//var vacantlandId=document.getElementById('vId').value.trim();
+				var vacantlandId = $routeParams.vacantLandId;
+
+
+				if (mapImage) {
+					fd.append('mapImage', mapImage);
+				}
+
+				if (mapFile) {
+					fd.append('mapFile', mapFile); // append KML
+				}
+
+				fd.append('vacantLandId', vacantlandId);
+
+
+				var bookingStartDate;
+				var bookingEndDate;
+				if ($scope.vacantLandData.bookingStartDate) {
+					var arr = $scope.vacantLandData.bookingStartDate
+						.split('/');
+					var timeArr = (arr[2].split(' '))[1].split(':');
+					bookingStartDate = new Date((arr[2].split(' '))[0],
+						arr[1] - 1, arr[0], timeArr[0]);
+					// bookingStartDate = new Date(bookingStartDate);
+				}
+				if ($scope.vacantLandData.bookingEndDate) {
+					var arr = $scope.vacantLandData.bookingEndDate
+						.split('/');
+					var timeArr = (arr[2].split(' '))[1].split(':');
+					bookingEndDate = new Date((arr[2].split(' '))[0],
+						arr[1] - 1, arr[0], timeArr[0]);
+					// bookingEndDate = new Date(bookingEndDate);
+
+					if (bookingStartDate >= bookingEndDate) {
+						$scope.bookingDateGreater = true;
+						return false;
+					}
+				}
+
+				fd.append('collectorRateId',
+					$scope.vacantLandData.collectorRateId)
+				fd.append('locationId',
+					$scope.vacantLandData.locationId);
+				fd.append('districtId',
+					$scope.vacantLandData.districtId);
+				fd.append('dticId', $scope.vacantLandData.dticId)
+				fd.append('tehsilId', $scope.vacantLandData.tehsilId);
+				fd.append('purposeId', $scope.vacantLandData.purposeId);
+				fd.append('plotNumber',
+					$scope.vacantLandData.plotNumber);
+				/*
+				 * fd.append('plotLength',
+				 * $scope.vacantLandData.plotLength);
+				 * fd.append('plotWidth',
+				 * $scope.vacantLandData.plotWidth);
+				 */
+				fd.append('totalPlotArea',
+					$scope.vacantLandData.totalPlotArea);
+				fd.append('premiumCharges',
+					$scope.vacantLandData.premiumCharges);
+				fd.append('developmentCharges',
+					$scope.vacantLandData.developmentCharges);
+				fd.append('maintenanceCharges',
+					$scope.vacantLandData.maintenanceCharges);
+				fd.append('leaseRent', $scope.vacantLandData.leaseRent);
+				fd.append('advanceRent', $scope.vacantLandData.advanceRent);
+
+				fd.append('otherRentCharges', $scope.vacantLandData.otherRentCharges || 0);
+				fd.append('otherRentChargesReason', $scope.vacantLandData.otherRentChargeReson);
+
+				fd.append('securityDeposit', $scope.vacantLandData.securityDeposit);
+				fd.append('totalAmount',
+					$scope.vacantLandData.totalAmount);
+				fd.append('bookingStartDate',
+					$scope.vacantLandData.bookingStartDate);
+				fd.append('bookingEndDate',
+					$scope.vacantLandData.bookingEndDate);
+
+				// new change
+
+				fd.append('newArea', $scope.vacantLandData.newArea);
+
+				fd.append('googleMap', $scope.vacantLandData.googleMap);
+				fd.append('plotShed', $scope.vacantLandData.plotShed);
+				fd.append('category', $scope.vacantLandData.category);
+				fd.append('industrialCategory', $scope.vacantLandData.categoryOfIndustryId);
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post('addVacantlandDetail',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						$timeout(
+							function() {
+								$rootScope.responseObject.errorMessage = null;
+							}, 5000);
+
+						if ($rootScope.responseObject.successMessage != null) {
+
+							$window.location.href = '#dticLandAllotment';
+
+						}
+
+						$loading.finish('sample-1');
+					});
+
+			}; // editVacantLandDetailFunction
+
+			$scope.loadLandAllotmentDetailList = function() {
+				$loading.start('sample-1');
+				fetchLandAllotmentList();
+			};
+			//Code By Atul 14-11-2025 land alloument filter
+			$scope.searchLandDatabyAreaFilters = function() {
+
+				$loading.start('sample-1');
+				reDraw();
+
+			}
+
+			//Code by Atul for Group loi
+			$scope.loadLandAllotmentDetailListForGroupLOI = function() {
+				$loading.start('sample-1');
+
+				alert($routeParams.applicantId);
+				fetchLandAllotmentListForGroupLOI($routeParams.applicantId);
+			};
+
+			$scope.loadLandAllotments = function() {
+				var responsePromise = $http.get('fetchLandAllotmentListForGroupLOI?applicationId=' + $routeParams.applicantId);
+
+				$loading.start('sample-1');
+				responsePromise.success(function(data, status, headers, config) {
+
+					$scope.landAllotments = data; // <-- Use only the data array
+					$loading.finish('sample-1');
+				});
+			};
+			//11 june
+			$scope.formData = {
+				totalPremium: "0.00",
+				totalAmount: "0.00",
+				totalPlotArea: "0.00",
+				totalLease: "0.00",
+				totalSecurity: "0.00",
+				totalDevelopment: "0.00",
+				additionalPremium: "0.00",
+				otherCharges: "0.00",
+				eoiAmount: ""
+			};
+
+			$scope.updateTotals = function() {
+				let totalPremium = 0.00;
+				let totalAmount = 0.00;
+				let totalPlotArea = 0.00;
+				let totalLease = 0.00;
+				let totalSecurity = 0.00;
+				let totalDevelopment = 0.00;
+				let totaladditionalPremium = 0.00;
+				let totalplotNumber = "";
+				let totalotherCharges = 0.00;
+				let totalgroupLoiAdvancePremium = 0.00;
+				let totalmaintenanceCharges = 0.00;
+				let totalapplicantIds = "";
+
+				$scope.landAllotments.forEach(function(item) {
+					if (item.selected) {
+						totalPremium += parseFloat(item.premiumCharges) || 0;
+						totalAmount += parseFloat(item.totalAmount) || 0;
+						totalPlotArea += parseFloat(item.totalPlotArea) || 0;
+						totalLease += parseFloat(item.leaseRent) || 0; // ✅ FIXED
+						totalSecurity += parseFloat(item.securityDeposit) || 0; // ✅ FIXED
+						totalDevelopment += parseFloat(item.developmentCharges) || 0;
+						totaladditionalPremium += parseFloat(item.advanceRent) || 0;
+						totalotherCharges += parseFloat(item.otherRentCharges) || 0; // ✅ FIXED
+						totalgroupLoiAdvancePremium += parseFloat(item.advancePremiumH1) || 0; // ✅ FIXED
+						totalmaintenanceCharges += parseFloat(item.maintenanceCharges) || 0; // ✅ FIXED
+						if (item.plotNumber) {
+							if (totalplotNumber !== "") {
+								totalplotNumber += ", ";
+							}
+							totalplotNumber += item.plotNumber.toString();
+						}
+						if (item.groupLoiApplicantIds) {
+							if (totalapplicantIds !== "") {
+								totalapplicantIds += "#";
+							}
+							totalapplicantIds += item.groupLoiApplicantIds.toString();
+						}
+
+					}
+				});
+
+				$scope.formData.totalPremium = totalPremium.toFixed(2);
+				$scope.formData.totalAmount = totalAmount.toFixed(2);
+				$scope.formData.totalPlotArea = totalPlotArea.toFixed(2);
+				$scope.formData.totalLease = totalLease.toFixed(2);
+				$scope.formData.totalSecurity = totalSecurity.toFixed(2);
+				$scope.formData.totalDevelopment = totalDevelopment.toFixed(2);
+				$scope.formData.totaladditionalPremium = totaladditionalPremium.toFixed(2);
+				$scope.formData.totalotherCharges = totalotherCharges.toFixed(2);
+				$scope.formData.totalgroupLoiAdvancePremium = totalgroupLoiAdvancePremium.toFixed(2);
+				$scope.formData.totalmaintenanceCharges = totalmaintenanceCharges.toFixed(2);
+				$scope.formData.totalplotNumber = totalplotNumber;
+				$scope.formData.totalapplicantIds = totalapplicantIds;
+			};
+
+
+			//11 june
+			$scope.submitSelectedAllotments = function() {
+				let selectedApplicants = [];
+				$routeParams.applicantId;
+
+				$scope.landAllotments.forEach(function(item) {
+					if (item.selected) {
+						selectedApplicants.push({
+							checkId: true,
+							statusId: item.statusId || 0,
+							vacantLandId: item.vacantLandId, // ✅ include vacantLandId
+							groupLoiPrimaryVacantLand: item.groupLoiPrimaryVacantLand
+						});
+					}
+				});
+
+				if (selectedApplicants.length === 0) {
+					alert("Please select at least one plot to proceed.");
+					return;
+				}
+
+				// Validate EOI amount field
+				if (!($scope.formData.eoiAmount && /^\d+(\.\d{1,2})?$/.test($scope.formData.eoiAmount))) {
+					alert("Please enter a valid EOI amount.");
+					return;
+				}
+
+				let requestPayload = {
+					status: "GroupLoi",
+					idPendingApplicants: selectedApplicants,
+					totalPremiumCharges: $scope.formData.totalPremium,
+					totalAmount: $scope.formData.totalAmount,
+					totalPlotArea: $scope.formData.totalPlotArea,
+					applicantId: $routeParams.applicantId,
+					eoiAmount: $scope.formData.eoiAmount,
+					totalLease: $scope.formData.totalLease,
+					totalSecurity: $scope.formData.totalSecurity,
+					totalDevelopment: $scope.formData.totalDevelopment,
+					totaladditionalPremium: $scope.formData.totaladditionalPremium,
+					totalotherCharges: $scope.formData.totalotherCharges,
+					nonPrimaryPlotName: $scope.formData.totalplotNumber,
+					totalgroupLoiAdvancePremium: $scope.formData.totalgroupLoiAdvancePremium,
+					totalmaintenanceCharges: $scope.formData.totalmaintenanceCharges,
+					plotName: $scope.formData.totalapplicantIds
+
+
+				};
+				$loading.start('sample-1');
+				$http.post("id/saveGroupLoiDetails", requestPayload)
+					.then(function(response) {
+						alert("Submitted successfully!");
+						console.log("Server Response:", response.data);
+						$window.location.href = '#dticLandAllotment';
+					}, function(error) {
+						alert("Error while submitting data.");
+						console.error("Submission failed", error);
+					});
+			};
+			//3july
+			$scope.calculateLeaseRent = function() {
+				var eoiAmount = parseFloat($scope.formData.eoiAmount);
+				if (!isNaN(eoiAmount)) {
+					$scope.formData.totalLease = (eoiAmount * 0.02).toFixed(2);
+					$scope.formData.totalSecurity = ($scope.formData.totalLease * 3).toFixed(2);
+					$scope.formData.totalAmount = (
+						(parseFloat($scope.formData.totalLease) || 0) +
+						(parseFloat($scope.formData.totalSecurity) || 0) +
+						(parseFloat($scope.formData.totalmaintenanceCharges) || 0) +
+						(parseFloat($scope.formData.totalDevelopment) || 0) +
+						(parseFloat($scope.formData.totalotherCharges) || 0) +
+						(parseFloat($scope.formData.eoiAmount) || 0) +
+						(parseFloat($scope.formData.totaladditionalPremium) || 0) -
+						(parseFloat($scope.formData.totalgroupLoiAdvancePremium) || 0)).toFixed(2);
+
+					;
+				} else {
+					$scope.formData.totalLease = '';
+				}
+			};
+
+
+
+			$scope.pointData = {}
+			$scope.workCreationData = {};
+			$scope.getLatLngFrommap = function(templat, templong) {
+				//alert("hello" + templat + templong);
+				//alert("chala ")
+				$http.post('getLatLng/' + templat + '/' + templong)
+					.then(function(response) {
+						let responseData = response.data;
+						//	console.log("responseData$scope.workCreationData",JSON.stringify($scope.workCreationData));
+						$scope.pointData = response.data;
+
+
+
+
+
+
+
+						//   alert("$scope.villages[0].villageId"+$scope.villages[0].villageId);
+						//$scope.workCreationData.villageId = $scope.villages[0].villageId + "";
+						$scope.khasra_number = responseData.AttributeList[0].khasra_number;
+						$scope.workCreationData.khasraNo = $scope.khasra_number;
+						var khasraGeom = JSON.parse(responseData.AttributeList[0].khasra_geom);
+						var coordinates = khasraGeom.geometry.coordinates[0][0];
+						$scope.lat = coordinates[0][1];
+						$scope.lon = coordinates[0][0];
+						//alert("latitude"+$scope.lat);
+						$scope.workCreationData.latitude = $scope.lat + "";
+						$scope.workCreationData.longitude = $scope.lon + "";
+						if (geojsonLayer != null) {
+							map.removeLayer(geojsonLayer);
+							geojsonLayer = null;
+						}
+						geojsonLayer = L.geoJson(JSON.parse(responseData.AttributeList[0].khasra_geom), {
+							style: { color: "#FFFF00", weight: 3, fillColor: "#FFFF00", fillOpacity: 0.1 },
+						})
+						geojsonLayer.addTo(map);
+						map.fitBounds(geojsonLayer.getBounds());
+						return responseData;
+					})
+					.catch(function(error) {
+						console.log("Error:", error);
+					});
+			};
+
+
+
+
+
+			//29 sept kml file process
+			$scope.vacantLandData = {};
+			$scope.processKmlFile = async function() {
+
+				if (!$scope.vacantLandData.wdtKmlFile) {
+					alert("Please select a KML file.");
+					return;
+				}
+
+				if ($scope.vacantLandData.wdtKmlFile.size >= 1048576) {
+					alert("File size should not exceed 1 MB.");
+					return;
+				}
+
+				var file = $scope.vacantLandData.wdtKmlFile;
+				var fileName = file.name;
+				var fileExtension = fileName.split('.').pop().toLowerCase();
+
+				if (fileExtension !== 'kml') {
+					alert("Only .kml files are allowed.");
+					return;
+				}
+
+				var formData = new FormData();
+				formData.append('KmlFile', file);
+
+				$loading.start('sample-1');
+
+				try {
+					const response = await $http.post('processKmlFile', formData, {
+						transformRequest: angular.identity,
+						headers: { 'Content-Type': undefined }
+					});
+
+					$rootScope.responseObject = response.data;
+
+					// ✅ Build polygon coordinates
+					let polygonCoords = [];
+					for (let i = 0; i < response.data.length; i++) {
+						const lat = response.data[i].lattitude;
+						const lon = response.data[i].longitude;
+						polygonCoords.push([lat, lon]);
+
+						// 🔍 Call getLatLng API to find khasra number
+						try {
+
+						} catch (innerErr) {
+							console.error("Error calling getLatLng for:", lat, lon, innerErr);
+						}
+					}
+
+					// ✅ Draw polygon on Leaflet map
+					if (polygonCoords.length > 0) {
+						// Remove old layer if exists
+						if (geojsonLayer != null) {
+							map.removeLayer(geojsonLayer);
+							geojsonLayer = null;
+						}
+
+						// Convert to Leaflet polygon
+						geojsonLayer = L.polygon(polygonCoords, {
+							color: "blue",
+							weight: 2,
+							fillColor: "lightblue",
+							fillOpacity: 0.5
+						}).addTo(map);
+
+						// Zoom to polygon
+						map.fitBounds(geojsonLayer.getBounds());
+					}
+
+				} catch (err) {
+					console.error("Error uploading/processKmlFile:", err);
+					alert("Error processing KML file.");
+					window.location.reload();
+
+				}
+
+				$loading.finish('sample-1');
+			};
+
+			//end
+			// 11 june
+			/*	$(document).on('change', '.application-checkbox', function() {
+					let totalPremium = 0.00;
+					let totalAmount = 0.00;
+					let totalPlotArea = 0.00;
+					let totalLease= 0.00;
+					let totalSecurity= 0.00;
+					let totalDevelopment= 0.00;
+	
+					$('#dynamic-table tbody tr').each(function() {
+						const $row = $(this);
+						const checkbox = $row.find('.application-checkbox').prop('checked');
+						if (checkbox) {
+							// Column indexes for premium and total amount (based on your fnCreatedRow)
+							// premiumCharges at column 6, totalAmount at column 13
+							let premiumText = $row.find('td:eq(6)').text().trim();
+							let amountText = $row.find('td:eq(13)').text().trim();
+							let totalPlotAreaText = $row.find('td:eq(5)').text().trim();
+							let leaseText=$row.find('td:eq(8)').text().trim();
+							let securityText=$row.find('td:eq(9)').text().trim();
+							let developmentText=$row.find('td:eq(7)').text().trim();
+	
+							let premium = parseFloat(premiumText) || 0;
+							let amount = parseFloat(amountText) || 0;
+							let plotarea = parseFloat(totalPlotAreaText) || 0;
+							let lease = parseFloat(leaseText) || 0;
+							let security = parseFloat(securityText) || 0;
+							let development = parseFloat(developmentText) || 0;
+	
+							totalPremium += premium;
+							totalAmount += amount;
+							totalPlotArea += plotarea;
+							totalLease += lease;
+							totalSecurity += security;
+							totalDevelopment += development;
+						}
+					});
+	
+					$('#totalPremium').val(totalPremium.toFixed(2));
+					$('#totalAmount').val(totalAmount.toFixed(2));
+					$('#totalPlotArea').val(totalPlotArea.toFixed(2));
+					$('#totalLease').val(totalLease.toFixed(2));
+					$('#totalSecurity').val(totalSecurity.toFixed(2));
+					$('#totalDevelopment').val(totalDevelopment.toFixed(2));
+				});*/
+
+			// 10 june
+			$scope.formData = {
+				totalPremium: "0.00",
+				totalAmount: "0.00",
+				totalPlotArea: "0.00",
+				totalLease: "0.00",
+				totalSecurity: "0.00",
+				totalDevelopment: "0.00",
+				eoiAmount: ""
+			};
+
+			$scope.submitGroupLOIForm = function() {
+				console.log("Form submitted with:");
+
+				// You can now send formData via API or other processing
+			};
+
+
+			$scope.loadIdPendingApplicantList = function() {
+				$loading.start('sample-1');
+
+				var vacantlandId = document.getElementById('vId').value.trim();
+				var v = document.getElementById('vcId').value.trim();
+				console.log(vacantlandId);
+				$scope.vacantLandId = vacantlandId;
+				$rootScope.vacantLandId = vacantlandId;
+
+				//$scope.vacantLandId = $routeParams.vacantLandId;
+				//$rootScope.vacantLandId = $routeParams.vacantLandId;
+
+				var responsePromise = $http
+					.get('loadIdPendingApplicants/'
+						+ $scope.vacantLandId);
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.idPendingApplicantList = data;
+
+					$loading.finish('sample-1');
+				});
+				var responsePromise = $http
+					.get('fetchvacantlanddetail/'
+						+ $scope.vacantLandId);
+				responsePromise
+					.success(function(data, status, headers,
+						config) {
+
+						$scope.vacantLandData = data;
+
+						$scope.vacantLandData.industrialAreaId = data.industrialAreaId + "";
+
+
+						$loading.finish('sample-10');
+					});
+
+			};
+			$scope.loadIdPendingApplicantList1 = function() {
+
+				if (!$scope.formData) {
+					$scope.formData = {};
+				}
+				$scope.formData.plotDetails = $scope.vacantLandData.plotNumber;
+				$scope.formData.industrialArea = $scope.vacantLandData.industrialAreaName;
+				$scope.formData.vacantLandId = $scope.vacantLandData.vacantLandId;
+			}
+
+			//10 june for gruop loi
+			$scope.updateGroupLOI1 = function(action1) {
+				var countCheck = 0;
+			}
+			$scope.updateGroupLOI = function(action) {
+
+				$http.get('getMessage/common.confirmToSave').then(function(response) {
+					if (confirm(response.data.value)) {
+						var countCheck = 0;
+						var countTender = 0;
+						var committeeDecision = 0;
+
+						for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+							if ($scope.idPendingApplicantList[i].checkId) {
+								countCheck++;
+								if ($scope.idPendingApplicantList[i].statusId == 38 || $scope.idPendingApplicantList[i].statusId == 37) {
+									committeeDecision++;
+								}
+							}
+						}
+
+						if (action == 'committeeDecision' && countTender > 0) {
+							$http.get('getMessage/dtic.id.applicationCommitteeDecision').then(function(response) {
+								alert(response.data.value);
+							});
+						} else {
+							// ✅ Prepare FormData instead of plain JSON
+							var formDataToSend = new FormData();
+							formDataToSend.append("status", action);
+							formDataToSend.append("statusId", $scope.formData.decision);
+							formDataToSend.append("committeeRemarks", $scope.formData.remarks || "");
+							//formDataToSend.append("createdDate", $scope.formData.decisionDate);
+							formDataToSend.append("createdDate", $scope.formatDateToDDMMYYYY($scope.formData.decisionDate));
+
+							if ($scope.formData.document) {
+								formDataToSend.append("committeeDecisionFile", $scope.formData.document);
+							}
+
+							// Serialize applicant list to JSON string
+							formDataToSend.append("idPendingApplicants", JSON.stringify($scope.idPendingApplicantList));
+
+							$loading.start('sample-1');
+
+							$http.post('id/updateCommitteeStatus', formDataToSend, {
+								transformRequest: angular.identity,
+								headers: { 'Content-Type': undefined }
+							}).then(function(response) {
+								$rootScope.responseObject = response.data;
+								$scope.loadIdPendingApplicantList();
+
+								if ($rootScope.responseObject.successMessage) {
+									$timeout(() => {
+										$rootScope.responseObject.successMessage = null;
+									}, 3000);
+								} else if ($rootScope.responseObject.errorMessage) {
+									$timeout(() => {
+										$rootScope.responseObject.errorMessage = null;
+									}, 3000);
+								}
+								$window.location.href = '#id/viewAppliedApplicants/'
+									+ $routeParams.vacantLandId;
+								$loading.finish('sample-1');
+							}, function(error) {
+								console.error("Error submitting data:", error);
+								alert("Error submitting committee decision.");
+								$loading.finish('sample-1');
+							});
+						}
+					}
+				});
+			};
+			// jitendra committee
+			$scope.updateCommitteeByStatus = function(action) {
+				if (
+					!$scope.formData ||
+					action == null ||
+					$scope.formData.decision == null ||
+					$scope.formData.decisionDate == null ||
+					$scope.formData.document == null ||
+					$scope.formData.remarks == null
+				) {
+					alert("Please fill all required fields and upload the required document.");
+					return;
+				}
+				$http.get('getMessage/common.confirmToSave').then(function(response) {
+					if (confirm(response.data.value)) {
+						var countCheck = 0;
+						var countTender = 0;
+						var committeeDecision = 0;
+
+						for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+							if ($scope.idPendingApplicantList[i].checkId) {
+								countCheck++;
+								if ($scope.idPendingApplicantList[i].statusId == 38 || $scope.idPendingApplicantList[i].statusId == 37) {
+									committeeDecision++;
+								}
+							}
+						}
+
+						if (action == 'committeeDecision' && countTender > 0) {
+							$http.get('getMessage/dtic.id.applicationCommitteeDecision').then(function(response) {
+								alert(response.data.value);
+							});
+						} else {
+							// ✅ Prepare FormData instead of plain JSON
+							var formDataToSend = new FormData();
+							formDataToSend.append("status", action);
+							formDataToSend.append("statusId", $scope.formData.decision);
+							formDataToSend.append("committeeRemarks", $scope.formData.remarks || "");
+							formDataToSend.append("createdDate", $scope.formatDateToDDMMYYYY($scope.formData.decisionDate));
+
+							if ($scope.formData.document) {
+								formDataToSend.append("committeeDecisionFile", $scope.formData.document);
+							}
+
+							// Serialize applicant list to JSON string
+							formDataToSend.append("idPendingApplicants", JSON.stringify($scope.idPendingApplicantList));
+
+							$loading.start('sample-1');
+
+							$http.post('id/updateCommitteeStatus', formDataToSend, {
+								transformRequest: angular.identity,
+								headers: { 'Content-Type': undefined }
+							}).then(function(response) {
+								$rootScope.responseObject = response.data;
+								$scope.loadIdPendingApplicantList();
+
+								if ($rootScope.responseObject.successMessage) {
+									$timeout(() => {
+										$rootScope.responseObject.successMessage = null;
+									}, 3000);
+								} else if ($rootScope.responseObject.errorMessage) {
+									$timeout(() => {
+										$rootScope.responseObject.errorMessage = null;
+									}, 3000);
+								}
+								$window.location.href = '#id/viewAppliedApplicants/'
+									+ $routeParams.vacantLandId;
+								$loading.finish('sample-1');
+							}, function(error) {
+								console.error("Error submitting data:", error);
+								alert("Error submitting committee decision.");
+								$loading.finish('sample-1');
+							});
+						}
+					}
+				});
+			};
+			//Code By Atul For Show Div
+			//Code Start by atul for tander 
+			$scope.formatDateToDDMMYYYY = function(date) {
+				if (!date) return '';
+				var d = new Date(date);
+				var day = ('0' + d.getDate()).slice(-2);
+				var month = ('0' + (d.getMonth() + 1)).slice(-2);
+				var year = d.getFullYear();
+				return day + '/' + month + '/' + year;
+			};
+
+			// 3 june
+			$scope.onPublicationDateChange = function() {
+				validateDates();
+			};
+
+			$scope.onBidStartDateChange = function() {
+				validateDates();
+			};
+
+			$scope.onBidEndDateChange = function() {
+				validateDates();
+			};
+
+			function validateDates() {
+				const pubDate = $scope.formData.publicationDate ? new Date($scope.formData.publicationDate) : null;
+				const startDate = $scope.formData.bidStartDate ? new Date($scope.formData.bidStartDate) : null;
+				const endDate = $scope.formData.bidEndDate ? new Date($scope.formData.bidEndDate) : null;
+
+				$scope.bidStartBeforePublication = false;
+				$scope.bidEndBeforeStart = false;
+
+				if (pubDate && startDate) {
+					$scope.bidStartBeforePublication = startDate < pubDate;
+				}
+
+				if (startDate && endDate) {
+					$scope.bidEndBeforeStart = endDate <= startDate;
+				}
+			}
+
+
+
+
+			$scope.submitTenderForm = function(form) {
+				validateDates();
+				if (form.$valid && !$scope.bidStartBeforePublication && !$scope.bidEndBeforeStart) {
+					var fd = new FormData();
+					fd.append("tenderId", $scope.formData.tenderId || '');
+					fd.append("nitNumber", $scope.formData.nitNumber || '');
+					fd.append("plotDetails", $scope.formData.plotDetails || '');
+					fd.append("industrialArea", $scope.formData.industrialArea || '');
+					fd.append("publicationDate", $scope.formatDateToDDMMYYYY($scope.formData.publicationDate));
+					fd.append("bidStartDate", $scope.formatDateToDDMMYYYY($scope.formData.bidStartDate));
+					fd.append("bidEndDate", $scope.formatDateToDDMMYYYY($scope.formData.bidEndDate));
+					fd.append("vacantLandId", $scope.formData.vacantLandId);
+					$loading.start('sample-1');
+
+					$http.post('SavetenderInfo', fd, {
+						transformRequest: angular.identity,
+						headers: { 'Content-Type': undefined }
+					}).then(function(response) {
+						$rootScope.responseObject = response.data;
+
+						$window.location.href = '#id/viewAppliedApplicants/'
+							+ $routeParams.vacantLandId;
+						$loading.finish('sample-1');
+					}, function(error) {
+						console.error("API Error:", error);
+						$loading.finish('sample-1');
+					});
+				} else {
+					alert("Please fill in all required fields.");
+				}
+			};
+
+			$scope.updateApplicantByStatus = function(action) {
+				$scope.idApplicantBean = {};
+
+				$http
+					.get('getMessage/common.confirmToSave')
+					.then(
+						function(response) {
+							/*
+							 * if (confirm("Are you sure to
+							 * perform this action?")) {
+							 */
+							if (confirm(response.data.value)) {
+								var countCheck = 0;
+								var countApproved = 0;
+								var countRejected = 0;
+								var countPossession = 0;
+								var countTender = 0;
+								var groupLOIApplicantId = 0;
+								var h1ApplicantId = 0;
+
+								for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+									if ($scope.idPendingApplicantList[i].checkId) {
+										countCheck++;
+										if ($scope.idPendingApplicantList[i].statusId > 2
+											&& $scope.idPendingApplicantList[i].statusId < 13) {
+											countApproved++;
+										}
+										if ($scope.idPendingApplicantList[i].statusId == 13) {
+											countRejected++;
+										}
+										if ($scope.idPendingApplicantList[i].statusId == 11) {
+											countPossession++;
+										}
+										if ($scope.idPendingApplicantList[i].statusId == 37) {
+											countTender++;
+										}
+										if ($scope.idPendingApplicantList[i].statusId == 2) {
+											groupLOIApplicantId = $scope.idPendingApplicantList[i].applicantId;
+										}
+										/*if ($scope.idPendingApplicantList[i].statusId == 40) {
+											h1ApplicantId = $scope.idPendingApplicantList[i].applicantId;
+											
+										}*/
+										if ($scope.idPendingApplicantList[i].statusId == 41) {
+											h1ApplicantId = $scope.idPendingApplicantList[i].applicantId;
+
+										}
+									}
+								}
+
+								if ((action == 'approve'
+									&& countCheck > 1) ) {
+										//alert($scope.isUndevelopedLandByApplicant)
+										// alert(countCheck)
+									/*
+									 * alert("Can not approve
+									 * multiple application at a
+									 * time.");
+									 */
+									$http
+										.get(
+											'getMessage/dtic.id.multipleApplication')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+											});
+								} else if (action == 'approve'
+									&& countApproved > 0) {
+									/*
+									 * alert("One or more
+									 * application selected
+									 * which are already
+									 * approved.");
+									 */
+									$http
+										.get(
+											'getMessage/dtic.id.applicationApproved')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+											});
+								} else if (action == 'approve'
+									&& countRejected > 0) {
+									/*
+									 * alert("Can not approve
+									 * application which are
+									 * already rejected.");
+									 */
+									$http
+										.get(
+											'getMessage/dtic.id.applicationApproveRejected')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+											});
+								} else if (action == 'reject'
+									&& countPossession > 0) {
+									/*
+									 * alert("Can not reject
+									 * application whose
+									 * possession letter
+									 * issued.");
+									 */
+									$http
+										.get(
+											'getMessage/dtic.id.applicationPossessionReject')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+											});
+								}
+								else if (action == 'InitiateTender'
+									&& countTender > 0) {
+									/*
+									 * alert("Can not reject
+									 * application whose
+									 * possession letter
+									 * issued.");
+									 */
+									$http
+										.get(
+											'getMessage/dtic.id.applicationInitiateTender')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+											});
+								} else if (action == 'GroupLOI'
+								) {
+									$window.location.href = '#openGroupLOI/' + groupLOIApplicantId;
+								}
+								else if (action == 'committeeDecision'
+									&& countTender > 0) {
+
+									$http
+										.get(
+											'getMessage/dtic.id.applicationCommitteeDecision')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+											});
+
+								}
+								else if (action == 'h1Detail') {
+
+
+									$scope.loadLOIPageH1(h1ApplicantId);
+
+								}
+								else {
+									$scope.idApplicantBean.idPendingApplicants = $scope.idPendingApplicantList;
+									$scope.idApplicantBean.status = action;
+									//$scope.idApplicantBean.status = action;
+									for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+										if ($scope.idPendingApplicantList[i].checkId) {
+
+											if (action == 'reject' && ($scope.idPendingApplicantList[i].checkId) && ($scope.idPendingApplicantList[i].comments == null || $scope.idPendingApplicantList[i].comments == '')) {
+												alert("Please enter Remarks for Application no. " + $scope.idPendingApplicantList[i].applicationId)
+												return false;
+											};
+										}
+									}
+
+									$loading.start('sample-1');
+									var responsePromise = $http
+										.post(
+											'id/updateApplicantByStatus',
+											$scope.idApplicantBean);
+									responsePromise
+										.success(function(
+											data,
+											status,
+											headers,
+											config) {
+											$rootScope.responseObject = data;
+											$scope
+												.loadIdPendingApplicantList();
+											if ($rootScope.responseObject.successMessage != null) {
+												$timeout(
+													function() {
+														$rootScope.responseObject.successMessage = null;
+													},
+													3000);
+											} else if ($rootScope.responseObject.errorMessage != null) {
+												$timeout(
+													function() {
+														$rootScope.responseObject.errorMessage = null;
+													},
+													3000);
+											}
+											$window.location.href = '#id/viewAppliedApplicants/'
+												+ $routeParams.vacantLandId;
+											$loading
+												.finish('sample-1');
+										});
+
+								}
+							}
+						});
+			};
+			$scope.applicationID = "";
+			$scope.loadHistory = function() {
+
+				$loading.start('sample-1');
+				var responsePromise = $http.get('id/fetchHistory', {
+					params: {
+						'applicantId': $routeParams.applicantId
+					}
+				});
+
+				$scope.applicantId = $routeParams.applicantId;
+				$scope.vacantLandId = $routeParams.vacantLandId;
+
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.idRequestProcessBeanList = data;
+					$scope.dticBack = true;
+					$loading.finish('sample-1');
+
+				});
+			};
+
+			/*$scope.generateLOILetter = function() {
+				$window.open('generateLOILetter/'
+					+ $routeParams.applicantId);
+			};*/
+			//jitendra
+
+			$scope.dateWiseApplicationReport = function() {
+
+				/*$scope.vacantLandId = $routeParams.vacantLandId;
+
+				$loading.start('sample-1');
+				var responsePromise = $http
+					.get('dateWiseApplicationReport/'
+						+ $routeParams.applicantId + '/');
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.allotmentLetterData = data;
+					$loading.finish('sample-1');
+				});*/
+
+			};
+
+
+			$scope.applicantId = "";
+			$scope.generateLOILetter = function() {
+				// Start loading indicator
+				/* $loading.start('sample-2');*/
+				$loading.start('sample-1');
+				$("#loader").show();
+				// Get the applicantId from route parameters
+				var applicantId = $routeParams.applicantId;
+
+				$http.get('generateLOILetter1/' + applicantId)
+					.then(function(response) {
+						var data = response.data;
+						if (data != null) {
+							$scope.idApplicantBean = data;
+							$scope.applicantId = $scope.idApplicantBean.applicationId; //Atul
+							$scope.ish1VacantLand = ($scope.idApplicantBean.vacantLandBean.ish1VacantLand);
+							$scope.groupLoi = ($scope.idApplicantBean.vacantLandBean.groupLoi);
+						} else {
+							alert("No data found for the given applicant ID.");
+						}
+
+					})
+					.catch(function(error) {
+						console.error("Error while loading allotment letter data:", error);
+						alert("Failed to load data. Please try again.");
+
+					}).finally(function() {
+						$loading.finish('sample-1');
+					});
+			};
+
+			// jitendra 04 june 2025			
+			//esign for Possession 
+			$scope.eSignAppDetailFormPossession = function(isValid) {
+
+				if (!isValid)
+					return false;
+				if (confirm("Are you sure you want to eSign the Application Form?")) {
+
+					$loading.start('sample-1');
+					$scope.eSignBean = {};
+					$scope.eSignBean.aadhaarLast4Digits = $scope.aadhaarLast4Digits;
+					$scope.eSignBean.remark = $scope.remark;
+					$scope.eSignBean.type = 'APPLICANT_APPLICATION_POSSESSION';
+					$scope.eSignBean.primaryId = $routeParams.applicantId;
+					$scope.eSignBean.unsignedBase64 = $('.esignHtml').html();
+					$scope.eSignBean.applicantNumber = $scope.applicantId;
+					$scope.eSignBean.title = "Possession Provider";
+					var responsePromise = $http.post('eSignaturePossession', $scope.eSignBean);
+
+
+					responsePromise.success(function(data, status, headers, config) {
+						if (data.successMessage != null) {
+							$('#msg').val(data.eHastaksharHiddenInputTAG);
+							$("#ICGForm").attr("action", data.aspUrl);
+							$('#ICGForm').submit();
+						}
+						$loading.finish('sample-1');
+					});
+					responsePromise.error(function() {
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+			//esing for AO letter 
+			$scope.eSignAppDetailFormAO = function(isValid) {
+				if (!isValid)
+					return false;
+				if (confirm("Are you sure you want to eSign the Application Form?")) {
+
+					$loading.start('sample-1');
+					$scope.eSignBean = {};
+					$scope.eSignBean.aadhaarLast4Digits = $scope.aadhaarLast4Digits;
+					$scope.eSignBean.remark = $scope.remark;
+					$scope.eSignBean.type = 'APPLICATION_AO';
+					$scope.eSignBean.primaryId = $routeParams.applicantId;
+					$scope.eSignBean.unsignedBase64 = $('.esignHtml').html();
+					$scope.eSignBean.applicantNumber = $scope.applicantId;
+					$scope.eSignBean.title = "Digital Signature";
+					var responsePromise = $http.post('eSignatureAO', $scope.eSignBean);
+
+
+					responsePromise.success(function(data, status, headers, config) {
+						if (data.successMessage != null) {
+							$('#msg').val(data.eHastaksharHiddenInputTAG);
+							$("#ICGForm").attr("action", data.aspUrl);
+							$('#ICGForm').submit();
+						}
+						$loading.finish('sample-1');
+					});
+					responsePromise.error(function() {
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+			$scope.openGroupLOI = function(applicant) {
+				
+				if (!applicant || !applicant.applicantId) {
+					alert("Applicant ID is missing!");
+					return;
+				}
+
+				if (confirm("Do you want to view the Group LOI?")) {
+					$loading.start('sample-1'); // Start loading spinner (if used in your app)
+
+					// Optional: If you need to call backend API to validate before opening
+					responsePromise.success(function(data) {
+						if (data && data.redirectUrl) {
+							//   window.open(data.redirectUrl, '_blank'); // Opens in new tab
+						} else {
+							// Fallback — open default URL
+							// window.open('/group-loi/' + applicant.applicantId, '_blank');
+						}
+						$loading.finish('sample-1');
+					});
+
+					responsePromise.error(function() {
+						alert("Unable to fetch Group LOI details.");
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+
+			//esign for LOI by Atul
+			$scope.eSignAppDetailForm = function(isValid) {
+
+				if (!isValid)
+					return false;
+				if (confirm("Are you sure you want to eSign the Application Form?")) {
+
+					$loading.start('sample-1');
+					$scope.eSignBean = {};
+					$scope.eSignBean.aadhaarLast4Digits = $scope.aadhaarLast4Digits;
+					$scope.eSignBean.remark = $scope.remark;
+					$scope.eSignBean.type = 'APPLICATION_LOI';
+					$scope.eSignBean.primaryId = $routeParams.applicantId;
+					$scope.eSignBean.unsignedBase64 = $('.esignHtml').html();
+					$scope.eSignBean.applicantNumber = $scope.applicantId;
+					$scope.eSignBean.title = "Digital Signature";
+					var responsePromise = $http.post('eSignatureLOI', $scope.eSignBean);
+
+
+					responsePromise.success(function(data, status, headers, config) {
+						if (data.successMessage != null) {
+							$('#msg').val(data.eHastaksharHiddenInputTAG);
+							$("#ICGForm").attr("action", data.aspUrl);
+							$('#ICGForm').submit();
+						}
+						$loading.finish('sample-1');
+					});
+					responsePromise.error(function() {
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+
+			// jitendra 03 July 2025
+
+			$scope.digitalSign = function() {
+				if (confirm("Are you sure you want to digitally sign the Application Form?")) {
+
+					$loading.start('sample-1');
+
+					$scope.eSignBean = {
+						aadhaarLast4Digits: $scope.aadhaarLast4Digits,
+						remark: $scope.remark,
+						type: 'APPLICATION_LOI',
+						primaryId: $routeParams.applicantId,
+						unsignedBase64: $('.esignHtml').html(),
+						applicantNumber: $scope.applicantId,
+						title: "Digital Signature"
+					};
+
+					var responsePromise = $http.post('generateLOIPDF', $scope.eSignBean);
+
+					responsePromise.success(function(data, status, headers, config) {
+						if (data.successMessage != null) {
+							$scope.base64Response = data;
+							$scope.digitalSignPDFFile($routeParams.applicantId, $scope.eSignBean.type);
+						}
+						$loading.finish('sample-1');
+					});
+
+					responsePromise.error(function() {
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+
+			$scope.digitalSignPDFFile = function(billId, type) {
+				var url = 'http://localhost:8060/jsonsigner/Sign';
+
+				var data = {
+					ServerDateTime: $scope.base64Response.serverDateTime,
+					DocumentType: 'PDF',
+					Data: $scope.base64Response.eHastaksharHiddenInputTAG,
+					SignatureName: $scope.base64Response.signatureName,
+					Reason: $scope.base64Response.reason,
+					Location: $scope.base64Response.location
+				};
+
+				$http.post(url, data).then(function(response) {
+					if (response && response.data && response.data.SignedData) {
+
+						$scope.base64Response = {
+							id: billId,
+							value: response.data.SignedData || '',
+							signedBase64PDF: response.data.SignedData || '',
+							billId: billId.toString(),
+							reason: "LOI Signing",
+							serverDateTime: $scope.base64Response.serverDateTime || '',
+							signatureName: $scope.base64Response.signatureName || 'Authorized Signatory',
+							type: type || 'APPLICATION_LOI',
+							errorMessage: null,
+							successMessage: 'success',
+							errorMsgList: null,
+							sarthakFacilityId: null,
+							responseCode: null,
+							responseMessage: null,
+							sarthakSupplierId: null,
+							action: null,
+							transactionId: $scope.base64Response.transactionId || null
+						};
+
+						$loading.start('sample-1');
+
+						var responsePromise = $http.post('signPDFLoi', $scope.base64Response);
+
+						responsePromise.success(function(data) {
+							$rootScope.responseObject = data;
+							alert("Digital Signature Successfully");
+							window.location.reload();
+							$loading.finish('sample-1');
+						});
+
+						responsePromise.error(function() {
+							$rootScope.responseObject = {
+								errorMessage: "Some error occurred while saving the data"
+							};
+							$timeout(function() {
+								$rootScope.responseObject.errorMessage = null;
+							}, 10000);
+							$loading.finish('sample-1');
+						});
+
+					} else {
+						alert("Invalid response from DSC Signer. Please check your DSC setup.");
+						$loading.finish('sample-1');
+					}
+				}).catch(function(errResponse) {
+					if (errResponse.status === -1) {
+						alert("Could not connect to DSC Signer. Please ensure it is running.");
+					} else {
+						alert("DSC Signing failed: " + errResponse.statusText);
+					}
+					$loading.finish('sample-1');
+				});
+			};
+
+
+			$scope.digitalSignAo = function() {
+				if (confirm("Are you sure you want to digitally sign the Application Form?")) {
+
+					$loading.start('sample-1');
+
+					$scope.eSignBean = {
+						aadhaarLast4Digits: $scope.aadhaarLast4Digits,
+						remark: $scope.remark,
+						type: 'APPLICATION_AO',
+						primaryId: $routeParams.applicantId,
+						unsignedBase64: $('.esignHtml').html(),
+						applicantNumber: $scope.applicantId,
+						title: "Digital Signature"
+					};
+
+					var responsePromise = $http.post('generateLOIPDF', $scope.eSignBean);
+
+					responsePromise.success(function(data, status, headers, config) {
+						if (data.successMessage != null) {
+							$scope.base64Response = data;
+							$scope.digitalSignAoPDFFile($routeParams.applicantId, $scope.eSignBean.type);
+						}
+						$loading.finish('sample-1');
+					});
+
+					responsePromise.error(function() {
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+
+			$scope.digitalSignAoPDFFile = function(billId, type) {
+				var url = 'http://localhost:8060/jsonsigner/Sign';
+
+				var data = {
+					ServerDateTime: $scope.base64Response.serverDateTime,
+					DocumentType: 'PDF',
+					Data: $scope.base64Response.eHastaksharHiddenInputTAG,
+					SignatureName: $scope.base64Response.signatureName,
+					Reason: $scope.base64Response.reason,
+					Location: $scope.base64Response.location
+				};
+
+				$http.post(url, data).then(function(response) {
+					if (response && response.data && response.data.SignedData) {
+
+						$scope.base64Response = {
+							id: billId,
+							value: response.data.SignedData || '',
+							signedBase64PDF: response.data.SignedData || '',
+							billId: billId.toString(),
+							reason: "LOI Signing",
+							serverDateTime: $scope.base64Response.serverDateTime || '',
+							signatureName: $scope.base64Response.signatureName || 'Authorized Signatory',
+							type: type || 'APPLICATION_AO',
+							errorMessage: null,
+							successMessage: 'success',
+							errorMsgList: null,
+							sarthakFacilityId: null,
+							responseCode: null,
+							responseMessage: null,
+							sarthakSupplierId: null,
+							action: null,
+							transactionId: $scope.base64Response.transactionId || null
+						};
+
+						$loading.start('sample-1');
+
+						var responsePromise = $http.post('signPDFAo', $scope.base64Response);
+
+						responsePromise.success(function(data) {
+							if (data.vcId) {
+								$window.location.href = '#id/viewAppliedApplicants/' + data.vcId;
+							} else if (data.error) {
+								alert("Error: " + data.error);
+							}
+							$loading.finish('sample-1');
+						});
+
+						responsePromise.error(function() {
+							$rootScope.responseObject = {
+								errorMessage: "Some error occurred while saving the data"
+							};
+							$timeout(function() {
+								$rootScope.responseObject.errorMessage = null;
+							}, 10000);
+							$loading.finish('sample-1');
+						});
+
+					} else {
+						alert("Invalid response from DSC Signer. Please check your DSC setup.");
+						$loading.finish('sample-1');
+					}
+				}).catch(function(errResponse) {
+					if (errResponse.status === -1) {
+						alert("Could not connect to DSC Signer. Please ensure it is running.");
+					} else {
+						alert("DSC Signing failed: " + errResponse.statusText);
+					}
+					$loading.finish('sample-1');
+				});
+			};
+
+			$scope.digitalSignDticPoss = function() {
+				if (confirm("Are you sure you want to digitally sign the Application Form?")) {
+
+					$loading.start('sample-1');
+
+					$scope.eSignBean = {
+						aadhaarLast4Digits: $scope.aadhaarLast4Digits,
+						remark: $scope.remark,
+						type: 'APPLICANT_APPLICATION_POSSESSION',
+						primaryId: $routeParams.applicantId,
+						unsignedBase64: $('.esignHtml').html(),
+						applicantNumber: $scope.applicantId,
+						title: "Possession Provider"
+					};
+
+					var responsePromise = $http.post('generateLOIPDF1', $scope.eSignBean);
+
+					responsePromise.success(function(data, status, headers, config) {
+						if (data.successMessage != null) {
+							$scope.base64Response = data;
+							$scope.digitalSignPossPDFFile($routeParams.applicantId, $scope.eSignBean.type);
+						}
+						$loading.finish('sample-1');
+					});
+
+					responsePromise.error(function() {
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+
+			$scope.digitalSignPossPDFFile = function(billId, type) {
+				var url = 'http://localhost:8060/jsonsigner/Sign';
+
+				// This is the SECOND signature on the possession letter - the PDF handed
+				// over here is the one the applicant already signed, so the signer has to
+				// append to it. ReuseAppearance:false told it to build a fresh appearance
+				// instead, which it cannot do on an already-signed document, and it
+				// answered 500 ("DSC Signing failed: Internal Server Error").
+				// Every other Sign call in the portal - including the applicant's first
+				// signature on this same letter - omits the flag and succeeds, so the
+				// payload is now identical to theirs.
+				var data = {
+					ServerDateTime: $scope.base64Response.serverDateTime,
+					DocumentType: 'PDF',
+					Data: $scope.base64Response.eHastaksharHiddenInputTAG,
+					SignatureName: $scope.base64Response.signatureName,
+					Reason: $scope.base64Response.reason,
+					Location: $scope.base64Response.location
+				};
+
+				$http.post(url, data).then(function(response) {
+					if (response && response.data && response.data.SignedData) {
+
+						$scope.base64Response = {
+							id: billId,
+							value: response.data.SignedData || '',
+							signedBase64PDF: response.data.SignedData || '',
+							billId: billId.toString(),
+							reason: "FINAL POSSESSION Signing",
+							serverDateTime: $scope.base64Response.serverDateTime || '',
+							signatureName: $scope.base64Response.signatureName || 'Authorized Signatory',
+							type: type || 'APPLICANT_APPLICATION_POSSESSION',
+							errorMessage: null,
+							successMessage: 'success',
+							errorMsgList: null,
+							sarthakFacilityId: null,
+							responseCode: null,
+							responseMessage: null,
+							sarthakSupplierId: null,
+							action: null,
+							transactionId: $scope.base64Response.transactionId || null
+						};
+
+						$loading.start('sample-1');
+
+						var responsePromise = $http.post('signFinalPDFPossession', $scope.base64Response);
+
+						responsePromise.success(function(data) {
+							if (data.vcId) {
+								window.location.reload();
+								//$window.location.href = '#id/viewAppliedApplicants/' + data.vcId;
+							} else if (data.error) {
+								alert("Error: " + data.error);
+							}
+							$loading.finish('sample-1');
+						});
+
+						responsePromise.error(function() {
+							$rootScope.responseObject = {
+								errorMessage: "Some error occurred while saving the data"
+							};
+							$timeout(function() {
+								$rootScope.responseObject.errorMessage = null;
+							}, 10000);
+							$loading.finish('sample-1');
+						});
+
+					} else {
+						alert("Invalid response from DSC Signer. Please check your DSC setup.");
+						$loading.finish('sample-1');
+					}
+				}).catch(function(errResponse) {
+					if (errResponse.status === -1) {
+						alert("Could not connect to DSC Signer. Please ensure it is running.");
+					} else {
+						alert("DSC Signing failed: " + errResponse.statusText);
+					}
+					$loading.finish('sample-1');
+				});
+			};
+
+
+			$scope.signOption = null;  // Holds selected radio value: 'eSign' or 'DSC'
+
+			$scope.submitSignOption = function() {
+				if (!$scope.signOption) {
+					alert("Please select a signing method.");
+					return;
+				}
+
+				if ($scope.signOption === 'eSign') {
+					// Trigger eSign process
+					console.log("User selected e-Sign.");
+					$scope.signOption = 'eSign';
+
+				} else if ($scope.signOption === 'DSC') {
+					// Trigger DSC process
+					console.log("User selected DSC.");
+					$scope.signOption = 'DSC';
+				}
+			};
+
+			$scope.allotmentLetterData = {};
+
+			$scope.generateAllotmentLetter = function(isValid) {
+
+				if (!isValid)
+					return false;
+				//if (plot.applicantId === null || plot.applicantId === undefined || plot.applicantId === "") {
+				//	$scope.allotmentLetterDataList.applicantId = $routeParams.applicantId;
+				//}
+
+				var responsePromise = $http.post(
+					'saveAllotmentLetterData',
+					$scope.allotmentLetterDataList);
+
+				responsePromise.success(function(data, status, headers,
+					config) {
+
+					$rootScope.responseObject = data;
+
+					if (data.successMessage != null) {
+						/*$window.open('generateAllotmentLetter/'
+							+ $routeParams.applicantId);*/
+
+						// need to Write code for dticLandAllotment 
+
+						$window.location.href = '#eSingAOLetter/' + $routeParams.applicantId;
+					}
+
+
+				});
+
+			};
+
+			$scope.loadAllotmentLetterData = function() {
+				$scope.vacantLandId = $routeParams.vacantLandId;
+
+				$loading.start('sample-1');
+				$http.get('fetchAllotmentLetterDetail/' + $routeParams.applicantId + '/')
+					.then(function(response) {
+						$scope.allotmentLetterDataList = response.data || [];
+					})
+					.finally(function() {
+						$loading.finish('sample-1');
+					});
+			};
+
+
+
+			//Code update by atul
+			$scope.uploadLOILetter = function(isValid, loiFile) {
+
+				if (!isValid || !loiFile) {
+					$scope.fileAbsent = true;
+					return false;
+				}
+
+				var fd = new FormData();
+
+				/*if (loiFile) {
+					fd.append('loiFile', loiFile);
+				}
+
+				fd.append('applicantId', $routeParams.applicantId);
+
+				fd.append('loiNo', $scope.formData.loiNo);
+
+				if ($scope.formData.loiDate) {
+					$scope.formData.loiDate = $filter('date')(
+						$scope.formData.loiDate, 'dd/MM/yyyy');
+					fd.append('loiDate', $scope.formData.loiDate);
+				}
+
+				$loading.start('sample-1');
+				var responsePromise = $http.post('uploadLOILetter', fd,
+					{
+						transformRequest: angular.identity,
+						headers: {
+							'Content-Type': undefined
+						}
+					});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						if ($rootScope.responseObject.successMessage != null) {
+
+							$window.location.href = '#dticLandAllotment';
+
+							// $window.location.href =
+							// '#/id/viewAppliedApplicants/'+$routeParams.applicantId;
+						}
+
+						$loading.finish('sample-1');
+					});
+*/
+			};
+
+			$scope.uploadAllotmentLetter = function(isValid,
+				allotmentLetter) {
+
+				if (!isValid || !allotmentLetter) {
+					$scope.fileAbsent = true;
+					return false;
+				}
+
+				var fd = new FormData();
+
+				if (allotmentLetter) {
+					fd.append('allotmentFile', allotmentLetter);
+				}
+
+				fd.append('applicantId', $routeParams.applicantId);
+
+				$loading.start('sample-1');
+				var responsePromise = $http.post(
+					'uploadAllotmentLetter', fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject1 = data;
+
+						/*
+						 * if($rootScope.responseObject1.successMessage !=
+						 * null) {
+						 * 
+						 * $window.location.href =
+						 * '#id/viewAppliedApplicants/'+$routeParams.vacantLandId;
+						 * 
+						 * //$window.location.href =
+						 * '#/id/viewAppliedApplicants/'+$routeParams.applicantId; }
+						 */
+						if ($rootScope.responseObject1.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject1.successMessage = null;
+								}, 5000);
+							$window.location.href = '#id/viewAppliedApplicants/'
+								+ $routeParams.vacantLandId;
+						}
+
+						$loading.finish('sample-1');
+					});
+
+			};
+
+			$scope.generateLeaseLetter = function() {
+				$window.open('generateLeaseLetter/'
+					+ $routeParams.applicantId);
+			};
+
+			/*$scope.generatePossessionLetter = function() {
+				$window.open('generatePossessionLetter/'
+					+ $routeParams.applicantId);
+			};*/
+
+			// jitendra 03 june 2025
+			$scope.generatePossessionLetter = function() {
+				// Start loading indicator
+				/* $loading.start('sample-2');*/
+				//	$("#loader").show();
+				$loading.start('sample-1');
+				// Get the applicantId from route parameters
+				var applicantId = $routeParams.applicantId;
+
+				$http.get('generateLOILetter1/' + applicantId)
+					.then(function(response) {
+						var data = response.data;
+						if (data != null) {
+							$scope.idApplicantBean = data;
+							$scope.applicantId = $scope.idApplicantBean.applicationId; //Atul
+						} else {
+							alert("No data found for the given applicant ID.");
+						}
+
+					})
+					.catch(function(error) {
+						console.error("Error while loading allotment letter data:", error);
+						alert("Failed to load data. Please try again.");
+
+					}).finally(function() {
+						//$("#loader").hide();
+						$loading.finish('sample-1');
+					});
+			};
+			$scope.fileTooLarge = false;
+
+
+			$scope.uploadLeaseLetter = function(isValid, leaseFile) {
+
+				if (!isValid || !leaseFile) {
+					$scope.fileAbsent = true;
+					return false;
+				}
+				var fd = new FormData();
+
+				if (leaseFile) {
+					fd.append('leaseFile', leaseFile);
+				}
+
+				fd.append('applicantId', $routeParams.applicantId);
+
+				fd.append('leaseNo', $scope.formData.leaseNo);
+
+				if ($scope.formData.leaseDate) {
+					$scope.formData.leaseDate = $filter('date')(
+						$scope.formData.leaseDate, 'dd/MM/yyyy');
+					fd.append('leaseDate', $scope.formData.leaseDate);
+				}
+
+				$loading.start('sample-1');
+				var responsePromise = $http.post('uploadLeaseLetter',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						if ($rootScope.responseObject.successMessage != null) {
+
+							$window.location.href = '#dticLandAllotment';
+
+							// $window.location.href =
+							// '#/id/viewAppliedApplicants/'+$routeParams.applicantId;
+						}
+
+						$loading.finish('sample-1');
+					});
+
+			};
+
+			$scope.uploadPossessionLetter = function(isValid,
+				possessionFile) {
+
+				if (!isValid || !possessionFile) {
+					$scope.fileAbsent = true;
+					return false;
+				}
+
+				var fd = new FormData();
+
+				if (possessionFile) {
+					fd.append('possessionFile', possessionFile);
+				}
+
+				fd.append('applicantId', $routeParams.applicantId);
+
+				fd.append('possessionNo', $scope.formData.possessionNo);
+
+				if ($scope.formData.possessionDate) {
+					$scope.formData.possessionDate = $filter('date')(
+						$scope.formData.possessionDate,
+						'dd/MM/yyyy');
+					fd.append('possessionDate',
+						$scope.formData.possessionDate);
+				}
+
+				$loading.start('sample-1');
+				var responsePromise = $http.post(
+					'uploadPossessionLetter', fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						if ($rootScope.responseObject.successMessage != null) {
+
+							$window.location.href = '#dticLandAllotment';
+
+							// $window.location.href =
+							// '#/id/viewAppliedApplicants/'+$routeParams.applicantId;
+						}
+
+						$loading.finish('sample-1');
+					});
+
+			};
+
+
+			$scope.loadLOIPage = function() {
+
+				$scope.applicantId = $routeParams.applicantId;
+				$scope.vacantLandId = $routeParams.vacantLandId;
+
+				$loading.start('sample-1');
+
+				//var responsePromise = $http.get('fetchvacantlanddetail/' + $routeParams.vacantLandId);
+				var responsePromise = $http.get('fetchEncryptedVacantLandDetail/' + $scope.applicantId + '/' + $routeParams.vacantLandId);
+				responsePromise.success(function(data, status, headers, config) {
+					$scope.formData.premium = parseFloat((data.premiumCharges)).toFixed(2);
+					$scope.formData.annualGroundRent = parseFloat(data.leaseRent).toFixed(2);
+					$scope.formData.securityDeposite = parseFloat(data.securityDeposit).toFixed(2);
+					$scope.formData.annualMaintenance = parseFloat(data.maintenanceCharges).toFixed(2);
+					//$scope.formData.developmentCharges = parseFloat(100*data.totalPlotArea).toFixed(2);
+					$scope.formData.developmentCharges = parseFloat(data.developmentCharges).toFixed(2);
+					//$scope.formData.totalAmountGroupLoi = parseFloat(data.totalAmountGroupLoi).toFixed(2);
+					//$scope.formData.totalLeaseAmountGroupLoi= parseFloat(data.totalLeaseAmountGroupLoi).toFixed(2);
+					//$scope.formData.totalDevelopmentChargesAmountGroupLoi=parseFloat(data.totalDevelopmentChargesAmountGroupLoi).toFixed(2);
+					//$scope.formData.totalSecurityAmountGroupLoi=parseFloat(data.totalSecurityAmountGroupLoi).toFixed(2);
+					$scope.formData.totalAmount = parseFloat(data.totalAmount).toFixed(2);
+					$scope.ish1VacantLand = (data.ish1VacantLand);
+
+
+					$scope.ish1value = false;
+					if ($scope.ish1VacantLand) {
+						$scope.ish1value = true;
+
+					}
+					if (data.groupLoi) {
+						$scope.formData.premium = parseFloat((data.premiumCharges)).toFixed(2) - parseFloat(data.advancePremiumH1).toFixed(2);
+
+					}
+
+
+					$loading.finish('sample-1');
+				});
+
+
+			}
+
+			$scope.loadLOIPageH1 = function(applicantId) {
+
+				$scope.showH1Details = true;
+
+				$scope.applicantId = applicantId;
+				$scope.vacantLandId = $routeParams.vacantLandId;
+
+				if (!$scope.applicantId || !$scope.vacantLandId) {
+					alert("Please select at least one land allotment.");
+					return;
+				}
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.get(
+					'fetchEncryptedVacantLandDetail/' + $scope.applicantId + '/' + $scope.vacantLandId
+				);
+
+				responsePromise.success(function(data) {
+					$scope.formData = $scope.formData || {};
+
+					$scope.formData.premium = parseFloat(data.premiumCharges).toFixed(2);
+					$scope.formData.annualGroundRent = parseFloat(data.leaseRent).toFixed(2);
+					$scope.formData.securityDeposite = parseFloat(data.securityDeposit).toFixed(2);
+					$scope.formData.annualMaintenance = parseFloat(data.maintenanceCharges).toFixed(2);
+					$scope.formData.developmentCharges = parseFloat(data.developmentCharges).toFixed(2);
+					$scope.formData.advancePremiumH1 = parseFloat(data.advancePremiumH1).toFixed(2);
+					$scope.formData.applicantId = $scope.applicantId;
+
+					$loading.finish('sample-1');
+
+				}).error(function() {
+					$loading.finish('sample-1');
+					alert("Failed to fetch data. Please try again.");
+				});
+			};
+			$scope.formData = {
+				h1BidAmount: 0,
+				advancePremiumH1: 0,
+				annualGroundRent: 0,
+				annualMaintenance: 0,
+				securityDeposite: 0,
+				otherCharges: 0
+			};
+
+			$scope.$watchGroup([
+				'formData.h1BidAmount',
+				'formData.advancePremiumH1',
+				'formData.annualGroundRent',
+				'formData.annualMaintenance',
+				'formData.securityDeposite',
+				'formData.otherCharges'
+			], function(newValues) {
+				var bid = parseFloat($scope.formData.h1BidAmount) || 0;
+				var premium = parseFloat($scope.formData.advancePremiumH1) || 0;
+				var rent = parseFloat($scope.formData.annualGroundRent) || 0;
+				var maintenance = parseFloat($scope.formData.annualMaintenance) || 0;
+				var deposit = parseFloat($scope.formData.securityDeposite) || 0;
+				var other = parseFloat($scope.formData.otherCharges) || 0;
+
+				$scope.formData.totalAmount = (bid - premium + rent + maintenance + deposit + other).toFixed(2);
+			});
+
+
+
+			$scope.addLOIDetails = function(isValid) {
+
+				if (!isValid)
+					return false;
+
+				$loading.start('sample-1');
+
+				$scope.formData.applicantId = $routeParams.applicantId;
+
+				var responsePromise = $http.post('addLOIDetails',
+					$scope.formData);
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						if ($rootScope.responseObject.successMessage != null) {
+							$window.location.href = '#viewUploadDownloadLOI/'
+								+ $routeParams.applicantId;
+							$loading.finish('sample-1');
+						}
+
+					});
+
+
+
+			}
+
+			// jitendra 17 june
+
+			$scope.addH1Details = function(isValid) {
+
+				if (!isValid)
+					return false;
+				if (confirm("Are you sure you want to save the payment details?")) {
+
+					$loading.start('sample-1');
+
+
+					$scope.formData.vacantLandId = $routeParams.vacantLandId;
+					
+					var responsePromise = $http.post('addH1Details',
+						$scope.formData);
+
+					responsePromise
+						.success(function(data, status, headers, config) {
+
+							$rootScope.responseObject = data;
+
+							if ($rootScope.responseObject.successMessage != null) {
+								// ✅ Now call the second method here
+								$scope.loadIdPendingApplicantList();
+								$window.location.href = '#dticLandAllotment';
+								/*$window.location.href = '#viewUploadDownloadLOI/'
+									+ $routeParams.applicantId;*/
+								$loading.finish('sample-1');
+							}
+
+						});
+				}
+
+			}
+
+			$scope.loadApplicationDetail = function() {
+
+				$scope.vacantLandId = $routeParams.vacantLandId;
+				$scope.applicantId = $routeParams.applicantId;
+
+				$loading.start('sample-1');
+
+				$http.get('fetchApplicationDetail/' + $routeParams.applicantId)
+					.success(function(data, status, headers, config) {
+						$scope.applicationData = data;
+
+						if (data.profileImageString != null) {
+							$scope.profileImage = data.profileImageString;
+						}
+
+						// First API call
+						$http.get('id/fetchDocumentsList', {
+							params: { 'applicantId': $scope.applicationData.applicantId }
+						}).success(function(data, status, headers, config) {
+							$scope.applicantDocumentsList = data;
+
+							// Second API call (chained after first one completes)
+							$http.get('id/fetchIndustrialProfileDocumentsList', {
+								params: { 'applicantId': $scope.applicationData.applicantId }
+							}).success(function(data, status, headers, config) {
+								$scope.industrialProfileDocumentsList = data;
+
+								// Finish loading after second API completes
+								$loading.finish('sample-1');
+							});
+
+						});
+
+					});
+
+			};
+
+
+			$scope.loadCreateIndustrialArea = function() {
+				var districtId;
+				var dticId;
+				$scope.industrialAreaData = {};
+				$loading.start('sample-1');
+				var responseDistricts = $http
+					.get('fetchdticdistrictsmap');
+
+				responseDistricts
+					.success(
+						function(data, status, headers, config) {
+							$scope.districts = data;
+							angular
+								.forEach(
+									$scope.districts,
+									function(district) {
+										districtId = district.key;
+									});
+							$scope.industrialAreaData.districtId = districtId
+								+ "";
+
+							$scope
+								.fetchTehsilByDistrict(districtId);
+
+							var responseAreas = $http
+								.get(
+									'fetchindustrialareamapbydistrict',
+									{
+										params: {
+											'districtId': districtId
+										}
+									});
+							responseAreas.success(function(
+								data, status, headers,
+								config) {
+								$scope.areas = data;
+							});
+						})
+					.then(
+						function() {
+							var responsedtic = $http
+								.get('fetchdticmap');
+
+							responsedtic
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.dticList = data;
+									for (var i in $scope.dticList) {
+										dticId = i;
+									}
+									$scope.industrialAreaData.dticId = dticId
+										+ "";
+									$loading
+										.finish('sample-1');
+								});
+						}).then(function() {
+							$scope.loadIndustrialAreaTable();
+						}).then(function() {
+							$scope.populateIAEditForm();
+						});
+			};
+
+			$scope.loadCollectorRates = function() {
+				var districtId;
+				var dticId;
+				$scope.collectorRateData = {};
+
+				$loading.start('sample-1');
+
+				var responseDistricts = $http
+					.get('fetchdticdistrictsmap');
+				responseDistricts
+					.success(
+						function(data, status, headers, config) {
+							$scope.districts = data;
+							angular
+								.forEach(
+									$scope.districts,
+									function(district) {
+										districtId = district.key;
+									});
+							$scope.collectorRateData.districtId = districtId
+								+ "";
+						})
+					.then(
+						function() {
+							var responsedtic = $http
+								.get('fetchdticmap');
+							responsedtic
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.dticList = data;
+									for (var i in $scope.dticList) {
+										dticId = i;
+									}
+									$scope.collectorRateData.dticId = dticId
+										+ "";
+								});
+						})
+					.then(
+						function() {
+							var responsePromise = $http.get('fetchFinancialYear');
+							responsePromise.success(function(data, status, headers, config) {
+								$scope.fyList = data;
+							});
+
+							var responseIndusAreas = $http
+								.get('fetchIndustrialAreaList');
+							responseIndusAreas
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.industrialAreaList = data;
+									$loading
+										.finish('sample-1');
+								});
+
+							var responseIndusAreas = $http
+								.get('fetchCollectorRateList');
+							responseIndusAreas
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.collectorRateList = data;
+									$loading
+										.finish('sample-1');
+								});
+						});
+
+			};
+
+
+			$scope.loadSuppliersDetails = function() {
+				var districtId;
+				//var dticId;
+				$scope.supplierData = {};
+
+				$loading.start('sample-1');
+
+				var responseDistricts = $http
+					.get('fetchdticdistrictsmap');
+				responseDistricts
+					.success(
+						function(data, status, headers, config) {
+							$scope.districts = data;
+							angular
+								.forEach(
+									$scope.districts,
+									function(district) {
+										districtId = district.key;
+									});
+							$scope.supplierInfoData.districtId = districtId
+								+ "";
+						})
+
+					.then(
+						function() {
+							var responsePromise = $http.get('fetchFinancialYear');
+							responsePromise.success(function(data, status, headers, config) {
+								$scope.fyList = data;
+							});
+
+							var responseIndusAreas = $http
+								.get('fetchSupplierTypes');
+							responseIndusAreas
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.supplierTypeList = data;
+									$loading
+										.finish('sample-1');
+								});
+
+							var responseIndusAreas = $http
+								.get('fetchCollectorRateList');
+							responseIndusAreas
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.collectorRateList = data;
+									$loading
+										.finish('sample-1');
+								});
+						});
+
+			};
+
+			//yahaaa
+
+
+
+
+
+
+
+			$scope.loadDticDistrictsForSupplier = function() {
+
+				$loading.start('sample-1');
+
+				var response = $http.get('fetchDticDistricts');
+
+				response.success(function(data, status, headers,
+					config) {
+					$scope.districts = data;
+					$scope.supplierInfoData = {};
+					$scope.supplierInfoData.external = 'N';
+					$scope.supplierInfoData.districtId = $scope.districts[0].key + "";
+					if (null == $scope.supplierInfoData.status) {
+						$scope.supplierInfoData.status = 'INACTIVE';
+					}
+					$loading.finish('sample-1');
+				});
+
+			};
+
+
+
+			$scope.fetchSupplierTypes = function() {
+
+				$loading.start('sample-1');
+
+				var response = $http.get('fetchSupplierTypes');
+
+				response.success(function(data, status, headers,
+					config) {
+					$scope.supplierTypes = data;
+					$loading.finish('sample-1');
+				});
+
+			};
+
+
+			$scope.loadCollectorRateForm = function() {
+				$scope.disabled = true;
+
+				var districtId;
+				var dticId;
+				$scope.collectorRateData = {};
+
+				$loading.start('sample-1');
+
+				var responseDistricts = $http
+					.get('fetchdticdistrictsmap');
+				responseDistricts
+					.success(
+						function(data, status, headers, config) {
+							$scope.districts = data;
+							angular
+								.forEach(
+									$scope.districts,
+									function(district) {
+										districtId = district.key;
+									});
+							$scope.collectorRateData.districtId = districtId
+								+ "";
+						})
+					.then(
+						function() {
+							var responsedtic = $http
+								.get('fetchdticmap');
+							responsedtic.success(function(data,
+								status, headers, config) {
+								$scope.dticList = data;
+								for (var i in $scope.dticList) {
+									dticId = i;
+								}
+								$scope.collectorRateData.dticId = dticId
+									+ "";
+							});
+
+							var responsePromise = $http.get('fetchFinancialYear');
+							responsePromise.success(function(data, status, headers, config) {
+								$scope.fyList = data;
+							});
+
+							var responseIndusAreas = $http
+								.get('fetchIndustrialAreaList');
+							responseIndusAreas
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.industrialAreaList = data;
+								});
+						})
+					.then(
+						function() {
+							var responseCollectorRate = $http.get('fetchCollectorRateById/' + $routeParams.collectorRateId);
+							responseCollectorRate.success(function(data, status, headers, config) {
+								$scope.collectorRateData.financialYearId = data.financialYearId + "";
+								/*$scope.collectorRateData.fyFrom = data.fyFrom;
+								$scope.collectorRateData.fyTo = data.fyTo;*/
+								$scope.collectorRateData.areaId = data.industrialAreaId + "";
+								$scope.collectorRateData.collectorRate = data.collectorRate;
+
+								$loading.finish('sample-1');
+							});
+						});
+
+			};
+
+			$scope.toggleForm = function() {
+				$loading.start('sample-1');
+				$scope.disabled = !$scope.disabled;
+				$loading.finish('sample-1');
+			};
+			//Code By Atul
+			$scope.refreshVacantLandData = function() {
+				$scope.vacantLandData.otherRentChargeReson = "";
+				$scope.vacantLandData.plotNumber = "";
+				$scope.vacantLandData.totalPlotArea = "";
+				$scope.vacantLandData.premiumCharge = "";
+				$scope.vacantLandData.developmentCharges = "";
+				$scope.vacantLandData.maintenanceCharges = "";
+				$scope.vacantLandData.leaseRent = "";
+				$scope.vacantLandData.securityDeposit = "";
+				$scope.vacantLandData.advanceRent = "";
+				$scope.vacantLandData.otherRentCharges = "";
+				$scope.vacantLandData.totalAmount = "";
+				$scope.vacantLandData.premiumCharges = "";
+				$scope.vacantLandData.bookingStartDate = "";
+				$scope.vacantLandData.bookingEndDate = "";
+
+
+			}
+			$scope.undevlopmentVisibilty = true;
+			$scope.fetchCategoryOfIndustry = function() {
+				
+				$http.get('fetchIndustrialCategories')
+					.then(function(response) {
+						$scope.categoryOfIndustryList = response.data;
+
+					}, function(error) {
+						// Handle error
+						console.error('Error fetching industrial categories:', error);
+					});
+				var selectedId = $scope.vacantLandData.industrialAreaId;
+
+				if (!$scope.industrialAreaList || $scope.industrialAreaList.length === 0) {
+					console.error("industrialAreaList is null or empty");
+					return;
+				}
+				// Find the selected area object by key
+
+				var selectedArea = $scope.industrialAreaList.find(function(item) {
+					return item.key == selectedId;
+				});
+
+				if (selectedArea.value && selectedArea.value.indexOf("Undeveloped Land") !== -1) {
+					// 1. Auto-select Old
+					$scope.vacantLandData.newArea = "Old";
+
+					// 2. Hide the radio field
+					$scope.showNewAreaField = false;
+
+				} else {
+					// For any other area:
+					$scope.showNewAreaField = true;
+					$scope.vacantLandData.newArea = "";  // reset
+				}
+
+
+			}
+
+			$scope.loadFYCollectorRates = function(industrialAreaId) {
+				if ($scope.industrialAreaRateData) {
+					$scope.industrialAreaRateData.collectorRateId = "";
+				}
+				if (industrialAreaId) {
+					$loading.start('sample-1');
+
+					var response = $http.get('loadFYCollectorRates/' + industrialAreaId);
+					response.success(function(data, status, headers, config) {
+						$scope.fyCollectorRatesList = data;
+					}).then(function() {
+						if ($scope.industrialAreaRateData) {
+							$scope.industrialAreaRateData.collectorRateId = "";
+							$scope.industrialAreaRateData.rateTypeId = "";
+						} else if ($scope.vacantLandData) {
+							$scope.vacantLandData.collectorRateId = "";
+						}
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+			$scope.loadBacklogLandAllotment = function() {
+				var districtId;
+				var dticId;
+				$scope.backlogData = {};
+				$loading.start('sample-1');
+
+				$scope.loadBacklogEntries();
+
+				var responseDistricts = $http
+					.get('fetchdticdistrictsmap');
+				responseDistricts
+					.success(
+						function(data, status, headers, config) {
+							$scope.districts = data;
+							angular
+								.forEach(
+									$scope.districts,
+									function(district) {
+										districtId = district.key;
+									});
+							$scope.backlogData.districtId = districtId
+								+ "";
+						})
+					.then(
+						function() {
+							var responsedtic = $http
+								.get('fetchdticmap');
+							responsedtic
+								.success(function(data,
+									status, headers,
+									config) {
+									$scope.dticList = data;
+									for (var i in $scope.dticList) {
+										dticId = i;
+									}
+									$scope.backlogData.dticId = dticId
+										+ "";
+									$loading
+										.finish('sample-1');
+								});
+						});
+			};
+
+			$scope.loadBacklogEntries = function() {
+				var response = $http.get('loadBacklogEntries');
+				response.success(function(data, status, headers, config) {
+					$scope.backlogEntries = data;
+				});
+			};
+
+			$scope.downloadBacklogDocument = function(backlogAllotmentId) {
+				$window.open('downloadBacklogDocument/' + backlogAllotmentId);
+			};
+
+			$scope.addBacklogLandAllotment = function(form, backlogFile) {
+				if (!form.$valid || !backlogFile) {
+					$scope.fileAbsent = true;
+					return false;
+				}
+				var fd = new FormData();
+
+				fd.append('districtId', $scope.backlogData.districtId);
+				fd.append('dticId', $scope.backlogData.dticId);
+
+				if (backlogFile) {
+					fd.append('backlogFile', backlogFile);
+				}
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post(
+					'addBacklogLandAllotment', fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+				responsePromise
+					.success(function(data, status, headers, config) {
+						$rootScope.responseObject = data;
+						$loading.finish('sample-1');
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 30000);
+						}
+						if ($rootScope.responseObject.errorMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.errorMessage = null;
+								}, 30000);
+							// $window.location.href =
+							// '#/dticCreateIndustrialArea';										
+						}
+						$scope.loadBacklogEntries();
+						$("#backlogFile").val('');
+					});
+			};
+
+			$scope.populateIAEditForm = function() {
+				if ($routeParams.locationId) {
+					var locationId = $routeParams.locationId;
+					var responsePromise = $http.get('fetchIADetails/'
+						+ locationId);
+					responsePromise
+						.success(function(data, status, headers,
+							config) {
+							$scope.industrialAreaData.tehsilId = data.tehsilId;
+							$scope.industrialAreaData.areaId = data.areaId;
+							$scope.industrialAreaData.location = data.location;
+							$scope.industrialAreaData.totalArea = data.totalArea;
+							$scope.industrialAreaData.mapName = data.mapName;
+							$scope.industrialAreaData.locationId = data.locationId;
+						});
+				}
+			};
+
+			$scope.fetchIAAndTehsilByDistrict = function(districtId) {
+				/*
+				 * var responseTehsils =
+				 * $http.get('fetchtehsilmapbydistrict', {params:
+				 * {'districtId': districtId}});
+				 * responseTehsils.success(function(data, status,
+				 * headers, config) { $scope.tehsils = data; });
+				 */
+				var responseTehsils = $http
+					.get('fetchtehsilmapbydticid');
+				responseTehsils.success(function(data, status, headers,
+					config) {
+					if (!$.trim(data)) {
+						var responseTehsils = $http.get(
+							'fetchtehsilmapbydistrict', {
+							params: {
+								'districtId': districtId
+							}
+						});
+						responseTehsils.success(function(data, status,
+							headers, config) {
+							$scope.tehsils = data;
+						});
+					} else {
+						$scope.tehsils = data;
+					}
+
+				});
+
+				var responseAreas = $http.get(
+					'fetchindustrialareamapbydistrict', {
+					params: {
+						'districtId': districtId
+					}
+				});
+				responseAreas.success(function(data, status, headers,
+					config) {
+					$scope.areas = data;
+				});
+			};
+
+			$scope.createIndustrialArea = function(form, mapImage) {
+				if (!form.$valid || !mapImage || $scope.maxSizeError || $scope.fileExtentionError) {
+					$scope.noFileError = true;
+					return false;
+				}
+				var fd = new FormData();
+
+				if (mapImage) {
+					fd.append('mapImage', mapImage);
+				}
+
+				fd.append('districtId',
+					$scope.industrialAreaData.districtId);
+				fd.append('tehsilId',
+					$scope.industrialAreaData.tehsilId);
+				fd.append('dticId', $scope.industrialAreaData.dticId);
+				fd.append('areaId', $scope.industrialAreaData.areaId);
+				fd.append('location',
+					$scope.industrialAreaData.location);
+				fd.append('totalArea',
+					$scope.industrialAreaData.totalArea);
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post('addIndustrialArea',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+						$loading.finish('sample-1');
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 5000);
+							$window.location.href = '#/dticCreateIndustrialArea';
+						}
+						$scope.industrialAreaData = {};
+						$("#mapImage").val('');
+						form.$setUntouched();
+						form.$setPristine();
+						$scope.loadIndustrialAreaTable();
+						$scope.loadCreateIndustrialArea();
+						/*
+						 * if($rootScope.responseObject.successMessage !=
+						 * null) {
+						 * 
+						 * $window.location.href =
+						 * '#dticCreateIndustrialArea'; }
+						 */
+
+					});
+			};
+
+			$scope.editIndustrialArea = function(form, mapImage) {
+				if (!form.$valid || $scope.maxSizeError || $scope.fileExtentionError) {
+					return false;
+				}
+				var fd = new FormData();
+
+				if (mapImage) {
+					fd.append('mapImage', mapImage);
+				}
+				if ($routeParams.locationId) {
+
+					fd.append('locationId', $routeParams.locationId);
+				}
+
+				fd.append('location',
+					$scope.industrialAreaData.location);
+				fd.append('totalArea',
+					$scope.industrialAreaData.totalArea);
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post('editIndustrialArea',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+						$loading.finish('sample-1');
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 5000);
+							$window.location.href = '#dticCreateIndustrialArea';
+						}
+					});
+			};
+
+			$scope.createCollectorRate = function(form) {
+
+				if (!form.$valid) {
+					return false;
+				}
+
+				var fd = new FormData();
+				fd.append('financialYearId', $scope.collectorRateData.financialYearId);
+				/*fd.append('fyFrom', $scope.collectorRateData.fyFrom);
+				fd.append('fyTo', $scope.collectorRateData.fyTo);*/
+				fd.append('industrialAreaId',
+					$scope.collectorRateData.areaId);
+				fd.append('collectorRate',
+					$scope.collectorRateData.collectorRate);
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post('addCollectorRate',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+						$rootScope.responseObject = data;
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 5000);
+						} else if ($rootScope.responseObject.errorMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.errorMessage = null;
+								}, 6000);
+						}
+					}).then(function() {
+						var responseIndusAreas = $http
+							.get('fetchCollectorRateList');
+						responseIndusAreas
+							.success(function(data,
+								status, headers,
+								config) {
+								$scope.collectorRateList = data;
+							});
+					}).then(function() {
+						$scope.collectorRateData.financialYearId = "";
+						/*$scope.collectorRateData.fyFrom = "";
+						$scope.collectorRateData.fyTo = "";*/
+						$scope.collectorRateData.areaId = "";
+						$scope.collectorRateData.collectorRate = "";
+						form.$setUntouched();
+						form.$setPristine();
+						$loading.finish('sample-1');
+					});
+			};
+
+
+			$scope.addSupplier = function(form, isValid) {
+
+				if (!isValid) {
+					return false;
+				}
+
+				if (confirm("Are you sure you want to save the data?")) {
+
+
+					$loading.start('sample-1');
+
+					var fd = new FormData();
+					fd.append('supplierName', $scope.supplierInfoData.supplierName);
+					fd.append('supplierTypeId', $scope.supplierInfoData.supplierTypeId);
+					fd.append('authorisedPersonName', $scope.supplierInfoData.authorisedPersonName);
+					fd.append('mobileNo', $scope.supplierInfoData.mobileNo);
+					fd.append('emailId', $scope.supplierInfoData.emailId);
+					fd.append('address', $scope.supplierInfoData.address);
+					fd.append('pin', $scope.supplierInfoData.pin);
+					fd.append('districtId', $scope.supplierInfoData.districtId);
+					fd.append('status', $scope.supplierInfoData.status);
+					fd.append('supplySource', $scope.supplierInfoData.supplySource);
+					fd.append('external', $scope.supplierInfoData.external);
+
+					/*fd.append('supplierName', $scope.supplierInfoData.supplierName);
+					fd.append('supplierName', $scope.supplierInfoData.supplierName);
+					fd.append('supplierName', $scope.supplierInfoData.supplierName);
+					fd.append('supplierName', $scope.supplierInfoData.supplierName);*/
+
+
+					var responsePromise = $http.post('addSupplier',
+						fd, {
+						transformRequest: angular.identity,
+						headers: {
+							'Content-Type': undefined
+						}
+					});
+
+
+					responsePromise.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(function() {
+								$rootScope.responseObject.successMessage = null;
+							}, 10000);
+							$window.location.href = '#supplierNameList';
+						}
+						if ($rootScope.responseObject.errorMessage != null) {
+							$timeout(function() {
+								$rootScope.responseObject.errorMessage = null;
+							}, 10000);
+						}
+						$loading.finish('sample-1');
+					});
+					responsePromise.error(function() {
+						$rootScope.responseObject = {};
+						$rootScope.responseObject.errorMessage = "Some error occured while saving the data";
+						$timeout(function() {
+							$rootScope.responseObject.errorMessage = null;
+						}, 10000);
+						$loading.finish('sample-1');
+					});
+
+				}
+			};
+
+
+
+
+
+
+			$scope.updateCollectorRate = function(form) {
+
+				if (!form.$valid) {
+					return false;
+				}
+
+				var fd = new FormData();
+				fd.append('financialYearId', $scope.collectorRateData.financialYearId);
+				/*fd.append('fyFrom', $scope.collectorRateData.fyFrom);
+				fd.append('fyTo', $scope.collectorRateData.fyTo);*/
+				fd.append('industrialAreaId',
+					$scope.collectorRateData.areaId);
+				fd.append('collectorRate',
+					$scope.collectorRateData.collectorRate);
+				fd.append('collectorRateId', $routeParams.collectorRateId);
+
+				$loading.start('sample-1');
+
+				var responsePromise = $http.post('updateCollectorRate',
+					fd, {
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					}
+				});
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+						$rootScope.responseObject = data;
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 5000);
+						} else if ($rootScope.responseObject.errorMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.errorMessage = null;
+								}, 6000);
+						}
+						$loading.finish('sample-1');
+					});
+			};
+
+			$scope.deleteCollectorRate = function() {
+				$http.get('getMessage/common.confirmToDelete').then(function(response) {
+					/*if (confirm("Are you sure to delete this entry?")) {*/
+					if (confirm(response.data.value)) {
+
+						$loading.start('sample-1');
+
+						var responsePromise = $http.post('deleteCollectorRate/' + $routeParams.collectorRateId);
+						responsePromise.success(function(data, status, headers, config) {
+							$rootScope.responseObject = data;
+							if ($rootScope.responseObject.successMessage != null) {
+								$timeout(function() {
+									$rootScope.responseObject.successMessage = null;
+									$window.location.href = '#/dticCreateCollectorRate';
+								}, 1000);
+							} else if ($rootScope.responseObject.errorMessage != null) {
+								$timeout(function() {
+									$rootScope.responseObject.errorMessage = null;
+								}, 5000);
+							}
+							$loading.finish('sample-1');
+						});
+					}
+				});
+			};
+
+			$scope.industrialAreaList = null;
+			$scope.loadIndustrialAreaTable = function() {
+
+				var responsePromise = $http
+					.get('fetchIndustrialAreas/');
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.industrialAreaList = data;
+				});
+			};
+
+			$scope.downloadIndustrialAreaMap = function(locationId) {
+				$window.open('downloadIndustrialAreaMap/' + locationId);
+			};
+
+			$scope.loadCreateIndustrialAreaRate = function() {
+
+				/*
+				 * var districtId; $loading.start('sample-3');
+				 * 
+				 * var responseDistricts1 =
+				 * $http.get('fetchdticdistrictsmap');
+				 * 
+				 * responseDistricts1.success(function(data, status,
+				 * headers, config) { //$scope.districts = data;
+				 * angular.forEach(data, function(district){ districtId =
+				 * district.key; alert(districtId); });
+				 * $loading.finish('sample-3'); });
+				 */
+
+				$loading.start('sample-1');
+
+				var responseRateTypes = $http.get('fetchRateTypeList');
+
+				responseRateTypes.success(function(data, status,
+					headers, config) {
+					$scope.rateTypeList = data;
+					$loading.finish('sample-1');
+				});
+
+				/*
+				 * $loading.start('sample-2'); var responseIndusAreas1 =
+				 * $http.get('fetchindustrialareamapbydistrict',
+				 * {params: {'districtId': null}});
+				 * responseIndusAreas1.success(function(data, status,
+				 * headers, config) { $scope.industrialAreaList = data;
+				 * $loading.finish('sample-2'); });
+				 */
+
+				$loading.start('sample-2');
+				var responseIndusAreas = $http
+					.get('fetchIndustrialAreaList');
+
+				responseIndusAreas.success(function(data, status,
+					headers, config) {
+					$scope.industrialAreaList = data;
+					$loading.finish('sample-2');
+				});
+
+				// $scope.premiumAndLeaseDisabled= true;
+
+				if ($routeParams.industrialAreaRateId) {
+					$scope.disabled = true;
+
+					$loading.start('sample-3');
+					var responseRateTypes = $http.get('fetchIndustrialAreaRateById/' + $routeParams.industrialAreaRateId);
+					responseRateTypes.success(function(data, status, headers, config) {
+						$scope.industrialAreaRateData = data;
+					}).then(function() {
+						var response = $http.get('loadFYCollectorRates/' + $scope.industrialAreaRateData.industrialAreaId);
+						response.success(function(data2, status, headers, config) {
+							$scope.fyCollectorRatesList = data2;
+						});
+						$scope.industrialAreaRateData.industrialAreaId = $scope.industrialAreaRateData.industrialAreaId + "";
+						$scope.industrialAreaRateData.collectorRateId = $scope.industrialAreaRateData.collectorRateId + "";
+						$scope.industrialAreaRateData.rateTypeId = $scope.industrialAreaRateData.rateTypeId + "";
+						$loading.finish('sample-3');
+					});
+				}
+			};
+
+			$scope.fetchIndustrialAreaRates = function(collectorRateId) {
+				$scope.industrialAreaRatesList = {};
+				if (collectorRateId) {
+					$loading.start('sample-1');
+					var responseRates = $http
+						.get(
+							'fetchRatesByIndustrialArea',
+							{
+								params: {
+									'collectorRateId': collectorRateId
+								}
+							});
+					responseRates.success(function(data, status,
+						headers, config) {
+						$scope.industrialAreaRatesList = data;
+						$loading.finish('sample-1');
+					});
+				}
+			};
+
+			$scope.createIndustrialAreaRate = function(form) {
+				if (!form.$valid)
+					return false;
+				if ($scope.industrialAreaRateData.rateTypeId < 7) {
+					alert("Data submission for selected Approved Rate not allowed as these are the Old Approved rates.")
+					return false;
+				}
+
+				$loading.start('sample-1');
+
+				var industrialAreaId = $scope.industrialAreaRateData.industrialAreaId;
+				var collectorRateId = $scope.industrialAreaRateData.collectorRateId;
+
+				$scope.industrialAreaRateData.totalAmount = +($scope.industrialAreaRateData.premiumCharges)
+					+ +($scope.industrialAreaRateData.maintenanceCharges)
+					+ +($scope.industrialAreaRateData.developmentCharges)
+					+ +($scope.industrialAreaRateData.leaseRent)
+					+ +($scope.industrialAreaRateData.securityDeposit);
+				if ($scope.industrialAreaRateData.totalAmount == 0) {
+					$loading.finish('sample-1');
+					/* alert("Total amount must be greater than zero."); */
+					$http.get('getMessage/dtic.id.totalAmount').then(
+						function(response) {
+							alert(response.data.value);
+						});
+					return false;
+				}
+
+				var responsePromise = $http.post(
+					'addIndustrialAreaRate',
+					$scope.industrialAreaRateData);
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+
+						$rootScope.responseObject = data;
+						$loading.finish('sample-1');
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 5000);
+							$scope.industrialAreaRateData = {};
+							form.$setUntouched();
+							form.$setPristine();
+							//$scope.loadCreateIndustrialAreaRate();
+							$scope.industrialAreaRateData.industrialAreaId = industrialAreaId;
+							$scope.industrialAreaRateData.collectorRateId = collectorRateId;
+							$scope.fetchIndustrialAreaRates(collectorRateId);
+							//$scope.fetchIndustrialAreaRates(industrialAreaId);
+							$window.location.href = '#/dticCreateIndustrialAreaRate';
+							//$scope.industrialAreaRatesList = {};
+						}
+						/*
+						 * if($rootScope.responseObject.successMessage !=
+						 * null) {
+						 * 
+						 * $window.location.href =
+						 * '#dticCreateIndustrialAreaRate'; }
+						 */
+					});
+			};
+
+			$scope.updateIndustrialAreaRate = function(form) {
+				if (!form.$valid)
+					return false;
+
+				if ($scope.industrialAreaRateData.rateTypeId < 7) {
+					alert("Data updation for selected Approved Rate not allowed as these are the Old Approved rates.")
+					return false;
+				}
+
+				$loading.start('sample-1');
+
+				$scope.industrialAreaRateData.industrialAreaRateId = $routeParams.industrialAreaRateId;
+
+				$scope.industrialAreaRateData.totalAmount = +($scope.industrialAreaRateData.premiumCharges)
+					+ +($scope.industrialAreaRateData.maintenanceCharges)
+					+ +($scope.industrialAreaRateData.developmentCharges)
+					+ +($scope.industrialAreaRateData.leaseRent)
+					+ +($scope.industrialAreaRateData.securityDeposit);
+				if ($scope.industrialAreaRateData.totalAmount == 0) {
+					$loading.finish('sample-1');
+					/* alert("Total amount must be greater than zero."); */
+					$http.get('getMessage/dtic.id.totalAmount').then(
+						function(response) {
+							alert(response.data.value);
+						});
+					return false;
+				}
+
+				var responsePromise = $http.post(
+					'updateIndustrialAreaRate',
+					$scope.industrialAreaRateData);
+
+				responsePromise
+					.success(function(data, status, headers, config) {
+						$rootScope.responseObject = data;
+						$loading.finish('sample-1');
+						if ($rootScope.responseObject.successMessage != null) {
+							$timeout(
+								function() {
+									$rootScope.responseObject.successMessage = null;
+								}, 5000);
+							/*$window.location.href = '#/dticCreateIndustrialAreaRate';*/
+						}
+					});
+			};
+
+			$scope.fetchMasterRates = function() {
+				var rateTypeId = $scope.industrialAreaRateData.rateTypeId;
+				var collectorRateId = $scope.industrialAreaRateData.collectorRateId;
+
+
+
+				$scope.industrialAreaRateData.premiumCharges = undefined
+				$scope.industrialAreaRateData.developmentCharges = '100.00';
+				if (rateTypeId == 7 || rateTypeId == 8 || rateTypeId == 9 || rateTypeId == 10)
+					$scope.industrialAreaRateData.developmentCharges = '150.00';
+				$scope.industrialAreaRateData.maintenanceCharges = '10.00';
+				$scope.industrialAreaRateData.leaseRent = undefined;
+				$scope.industrialAreaRateData.securityDeposit = undefined;
+				/////////// for undeveloped land 
+
+				var areaId = $scope.industrialAreaRateData.industrialAreaId;
+				var responseArea = $http
+					.get(
+						'fetchAreaName',
+						{
+							params: {
+								'areaId': areaId
+
+							}
+						});
+
+				responseArea.success(function(data, status, headers, config) {
+					console.log(data);
+					var areaName = data.responseMessage;
+					if (areaName && areaName.toLowerCase().includes("undeveloped land".toLowerCase())) {
+                        $scope.industrialAreaRateData.developmentCharges = '0';
+                        $scope.industrialAreaRateData.maintenanceCharges = '0';
+                       }
+
+				});
+
+				/////////////////////		
+				if (collectorRateId && rateTypeId) {
+					$loading.start('sample-1');
+
+					var responseRates = $http
+						.get(
+							'fetchMasterRatesByCollectorRateId',
+							{
+								params: {
+									'collectorRateId': collectorRateId
+								}
+							});
+					responseRates
+						.success(function(data, status, headers,
+							config) {
+							var landRatePerSQM = data;
+							if (landRatePerSQM == 0) {
+								/*
+								 * alert("Master Collector Rates for
+								 * selected Industrial Area doesn't
+								 * exist. Please contact HO.");
+								 */
+								$http
+									.get(
+										'getMessage/dtic.id.masterRates')
+									.then(
+										function(response) {
+											alert(response.data.value);
+										});
+								$scope.industrialAreaRateData.collectorRateId = "";
+								$scope.industrialAreaRateData.rateTypeId = "";
+							} else {
+								var premiumCharges;
+								if (rateTypeId == 1) {
+									premiumCharges = (5 / 100)
+										* landRatePerSQM; // UPTO
+									// 500
+									// SQM
+									// - 5
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								} else if (rateTypeId == 2) {
+									premiumCharges = (10 / 100)
+										* landRatePerSQM;// 501
+									// TO
+									// 5000
+									// SQM
+									// - 10
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								} else if (rateTypeId == 3) {
+									premiumCharges = (20 / 100)
+										* landRatePerSQM;// 5001
+									// TO
+									// 20000
+									// SQM
+									// - 20
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								} else if (rateTypeId == 4) {
+									premiumCharges = (50 / 100)
+										* landRatePerSQM;// 20001
+									// TO
+									// 20000
+									// SQM
+									// - 50
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								} else if (rateTypeId == 5) {
+									premiumCharges = (75 / 100)
+										* landRatePerSQM;// 60001
+									// TO
+									// 20000
+									// SQM
+									// - 75
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								} else if (rateTypeId == 6) {
+									premiumCharges = (100 / 100)
+										* landRatePerSQM;// 200000
+									// TO
+									// 20000
+									// SQM
+									// - 100
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								}
+								else if (rateTypeId == 7) {
+									premiumCharges = (10 / 100)
+										* landRatePerSQM;// 200000
+									// TO
+									// 20000
+									// SQM
+									// - 100
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								}
+								else if (rateTypeId == 8) {
+									premiumCharges = (25 / 100)
+										* landRatePerSQM;// 200000
+									// TO
+									// 20000
+									// SQM
+									// - 100
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								}
+								else if (rateTypeId == 9) {
+									premiumCharges = (50 / 100)
+										* landRatePerSQM;// 200000
+									// TO
+									// 20000
+									// SQM
+									// - 100
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								}
+								else if (rateTypeId == 10) {
+									premiumCharges = (100 / 100)
+										* landRatePerSQM;// 200000
+									// TO
+									// 20000
+									// SQM
+									// - 100
+									// % of
+									// Rate/SQM
+									// $scope.premiumAndLeaseDisabled=
+									// true;
+								} else {
+									// premiumCharges = 0;
+									// $scope.premiumAndLeaseDisabled=
+									// false;
+								}
+								$scope.industrialAreaRateData.premiumCharges = premiumCharges;
+								if (premiumCharges) {
+									$scope.industrialAreaRateData.premiumCharges = parseFloat(
+										$scope.industrialAreaRateData.premiumCharges)
+										.toFixed(2);
+									$scope.industrialAreaRateData.leaseRent = (2 / 100)
+										* premiumCharges; // 2 %
+									// of
+									// Premium
+									$scope.industrialAreaRateData.leaseRent = parseFloat(
+										$scope.industrialAreaRateData.leaseRent)
+										.toFixed(2);
+
+									// 3 times of lease rent
+									$scope.industrialAreaRateData.securityDeposit = parseFloat(3 * $scope.industrialAreaRateData.leaseRent)
+										.toFixed(2);
+
+								}
+							}
+							$loading.finish('sample-1');
+						});
+				}
+			};
+
+			/*
+			 * $scope.updateTotalArea = function(plotLength, plotWidth){
+			 * 
+			 * if(plotLength && plotWidth){
+			 * $scope.vacantLandData.totalPlotArea = +(plotLength * 1) *
+			 * +(plotWidth * 1);
+			 * 
+			 * $scope.fetchRatesByIndustrialAreaId($scope.vacantLandData.industrialAreaId,
+			 * $scope.vacantLandData.totalPlotArea); } else {
+			 * $scope.vacantLandData.totalPlotArea = 0;
+			 * $scope.vacantLandData.premiumCharges = 0;
+			 * $scope.vacantLandData.developmentCharges = 0;
+			 * $scope.vacantLandData.maintenanceCharges = 0;
+			 * $scope.vacantLandData.leaseRent = 0;
+			 * $scope.vacantLandData.totalAmount = 0; } };
+			 */
+			$scope.onReservationChange = function(value) {
+
+				$scope.vacantLandData.totalPlotArea = "";
+				$scope.vacantLandData.premiumCharge = "";
+				$scope.vacantLandData.developmentCharges = "";
+				$scope.vacantLandData.maintenanceCharges = "";
+				$scope.vacantLandData.leaseRent = "";
+				$scope.vacantLandData.securityDeposit = "";
+				$scope.vacantLandData.advanceRent = "";
+				$scope.vacantLandData.otherRentCharges = "";
+				$scope.vacantLandData.otherRentChargeReson = "";
+				$scope.vacantLandData.totalAmount = "";
+				$scope.vacantLandData.premiumCharges = "";
+			};
+
+			$scope.fetchRatesByIndustrialAreaId = function(
+				collectorRateId, totalPlotArea) {
+				console.log($scope.vacantLandData);
+
+				var districtId = $scope.vacantLandData.districtId;
+				var plotShed = $scope.vacantLandData.plotShed;
+				var newArea = $scope.vacantLandData.newArea;
+				var category = "No";
+				if (plotShed === undefined) {
+					alert("Please select Plot/Shed!");
+					$scope.vacantLandData.totalPlotArea = "";
+					return false;
+				}
+
+				if (newArea === undefined) {
+					alert("Please select Plot/Shed!");
+					$scope.vacantLandData.totalPlotArea = "";
+					return false;
+				}
+				else if (newArea === 'New' && $scope.vacantLandData.category === undefined) {
+					alert("Please select Land is reserved for");
+					$scope.vacantLandData.totalPlotArea = "";
+					return false;
+				} else if (newArea === "Old") {
+					$scope.vacantLandData.category = "OpenForAll";
+				}
+
+				var category = $scope.vacantLandData.category;
+				// $scope.vacantLandData= {};
+				if (collectorRateId) {
+
+					$scope.vacantLandData.premiumCharges = 0.00;
+					$scope.vacantLandData.developmentCharges = 0.00;
+					$scope.vacantLandData.maintenanceCharges = 0.00;
+					$scope.vacantLandData.leaseRent = 0.00;
+					$scope.vacantLandData.securityDeposit = 0.00;
+					$scope.vacantLandData.advanceRent = 0.00;
+					$scope.vacantLandData.totalAmount = 0.00;
+
+					if (totalPlotArea
+						&& !angular.equals(totalPlotArea, 0)) {
+
+						$loading.start('sample-1');
+						/* var responseRates = $http
+							.get(
+								'fetchRatesByCollectorRateIdAndArea',
+								{
+									params: {
+										'collectorRateId': collectorRateId,
+										'totalArea': totalPlotArea
+									}
+								});*/
+						var responseRates = $http
+							.get(
+								'fetchRatesByCollectorRateIdAndAreaLeaseRent',
+								{
+									params: {
+										'collectorRateId': collectorRateId,
+										'totalArea': totalPlotArea,
+										'districtId': districtId,
+										'plotShed': plotShed,
+										'category': category
+									}
+								});
+
+
+						responseRates
+							.success(function(data, status,
+								headers, config) {
+								var calculatedAmounts = data;
+								$scope.vacantLandData.premiumCharges = parseFloat(
+									calculatedAmounts['premiumCharges'])
+									.toFixed(2);
+
+								$scope.vacantLandData.developmentCharges = parseFloat(
+									calculatedAmounts['developmentCharges'])
+									.toFixed(2);
+								/*if($scope.vacantLandData.plotShed=="Shed"){
+									$scope.vacantLandData.premiumCharges = 0;
+									$scope.vacantLandData.developmentCharges = 0;
+									
+								}*/
+								$scope.vacantLandData.maintenanceCharges = parseFloat(
+									calculatedAmounts['maintenanceCharges'])
+									.toFixed(2);
+								$scope.vacantLandData.leaseRent = parseFloat(
+									calculatedAmounts['leaseRent'])
+									.toFixed(2);
+								$scope.vacantLandData.advanceRent = parseFloat(
+									calculatedAmounts['advanceRent'])
+									.toFixed(2);
+
+								$scope.vacantLandData.securityDeposit = parseFloat(
+									calculatedAmounts['securityDeposit'])
+									.toFixed(2);
+
+								$scope.vacantLandData.totalAmount = parseFloat(
+									calculatedAmounts['totalAmount'])
+									.toFixed(2);
+
+								$scope.vacantLandData.totalAmountHidden = $scope.vacantLandData.totalAmount;
+
+								if ($scope.vacantLandData.totalAmount == null
+									|| $scope.vacantLandData.totalAmount == 0) {
+
+									$http
+										.get(
+											'getMessage/dtic.id.plotSizeRate')
+										.then(
+											function(
+												response) {
+												alert(response.data.value);
+												$scope.vacantLandData.totalPlotArea = "";
+											});
+								}
+								//atul 
+
+								if (plotShed === "plot") {
+									alert($scope.vacantLandData.premiumCharges);
+									$scope.vacantLandData.premiumCharges = parseFloat(
+										calculatedAmounts['premiumCharges']) / 2
+											.toFixed(2);
+
+
+								}
+								$loading.finish('sample-1');
+							});
+					}
+
+				}
+			};
+			$scope.updateTotalAmount = function() {
+				console.log("updateTotalAmount() function called");
+				console.log("Other charges:", $scope.vacantLandData.otherRentCharges);
+				console.log("Total amount before update:", $scope.vacantLandData.totalAmount);
+
+				// Parse other charges and total amount as floats
+
+				var otherCharges = parseFloat($scope.vacantLandData.otherRentCharges || 0); // Default to 0 if undefined				
+				var totalAmount = parseFloat($scope.vacantLandData.totalAmountHidden);
+				if ($scope.vacantLandData.plotShed === "Plot") {
+					if (!isNaN(otherCharges) && !isNaN(totalAmount)) {
+						// Add other charges to the total amount and round to 2 decimal places
+						$scope.vacantLandData.totalAmount = (otherCharges + totalAmount).toFixed(2);
+					} else {
+						alert("Invalid value encountered. Unable to update total amount.");
+					}
+
+					// Calculate expected total amount including all charges
+					var expectedTotal = parseFloat($scope.vacantLandData.premiumCharges) +
+						parseFloat($scope.vacantLandData.developmentCharges) +
+						parseFloat($scope.vacantLandData.maintenanceCharges) +
+						parseFloat($scope.vacantLandData.leaseRent) +
+						parseFloat($scope.vacantLandData.securityDeposit) +
+						parseFloat($scope.vacantLandData.advanceRent) +
+						otherCharges; // Use otherCharges directly here
+
+					// Compare the calculated total amount with the updated total amount
+					/*if (Math.abs($scope.vacantLandData.totalAmount - expectedTotal) > 0.0001) {
+						alert("Total amount not equal to expected!");
+					}*/
+				} else {
+					alert("Vacant land saved successfully");
+				}
+
+				console.log("Total amount after update:", $scope.vacantLandData.totalAmount);
+			};
+
+			$scope.toggleApplicationListChecks = function(check) {
+				$loading.start('sample-1');
+
+				for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+					if ($scope.idPendingApplicantList[i].status == "Submitted" ||
+						$scope.idPendingApplicantList[i].statusId == "40")
+						$scope.idPendingApplicantList[i].checkId = check;
+				}
+				$scope.countCheck();
+
+				$loading.finish('sample-1');
+			};
+			$scope.showH1Details = false;
+			$scope.h1Details = function() {
+				$scope.showH1Details = true;
+
+			}
+
+			$scope.showButton = true;
+			$scope.tenderInitiate = true;
+			$scope.isUndevelopedLandByApplicant = false;
+			$scope.getRejectCount = function() {
+				var counter = 0;
+
+
+				if (Array.isArray($scope.idPendingApplicantList) && $scope.idPendingApplicantList.length > 0) {
+					for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+
+
+						if ($scope.idPendingApplicantList[i].status == "Rejected") {
+							counter++;
+						}
+
+						if ($scope.idPendingApplicantList[i].statusId == "37") {
+							$scope.showTender = true;
+						}
+						if ($scope.idPendingApplicantList[i].statusId == "38") {
+							$scope.showCommitteeForm = true;
+
+						}
+						else if ($scope.idPendingApplicantList[i].statusId == "39") {
+
+							$scope.showButton = false;
+							$scope.showCommitteeForm = false;
+							$scope.tenderInitiate = false;
+
+						}
+						else if ($scope.idPendingApplicantList[i].statusId == "40") {
+							$scope.showButton = false;
+							$scope.showCommitteeForm = false;
+
+						}
+						else if ($scope.idPendingApplicantList[i].statusId == "41") {
+							$scope.showButton = false;
+							$scope.tenderInitiate = false;
+
+
+						}
+					}
+
+
+				}
+				return counter;
+			};
+
+
+
+			$scope.countCheck = function() {
+				$loading.start('sample-1');
+
+				var counter = 0;
+				for (var i = 0; i < $scope.idPendingApplicantList.length; i++) {
+					if ($scope.idPendingApplicantList[i].checkId) {
+						counter++;
+					}
+					if ($scope.idPendingApplicantList[i].isUndevelopedLandByApplicant) {
+						$scope.isUndevelopedLandByApplicant = true;
+					}
+				}
+				$scope.checkCount = counter;
+				$scope.check = (counter != $scope.idPendingApplicantList.length) ? false
+					: true;
+
+				$loading.finish('sample-1');
+			};
+
+			$scope.issueNotice = function(isValid) {
+				if (!isValid) {
+					return false;
+				}
+
+				$http
+					.get('getMessage/common.confirmToSave')
+					.then(
+						function(response) {
+							/*
+							 * if (confirm("Are you sure to
+							 * submit the form?")) {
+							 */
+							if (confirm(response.data.value)) {
+
+								var fd = new FormData();
+
+								if ($scope.document) {
+									fd.append('document',
+										$scope.document);
+								}
+								if ($scope.documentDesc) {
+									fd
+										.append(
+											'documentDesc',
+											$scope.documentDesc);
+								}
+								if ($scope.noticeData.noticeDate) {
+									fd
+										.append(
+											'noticeDate',
+											$scope.noticeData.noticeDate);
+								}
+								if ($scope.noticeData.reason) {
+									fd
+										.append(
+											'reason',
+											$scope.noticeData.reason);
+								}
+								if ($scope.noticeData.remark) {
+									fd
+										.append(
+											'remark',
+											$scope.noticeData.remark);
+								}
+								$loading.start('sample-1');
+
+								fd
+									.append(
+										'applicantId',
+										$routeParams.applicantId);
+
+								var responsePromise = $http
+									.post(
+										'issueNotice',
+										fd,
+										{
+											transformRequest: angular.identity,
+											headers: {
+												'Content-Type': undefined
+											}
+										});
+								responsePromise
+									.success(function(data,
+										status,
+										headers, config) {
+										$rootScope.responseObject = data;
+										if ($rootScope.responseObject.successMessage != null) {
+											$timeout(
+												function() {
+													$rootScope.responseObject.successMessage = null;
+												}, 5000);
+											$window.location.href = '#/noticeList';
+										}
+										$loading
+											.finish('sample-1');
+									});
+							}
+						});
+			};
+
+			$scope.loadNoticeDetails = function() {
+				$loading.start('sample-1');
+
+				var responsePromise = $http.get('loadNoticeDetails/'
+					+ $routeParams.noticeId);
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.noticeData = data;
+					$loading.finish('sample-1');
+				});
+			};
+
+			$scope.downloadNoticeDocument = function(documentId) {
+				$loading.start('sample-1');
+				$window.open('downloadNoticeDocument/' + documentId);
+				$loading.finish('sample-1');
+			};
+
+			$scope.saveComplianceStatus = function(isValid) {
+				if (!isValid) {
+					return false;
+				}
+
+				$http
+					.get('getMessage/common.confirmToSave')
+					.then(
+						function(response) {
+							/*
+							 * if (confirm("Are you sure to
+							 * submit the form?")) {
+							 */
+							if (confirm(response.data.value)) {
+
+								var fd = new FormData();
+
+								if ($scope.document) {
+									fd
+										.append(
+											'agreeDisagreeDocument',
+											$scope.document);
+								}
+								if ($scope.documentDesc) {
+									fd
+										.append(
+											'agreeDisagreeDocumentDesc',
+											$scope.documentDesc);
+								}
+								if ($scope.noticeData.complianceStatus) {
+									fd
+										.append(
+											'complianceStatus',
+											$scope.noticeData.complianceStatus);
+								}
+								if ($scope.noticeData.cancellationDate) {
+									fd
+										.append(
+											'cancellationDate',
+											$scope.noticeData.cancellationDate);
+								}
+								if ($scope.noticeData.cancellationReason) {
+									fd
+										.append(
+											'cancellationReason',
+											$scope.noticeData.cancellationReason);
+								}
+								if ($scope.noticeData.agreeDisagreeRemark) {
+									fd
+										.append(
+											'agreeDisagreeRemark',
+											$scope.noticeData.agreeDisagreeRemark);
+								}
+								$loading.start('sample-1');
+
+								fd.append('noticeId',
+									$routeParams.noticeId);
+
+								var responsePromise = $http
+									.post(
+										'saveComplianceStatus',
+										fd,
+										{
+											transformRequest: angular.identity,
+											headers: {
+												'Content-Type': undefined
+											}
+										});
+								responsePromise
+									.success(function(data,
+										status,
+										headers, config) {
+										$rootScope.responseObject = data;
+										if ($rootScope.responseObject.successMessage != null) {
+											$timeout(
+												function() {
+													$rootScope.responseObject.successMessage = null;
+												}, 5000);
+											$window.location.href = '#/noticeList';
+										}
+										$loading
+											.finish('sample-1');
+									});
+							}
+						});
+			};
+
+			$scope.downloadEsignedApplicationForm = function(esignedDocId) {
+				$window.open('downloadEsignDocument/' + esignedDocId);
+			};
+
+
+			$scope.downloadLOILetter = function(applicantId) {
+				$window
+					.open('downloadIdDocument/ID_LETTER_OF_INTENT_RELEASED/'
+						+ applicantId);
+			};
+			$scope.downloadCommitteeLetter = function(applicantId) {
+				$window
+					.open('downloadIdDocument/ID_LETTER_OF_COMMITTEE_DECISION/'
+						+ applicantId);
+			};
+			$scope.downloadLeaseLetter = function(applicantId) {
+				$window
+					.open('downloadIdDocument/ID_LETTER_OF_LEASE_DEED/'
+						+ applicantId);
+			};
+			$scope.downloadPossessionLetter = function(applicantId) {
+				$window
+					.open('downloadIdDocument/ID_LETTER_OF_POSSESSION_RELEASED/'
+						+ applicantId);
+			};
+			$scope.downloadEsignPossessionLetter = function() {
+				const applicantId = $routeParams.applicantId;
+				$window
+					.open('downloadIdDocument/APPLICATION_POSSESSION/'
+						+ applicantId);
+			};
+			$scope.downloadAllotmentLetter = function(applicantId) {
+				$window
+					.open('downloadIdDocument/ID_LETTER_OF_ALLOTMENT_RELEASED/'
+						+ applicantId);
+			};
+			$scope.downloadLOCLetter = function(applicantId) {
+				$window
+					.open('downloadIdDocument/ID_LETTER_OF_CONSENT_RELEASED/'
+						+ applicantId);
+			};
+
+			$scope.loadAnnualPaymentHistory = function() {
+				$loading.start('sample-1');
+
+				var responsePromise = $http
+					.get('fetchAnnualPaymentHistory/'
+						+ $routeParams.applicantId);
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.historyList = data;
+					$loading.finish('sample-1');
+				});
+			};
+			$scope.doTheBack = function() {
+				window.history.back();
+			};
+
+			$scope.loadHearingDetails = function(appealType) {
+				$loading.start('sample-1');
+
+				var responsePromise = $http.get('fetchHearingDetails/'
+					+ $routeParams.hearingId);
+				responsePromise
+					.success(function(data, status, headers, config) {
+						$scope.hearingData = data;
+						if (appealType == 'zonal')
+							$scope.conditionalData = data.appealConditionalDecisionZOBean;
+						else
+							$scope.conditionalData = data.appealConditionalDecisionICBean;
+						$loading.finish('sample-1');
+					});
+			};
+			/*
+			 * $scope.loadZOConditionalDecisionDetails = function() {
+			 * $loading.start('sample-1');
+			 * 
+			 * if($routeParams.decisionId){ var responsePromise =
+			 * $http.get('fetchZOConditionalDecisionDetails/'+$routeParams.decisionId);
+			 * responsePromise.success(function(data, status, headers,
+			 * config) { $scope.conditionalData = data;
+			 * $loading.finish('sample-1'); }); } };
+			 */
+
+			$scope.saveConditionalComplianceStatusZO = function(isValid) {
+				if (!isValid) {
+					return false;
+				}
+
+				$http
+					.get('getMessage/common.confirmToSave')
+					.then(
+						function(response) {
+							/*
+							 * if (confirm("Are you sure to
+							 * submit the form?")) {
+							 */
+							if (confirm(response.data.value)) {
+								var fd = new FormData();
+
+								if ($scope.document) {
+									fd
+										.append(
+											'dticComplianceDocument',
+											$scope.document);
+								}
+								if ($scope.documentDesc) {
+									fd
+										.append(
+											'dticComplianceDocumentDesc',
+											$scope.documentDesc);
+								}
+								if ($scope.conditionalData.dticComplianceStatus) {
+									fd
+										.append(
+											'dticComplianceStatus',
+											$scope.conditionalData.dticComplianceStatus);
+								}
+								if ($scope.conditionalData.dticComments) {
+									fd
+										.append(
+											'dticComments',
+											$scope.conditionalData.dticComments);
+								}
+								$loading.start('sample-1');
+
+								fd.append('appealHearingId',
+									$routeParams.hearingId);
+								if ($routeParams.decisionId) {
+									fd
+										.append(
+											'decisionId',
+											$routeParams.decisionId);
+								}
+
+								var responsePromise = $http
+									.post(
+										'saveConditionalComplianceStatusZO',
+										fd,
+										{
+											transformRequest: angular.identity,
+											headers: {
+												'Content-Type': undefined
+											}
+										});
+								responsePromise
+									.success(function(data,
+										status,
+										headers, config) {
+										$rootScope.responseObject = data;
+										if ($rootScope.responseObject.successMessage != null) {
+											$timeout(
+												function() {
+													$rootScope.responseObject.successMessage = null;
+												}, 5000);
+											$window.location.href = '#/noticeList';
+										}
+										$loading
+											.finish('sample-1');
+									});
+							}
+						});
+			};
+
+			/*
+			 * $scope.loadICConditionalDecisionDetails = function() {
+			 * $loading.start('sample-1');
+			 * 
+			 * if($routeParams.decisionId){ var responsePromise =
+			 * $http.get('fetchICConditionalDecisionDetails/'+$routeParams.decisionId);
+			 * responsePromise.success(function(data, status, headers,
+			 * config) { $scope.conditionalData = data;
+			 * $loading.finish('sample-1'); }); } };
+			 */
+
+			$scope.saveConditionalComplianceStatusIC = function(isValid) {
+				if (!isValid) {
+					return false;
+				}
+
+				$http
+					.get('getMessage/common.confirmToSave')
+					.then(
+						function(response) {
+							/*
+							 * if (confirm("Are you sure to
+							 * submit the form?")) {
+							 */
+							if (confirm(response.data.value)) {
+								var fd = new FormData();
+
+								if ($scope.document) {
+									fd
+										.append(
+											'dticComplianceDocument',
+											$scope.document);
+								}
+								if ($scope.documentDesc) {
+									fd
+										.append(
+											'dticComplianceDocumentDesc',
+											$scope.documentDesc);
+								}
+								if ($scope.conditionalData.dticComplianceStatus) {
+									fd
+										.append(
+											'dticComplianceStatus',
+											$scope.conditionalData.dticComplianceStatus);
+								}
+								if ($scope.conditionalData.dticComments) {
+									fd
+										.append(
+											'dticComments',
+											$scope.conditionalData.dticComments);
+								}
+								$loading.start('sample-1');
+
+								fd.append('appealHearingId',
+									$routeParams.hearingId);
+								if ($routeParams.decisionId) {
+									fd
+										.append(
+											'decisionId',
+											$routeParams.decisionId);
+								}
+
+								var responsePromise = $http
+									.post(
+										'saveConditionalComplianceStatusIC',
+										fd,
+										{
+											transformRequest: angular.identity,
+											headers: {
+												'Content-Type': undefined
+											}
+										});
+								responsePromise
+									.success(function(data,
+										status,
+										headers, config) {
+										$rootScope.responseObject = data;
+										if ($rootScope.responseObject.successMessage != null) {
+											$timeout(
+												function() {
+													$rootScope.responseObject.successMessage = null;
+												}, 5000);
+											$window.location.href = '#/noticeList';
+										}
+										$loading
+											.finish('sample-1');
+									});
+							}
+						});
+			};
+
+			$scope.loadAppealDetails = function() {
+				$loading.start('sample-1');
+
+				var responsePromise = $http.get('loadAppealDetails/'
+					+ $routeParams.appealId);
+				responsePromise.success(
+					function(data, status, headers, config) {
+						$scope.appealData = data;
+					}).then(
+						function() {
+							var responsePromise1 = $http
+								.get('loadAppealHearings/'
+									+ $routeParams.appealId);
+							responsePromise1.success(function(data,
+								status, headers, config) {
+								$scope.hearingList = data;
+								$loading.finish('sample-1');
+							});
+						});
+			};
+
+			$scope.loadAppealHearingDetails = function() {
+				$loading.start('sample-1');
+
+				var responsePromise = $http
+					.get('loadAppealHearingDetails/'
+						+ $routeParams.appealHearingId);
+				responsePromise
+					.success(function(data, status, headers, config) {
+						$scope.appealHearingData = data;
+						if ($scope.appealHearingData.hearingStatusId != null) {
+							$scope.appealHearingData.hearingStatusId = $scope.appealHearingData.hearingStatusId
+								+ "";
+						}
+						$loading.finish('sample-1');
+					});
+			};
+			$scope.loadAnnualPaymentDetails = function() {
+				$loading.start('sample-1');
+
+				var responsePromise = $http
+					.get('fetchAnnualPaymentDetails/'
+						+ $routeParams.paymentId);
+				responsePromise.success(function(data, status, headers,
+					config) {
+					$scope.paymentData = data;
+					$loading.finish('sample-1');
+				});
+			};
+
+			$scope.downloadBacklogForm = function() {
+				$window.open('downloadBacklogForm');
+			};
+
+			$scope.validateYear = function(collectorRateData) {
+				$scope.collectorRateData.fyFrom = $("#from").val();
+				$scope.collectorRateData.fyTo = $("#to").val();
+			};
+		});
+
+mpindustry

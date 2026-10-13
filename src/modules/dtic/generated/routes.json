@@ -1,0 +1,817 @@
+[
+  {
+    "path": "dticfapendingapplicantsunit",
+    "views": [
+      "dtic/fapendingapplicantsunit"
+    ],
+    "endpoint": "/dticfapendingapplicantsunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaapplicantHistory/:applicationId/:establishmentType",
+    "views": [
+      "applicant/fa/faHistory"
+    ],
+    "endpoint": "/viewFaHistory",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "dticfapendingapplicantsapparel",
+    "views": [
+      "dtic/fapendingapplicantsapparel"
+    ],
+    "endpoint": "/dticfapendingapplicantsapparel",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "dticfapendingapplicants",
+    "views": [
+      "dtic/fapendingapplicantsunit"
+    ],
+    "endpoint": "/dticfapendingapplicants",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faacceptanceamountdetailapparel/:applicationId",
+    "views": [
+      "dtic/viewdownloadfaacceptanceform",
+      "dtic/faacceptanceamountdetailapparel"
+    ],
+    "endpoint": "/faacceptanceamountdetailapparel",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faacceptanceamountdetailunit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewdownloadfaacceptanceform",
+      "dtic/faacceptanceamountdetailunit"
+    ],
+    "endpoint": "/faacceptanceamountdetailunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaacceptanceamountdetailunit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewdownloadfaacceptanceform",
+      "dtic/viewfaacceptanceamountdetailunit"
+    ],
+    "endpoint": "/viewfaacceptanceamountdetailunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fazonalacceptanceamountdetail/:applicationId",
+    "views": [
+      "dtic/viewdownloadfazonalacceptanceform",
+      "dtic/fazonalacceptanceamountdetail"
+    ],
+    "endpoint": "/fazonalacceptanceamountdetail",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faInspectionStatusUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/faInspectionStatusUnit"
+    ],
+    "endpoint": "/faInspectionStatusUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "querybydtic/:applicationId/:establishmentType",
+    "views": [
+      "dtic/querybydtic"
+    ],
+    "endpoint": "/querybydtic",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faCommitteeStatusUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/faCommitteeStatusUnit"
+    ],
+    "endpoint": "/faCommitteeStatusUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaCommitteeStatusUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewfaCommitteeStatusUnit"
+    ],
+    "endpoint": "/viewfaCommitteeStatusUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faCommitteesStatusUnit/:applicationIds/:establishmentType",
+    "views": [
+      "dtic/faCommitteesStatusUnit"
+    ],
+    "endpoint": "/faCommitteesStatusUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faDisbursementUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/faDisbursementUnit"
+    ],
+    "endpoint": "/faDisbursementUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faOtherUploadDocuments/:applicationId/:establishmentType",
+    "views": [
+      "dtic/faOtherUploadDocuments"
+    ],
+    "endpoint": "/faOtherUploadDocuments",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaDisbursementUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewfaDisbursementUnit"
+    ],
+    "endpoint": "/viewfaDisbursementUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewdownloadfaacceptanceform/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewdownloadfaacceptanceform"
+    ],
+    "endpoint": "/viewdownloadfaacceptanceform",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewdownloadfazonalacceptanceform/:applicationId",
+    "views": [
+      "dtic/viewdownloadfazonalacceptanceform"
+    ],
+    "endpoint": "/viewdownloadfazonalacceptanceform",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaschemesdetailsunit/:applicationId",
+    "views": [
+      "applicant/fa/viewFASchemesUnit"
+    ],
+    "endpoint": "/fa/viewfaschemesdetailsunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaschemesdetailsapparel/:applicationId",
+    "views": [
+      "applicant/fa/viewFASchemesApparel"
+    ],
+    "endpoint": "/fa/viewfaschemesdetailsapparel",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/fetchfaschemes/:applicationId",
+    "views": [
+      "applicant/fa/viewFASchemesUnit"
+    ],
+    "endpoint": "/fa/fetchfaschemes",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfadocumentsuploadunit/:applicationId",
+    "views": [
+      "applicant/fa/viewFADocumentsUploadUnit"
+    ],
+    "endpoint": "/fa/viewfadocumentsuploadunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfadocumentsuploadapparel/:applicationId",
+    "views": [
+      "applicant/fa/viewFADocumentsUploadApparel"
+    ],
+    "endpoint": "/fa/viewfadocumentsuploadapparel",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaapplicantdetailunit/:applicationId",
+    "views": [
+      "applicant/fa/viewFADetailUnit"
+    ],
+    "endpoint": "/fa/viewfaapplicantdetailunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaapplicantdetailunitnew/:applicationId",
+    "views": [
+      "applicant/fa/viewFADetailUnitNew2"
+    ],
+    "endpoint": "/fa/viewfaapplicantdetailunitnew",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaapplicantdetailapparel/:applicationId",
+    "views": [
+      "applicant/fa/viewFADetailApparel"
+    ],
+    "endpoint": "/fa/viewfaapplicantdetailapparel",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/viewfaapplicantdetailapparelnew/:applicationId",
+    "views": [
+      "applicant/fa/viewFADetailApparelNew"
+    ],
+    "endpoint": "/fa/viewfaapplicantdetailapparelnew",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/newapplicantform",
+    "views": [
+      "dtic/fapendingapplicantsunit"
+    ],
+    "endpoint": "/fa/newapplicantform",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/newapplicantformapparel",
+    "views": [
+      "dtic/fapendingapplicantsapparel"
+    ],
+    "endpoint": "/fa/newapplicantformapparel",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faZonalStatusUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/faZonalStatusUnit"
+    ],
+    "endpoint": "/faZonalStatusUnit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "fa/financialAssistanceTracking/:applicationId",
+    "views": [
+      "applicant/fa/financialAssistanceTracking"
+    ],
+    "endpoint": "/fa/financialAssistanceTracking",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaapplicantdetail/:applicationId",
+    "views": [
+      "applicant/fa/viewFADetailUnitNew2"
+    ],
+    "endpoint": "/fa/viewfaapplicantdetailunitnew",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaapplicantdetailunit/:applicationId",
+    "views": [
+      "applicant/fa/viewFADetailUnitNew2"
+    ],
+    "endpoint": "/fa/viewfaapplicantdetailunitnew",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaschemesdetails/:applicationId",
+    "views": [
+      "applicant/fa/viewFASchemesUnit"
+    ],
+    "endpoint": "/fa/viewfaschemesdetailsunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "viewfaschemesdetailsunit/:applicationId",
+    "views": [
+      "applicant/fa/viewFASchemesUnit"
+    ],
+    "endpoint": "/fa/viewfaschemesdetailsunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "faapplicants",
+    "views": [
+      "dtic/fapendingapplicantsunit"
+    ],
+    "endpoint": "/dticfapendingapplicantsunit",
+    "controller": "DTICFAController"
+  },
+  {
+    "path": "dashboard",
+    "views": [
+      "dtic/dashboard"
+    ],
+    "endpoint": "/dashboard",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewtotalapplications",
+    "views": [
+      "dtic/allapplicationslist"
+    ],
+    "endpoint": "/viewtotalapplications",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewnewapplications",
+    "views": [
+      "dtic/applicationslistbystatus"
+    ],
+    "endpoint": "/viewnewapplications",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewsendbackapplications",
+    "views": [
+      "dtic/sendbackapplicationslist"
+    ],
+    "endpoint": "/viewsendbackapplications",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewresubmittedapplications",
+    "views": [
+      "dtic/resubmittedapplicationslist"
+    ],
+    "endpoint": "/viewresubmittedapplications",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationsacceptedbydtic",
+    "views": [
+      "dtic/viewapplicationsacceptedbydtic"
+    ],
+    "endpoint": "/viewapplicationsacceptedbydtic",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationsrejectedbydtic",
+    "views": [
+      "dtic/viewapplicationsrejectedbydtic"
+    ],
+    "endpoint": "/viewapplicationsrejectedbydtic",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationsacceptedbydtfc",
+    "views": [
+      "dtic/viewapplicationsacceptedbydtfc"
+    ],
+    "endpoint": "/viewapplicationsacceptedbydtfc",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationsrejectedbydtfc",
+    "views": [
+      "dtic/viewapplicationsrejectedbydtfc"
+    ],
+    "endpoint": "/viewapplicationsrejectedbydtfc",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationsacceptedbybank",
+    "views": [
+      "dtic/viewapplicationsacceptedbybank"
+    ],
+    "endpoint": "/viewapplicationsacceptedbybank",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationsrejectedbybank",
+    "views": [
+      "dtic/viewapplicationsrejectedbybank"
+    ],
+    "endpoint": "/viewapplicationsrejectedbybank",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "dticpendingapplicants",
+    "views": [
+      "dtic/applicantlist"
+    ],
+    "endpoint": "/dticpendingapplicants",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicantdetail/:applicantId",
+    "views": [
+      "dtic/viewapplicantdetail"
+    ],
+    "endpoint": "/viewapplicantdetail",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewyuapplicantdetail/:applicantId",
+    "views": [
+      "dtic/viewyuapplicantdetail"
+    ],
+    "endpoint": "/viewyuapplicantdetail",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewdocumentdetail/:applicantId",
+    "views": [
+      "dtic/viewapplicantdocuments"
+    ],
+    "endpoint": "/viewdocumentdetail",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewyudocumentdetail/:applicantId",
+    "views": [
+      "dtic/viewyuapplicantdocuments"
+    ],
+    "endpoint": "/viewyudocumentdetail",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewschemedetailform/:applicantId",
+    "views": [
+      "dtic/viewBusinessScheme",
+      "dtic/viewserviceorindustryscheme"
+    ],
+    "endpoint": "/viewschemedetailform",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewprojectreportform/:applicantId",
+    "views": [
+      "dtic/viewprojectreportpending",
+      "dtic/viewprojectreport"
+    ],
+    "endpoint": "/viewprojectreportform",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewyuprojectreportform/:applicantId",
+    "views": [
+      "dtic/viewyuprojectreportpending",
+      "dtic/viewyuprojectreport"
+    ],
+    "endpoint": "/viewyuprojectreportform",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "dticpendingyuvaudhami",
+    "views": [
+      "dtic/yuvaudhamiapplicantlist"
+    ],
+    "endpoint": "/dticpendingyuvaudhami",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "dticinprocessapplicants",
+    "views": [
+      "dtic/inprocessapplicantlist"
+    ],
+    "endpoint": "/dticinprocessapplicants",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "dticinprocessyuvaudhami",
+    "views": [
+      "dtic/inprocessyuvaudhamiapplicants"
+    ],
+    "endpoint": "/dticinprocessyuvaudhami",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "dticresubmittedapplicants",
+    "views": [
+      "dtic/resubmittedapplicantlist"
+    ],
+    "endpoint": "/dticresubmittedapplicants",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "dticresubmittedyuvaudhami",
+    "views": [
+      "dtic/resubmittedyuvaudhamiapplicantlist"
+    ],
+    "endpoint": "/dticresubmittedyuvaudhami",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewtfcletterform/:schemeType",
+    "views": [
+      "dtic/viewtfcletterform"
+    ],
+    "endpoint": "/viewtfcletterform",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationlist",
+    "views": [
+      "dtic/msmeapplicationlist"
+    ],
+    "endpoint": "/viewapplicationlist",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "viewmsmedetail/:msmeDetailId",
+    "views": [
+      "dtic/viewmsmedetail"
+    ],
+    "endpoint": "/viewmsmedetail",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "viewmsmeform",
+    "views": [
+      "dtic/viewmsmeform"
+    ],
+    "endpoint": "/viewmsmeform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "serviceenterprisereportform",
+    "views": [
+      "dtic/serviceenterprisereportform"
+    ],
+    "endpoint": "/serviceenterprisereportform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "manufacturingenterprisereportform",
+    "views": [
+      "dtic/manufacturingenterprisereportform"
+    ],
+    "endpoint": "/manufacturingenterprisereportform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "microlevelreportform",
+    "views": [
+      "dtic/microlevelreportform"
+    ],
+    "endpoint": "/microlevelreportform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "smalllevelreportform",
+    "views": [
+      "dtic/smalllevelreportform"
+    ],
+    "endpoint": "/smalllevelreportform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "mediumlevelreportform",
+    "views": [
+      "dtic/mediumlevelreportform"
+    ],
+    "endpoint": "/mediumlevelreportform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "viewmsmeeditform/:msmeDetailId",
+    "views": [
+      "dtic/viewmsmeeditform"
+    ],
+    "endpoint": "/viewmsmeeditform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "uploadBankCoveringLetter/:applicantId/:schemeCategory",
+    "views": [
+      "dtic/uploadBankCoveringLetter"
+    ],
+    "endpoint": "/uploadBankCoveringLetter",
+    "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "allocatedBudgetDetails",
+    "views": [
+      "dtic/budgetPlanning/allocatedBudgetDetails"
+    ],
+    "endpoint": "/allocatedBudgetDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "allocatedBudgetDetails/:financialYearId",
+    "views": [
+      "dtic/budgetPlanning/allocatedBudgetDetails"
+    ],
+    "endpoint": "/allocatedBudgetDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "allocatedBudgetDetails/:financialYearId/:quarterId",
+    "views": [
+      "dtic/budgetPlanning/allocatedBudgetDetails"
+    ],
+    "endpoint": "/allocatedBudgetDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "headsBudgetDetails/:financialYearId/:quarterId",
+    "views": [
+      "dtic/budgetPlanning/headsBudgetDetails"
+    ],
+    "endpoint": "/headsBudgetDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "demandBudgetDetails",
+    "views": [
+      "dtic/budgetPlanning/demandBudgetDetails"
+    ],
+    "endpoint": "/demandBudgetDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "demandBudgetDetails/:financialYearId",
+    "views": [
+      "dtic/budgetPlanning/demandBudgetDetails"
+    ],
+    "endpoint": "/demandBudgetDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "generateBudgetDemand/:financialYearId",
+    "views": [
+      "dtic/budgetPlanning/generateBudgetDemand"
+    ],
+    "endpoint": "/generateBudgetDemand",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "viewBudgetDemand/:dticDemandId",
+    "views": [
+      "dtic/budgetPlanning/viewBudgetDemand"
+    ],
+    "endpoint": "/viewBudgetDemand",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "printBudgetDemand/:dticDemandId",
+    "views": [
+      "dtic/budgetPlanning/printBudgetDemand"
+    ],
+    "endpoint": "/printBudgetDemand",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "viewAllocatedBudgetDemand/:dticDemandId",
+    "views": [
+      "dtic/budgetPlanning/viewAllocatedBudgetDemand"
+    ],
+    "endpoint": "/viewAllocatedBudgetDemand",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "usesSurrenderDetails",
+    "views": [
+      "dtic/budgetPlanning/usesSurrenderDetails"
+    ],
+    "endpoint": "/usesSurrenderDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "usesSurrenderDetails/:financialYearId",
+    "views": [
+      "dtic/budgetPlanning/usesSurrenderDetails"
+    ],
+    "endpoint": "/usesSurrenderDetails",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "viewUsesSurrender/:financialYearId/:quarterId",
+    "views": [
+      "dtic/budgetPlanning/viewUsesSurrender"
+    ],
+    "endpoint": "/viewUsesSurrender",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "printUsesSurrender/:financialYearId/:quarterId",
+    "views": [
+      "dtic/budgetPlanning/printUsesSurrender"
+    ],
+    "endpoint": "/printUsesSurrender",
+    "controller": "DTICBudgetPlanningController"
+  },
+  {
+    "path": "inspectionDetails",
+    "views": [
+      "dtic/coordination/inspectionDetails"
+    ],
+    "endpoint": "/inspectionDetails",
+    "controller": "DTICCoordinationController"
+  },
+  {
+    "path": "viewRoster/:inspectionOfficeId",
+    "views": [
+      "dtic/coordination/viewRoster"
+    ],
+    "endpoint": "/viewRoster",
+    "controller": "DTICCoordinationController"
+  },
+  {
+    "path": "viewEditRoster/:inspectionOfficeId",
+    "views": [
+      "dtic/coordination/viewEditRoster"
+    ],
+    "endpoint": "/viewEditRoster",
+    "controller": "DTICCoordinationController"
+  },
+  {
+    "path": "printRoster/:inspectionOfficeId",
+    "views": [
+      "dtic/coordination/printRoster"
+    ],
+    "endpoint": "/printRoster",
+    "controller": "DTICCoordinationController"
+  },
+  {
+    "path": "internalAuditList",
+    "views": [
+      "dtic/audit/internalAuditListForDTIC"
+    ],
+    "endpoint": "/internalAuditListForDTIC",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "viewInternalAudit/:rosterId",
+    "views": [
+      "audit/viewInternalAuditDetails"
+    ],
+    "endpoint": "/viewInternalAudit",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "externalauditlist",
+    "views": [
+      "dtic/audit/externalAuditListForDTIC"
+    ],
+    "endpoint": "/externalAuditListForDTIC",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "viewExternalAudit/:rosterId",
+    "views": [
+      "audit/viewExternalAuditDetails"
+    ],
+    "endpoint": "/viewExternalAudit",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "dticExternalAuditEnterOpinion/:rosterId",
+    "views": [
+      "dtic/audit/dticExternalAuditEnterOpinion"
+    ],
+    "endpoint": "/dticExternalAuditEnterOpinion",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "dticInternalAuditEnterOpinion/:rosterId",
+    "views": [
+      "dtic/audit/dticInternalAuditEnterOpinion"
+    ],
+    "endpoint": "/dticInternalAuditEnterOpinion",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "factualdetaillist",
+    "views": [
+      "dtic/audit/factualDetailListForDTIC"
+    ],
+    "endpoint": "/factualDetailListForDTIC",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "viewFactualDetail/:factualDetailId",
+    "views": [
+      "audit/viewFactualDetails"
+    ],
+    "endpoint": "/viewFactualDetail",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "dticFactualDetailEnterOpinion/:factualDetailId",
+    "views": [
+      "dtic/audit/dticFactualDetailEnterOpinion"
+    ],
+    "endpoint": "/dticFactualDetailEnterOpinion",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "proformaclauselist",
+    "views": [
+      "dtic/audit/proformaClauseListForDTIC"
+    ],
+    "endpoint": "/proformaClauseListForDTIC",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "dticProformaClauseEnterOpinion/:proformaId",
+    "views": [
+      "dtic/audit/dticProformaClauseEnterOpinion"
+    ],
+    "endpoint": "/dticProformaClauseEnterOpinion",
+    "controller": "AuditDTICController"
+  },
+  {
+    "path": "viewProformaClause/:proformaId",
+    "views": [
+      "audit/viewProformaClause"
+    ],
+    "endpoint": "/viewProformaClause",
+    "controller": "AuditDTICController"
+  }
+]

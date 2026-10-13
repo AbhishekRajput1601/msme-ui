@@ -1,0 +1,10 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewVacantLandForm(HttpServletRequest request) {
+
+		
+
+		ModelAndView modelAndView = new ModelAndView("dtic/dticVacantLandForm");
+		return modelAndView;
+	}
+
+	

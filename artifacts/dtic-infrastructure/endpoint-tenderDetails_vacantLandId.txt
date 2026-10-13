@@ -1,0 +1,9 @@
+)
+	public ModelAndView tenderDetails(@PathVariable Long vacantLandId) {
+		ModelAndView modelAndView = new ModelAndView("dtic/tenderDetails");
+		TenderInfo tenderInfo = idService.getTenderInfoByVacantLandId(vacantLandId);
+		modelAndView.addObject("tenderInfo", tenderInfo);
+		return modelAndView;
+	}
+
+	

@@ -1,0 +1,7 @@
+, method = RequestMethod.GET)
+	public ModelAndView resetApplication(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/id/resetApplication");
+		return modelAndView;
+	}
+
+	

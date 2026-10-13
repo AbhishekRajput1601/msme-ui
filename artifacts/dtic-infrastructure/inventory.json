@@ -1,0 +1,4166 @@
+{
+  "dtic/viewIdDocumentsUpload": {
+    "source": "pages\\dtic\\viewIdDocumentsUpload.html",
+    "fields": [],
+    "events": [
+      "downloadDocument(applicantDocument.documentTypeShort)",
+      "loadDocumentsList()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/viewApplicationDetail/{{applicantId}}/{{vacantLandId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-init",
+      "data-ng-repeat"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/dticVacantLandList": {
+    "source": "pages\\dtic\\dticVacantLandList.html",
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "Verify",
+        "name": "verify",
+        "ng-model": "verify"
+      },
+      {
+        "required": "required",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.industrialAreaId",
+        "data-ng-change": "searchLandDatabyAreaFilters()"
+      }
+    ],
+    "events": [
+      "loadLandAllotmentDetailList()",
+      "searchByLegecyDataFilters()",
+      "searchLandDatabyAreaFilters()"
+    ],
+    "links": [],
+    "directives": [
+      "data-ng-change",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-submit",
+      "ng-model"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/eSignViewAllotmentLetter": {
+    "source": "pages\\dtic\\eSignViewAllotmentLetter.html",
+    "fields": [
+      {
+        "type": "radio",
+        "ng-model": "signOption",
+        "value": "eSign",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "ng-model": "signOption",
+        "value": "DSC",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "required": "required",
+        "id": "aadhaarLast4Digits",
+        "data-ng-model": "aadhaarLast4Digits",
+        "name": "aadhaarLast4Digits",
+        "type": "text",
+        "maxlength": "4"
+      },
+      {
+        "type": "hidden",
+        "data-ng-model": "applicationData.applicantId"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "remark",
+        "data-ng-model": "remark",
+        "name": "remark",
+        "maxlength": "800"
+      },
+      {
+        "type": "hidden",
+        "name": "msg",
+        "value": "",
+        "id": "msg"
+      }
+    ],
+    "events": [
+      "digitalSignAo()",
+      "eSignAppDetailFormAO(form.$valid, unsignedFile)",
+      "loadAllotmentLetterData();generateLOILetter()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "style": "margin-bottom: 25px",
+        "href": "#id/landApplications"
+      },
+      {
+        "th:href": "@{/DigitalSignSetup.msi}",
+        "target": "_blank"
+      },
+      {
+        "th:href": "@{/Digital_Signature_Setup.pptx}",
+        "target": "_blank"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit",
+      "ng-click",
+      "ng-if",
+      "ng-model",
+      "ng-repeat"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/dticVacantLandForm": {
+    "source": "pages\\dtic\\dticVacantLandForm.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.industrialAreaId",
+        "data-ng-change": "fetchIndustrialAreaLocations(vacantLandData.industrialAreaId);loadFYCollectorRates(vacantLandData.industrialAreaId);fetchCategoryOfIndustry()"
+      },
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "vacantLandData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectTehsil",
+        "name": "tehsil",
+        "data-ng-model": "vacantLandData.tehsilId",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.newArea",
+        "name": "newArea",
+        "value": "New",
+        "id": "reservedST",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.newArea",
+        "name": "newArea",
+        "value": "Old",
+        "id": "reservedAll",
+        "required": ""
+      },
+      {
+        "required": "required",
+        "name": "collectorRateId",
+        "id": "collectorRateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.collectorRateId",
+        "data-ng-change": "loadVacantLandList(vacantLandData.collectorRateId)"
+      },
+      {
+        "id": "selectArea",
+        "required": "required",
+        "name": "indusArea",
+        "data-ng-model": "vacantLandData.locationId",
+        "class": [
+          "form-control"
+        ]
+      },
+      {
+        "required": "",
+        "name": "categoryOfIndustry",
+        "id": "selectCategoryOfIndustry",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.categoryOfIndustryId"
+      },
+      {
+        "required": "required",
+        "id": "selectVacantLandPurpose",
+        "data-ng-model": "vacantLandData.purposeId",
+        "class": [
+          "form-control"
+        ],
+        "name": "purpose"
+      },
+      {
+        "required": "required",
+        "id": "selectVacantLandPlotShed",
+        "data-ng-model": "vacantLandData.plotShed",
+        "class": [
+          "form-control"
+        ],
+        "name": "plotShed",
+        "data-ng-change": "refreshVacantLandData()"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.plotNumber",
+        "name": "plotNumber",
+        "maxlength": "300"
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.category",
+        "name": "reservedCategory",
+        "value": "SC",
+        "id": "reservedSC",
+        "data-ng-change": "onReservationChange('SC')",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.category",
+        "name": "reservedCategory",
+        "value": "ST",
+        "id": "reservedST",
+        "data-ng-change": "onReservationChange('ST')",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.category",
+        "name": "reservedCategory",
+        "value": "OpenForAll",
+        "id": "reservedAll",
+        "data-ng-change": "onReservationChange('OpenForAll')",
+        "required": ""
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number10",
+          "number-only"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.totalPlotArea",
+        "name": "totalPlotArea",
+        "data-ng-change": "fetchRatesByIndustrialAreaId(vacantLandData.collectorRateId, vacantLandData.totalPlotArea);cancel($event)",
+        "data-ng-model-options": "{updateOn: 'default blur', debounce: {default: 500, blur: 0} }",
+        "data-ng-keyup": "cancel($event)",
+        "maxlength": "10"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.premiumCharges",
+        "name": "premiumCharges",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.developmentCharges",
+        "name": "developmentCharges",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.maintenanceCharges",
+        "name": "maintenanceCharges",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.leaseRent",
+        "name": "leaseRent",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.securityDeposit",
+        "name": "securityDeposit",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.advanceRent",
+        "name": "advanceRent",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control",
+          "number10",
+          "number-only"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.otherRentCharges",
+        "name": "otherRentCharges",
+        "data-ng-change": "updateTotalAmount()",
+        "data-ng-model-options": "{updateOn: 'default blur', debounce: {default: 500, blur: 0} }",
+        "maxlength": "10"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.otherRentChargeReson",
+        "name": "otherRentChargeReson"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.totalAmount",
+        "name": "totalAmount",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "hidden",
+        "data-ng-model": "vacantLandData.totalAmountHidden",
+        "name": "securityDepositHidden",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "vacantLandData.bookingStartDate",
+        "name": "bookingStartsFrom",
+        "type": "text",
+        "data-ng-change": "onDateChange()",
+        "autocomplete": "off"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateEnd"
+        ],
+        "id": "dateEnd",
+        "data-ng-model": "vacantLandData.bookingEndDate",
+        "name": "bookingEndOn",
+        "type": "text",
+        "data-ng-change": "onEndDateChange()",
+        "autocomplete": "off"
+      },
+      {
+        "type": "file",
+        "accept": ".pdf,.jpg,.png,.gif",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "mapImage",
+        "name": "mapImage",
+        "id": "mapImage"
+      },
+      {
+        "type": "checkbox",
+        "class": [
+          "form-check-input"
+        ],
+        "ng-model": "vacantLandData.hasGoogleMap",
+        "id": "hasGoogleMap"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "googleMap",
+        "ng-model": "vacantLandData.googleMap",
+        "required": "",
+        "ng-pattern": "/^https:\\/\\/maps\\.app\\.goo\\.gl\\/.+$/"
+      },
+      {
+        "type": "checkbox",
+        "class": [
+          "form-check-input"
+        ],
+        "ng-model": "vacantLandData.kmlUpload",
+        "id": "kmlUpload"
+      },
+      {
+        "type": "file",
+        "id": "KMLFilePdf",
+        "name": "KMLFilePdf",
+        "accept": ".kml",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "vacantLandData.wdtKmlFile"
+      }
+    ],
+    "events": [
+      "addVacantLandDetailFunction(vacantLandForm.$valid, mapImage,vacantLandData.wdtKmlFile)",
+      "downloadVacantLandMap(land.vacantLandId)",
+      "fetchIndustrialAreaLocations(vacantLandData.industrialAreaId);loadFYCollectorRates(vacantLandData.industrialAreaId);fetchCategoryOfIndustry()",
+      "fetchRatesByIndustrialAreaId(vacantLandData.collectorRateId, vacantLandData.totalPlotArea);cancel($event)",
+      "loadVacantLandFormDetail()",
+      "loadVacantLandList(vacantLandData.collectorRateId)",
+      "onDateChange()",
+      "onEndDateChange()",
+      "onReservationChange('OpenForAll')",
+      "onReservationChange('SC')",
+      "onReservationChange('ST')",
+      "processKmlFile()",
+      "refreshVacantLandData()",
+      "updateTotalAmount()"
+    ],
+    "links": [
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadVacantLandMap(land.vacantLandId)",
+        "data-ng-if": "land.mapName!=null"
+      }
+    ],
+    "directives": [
+      "data-ng-change",
+      "data-ng-click",
+      "data-ng-hide",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-keyup",
+      "data-ng-model",
+      "data-ng-model-options",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit",
+      "ng-click",
+      "ng-if",
+      "ng-model",
+      "ng-pattern",
+      "ng-show"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/idPendingApplicantList": {
+    "source": "pages\\dtic\\idPendingApplicantList.html",
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "vId",
+        "name": "vId",
+        "th:value": "${decryptedIdString}"
+      },
+      {
+        "type": "hidden",
+        "id": "vcId",
+        "name": "vcId",
+        "th:value": "${encryptedString}"
+      },
+      {
+        "type": "checkbox",
+        "data-ng-model": "check",
+        "data-ng-change": "toggleApplicationListChecks(check)"
+      },
+      {
+        "type": "checkbox",
+        "data-ng-model": "idPendingApplicant.checkId",
+        "data-ng-change": "countCheck()"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "rows": "4",
+        "data-ng-model": "idPendingApplicant.comments"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.h1BidAmount",
+        "name": "h1BidAmount",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.advancePremiumH1",
+        "name": "premium",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.additionalPremium = '0.00'",
+        "name": "additionalPremium",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "formData.additionalPremium = 0",
+        "disabled": "disabled"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.annualGroundRent",
+        "name": "annualGroundRent",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.annualMaintenance",
+        "name": "annualMaintenance",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.securityDeposite",
+        "name": "securityDeposite",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "formData.securityDeposite = 0"
+      },
+      {
+        "required": "",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.developmentCharges = '0.00'",
+        "name": "developmentCharges",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.otherCharges",
+        "name": "otherCharges",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "formData.otherCharges = 0"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "name": "totalAmount",
+        "ng-model": "formData.totalAmount",
+        "placeholder": "0.00",
+        "readonly": "",
+        "required": ""
+      },
+      {
+        "type": "date",
+        "class": [
+          "form-control"
+        ],
+        "id": "decisionDate",
+        "name": "decisionDate",
+        "data-ng-model": "formData.decisionDate",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-select"
+        ],
+        "id": "decision",
+        "name": "decision",
+        "data-ng-model": "formData.decision",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "remarks",
+        "name": "remarks",
+        "data-ng-model": "formData.remarks",
+        "rows": "3",
+        "placeholder": "Enter any remarks here...",
+        "ng-maxlength": "200",
+        "maxlength": "200"
+      },
+      {
+        "data-ng-disabled": "disabled",
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "formData.document",
+        "accept": "application/pdf",
+        "onchange": "angular.element(this).scope().checkFileSize(this.files)"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "tenderId",
+        "name": "tenderId",
+        "data-ng-model": "formData.tenderId",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "nitNumber",
+        "name": "nitNumber",
+        "data-ng-model": "formData.nitNumber",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "plotDetails",
+        "name": "plotDetails",
+        "data-ng-model": "formData.plotDetails",
+        "data-ng-disabled": "true",
+        "required": ""
+      },
+      {
+        "type": "hidden",
+        "class": [
+          "form-control"
+        ],
+        "id": "plotNumber",
+        "name": "plotNumber",
+        "data-ng-model": "formData.plotNumber"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "industrialArea",
+        "name": "industrialArea",
+        "data-ng-model": "formData.industrialArea",
+        "data-ng-disabled": "true",
+        "required": ""
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "id": "publicationDate",
+        "name": "publicationDate",
+        "type": "date",
+        "autocomplete": "off",
+        "data-ng-model": "formData.publicationDate",
+        "data-ng-change": "onPublicationDateChange()"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "id": "bidStartDate",
+        "name": "bidStartDate",
+        "type": "date",
+        "autocomplete": "off",
+        "data-ng-model": "formData.bidStartDate",
+        "data-ng-change": "onBidStartDateChange()"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "id": "bidEndDate",
+        "name": "bidEndDate",
+        "type": "date",
+        "autocomplete": "off",
+        "data-ng-model": "formData.bidEndDate",
+        "data-ng-change": "onBidEndDateChange()"
+      },
+      {
+        "type": "text",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "id": "tenderMode",
+        "value": "Online via https://www.mptenders.gov.in"
+      }
+    ],
+    "events": [
+      "addH1Details(faMSMEDetailForm.$valid)",
+      "checkCount=0;",
+      "countCheck()",
+      "downloadAllotmentLetter(idPendingApplicant.applicantId)",
+      "downloadCommitteeLetter({{idPendingApplicant.applicantId}})",
+      "downloadEsignedApplicationForm(idPendingApplicant.signedApplicationFormUploadDocId)",
+      "downloadLOCLetter(idPendingApplicant.applicantId)",
+      "downloadLOILetter(idPendingApplicant.applicantId)",
+      "downloadLeaseLetter(idPendingApplicant.applicantId)",
+      "downloadPossessionLetter(idPendingApplicant.applicantId)",
+      "formData.additionalPremium = 0",
+      "formData.otherCharges = 0",
+      "formData.securityDeposite = 0",
+      "loadIdPendingApplicantList()",
+      "loadIdPendingApplicantList1()",
+      "onBidEndDateChange()",
+      "onBidStartDateChange()",
+      "onPublicationDateChange()",
+      "submitTenderForm(tenderForm)",
+      "toggleApplicationListChecks(check)",
+      "updateApplicantByStatus('InitiateTender')",
+      "updateApplicantByStatus('approve')",
+      "updateApplicantByStatus('committeeDecision');  committee()",
+      "updateApplicantByStatus('h1Detail'); ",
+      "updateApplicantByStatus('reject')",
+      "updateCommitteeByStatus('committeeDecision')"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none; color: #31708f",
+        "href": "#dticLandAllotment"
+      },
+      {
+        "href": "#id/viewAppliedApplicants/{{encodedId}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#viewAnnualPaymentHistory/{{idPendingApplicant.applicantId}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#id/viewApplicationDetail/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandIDEncrypt}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "title": "Progress Details",
+        "href": "#id/viewIdApplicantHistory/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandId}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "ng-click": "downloadEsignedApplicationForm(idPendingApplicant.signedApplicationFormUploadDocId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "ng-click": "downloadCommitteeLetter({{idPendingApplicant.applicantId}})"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#idInspectionStatus/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandIDEncrypt}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#updateLOI/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandIDEncrypt}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#tenderDetails/{{idPendingApplicant.vacantLandId}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOILetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOILetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#viewLOCDetails/{{idPendingApplicant.applicantId}}/"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#viewAllotmentLetter/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandIDEncrypt}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOILetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOCLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadAllotmentLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#updateLeaseDeed/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandIDEncrypt}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOILetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOCLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadAllotmentLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLeaseLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOILetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOCLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadAllotmentLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLeaseLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#updatePossessionLetter/{{idPendingApplicant.applicantId}}/{{idPendingApplicant.vacantLandIDEncrypt}}"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOILetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLOCLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadAllotmentLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadLeaseLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadPossessionLetter(idPendingApplicant.applicantId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#dticLandAllotment"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-change",
+      "data-ng-click",
+      "data-ng-disabled",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit",
+      "ng-click",
+      "ng-disabled",
+      "ng-if",
+      "ng-maxlength",
+      "ng-model",
+      "ng-repeat",
+      "ng-show"
+    ],
+    "inlineEvents": [
+      {
+        "data-ng-disabled": "disabled",
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "formData.document",
+        "accept": "application/pdf",
+        "onchange": "angular.element(this).scope().checkFileSize(this.files)"
+      }
+    ]
+  },
+  "dtic/tenderDetails": {
+    "source": "pages\\dtic\\tenderDetails.html",
+    "fields": [],
+    "events": [],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#dticLandAllotment"
+      }
+    ],
+    "directives": [],
+    "inlineEvents": []
+  },
+  "dtic/groupLoi2": {
+    "source": "pages\\dtic\\groupLoi2.html",
+    "fields": [
+      {
+        "type": "checkbox",
+        "ng-model": "item.selected",
+        "ng-change": "updateTotals()"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "eoiAmount",
+        "name": "eoiAmount",
+        "ng-model": "formData.eoiAmount",
+        "ng-pattern": "/^\\d+(\\.\\d{1,2})?$/",
+        "oninput": "this.value = this.value.replace(/[^0-9.]/g, '')",
+        "ng-blur": "calculateLeaseRent()",
+        "required": ""
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalPremium",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalPremium"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalAmount",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalAmount"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalPlotArea",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalPlotArea"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalDevelopment",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalDevelopment"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalLease",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalLease"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalSecurity",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalSecurity"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalotherCharges",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalotherCharges"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totaladditionalPremium",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totaladditionalPremium"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalplotNumber",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalplotNumber"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalgroupLoiAdvancePremium",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalgroupLoiAdvancePremium"
+      },
+      {
+        "disabled": "disabled",
+        "type": "text",
+        "id": "totalmaintenanceCharges",
+        "readonly": "",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "formData.totalmaintenanceCharges"
+      },
+      {
+        "type": "hidden",
+        "name": "totalapplicantIds",
+        "ng-value": "formData.totalapplicantIds"
+      },
+      {
+        "type": "checkbox",
+        "ng-model": "formData.agreeToProceed"
+      }
+    ],
+    "events": [
+      "loadLandAllotments()",
+      "submitSelectedAllotments()",
+      "updateTotals()"
+    ],
+    "links": [
+      {
+        "class": [
+          "action-link"
+        ],
+        "href": "#id/viewAppliedApplicants/{{item.vcId}}"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/viewAppliedApplicants/{{item[0].vcId}}"
+      }
+    ],
+    "directives": [
+      "ng-app",
+      "ng-blur",
+      "ng-change",
+      "ng-click",
+      "ng-controller",
+      "ng-disabled",
+      "ng-if",
+      "ng-init",
+      "ng-model",
+      "ng-pattern",
+      "ng-repeat",
+      "ng-show",
+      "ng-value"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/editVacantLandForm": {
+    "source": "pages\\dtic\\editVacantLandForm.html",
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "vId",
+        "name": "vId",
+        "th:value": "${decryptedIdString}"
+      },
+      {
+        "required": "required",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.industrialAreaId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "vacantLandData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectTehsil",
+        "name": "tehsil",
+        "data-ng-model": "vacantLandData.tehsilId",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.newArea",
+        "name": "newArea",
+        "value": "New",
+        "id": "reservedST",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.newArea",
+        "name": "newArea",
+        "value": "Old",
+        "id": "reservedAll",
+        "required": ""
+      },
+      {
+        "required": "required",
+        "name": "collectorRateId",
+        "id": "collectorRateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.collectorRateId",
+        "data-ng-change": "loadVacantLandList(vacantLandData.collectorRateId)"
+      },
+      {
+        "id": "selectArea",
+        "required": "required",
+        "name": "indusArea",
+        "data-ng-model": "vacantLandData.locationId",
+        "class": [
+          "form-control"
+        ]
+      },
+      {
+        "required": "",
+        "name": "categoryOfIndustry",
+        "id": "selectCategoryOfIndustry",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "vacantLandData.categoryOfIndustryId"
+      },
+      {
+        "required": "required",
+        "id": "selectVacantLandPurpose",
+        "data-ng-model": "vacantLandData.purposeId",
+        "class": [
+          "form-control"
+        ],
+        "name": "purpose"
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.category",
+        "name": "reservedCategory",
+        "value": "SC",
+        "id": "reservedSC",
+        "data-ng-change": "onReservationChange('SC')",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.category",
+        "name": "reservedCategory",
+        "value": "ST",
+        "id": "reservedST",
+        "data-ng-change": "onReservationChange('ST')",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "class": [
+          "form-check-input"
+        ],
+        "data-ng-model": "vacantLandData.category",
+        "name": "reservedCategory",
+        "value": "OpenForAll",
+        "id": "reservedAll",
+        "data-ng-change": "onReservationChange('OpenForAll')",
+        "required": ""
+      },
+      {
+        "required": "required",
+        "id": "selectVacantLandPlotShed",
+        "data-ng-model": "vacantLandData.plotShed",
+        "class": [
+          "form-control"
+        ],
+        "name": "plotShed",
+        "data-ng-change": "refreshVacantLandData()"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.plotNumber",
+        "name": "plotNumber",
+        "maxlength": "300"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number10",
+          "number-only"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.totalPlotArea",
+        "name": "totalPlotArea",
+        "data-ng-change": "fetchRatesByIndustrialAreaId(vacantLandData.collectorRateId, vacantLandData.totalPlotArea);cancel($event)",
+        "data-ng-model-options": "{updateOn: 'default blur', debounce: {default: 500, blur: 0} }",
+        "data-ng-keyup": "cancel($event)",
+        "maxlength": "10"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.premiumCharges",
+        "name": "premiumCharges",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.developmentCharges",
+        "name": "developmentCharges",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.maintenanceCharges",
+        "name": "maintenanceCharges",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.leaseRent",
+        "name": "leaseRent",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.securityDeposit",
+        "name": "securityDeposit",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.advanceRent",
+        "name": "advanceRent",
+        "disabled": "disabled"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.otherRentCharges",
+        "name": "otherRentCharges",
+        "placeholder": "0.00",
+        "data-ng-change": "updateTotalAmount()"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.otherRentChargeReson",
+        "name": "otherRentChargeReson"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "vacantLandData.totalAmount",
+        "name": "totalAmount",
+        "disabled": "disabled"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "hidden",
+        "data-ng-model": "vacantLandData.totalAmountHidden",
+        "name": "securityDepositHidden",
+        "placeholder": "0.00",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "vacantLandData.bookingStartDate",
+        "name": "bookingStartsFrom",
+        "type": "text",
+        "data-ng-change": "onDateChange()",
+        "autocomplete": "off"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateEnd"
+        ],
+        "id": "dateEnd",
+        "data-ng-model": "vacantLandData.bookingEndDate",
+        "name": "bookingEndOn",
+        "type": "text",
+        "data-ng-change": "onEndDateChange()",
+        "autocomplete": "off"
+      },
+      {
+        "type": "file",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "mapImage",
+        "name": "mapImage"
+      },
+      {
+        "type": "checkbox",
+        "class": [
+          "form-check-input"
+        ],
+        "ng-model": "vacantLandData.hasGoogleMap",
+        "id": "hasGoogleMap"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "googleMap",
+        "ng-model": "vacantLandData.googleMap",
+        "required": "",
+        "ng-pattern": "/^https:\\/\\/maps\\.app\\.goo\\.gl\\/.+$/"
+      },
+      {
+        "type": "checkbox",
+        "class": [
+          "form-check-input"
+        ],
+        "ng-model": "vacantLandData.kmlUpload",
+        "id": "kmlUpload"
+      },
+      {
+        "type": "file",
+        "class": [
+          "form-control"
+        ],
+        "id": "KMLFilePdf",
+        "name": "KMLFilePdf",
+        "accept": ".kml",
+        "file-model": "vacantLandData.wdtKmlFile"
+      }
+    ],
+    "events": [
+      "downloadVacantLandGoogleMap(vacantLandData.vacantLandId)",
+      "downloadVacantLandMap(vacantLandData.vacantLandId)",
+      "editVacantLandDetailFunction(vacantLandForm.$valid, mapImage,vacantLandData.wdtKmlFile)",
+      "fetchRatesByIndustrialAreaId(vacantLandData.collectorRateId, vacantLandData.totalPlotArea);cancel($event)",
+      "loadVacantLandFormDetail(); initKml()",
+      "loadVacantLandList(vacantLandData.collectorRateId)",
+      "onDateChange()",
+      "onEndDateChange()",
+      "onReservationChange('OpenForAll')",
+      "onReservationChange('SC')",
+      "onReservationChange('ST')",
+      "populateForm(true)",
+      "processKmlFile()",
+      "refreshVacantLandData()",
+      "updateTotalAmount()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadVacantLandMap(vacantLandData.vacantLandId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadVacantLandGoogleMap(vacantLandData.vacantLandId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#dticLandAllotment"
+      }
+    ],
+    "directives": [
+      "data-ng-change",
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-keyup",
+      "data-ng-model",
+      "data-ng-model-options",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit",
+      "ng-click",
+      "ng-if",
+      "ng-model",
+      "ng-pattern",
+      "ng-show"
+    ],
+    "inlineEvents": []
+  },
+  "applicant/id/idHistory": {
+    "source": "pages\\applicant\\id\\idHistory.html",
+    "fields": [],
+    "events": [
+      "doTheBack()",
+      "loadHistory()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/landApplications"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "data-ng-click": "doTheBack()"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-repeat",
+      "data-ng-show"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#idHistory').print();"
+      }
+    ]
+  },
+  "dtic/idInspectionStatus": {
+    "source": "pages\\dtic\\idInspectionStatus.html",
+    "fields": [
+      {
+        "name": "comments",
+        "required": "",
+        "id": "meetingDateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faMsmeDetailData.comments",
+        "maxlength": "400"
+      },
+      {
+        "name": "decisionDate",
+        "required": "",
+        "id": "meetingDateId",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.decisionDate"
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "status",
+        "value": "insapprove",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "status",
+        "value": "insreject",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      }
+    ],
+    "events": [
+      "",
+      "addInspectionStatus(faMSMEDetailForm.$valid)",
+      "loadPage()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-change",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/uploadLOILetter": {
+    "source": "pages\\dtic\\uploadLOILetter.html",
+    "fields": [
+      {
+        "type": "radio",
+        "ng-model": "signOption",
+        "value": "eSign",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "ng-model": "signOption",
+        "value": "DSC",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "required": "required",
+        "id": "aadhaarLast4Digits",
+        "data-ng-model": "aadhaarLast4Digits",
+        "name": "aadhaarLast4Digits",
+        "type": "text",
+        "maxlength": "4"
+      },
+      {
+        "type": "hidden",
+        "data-ng-model": "applicationData.applicantId"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "remark",
+        "data-ng-model": "remark",
+        "name": "remark",
+        "maxlength": "800"
+      },
+      {
+        "type": "hidden",
+        "name": "msg",
+        "value": "",
+        "id": "msg"
+      }
+    ],
+    "events": [
+      "digitalSign()",
+      "eSignAppDetailForm(form.$valid, unsignedFile)",
+      "generateLOILetter()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "style": "margin-bottom:25px",
+        "href": "#id/landApplications"
+      },
+      {
+        "th:href": "@{/DigitalSignSetup.msi}",
+        "target": "_blank"
+      },
+      {
+        "th:href": "@{/Digital_Signature_Setup.pptx}",
+        "target": "_blank"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-show",
+      "data-ng-submit",
+      "ng-click",
+      "ng-if",
+      "ng-model",
+      "ng-repeat"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/LOIForm": {
+    "source": "pages\\dtic\\LOIForm.html",
+    "fields": [
+      {
+        "disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.premium | number : 2",
+        "name": "premium",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.additionalPremium | number : 2",
+        "name": "additionalPremium",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "formData.additionalPremium=0"
+      },
+      {
+        "disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.annualGroundRent | number : 2",
+        "name": "annualGroundRent",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.annualMaintenance | number : 2",
+        "name": "annualMaintenance",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.securityDeposite | number : 2",
+        "name": "securityDeposite",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "formData.securityDeposite=0"
+      },
+      {
+        "disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.developmentCharges | number : 2",
+        "name": "developmentCharges",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.otherCharges | number : 2",
+        "name": "otherCharges",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "formData.otherCharges=0"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{formData.premium -- formData.additionalPremium -- formData.annualGroundRent -- formData.annualMaintenance -- formData.securityDeposite -- formData.developmentCharges -- formData.otherCharges | number : 2}}",
+        "placeholder": "0.00"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.leasePeriod",
+        "name": "leasePeriod",
+        "maxlength": "3"
+      }
+    ],
+    "events": [
+      "addLOIDetails(faMSMEDetailForm.$valid)",
+      "formData.additionalPremium=0",
+      "formData.otherCharges=0",
+      "formData.securityDeposite=0",
+      "loadLOIPage()"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none;color:#31708f",
+        "href": "#dticLandAllotment"
+      },
+      {
+        "style": "text-decoration: none;color:#31708f",
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/viewLOCDetails": {
+    "source": "pages\\dtic\\id\\viewLOCDetails.html",
+    "fields": [],
+    "events": [
+      "doTheBack()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "th:data-document-type": "${idLOCChallanDetailBean.idApplicantBean.documentType}",
+        "th:data-applicant-id": "${applicantId}",
+        "onclick": "downloadDocument(this.dataset.documentType, this.dataset.applicantId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "data-ng-click": "doTheBack()"
+      },
+      {
+        "th:href": "${'#locPaymentDetails/' + idLOCChallanDetailBean.locChallanDetailId}",
+        "class": [
+          "btn",
+          "btn-success"
+        ]
+      }
+    ],
+    "directives": [
+      "data-ng-click"
+    ],
+    "inlineEvents": [
+      {
+        "href": "",
+        "th:data-document-type": "${idLOCChallanDetailBean.idApplicantBean.documentType}",
+        "th:data-applicant-id": "${applicantId}",
+        "onclick": "downloadDocument(this.dataset.documentType, this.dataset.applicantId)"
+      }
+    ]
+  },
+  "dtic/id/locPaymentDetails": {
+    "source": "pages\\dtic\\id\\locPaymentDetails.html",
+    "fields": [],
+    "events": [
+      "doTheBack()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "data-ng-click": "doTheBack()"
+      }
+    ],
+    "directives": [
+      "data-ng-click"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#paymentDetails').print();"
+      }
+    ]
+  },
+  "dtic/uploadLeaseLetter": {
+    "source": "pages\\dtic\\uploadLeaseLetter.html",
+    "fields": [
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "leaseFile",
+        "name": "leaseFile"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.leaseDate",
+        "name": "leaseDate"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "formData.leaseNo",
+        "name": "leaseNo",
+        "maxlength": "25"
+      }
+    ],
+    "events": [
+      "generateLeaseLetter()",
+      "loadPage()",
+      "uploadLeaseLetter(faMSMEDetailForm.$valid, leaseFile)"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none;color:#31708f",
+        "href": "#dticLandAllotment"
+      },
+      {
+        "style": "text-decoration: none;color:#31708f",
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/uploadPossessionLetter": {
+    "source": "pages\\dtic\\uploadPossessionLetter.html",
+    "fields": [
+      {
+        "type": "radio",
+        "ng-model": "signOption",
+        "value": "eSign",
+        "required": ""
+      },
+      {
+        "type": "radio",
+        "ng-model": "signOption",
+        "value": "DSC",
+        "required": ""
+      },
+      {
+        "style": "border-color: #808080;",
+        "class": [
+          "form-control",
+          "digits-only"
+        ],
+        "required": "required",
+        "id": "aadhaarLast4Digits",
+        "data-ng-model": "aadhaarLast4Digits",
+        "name": "aadhaarLast4Digits",
+        "type": "text",
+        "maxlength": "4"
+      },
+      {
+        "type": "hidden",
+        "data-ng-model": "applicationData.applicantId"
+      },
+      {
+        "style": "border-color: #808080;",
+        "class": [
+          "form-control"
+        ],
+        "id": "remark",
+        "data-ng-model": "remark",
+        "name": "remark",
+        "maxlength": "800"
+      },
+      {
+        "type": "hidden",
+        "name": "msg",
+        "value": "",
+        "id": "msg"
+      }
+    ],
+    "events": [
+      "digitalSignDticPoss()",
+      "eSignAppDetailFormPossession(form.$valid, unsignedFile)",
+      "generatePossessionLetter();"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none; color: #31708f",
+        "href": "#id/landApplications"
+      },
+      {
+        "th:href": "@{/DigitalSignSetup.msi}",
+        "target": "_blank"
+      },
+      {
+        "th:href": "@{/Digital_Signature_Setup.pptx}",
+        "target": "_blank"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/landApplications"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-show",
+      "data-ng-submit",
+      "ng-click",
+      "ng-model"
+    ],
+    "inlineEvents": [
+      {
+        "onclick": "changeStyle()",
+        "type": "submit",
+        "class": [
+          "btn",
+          "btn-sm",
+          "px-3",
+          "btn-danger",
+          "btn-sign"
+        ],
+        "style": "padding: 5px 15px"
+      }
+    ]
+  },
+  "dtic/viewApplicationDetail": {
+    "source": "pages\\dtic\\viewApplicationDetail.html",
+    "fields": [],
+    "events": [
+      "downloadDocument(applicantDocument.documentTypeShort)",
+      "loadApplicationDetail()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadDocument(applicantDocument.documentTypeShort)"
+      },
+      {
+        "data-ng-href": "downloadDocumentById/{{profileDocument.id}}"
+      },
+      {
+        "id": "esginedAppFormDocId",
+        "data-ng-if": "applicationData.isApplicationFormEsigned == 'true'",
+        "class": [
+          "btn",
+          "btn-primary",
+          "text-center"
+        ],
+        "href": "#id/eSignApplicationDetail/7711/17162"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#id/landApplications"
+      }
+    ],
+    "directives": [
+      "data-ng-bind",
+      "data-ng-click",
+      "data-ng-href",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-repeat",
+      "ng-if",
+      "ng-repeat",
+      "ng-src"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#applicationForm').print();"
+      }
+    ]
+  },
+  "dtic/viewAllotmentLetter": {
+    "source": "pages\\dtic\\viewAllotmentLetter.html",
+    "fields": [
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "onTheNorth{{$index}}",
+        "data-ng-model": "plot.onTheNorth",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "onTheSouth{{$index}}",
+        "data-ng-model": "plot.onTheSouth",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "onTheEast{{$index}}",
+        "data-ng-model": "plot.onTheEast",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "onTheWest{{$index}}",
+        "data-ng-model": "plot.onTheWest",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "name": "settingUpOf{{$index}}",
+        "data-ng-model": "plot.settingUpOf",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "plot.plotName",
+        "readonly": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "plot.applicantId",
+        "readonly": ""
+      }
+    ],
+    "events": [
+      "generateAllotmentLetter(allotmentLetterForm.$valid)",
+      "loadAllotmentLetterData()"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none;color:#31708f",
+        "href": "#dticLandAllotment"
+      },
+      {
+        "style": "text-decoration: none;color:#31708f",
+        "href": "#id/viewAppliedApplicants/{{vacantLandId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/createIndustrialArea": {
+    "source": "pages\\dtic\\createIndustrialArea.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "industrialAreaData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectTehsil",
+        "required": "required",
+        "name": "tehsil",
+        "data-ng-model": "industrialAreaData.tehsilId",
+        "class": [
+          "form-control"
+        ]
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaData.areaId",
+        "name": "industrialArea",
+        "id": "selectindustrialArea"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaData.location",
+        "name": "location",
+        "maxlength": "30"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-only",
+          "number10"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaData.totalArea",
+        "name": "totalArea"
+      },
+      {
+        "type": "file",
+        "accept": ".pdf,.jpg,.png,.gif",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "mapImage",
+        "name": "mapImage",
+        "id": "mapImage"
+      }
+    ],
+    "events": [
+      "createIndustrialArea(industrialAreaCreationForm, mapImage)",
+      "downloadIndustrialAreaMap(area.locationId)",
+      "loadCreateIndustrialArea()"
+    ],
+    "links": [
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "",
+        "data-ng-click": "downloadIndustrialAreaMap(area.locationId)"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#editIndustrialArea/{{area.locationId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/createCollectorRate": {
+    "source": "pages\\dtic\\createCollectorRate.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "collectorRateData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "collectorRateData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "",
+        "name": "financialYearId",
+        "id": "financialYearId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "collectorRateData.financialYearId"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "collectorRateData.areaId",
+        "name": "industrialArea",
+        "id": "selectindustrialArea"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-only",
+          "number12"
+        ],
+        "data-ng-model": "collectorRateData.collectorRate",
+        "name": "collectorRate",
+        "id": "collectorRate",
+        "maxlength": "12",
+        "autocomplete": "off"
+      }
+    ],
+    "events": [
+      "createCollectorRate(collectorRateCreationForm)",
+      "loadCollectorRates()"
+    ],
+    "links": [
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#viewCollectorRate/{{collectorRate.collectorRateId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/viewCollectorRate": {
+    "source": "pages\\dtic\\viewCollectorRate.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "collectorRateData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "collectorRateData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "",
+        "name": "financialYearId",
+        "id": "financialYearId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "collectorRateData.financialYearId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-disabled": "disabled",
+        "data-ng-model": "collectorRateData.areaId",
+        "name": "industrialArea",
+        "id": "selectindustrialArea"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-only",
+          "number12"
+        ],
+        "data-ng-model": "collectorRateData.collectorRate",
+        "data-ng-disabled": "disabled",
+        "name": "collectorRate",
+        "id": "collectorRate",
+        "maxlength": "12",
+        "autocomplete": "off"
+      }
+    ],
+    "events": [
+      "deleteCollectorRate()",
+      "loadCollectorRateForm()",
+      "toggleForm()",
+      "updateCollectorRate(collectorRateCreationForm)"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/dticCreateCollectorRate"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-disabled",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/editIndustrialArea": {
+    "source": "pages\\dtic\\editIndustrialArea.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "industrialAreaData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "id": "selectTehsil",
+        "required": "required",
+        "name": "tehsil",
+        "data-ng-model": "industrialAreaData.tehsilId",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaData.areaId",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaData.location",
+        "name": "location",
+        "maxlength": "30"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-only",
+          "number10"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaData.totalArea",
+        "name": "totalArea"
+      },
+      {
+        "type": "file",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "mapImage",
+        "name": "mapImage"
+      }
+    ],
+    "events": [
+      "downloadIndustrialAreaMap(industrialAreaData.locationId)",
+      "editIndustrialArea(industrialAreaCreationForm, mapImage)",
+      "loadCreateIndustrialArea()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadIndustrialAreaMap(industrialAreaData.locationId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#dticCreateIndustrialArea"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/createIndustrialAreaRate": {
+    "source": "pages\\dtic\\createIndustrialAreaRate.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaRateData.industrialAreaId",
+        "data-ng-change": "loadFYCollectorRates(industrialAreaRateData.industrialAreaId);fetchIndustrialAreaRates(industrialAreaRateData.collectorRateId);fetchMasterRates();"
+      },
+      {
+        "required": "required",
+        "name": "collectorRateId",
+        "id": "collectorRateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaRateData.collectorRateId",
+        "data-ng-change": "fetchIndustrialAreaRates(industrialAreaRateData.collectorRateId);fetchMasterRates();"
+      },
+      {
+        "required": "required",
+        "id": "selectRateType",
+        "class": [
+          "form-control"
+        ],
+        "name": "rateType",
+        "data-ng-model": "industrialAreaRateData.rateTypeId",
+        "data-ng-change": "fetchMasterRates()"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.premiumCharges",
+        "name": "premiumCharges",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.developmentCharges",
+        "name": "developmentCharges",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "industrialAreaRateData.developmentCharges='100.00'",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.maintenanceCharges",
+        "name": "maintenanceCharges",
+        "maxlength": "13",
+        "placeholder": "0.00",
+        "data-ng-init": "industrialAreaRateData.maintenanceCharges='10.00'",
+        "disabled": "disabled"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.leaseRent",
+        "name": "leaseRent",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.securityDeposit",
+        "name": "securityDeposit",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{industrialAreaRateData.premiumCharges--industrialAreaRateData.developmentCharges--industrialAreaRateData.maintenanceCharges--industrialAreaRateData.leaseRent--industrialAreaRateData.securityDeposit | IND}}"
+      }
+    ],
+    "events": [
+      "createIndustrialAreaRate(industrialAreaRateCreationForm)",
+      "fetchIndustrialAreaRates(industrialAreaRateData.collectorRateId);fetchMasterRates();",
+      "fetchMasterRates()",
+      "industrialAreaRateData.developmentCharges='100.00'",
+      "industrialAreaRateData.maintenanceCharges='10.00'",
+      "loadCreateIndustrialAreaRate()",
+      "loadFYCollectorRates(industrialAreaRateData.industrialAreaId);fetchIndustrialAreaRates(industrialAreaRateData.collectorRateId);fetchMasterRates();"
+    ],
+    "links": [
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#dticViewIndustrialAreaRate/{{rate.industrialAreaRateId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-change",
+      "data-ng-hide",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/viewIndustrialAreaRate": {
+    "source": "pages\\dtic\\viewIndustrialAreaRate.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaRateData.industrialAreaId",
+        "data-ng-disabled": "disabled",
+        "data-ng-change": "loadFYCollectorRates(industrialAreaRateData.industrialAreaId)"
+      },
+      {
+        "required": "required",
+        "name": "collectorRateId",
+        "id": "collectorRateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "industrialAreaRateData.collectorRateId",
+        "data-ng-disabled": "disabled",
+        "data-ng-change": "fetchMasterRates();"
+      },
+      {
+        "data-ng-disabled": "disabled",
+        "required": "required",
+        "id": "selectRateType",
+        "class": [
+          "form-control"
+        ],
+        "name": "rateType",
+        "data-ng-model": "industrialAreaRateData.rateTypeId",
+        "data-ng-change": "fetchMasterRates()"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.premiumCharges",
+        "name": "premiumCharges",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "data-ng-disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.developmentCharges",
+        "name": "developmentCharges",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "data-ng-disabled": "disabled",
+        "required": "required",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.maintenanceCharges",
+        "name": "maintenanceCharges",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.leaseRent",
+        "name": "leaseRent",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "disabled": "disabled",
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "industrialAreaRateData.securityDeposit",
+        "name": "securityDeposit",
+        "maxlength": "13",
+        "placeholder": "0.00"
+      },
+      {
+        "readonly": "readonly",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "value": "{{industrialAreaRateData.premiumCharges--industrialAreaRateData.developmentCharges--industrialAreaRateData.maintenanceCharges--industrialAreaRateData.leaseRent--industrialAreaRateData.securityDeposit | IND}}"
+      }
+    ],
+    "events": [
+      "fetchMasterRates()",
+      "fetchMasterRates();",
+      "loadCreateIndustrialAreaRate()",
+      "loadFYCollectorRates(industrialAreaRateData.industrialAreaId)",
+      "toggleForm()",
+      "updateIndustrialAreaRate(industrialAreaRateCreationForm)"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/dticCreateIndustrialAreaRate"
+      }
+    ],
+    "directives": [
+      "data-ng-change",
+      "data-ng-click",
+      "data-ng-disabled",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/applicantListForNotice": {
+    "source": "pages\\dtic\\id\\applicantListForNotice.html",
+    "fields": [],
+    "events": [
+      "loadApplicationList()"
+    ],
+    "links": [],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/backlogLandAllotment": {
+    "source": "pages\\dtic\\id\\backlogLandAllotment.html",
+    "fields": [
+      {
+        "required": "required",
+        "name": "district",
+        "id": "selectDistrict",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "backlogData.districtId",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "id": "selectDTIC",
+        "class": [
+          "form-control"
+        ],
+        "name": "dtic",
+        "data-ng-model": "backlogData.dticId",
+        "disabled": "disabled"
+      },
+      {
+        "type": "file",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "backlogFile",
+        "name": "backlogFile",
+        "id": "backlogFile"
+      }
+    ],
+    "events": [
+      "addBacklogLandAllotment(backlogLandAllotmentForm, backlogFile)",
+      "downloadBacklogDocument(backlog.backlogLandAllotmentId)",
+      "downloadBacklogForm()",
+      "loadBacklogLandAllotment()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-warning"
+        ],
+        "data-ng-click": "downloadBacklogForm()",
+        "style": "cursor: pointer;"
+      },
+      {
+        "style": "cursor: pointer;",
+        "data-ng-click": "downloadBacklogDocument(backlog.backlogLandAllotmentId)"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/issueNotice": {
+    "source": "pages\\dtic\\id\\issueNotice.html",
+    "fields": [
+      {
+        "required": "",
+        "name": "noticeDate",
+        "id": "noticeDate",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "noticeData.noticeDate",
+        "autocomplete": "off"
+      },
+      {
+        "required": "required",
+        "name": "reason",
+        "id": "reason",
+        "data-ng-model": "noticeData.reason",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "3000"
+      },
+      {
+        "name": "remarks",
+        "id": "remarks",
+        "data-ng-model": "noticeData.remark",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "3000"
+      },
+      {
+        "type": "file",
+        "name": "document",
+        "id": "document",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "document"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "documentDesc",
+        "style": "max-width: 100%",
+        "maxlength": "3000"
+      }
+    ],
+    "events": [
+      "",
+      "issueNotice(noticeForm.$valid)"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/reviewCompliance": {
+    "source": "pages\\dtic\\id\\reviewCompliance.html",
+    "fields": [
+      {
+        "required": "",
+        "name": "noticeDate",
+        "id": "noticeDate",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "noticeData.noticeDate",
+        "autocomplete": "off",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "name": "reason",
+        "id": "reason",
+        "data-ng-model": "noticeData.reason",
+        "style": "max-width: 100%",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "name": "remarks",
+        "id": "remarks",
+        "data-ng-model": "noticeData.remark",
+        "style": "max-width: 100%",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "noticeData.documentDesc",
+        "style": "max-width: 100%",
+        "disabled": "disabled"
+      },
+      {
+        "required": "",
+        "name": "complianceDate",
+        "id": "complianceDate",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "noticeData.userComplianceDate",
+        "autocomplete": "off",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "noticeData.userCompliance",
+        "style": "max-width: 100%",
+        "maxlength": "3000",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "noticeData.complianceDocumentDesc",
+        "style": "max-width: 100%",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "name": "complianceStatus",
+        "id": "complianceStatus",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "noticeData.complianceStatus",
+        "data-ng-enabled": "noticeData.userCompliance!=null || noticeData.isNoticeExpired",
+        "data-ng-disabled": "noticeData.userCompliance==null && !noticeData.isNoticeExpired"
+      },
+      {
+        "data-ng-required": "noticeData.complianceStatus=='Disagree'",
+        "name": "cancellationDate",
+        "id": "cancellationDate",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "noticeData.cancellationDate",
+        "autocomplete": "off"
+      },
+      {
+        "data-ng-required": "noticeData.complianceStatus=='Disagree'",
+        "name": "cancellationReason",
+        "id": "cancellationReason",
+        "data-ng-model": "noticeData.cancellationReason",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "3000"
+      },
+      {
+        "name": "agreeDisagreeRemark",
+        "id": "agreeDisagreeRemark",
+        "data-ng-model": "noticeData.agreeDisagreeRemark",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "3000"
+      },
+      {
+        "type": "file",
+        "name": "document",
+        "id": "document",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "document"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "documentDesc",
+        "style": "max-width: 100%",
+        "maxlength": "3000"
+      }
+    ],
+    "events": [
+      "downloadNoticeDocument(noticeData.complianceDocumentId)",
+      "downloadNoticeDocument(noticeData.documentId)",
+      "loadNoticeDetails()",
+      "saveComplianceStatus(noticeForm.$valid)"
+    ],
+    "links": [
+      {
+        "title": "Download Uploaded Document",
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(noticeData.documentId)"
+      },
+      {
+        "title": "Download Uploaded Document",
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(noticeData.complianceDocumentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-disabled",
+      "data-ng-enabled",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-required",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/viewPrintNoticeHistory": {
+    "source": "pages\\dtic\\id\\viewPrintNoticeHistory.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(noticeData.agreeDisagreeDocumentId)",
+      "downloadNoticeDocument(noticeData.complianceDocumentId)",
+      "downloadNoticeDocument(noticeData.documentId)",
+      "loadNoticeDetails()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(noticeData.documentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(noticeData.complianceDocumentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(noticeData.agreeDisagreeDocumentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-show"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/viewAnnualPaymentHistory": {
+    "source": "pages\\dtic\\id\\viewAnnualPaymentHistory.html",
+    "fields": [],
+    "events": [
+      "doTheBack()",
+      "doTheBack();",
+      "loadAnnualPaymentHistory()"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none; color: #31708f",
+        "href": "#dticLandAllotment"
+      },
+      {
+        "style": "text-decoration: none; color: #31708f",
+        "href": "",
+        "data-ng-click": "doTheBack();"
+      },
+      {
+        "class": [
+          "blue"
+        ],
+        "href": "#viewAnnualPaymentDetails/{{history.paymentId}}"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "",
+        "data-ng-click": "doTheBack()"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-repeat",
+      "data-ng-show"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/reviewConditionalComplianceZO": {
+    "source": "pages\\dtic\\id\\reviewConditionalComplianceZO.html",
+    "fields": [
+      {
+        "name": "hearingDate",
+        "id": "hearingDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.hearingDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "hearingStatus",
+        "id": "hearingStatus",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.hearingStatus",
+        "disabled": "disabled"
+      },
+      {
+        "name": "otherHearingStatus",
+        "id": "otherHearingStatus",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.otherHearingStatus",
+        "disabled": "disabled"
+      },
+      {
+        "name": "caseDecision",
+        "id": "caseDecision",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.caseDecision",
+        "disabled": "disabled"
+      },
+      {
+        "name": "decisionDate",
+        "id": "decisionDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.decisionDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "timeframeDate",
+        "id": "timeframeDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.timeframeDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "comments",
+        "id": "comments",
+        "data-ng-model": "hearingData.comments",
+        "style": "max-width: 100%",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "hearingData.documentDesc",
+        "style": "max-width: 100%",
+        "disabled": "disabled"
+      },
+      {
+        "name": "userComplianceDate",
+        "id": "userComplianceDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "conditionalData.userComplianceDate",
+        "autocomplete": "off",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "conditionalData.userCompliance",
+        "style": "max-width: 100%",
+        "maxlength": "3000",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "conditionalData.userComplianceDocumentDesc",
+        "style": "max-width: 100%",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "name": "dticComplianceStatus",
+        "id": "dticComplianceStatus",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "conditionalData.dticComplianceStatus",
+        "data-ng-enabled": "conditionalData.userCompliance!=null || hearingData.isTimeFrameExpired",
+        "data-ng-disabled": "conditionalData.userCompliance==null && !hearingData.isTimeFrameExpired"
+      },
+      {
+        "data-ng-required": "conditionalData.dticComplianceStatus",
+        "name": "dticComments",
+        "id": "dticComments",
+        "data-ng-model": "conditionalData.dticComments",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "3000"
+      },
+      {
+        "type": "file",
+        "name": "document",
+        "id": "document",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "document"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "documentDesc",
+        "style": "max-width: 100%",
+        "maxlength": "3000"
+      }
+    ],
+    "events": [
+      "downloadNoticeDocument(conditionalData.userComplianceDocumentId)",
+      "downloadNoticeDocument(hearingData.documentId)",
+      "loadHearingDetails('zonal')",
+      "saveConditionalComplianceStatusZO(conditionalForm.$valid)"
+    ],
+    "links": [
+      {
+        "title": "Download Uploaded Document",
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(hearingData.documentId)"
+      },
+      {
+        "title": "Download Uploaded Document",
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.userComplianceDocumentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-disabled",
+      "data-ng-enabled",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-required",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/viewZOConditionalDecision": {
+    "source": "pages\\dtic\\id\\viewZOConditionalDecision.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(conditionalData.dticComplianceDocumentId)",
+      "downloadNoticeDocument(conditionalData.userComplianceDocumentId)",
+      "downloadNoticeDocument(conditionalData.zonalComplianceDocumentId)",
+      "downloadNoticeDocument(hearingData.documentId)",
+      "loadHearingDetails('zonal')"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(hearingData.documentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.userComplianceDocumentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.dticComplianceDocumentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.zonalComplianceDocumentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/reviewConditionalComplianceIC": {
+    "source": "pages\\dtic\\id\\reviewConditionalComplianceIC.html",
+    "fields": [
+      {
+        "name": "hearingDate",
+        "id": "hearingDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.hearingDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "hearingStatus",
+        "id": "hearingStatus",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.hearingStatus",
+        "disabled": "disabled"
+      },
+      {
+        "name": "otherHearingStatus",
+        "id": "otherHearingStatus",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.otherHearingStatus",
+        "disabled": "disabled"
+      },
+      {
+        "name": "caseDecision",
+        "id": "caseDecision",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.caseDecision",
+        "disabled": "disabled"
+      },
+      {
+        "name": "decisionDate",
+        "id": "decisionDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.decisionDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "timeframeDate",
+        "id": "timeframeDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "hearingData.timeframeDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "comments",
+        "id": "comments",
+        "data-ng-model": "hearingData.comments",
+        "style": "max-width: 100%",
+        "class": [
+          "form-control"
+        ],
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "hearingData.documentDesc",
+        "style": "max-width: 100%",
+        "disabled": "disabled"
+      },
+      {
+        "name": "userComplianceDate",
+        "id": "userComplianceDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "conditionalData.userComplianceDate",
+        "autocomplete": "off",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "conditionalData.userCompliance",
+        "style": "max-width: 100%",
+        "maxlength": "3000",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "conditionalData.userComplianceDocumentDesc",
+        "style": "max-width: 100%",
+        "disabled": "disabled"
+      },
+      {
+        "required": "required",
+        "name": "dticComplianceStatus",
+        "id": "dticComplianceStatus",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "conditionalData.dticComplianceStatus",
+        "data-ng-enabled": "conditionalData.userCompliance!=null || hearingData.isTimeFrameExpired",
+        "data-ng-disabled": "conditionalData.userCompliance==null && !hearingData.isTimeFrameExpired"
+      },
+      {
+        "data-ng-required": "conditionalData.dticComplianceStatus",
+        "name": "dticComments",
+        "id": "dticComments",
+        "data-ng-model": "conditionalData.dticComments",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "3000"
+      },
+      {
+        "type": "file",
+        "name": "document",
+        "id": "document",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "document"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "documentDesc",
+        "style": "max-width: 100%",
+        "maxlength": "3000"
+      }
+    ],
+    "events": [
+      "downloadNoticeDocument(conditionalData.userComplianceDocumentId)",
+      "downloadNoticeDocument(hearingData.documentId)",
+      "loadHearingDetails('ic')",
+      "saveConditionalComplianceStatusIC(conditionalForm.$valid)"
+    ],
+    "links": [
+      {
+        "title": "Download Uploaded Document",
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(hearingData.documentId)"
+      },
+      {
+        "title": "Download Uploaded Document",
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.userComplianceDocumentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-disabled",
+      "data-ng-enabled",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-required",
+      "data-ng-show",
+      "data-ng-submit"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/id/viewICConditionalDecision": {
+    "source": "pages\\dtic\\id\\viewICConditionalDecision.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(conditionalData.dticComplianceDocumentId)",
+      "downloadNoticeDocument(conditionalData.icComplianceDocumentId)",
+      "downloadNoticeDocument(conditionalData.userComplianceDocumentId)",
+      "downloadNoticeDocument(conditionalData.zonalComplianceDocumentId)",
+      "downloadNoticeDocument(hearingData.documentId)",
+      "loadHearingDetails('ic')"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(hearingData.documentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.userComplianceDocumentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.dticComplianceDocumentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.zonalComplianceDocumentId)"
+      },
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(conditionalData.icComplianceDocumentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/viewZOAppeal": {
+    "source": "pages\\dtic\\id\\viewZOAppeal.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(appealData.documentId)",
+      "loadAppealDetails()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(appealData.documentId)"
+      },
+      {
+        "style": "font-size: 13px",
+        "class": [
+          "blue"
+        ],
+        "href": "#viewZOAppealHearing/{{hearing.appealHearingId}}"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-repeat",
+      "data-ng-show"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/viewZOAppealHearing": {
+    "source": "pages\\dtic\\id\\viewZOAppealHearing.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(appealHearingData.documentId)",
+      "loadAppealHearingDetails()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(appealHearingData.documentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#viewZOAppeal/{{appealHearingData.appealId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/viewICAppeal": {
+    "source": "pages\\dtic\\id\\viewICAppeal.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(appealData.documentId)",
+      "loadAppealDetails()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(appealData.documentId)"
+      },
+      {
+        "style": "font-size: 13px",
+        "class": [
+          "blue"
+        ],
+        "href": "#viewICAppealHearing/{{hearing.appealHearingId}}"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#noticeList"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-repeat",
+      "data-ng-show"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/viewICAppealHearing": {
+    "source": "pages\\dtic\\id\\viewICAppealHearing.html",
+    "fields": [],
+    "events": [
+      "downloadNoticeDocument(appealHearingData.documentId)",
+      "loadAppealHearingDetails()"
+    ],
+    "links": [
+      {
+        "href": "",
+        "data-ng-click": "downloadNoticeDocument(appealHearingData.documentId)"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#viewICAppeal/{{appealHearingData.appealId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#noticeHistory').print();"
+      }
+    ]
+  },
+  "dtic/id/viewAnnualPaymentDetails": {
+    "source": "pages\\dtic\\id\\viewAnnualPaymentDetails.html",
+    "fields": [],
+    "events": [
+      "doTheBack();",
+      "loadAnnualPaymentDetails()"
+    ],
+    "links": [
+      {
+        "style": "text-decoration: none; color: #31708f",
+        "href": "#dticLandAllotment"
+      },
+      {
+        "style": "text-decoration: none; color: #31708f",
+        "href": "",
+        "data-ng-click": "doTheBack();"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/viewAnnualPaymentHistory/{{paymentData.idApplicantBean.applicantId}}"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-init"
+    ],
+    "inlineEvents": [
+      {
+        "th:src": "@{/image/print.png}",
+        "title": "Print Filled Form",
+        "style": "cursor: pointer;",
+        "onclick": "jQuery('#paymentDetails').print();"
+      }
+    ]
+  }
+}

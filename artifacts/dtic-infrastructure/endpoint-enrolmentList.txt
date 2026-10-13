@@ -1,0 +1,16 @@
+, method = RequestMethod.GET)
+	public ModelAndView enrolmentList(HttpServletRequest request) {
+		User user = getUserDetail();
+		
+		
+		ModelAndView modelAndView = new ModelAndView("dtic/enrolmentList");
+
+	
+
+		return modelAndView;
+	}
+	
+	
+	
+
+	

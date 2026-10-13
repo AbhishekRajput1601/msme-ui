@@ -1,0 +1,7 @@
+, method = RequestMethod.GET)
+	public ModelAndView viewOx2Form(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/ox2Form");
+		return modelAndView;
+	}
+
+	

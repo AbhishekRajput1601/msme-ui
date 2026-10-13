@@ -8,6 +8,7 @@ import React, { useMemo } from 'react'
 import AuthenticatedLayout from './AuthenticatedLayout'
 import { useAuth } from '../hooks/useAuth'
 import { useTranslation } from '../hooks/useTranslation'
+import DticSidebar from '../modules/dtic/DticSidebar'
 
 export default function DepartmentLayout() {
   const { roles } = useAuth()
@@ -95,6 +96,7 @@ export default function DepartmentLayout() {
   return (
     <AuthenticatedLayout
       sidebarItems={sidebarItems}
+      renderSidebar={roles.some(role => role === 'ROLE_DTIC' || role === 'DTIC') ? onNavigate => <DticSidebar onNavigate={onNavigate} /> : undefined}
       portalTitle="Department Portal"
       portalSubtitle="Government of Madhya Pradesh"
       headerBadge={

@@ -36,7 +36,27 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
         autoRewrite: true,
-        bypass: req => req.method === 'GET' && (req.headers.accept || '').includes('text/html') && publicPagePath((req.url || '').split('?')[0]) ? '/index.html' : null,
+        bypass: (req) => {
+          // Workflow fragment requests need the backend-selected HTML, not the SPA shell.
+          if (req.headers['x-requested-with'] === 'XMLHttpRequest') return null
+          const accept = req.headers['accept'] || ''
+          const url = req.url || ''
+          if (
+            url.includes('/captcha') ||
+            url.includes('j_spring_security_check') ||
+            url.includes('/logout') ||
+            url.includes('/fetch') ||
+            url.includes('/download') ||
+            url.includes('/upload') ||
+            req.method === 'POST'
+          ) {
+            return null // proxy to backend
+          }
+          if (req.method === 'GET' && accept.includes('text/html')) {
+            return '/index.html'
+          }
+          return null
+        },
         rewrite: (path) => path.replace(/^\/mpmsme/, ''),
         headers: {
           'X-Forwarded-Host': 'localhost:5173',
@@ -52,8 +72,13 @@ export default defineConfig({
           })
         },
       },
+      // Fallback proxy for legacy static assets so they don't 404 if requested
+      '^/(js|angular|css|images|img)/': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
       // Backend routes running directly on context root (port 8080)
-      '^/(website|pages|j_spring_security_check|logout|applicant|idSection|zonal|idLanding|enterCompliance|addAppeal|uploadQueryDoc|fetchApplicationNoticeList)': {
+      '^/(website|pages|j_spring_security_check|logout|applicant|idSection|zonal|dtic|idLanding|enterCompliance|addAppeal|uploadQueryDoc|fetchApplicationNoticeList)': {
         target: 'http://localhost:8080',
         changeOrigin: true,
         autoRewrite: true,

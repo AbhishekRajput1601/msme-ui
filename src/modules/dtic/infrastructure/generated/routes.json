@@ -1,0 +1,351 @@
+[
+  {
+    "path": "id/viewDocumentsUpload/:applicantId/:vacantLandId",
+    "endpoint": "/id/viewDocumentsUpload",
+    "views": [
+      "dtic/viewIdDocumentsUpload"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "dticLandAllotment",
+    "endpoint": "/dticLandAllotment",
+    "views": [
+      "dtic/dticVacantLandList"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "eSingAOLetter",
+    "endpoint": "/eSingAOLetter",
+    "views": [
+      "dtic/eSignViewAllotmentLetter"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "entervacantland",
+    "endpoint": "/entervacantLand",
+    "views": [
+      "dtic/dticVacantLandForm"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "id/viewAppliedApplicants/:vacantLandId",
+    "endpoint": "/viewAppliedApplicants",
+    "views": [
+      "dtic/idPendingApplicantList"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "eSingAOLetter/:applicantId",
+    "endpoint": "/eSingAOLetter",
+    "views": [
+      "dtic/eSignViewAllotmentLetter"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "tenderDetails/:vacantLandId",
+    "endpoint": "/tenderDetails",
+    "views": [
+      "dtic/tenderDetails"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "openGroupLOI/:applicantId",
+    "endpoint": "/groupLoi",
+    "views": [
+      "dtic/groupLoi2"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "id/editVacantLandDetail/:vacantLandId",
+    "endpoint": "/editVacantLandDetail",
+    "views": [
+      "dtic/editVacantLandForm"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "id/viewIdApplicantHistory/:applicantId/:vacantLandId",
+    "endpoint": "/viewIdHistory",
+    "views": [
+      "applicant/id/idHistory"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "idInspectionStatus/:applicantId/:vacantLandId",
+    "endpoint": "/idInspectionStatus",
+    "views": [
+      "dtic/idInspectionStatus"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "updateLOI/:applicantId/:vacantLandId",
+    "endpoint": "/updateLOI",
+    "views": [
+      "dtic/idPendingApplicantList",
+      "dtic/uploadLOILetter",
+      "dtic/LOIForm"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewUploadDownloadLOI/:applicantId",
+    "endpoint": "/viewUploadDownloadLOI",
+    "views": [
+      "dtic/uploadLOILetter"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewLOCDetails/:applicantId",
+    "endpoint": "/viewLOCDetails",
+    "views": [
+      "dtic/id/viewLOCDetails"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "locPaymentDetails/:locChallanId",
+    "endpoint": "/locPaymentDetails",
+    "views": [
+      "dtic/id/locPaymentDetails"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "updateLeaseDeed/:applicantId/:vacantLandId",
+    "endpoint": "/updateLeaseDeed",
+    "views": [
+      "dtic/uploadLeaseLetter"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "updatePossessionLetter/:applicantId/:vacantLandId",
+    "endpoint": "/updatePossessionLetter",
+    "views": [
+      "dtic/idPendingApplicantList",
+      "dtic/uploadPossessionLetter"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "dticLandAcquisition",
+    "endpoint": "/dticLandAcquisition",
+    "views": [
+      "dtic/dticVacantLandList",
+      "dtic/dticVacantLandForm"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "id/viewApplicationDetail/:applicantId/:vacantLandId",
+    "endpoint": "/viewApplicationDetail",
+    "views": [
+      "dtic/viewApplicationDetail"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewAllotmentLetter/:applicantId/:vacantLandId",
+    "endpoint": "/viewAllotmentLetter",
+    "views": [
+      "dtic/idPendingApplicantList",
+      "dtic/viewAllotmentLetter"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "dticCreateIndustrialArea",
+    "endpoint": "/dticCreateIndustrialArea",
+    "views": [
+      "dtic/createIndustrialArea"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "dticCreateCollectorRate",
+    "endpoint": "/dticCreateCollectorRate",
+    "views": [
+      "dtic/createCollectorRate"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewCollectorRate/:collectorRateId",
+    "endpoint": "/viewCollectorRate",
+    "views": [
+      "dtic/viewCollectorRate"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "editIndustrialArea/:locationId",
+    "endpoint": "/editIndustrialArea",
+    "views": [
+      "dtic/editIndustrialArea"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "dticCreateIndustrialAreaRate",
+    "endpoint": "/dticCreateIndustrialAreaRate",
+    "views": [
+      "dtic/createIndustrialAreaRate"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "dticViewIndustrialAreaRate/:industrialAreaRateId",
+    "endpoint": "/dticViewIndustrialAreaRate",
+    "views": [
+      "dtic/viewIndustrialAreaRate"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "noticeList",
+    "endpoint": "/noticeList",
+    "views": [
+      "dtic/id/applicantListForNotice"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "backlogLandAllotment",
+    "endpoint": "/backlogLandAllotment",
+    "views": [
+      "dtic/id/backlogLandAllotment"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewIssueNotice/:applicantId",
+    "endpoint": "/viewIssueNotice",
+    "views": [
+      "dtic/id/issueNotice"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "reviewCompliance/:noticeId",
+    "endpoint": "/reviewCompliance",
+    "views": [
+      "dtic/id/reviewCompliance"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewNoticeHistory/:noticeId",
+    "endpoint": "/viewNoticeHistory",
+    "views": [
+      "dtic/id/viewPrintNoticeHistory"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewAnnualPaymentHistory/:applicantId",
+    "endpoint": "/viewAnnualPaymentHistory",
+    "views": [
+      "dtic/id/viewAnnualPaymentHistory"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "reviewConditionalComplianceZO/:hearingId",
+    "endpoint": "/viewReviewConditionalComplianceZO",
+    "views": [
+      "dtic/id/reviewConditionalComplianceZO"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "reviewConditionalComplianceZO/:hearingId/:decisionId",
+    "endpoint": "/viewReviewConditionalComplianceZO",
+    "views": [
+      "dtic/id/reviewConditionalComplianceZO"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewConditionalDecisionZO/:hearingId/:decisionId",
+    "endpoint": "/viewConditionalDecisionZO",
+    "views": [
+      "dtic/id/viewZOConditionalDecision"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "reviewConditionalComplianceIC/:hearingId",
+    "endpoint": "/viewReviewConditionalComplianceIC",
+    "views": [
+      "dtic/id/reviewConditionalComplianceIC"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "reviewConditionalComplianceIC/:hearingId/:decisionId",
+    "endpoint": "/viewReviewConditionalComplianceIC",
+    "views": [
+      "dtic/id/reviewConditionalComplianceIC"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewConditionalDecisionIC/:hearingId/:decisionId",
+    "endpoint": "/viewConditionalDecisionIC",
+    "views": [
+      "dtic/id/viewICConditionalDecision"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewZOAppeal/:appealId",
+    "endpoint": "/viewZOAppeal",
+    "views": [
+      "dtic/id/viewZOAppeal"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewZOAppealHearing/:appealHearingId",
+    "endpoint": "/viewZOAppealHearing",
+    "views": [
+      "dtic/id/viewZOAppealHearing"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewICAppeal/:appealId",
+    "endpoint": "/viewICAppeal",
+    "views": [
+      "dtic/id/viewICAppeal"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewICAppealHearing/:appealHearingId",
+    "endpoint": "/viewICAppealHearing",
+    "views": [
+      "dtic/id/viewICAppealHearing"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "viewAnnualPaymentDetails/:paymentId",
+    "endpoint": "/viewAnnualPaymentDetails",
+    "views": [
+      "dtic/id/viewAnnualPaymentDetails"
+    ],
+    "controller": "DTICIDController"
+  }
+]

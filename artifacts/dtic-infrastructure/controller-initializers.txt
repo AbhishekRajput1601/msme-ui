@@ -1,0 +1,510 @@
+
+
+			$scope.started = false;
+
+			function closeModals() {
+				if ($scope.warning) {
+					$scope.warning.close();
+					$scope.warning = null;
+				}
+
+				if ($scope.timedout) {
+					$scope.timedout.close();
+					$scope.timedout = null;
+				}
+			}
+
+			$scope.$on('IdleStart', function() {
+				closeModals();
+
+				
+				
+				
+				
+			});
+
+			$scope.$on('IdleEnd', function() {
+				closeModals();
+			});
+			
+			
+			;
+
+			
+			;
+
+			;
+
+			;
+
+			;
+
+
+			;
+			;
+
+			;
+			$scope.getYear();
+
+			;
+
+			;
+
+			;
+
+			;
+
+
+			;
+
+			;
+
+			;
+			
+			$scope.legacyData = {
+
+				industrialAreaId: "",
+				locationType: "",
+				purpose: "",
+				categoryAllottee: "",
+				ownerGender: "",
+				allotmentType: "",
+				categoryOfIndustry: "",
+				currentStatus: ""
+			};
+			;
+
+			
+			$scope
+				.$on(
+					'IdleTimeout',
+					function() {
+						closeModals();
+						var language = $('#language').val();
+						if (language == 'en_US') {
+							alert("Your Session has expired, Please relogin.");
+						} else if (language == 'hi_IN') {
+							alert("आपका सत्र समाप्त हो गया है, कृपया पुनः प्रवेश करें।");
+						}
+						$window.location.reload();
+						
+						
+						
+						
+					});
+
+			$rootScope.responseObject = '';
+
+			;
+
+			
+			;
+			
+
+			;
+
+			;
+
+			;
+
+			
+
+			;
+
+
+			;
+
+			;
+
+			
+
+			;
+
+			;
+			
+			;
+			
+			;
+			
+			;
+
+
+			;
+
+			;
+			
+			;
+			
+			
+			
+			;
+			;
+			;
+			
+			;
+
+
+			; 
+
+			
+			
+			;
+			
+			; 
+
+			;
+			
+			
+
+			
+			;
+
+			;
+			
+			$scope.formData = {
+				totalPremium: "0.00",
+				totalAmount: "0.00",
+				totalPlotArea: "0.00",
+				totalLease: "0.00",
+				totalSecurity: "0.00",
+				totalDevelopment: "0.00",
+				additionalPremium: "0.00",
+				otherCharges: "0.00",
+				eoiAmount: ""
+			};
+
+			;
+
+
+			
+			;
+			
+			;
+
+
+
+			$scope.pointData = {}
+			$scope.workCreationData = {};
+			;
+
+
+
+
+
+			
+			$scope.vacantLandData = {};
+			;
+
+			
+			
+			
+
+			
+			$scope.formData = {
+				totalPremium: "0.00",
+				totalAmount: "0.00",
+				totalPlotArea: "0.00",
+				totalLease: "0.00",
+				totalSecurity: "0.00",
+				totalDevelopment: "0.00",
+				eoiAmount: ""
+			};
+
+			;
+
+
+			;
+			
+
+			
+			
+			;
+			
+			;
+			
+			
+			;
+
+			
+			;
+
+			;
+
+			;
+
+			function validateDates() {
+				const pubDate = $scope.formData.publicationDate ? new Date($scope.formData.publicationDate) : null;
+				const startDate = $scope.formData.bidStartDate ? new Date($scope.formData.bidStartDate) : null;
+				const endDate = $scope.formData.bidEndDate ? new Date($scope.formData.bidEndDate) : null;
+
+				$scope.bidStartBeforePublication = false;
+				$scope.bidEndBeforeStart = false;
+
+				if (pubDate && startDate) {
+					$scope.bidStartBeforePublication = startDate < pubDate;
+				}
+
+				if (startDate && endDate) {
+					$scope.bidEndBeforeStart = endDate <= startDate;
+				}
+			}
+
+
+
+
+			;
+
+			;
+			$scope.applicationID = "";
+			;
+
+			
+			
+
+			;
+
+
+			$scope.applicantId = "";
+			;
+
+			
+			
+			;
+
+			
+			;
+
+			;
+
+
+			
+			;
+
+
+			
+
+			;
+
+
+			;
+
+
+			;
+
+
+			;
+
+			;
+
+
+			;
+
+
+			$scope.signOption = null;  
+
+			;
+
+			$scope.allotmentLetterData = {};
+
+			;
+
+			;
+
+
+
+			
+			;
+
+			;
+
+			;
+
+			
+
+			
+			;
+			$scope.fileTooLarge = false;
+
+
+			;
+
+			;
+
+
+			
+
+			;
+			$scope.formData = {
+				h1BidAmount: 0,
+				advancePremiumH1: 0,
+				annualGroundRent: 0,
+				annualMaintenance: 0,
+				securityDeposite: 0,
+				otherCharges: 0
+			};
+
+			$scope.$watchGroup([
+				'formData.h1BidAmount',
+				'formData.advancePremiumH1',
+				'formData.annualGroundRent',
+				'formData.annualMaintenance',
+				'formData.securityDeposite',
+				'formData.otherCharges'
+			], function(newValues) {
+				var bid = parseFloat($scope.formData.h1BidAmount) || 0;
+				var premium = parseFloat($scope.formData.advancePremiumH1) || 0;
+				var rent = parseFloat($scope.formData.annualGroundRent) || 0;
+				var maintenance = parseFloat($scope.formData.annualMaintenance) || 0;
+				var deposit = parseFloat($scope.formData.securityDeposite) || 0;
+				var other = parseFloat($scope.formData.otherCharges) || 0;
+
+				$scope.formData.totalAmount = (bid - premium + rent + maintenance + deposit + other).toFixed(2);
+			});
+
+
+
+			
+
+			
+
+			
+
+			;
+
+
+			;
+
+			;
+
+
+			;
+
+			
+
+
+
+
+
+
+
+			;
+
+
+
+			;
+
+
+			;
+
+			;
+			
+			
+			$scope.undevlopmentVisibilty = true;
+			
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+
+			;
+
+
+
+
+
+
+			;
+
+			;
+
+			$scope.industrialAreaList = null;
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			
+			;
+
+			;
+			;
+
+			;
+			$scope.showH1Details = false;
+			
+
+			$scope.showButton = true;
+			$scope.tenderInitiate = true;
+			$scope.isUndevelopedLandByApplicant = false;
+			;
+
+
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+			;
+
+
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+
+			;
+			;
+
+			;
+			
+
+			;
+
+			
+
+			;
+
+			;
+
+			;
+			;
+
+			;
+
+			;
+		

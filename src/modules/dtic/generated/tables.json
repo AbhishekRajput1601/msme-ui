@@ -1,0 +1,388 @@
+{
+  "dtic/fapendingapplicantsunit": {
+    "endpoint": "fetchpendingapplicants/Unit",
+    "columns": [
+      null,
+      "applicationId",
+      "applicationDate",
+      "unitOrInstName",
+      "status",
+      null
+    ]
+  },
+  "dtic/fapendingapplicantsapparel": {
+    "endpoint": "fetchpendingapplicants/Institution",
+    "columns": [
+      null,
+      "applicationId",
+      "applicationDate",
+      "establishmentType",
+      "unitOrInstName",
+      "status",
+      null
+    ]
+  },
+  "dtic/allapplicationslist": {
+    "endpoint": "fetchtotalapplications",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/applicationslistbystatus": {
+    "endpoint": "fetchapplicationsbystatus?status=PENDING_FROM_DTIC",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/sendbackapplicationslist": {
+    "endpoint": "fetchapplicationsbystatus?status=RESUBMISSION_FROM_APPLICANT",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/resubmittedapplicationslist": {
+    "endpoint": "fetchapplicationsbystatus?status=SUBMITTED_AFTER_CORRECTION",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/viewapplicationsacceptedbydtic": {
+    "endpoint": "fetchapplicationsbystatus?status=PENDING_FROM_DTFC",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/viewapplicationsrejectedbydtic": {
+    "endpoint": "fetchapplicationsbystatus?status=REJECTED_DTIC",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/viewapplicationsacceptedbydtfc": {
+    "endpoint": "fetchapplicationsbystatus?status=PENDING_FROM_BANK",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/viewapplicationsrejectedbydtfc": {
+    "endpoint": "fetchapplicationsbystatus?status=REJECTED_DTFC",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/viewapplicationsacceptedbybank": {
+    "endpoint": "fetchapplicationsbystatus?status=ACCEPTED",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/viewapplicationsrejectedbybank": {
+    "endpoint": "fetchapplicationsbystatus?status=REJECTED_BANK",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/applicantlist": {
+    "endpoint": "fetchapplicants",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/yuvaudhamiapplicantlist": {
+    "endpoint": "fetchyuvaudhamiapplicants",
+    "columns": [
+      "requestId",
+      "createdOn",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/inprocessapplicantlist": {
+    "endpoint": "fetchinprocessapplicants",
+    "columns": [
+      null,
+      "requestId",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/inprocessyuvaudhamiapplicants": {
+    "endpoint": "fetchinprocessyuvaudhamiapplicants",
+    "columns": [
+      null,
+      "requestId",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/resubmittedapplicantlist": {
+    "endpoint": "fetchresubmittedapplicants",
+    "columns": [
+      "requestId",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/resubmittedyuvaudhamiapplicantlist": {
+    "endpoint": "fetchresubmittedyuvaudhamiapplicants",
+    "columns": [
+      "requestId",
+      "fullName",
+      "schemeName",
+      "schemeType",
+      "status",
+      null
+    ]
+  },
+  "dtic/msmeapplicationlist": {
+    "endpoint": "fetchmsmeapplications",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "msmeType",
+      "ownerOrPartnerName",
+      "productionDate",
+      "createdOn",
+      null
+    ]
+  },
+  "dtic/microlevelreportform": {
+    "endpoint": "fetchmicrolevelapplicants/",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "ownerOrPartnerName",
+      "unitName",
+      "unitAddress",
+      "category",
+      "gender",
+      "isHandicappedString",
+      "enterpriseType",
+      null,
+      "productionDate",
+      null,
+      null,
+      "prodCapacity",
+      "landOrHouseInvestment",
+      "plantOrMachineryInvestment",
+      "totalEmployments",
+      "localEmployments"
+    ]
+  },
+  "dtic/smalllevelreportform": {
+    "endpoint": "fetchsmalllevelapplicants/",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "ownerOrPartnerName",
+      "unitName",
+      "unitAddress",
+      "category",
+      "gender",
+      "isHandicappedString",
+      "enterpriseType",
+      "nicCode",
+      "productionDate",
+      "prodClassification",
+      "prodName",
+      "prodCapacity",
+      "landOrHouseInvestment",
+      "plantOrMachineryInvestment",
+      "totalEmployments",
+      "localEmployments"
+    ]
+  },
+  "dtic/mediumlevelreportform": {
+    "endpoint": "fetchmediumlevelapplicants/",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "ownerOrPartnerName",
+      "unitName",
+      "unitAddress",
+      "category",
+      "gender",
+      "isHandicappedString",
+      "enterpriseType",
+      "nicCode",
+      "productionDate",
+      "prodClassification",
+      "prodName",
+      "prodCapacity",
+      "landOrHouseInvestment",
+      "plantOrMachineryInvestment",
+      "totalEmployments",
+      "localEmployments"
+    ]
+  },
+  "dtic/budgetPlanning/allocatedBudgetDetails": {
+    "endpoint": "fetchDTICBudgetByFY",
+    "columns": [
+      null,
+      "financialYear",
+      "amount",
+      "headsAmount",
+      null,
+      null
+    ]
+  },
+  "dtic/budgetPlanning/demandBudgetDetails": {
+    "endpoint": "fetchDTICDemandByFY",
+    "columns": [
+      null,
+      "financialYear",
+      "amount",
+      "headsAmount",
+      null,
+      null
+    ]
+  },
+  "dtic/budgetPlanning/usesSurrenderDetails": {
+    "endpoint": "fetchDTICBudgetByFY",
+    "columns": [
+      null,
+      "financialYear",
+      "amount",
+      "usedAmount",
+      "surrenderAmount",
+      null,
+      null
+    ]
+  },
+  "dtic/coordination/inspectionDetails": {
+    "endpoint": "fetchInspectionOffices",
+    "columns": [
+      null,
+      "financialYear",
+      "officerName",
+      "designation",
+      "mobileNumber",
+      "emailId",
+      "month",
+      null
+    ]
+  },
+  "dtic/audit/internalAuditListForDTIC": {
+    "endpoint": "fetchInternalAuditListForDTIC",
+    "columns": [
+      null,
+      "dticName",
+      "financialYear",
+      "status",
+      null
+    ]
+  },
+  "dtic/audit/externalAuditListForDTIC": {
+    "endpoint": "fetchExternalAuditListForDTIC",
+    "columns": [
+      null,
+      "auditPeriodFrom",
+      "auditPeriodTo",
+      "dticName",
+      "status",
+      null
+    ]
+  },
+  "dtic/audit/factualDetailListForDTIC": {
+    "endpoint": "fetchFactualDetailListForDTIC",
+    "columns": [
+      null,
+      "auditExternalBean.auditPeriodFrom",
+      "auditExternalBean.auditPeriodTo",
+      "auditExternalBean.dticName",
+      "deptName",
+      "status",
+      null
+    ]
+  },
+  "dtic/audit/proformaClauseListForDTIC": {
+    "endpoint": "fetchProformaClauseListForDTIC",
+    "columns": [
+      null,
+      "auditExternalBean.auditPeriodFrom",
+      "auditExternalBean.auditPeriodTo",
+      "auditExternalBean.dticName",
+      "deptName",
+      "status",
+      null
+    ]
+  }
+}

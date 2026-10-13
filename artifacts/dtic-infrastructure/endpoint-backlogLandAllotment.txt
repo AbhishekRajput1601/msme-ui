@@ -1,0 +1,7 @@
+, method = RequestMethod.GET)
+	public ModelAndView backlogLandAllotment(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/id/backlogLandAllotment");
+		return modelAndView;
+	}
+
+	

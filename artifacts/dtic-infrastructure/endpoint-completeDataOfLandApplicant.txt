@@ -1,0 +1,10 @@
+, method = RequestMethod.GET)
+	public ModelAndView completeDataOfLandApplicant(HttpServletRequest request) {
+
+		ModelAndView modelAndView = new ModelAndView(
+				"dtic/completeDataOfLandApplicant");
+		return modelAndView;
+
+	}
+	
+	

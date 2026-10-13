@@ -1,0 +1,9 @@
+, method = RequestMethod.GET)
+	public ModelAndView eSingAOLetter(@PathVariable String applicantId, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("dtic/eSignViewAllotmentLetter");
+		modelAndView.addObject("applicantId", applicantId);
+		return modelAndView;
+	}
+
+	
+	
