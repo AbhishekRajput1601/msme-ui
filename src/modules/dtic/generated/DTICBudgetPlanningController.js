@@ -2,10 +2,8 @@
 export function installActions(state, { request, loading, navigation, params, format, later, dom }) {
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,Array.isArray(items) ? Number(k) : k));
 const identity = value => value;
-const $sce = { trustAsHtml: identity, trustAsResourceUrl: identity };
 const fetchDTICBudgetByFY = () => { state.listVersion++; loading.finish(); };
 const fetchDTICDemandByFY = () => { state.listVersion++; loading.finish(); };
-
 let lastObjectId="", lastSchemeId="", lastSchemeTypeId="";
 state.started = false;
 function calculateAmounts() {

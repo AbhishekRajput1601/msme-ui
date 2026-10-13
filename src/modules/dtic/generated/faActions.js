@@ -2,7 +2,6 @@
 export function installFaActions(state, { request, loading, navigation, params, format, later, dom }) {
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,Array.isArray(items) ? Number(k) : k));
 const identity = value => value;
-const $sce = { trustAsHtml: identity, trustAsResourceUrl: identity };
 state.faMsmeDetailData = {};
 state.sectorofinductryList = [];
 state.eligRows = [];

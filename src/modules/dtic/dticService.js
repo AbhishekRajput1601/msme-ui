@@ -9,7 +9,10 @@ export async function dticRequest(method, endpoint, data, signal) {
   if (method === 'get') config.params = data
   else config.data = data
   const response = await http(config)
-  if (typeof response.data === 'string' || response.data == null) throw new Error('The server did not return DTIC data. Please sign in again.')
+  if (typeof response.data === 'string' && /<html|<!doctype|id="loginForm"|<title>Login/i.test(response.data)) {
+    throw new Error('The server did not return DTIC data. Please sign in again.')
+  }
+  if (response.data == null) return null
   // Audit endpoints return newly saved process IDs in the legacy errorMsgList
   // property; these IDs are then sent with the document upload.
   if (/^saveDTICOpinion(?:ExternalAudit|InternalAudit|FactualDetail|ProformaClause)$/.test(endpoint)

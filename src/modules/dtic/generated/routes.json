@@ -252,46 +252,6 @@
     "controller": "DTICFAController"
   },
   {
-    "path": "viewfaapplicantdetail/:applicationId",
-    "views": [
-      "applicant/fa/viewFADetailUnitNew2"
-    ],
-    "endpoint": "/fa/viewfaapplicantdetailunitnew",
-    "controller": "DTICFAController"
-  },
-  {
-    "path": "viewfaapplicantdetailunit/:applicationId",
-    "views": [
-      "applicant/fa/viewFADetailUnitNew2"
-    ],
-    "endpoint": "/fa/viewfaapplicantdetailunitnew",
-    "controller": "DTICFAController"
-  },
-  {
-    "path": "viewfaschemesdetails/:applicationId",
-    "views": [
-      "applicant/fa/viewFASchemesUnit"
-    ],
-    "endpoint": "/fa/viewfaschemesdetailsunit",
-    "controller": "DTICFAController"
-  },
-  {
-    "path": "viewfaschemesdetailsunit/:applicationId",
-    "views": [
-      "applicant/fa/viewFASchemesUnit"
-    ],
-    "endpoint": "/fa/viewfaschemesdetailsunit",
-    "controller": "DTICFAController"
-  },
-  {
-    "path": "faapplicants",
-    "views": [
-      "dtic/fapendingapplicantsunit"
-    ],
-    "endpoint": "/dticfapendingapplicantsunit",
-    "controller": "DTICFAController"
-  },
-  {
     "path": "dashboard",
     "views": [
       "dtic/dashboard"
@@ -495,78 +455,6 @@
     "controller": "DTICSelfEmploymentController"
   },
   {
-    "path": "viewapplicationlist",
-    "views": [
-      "dtic/msmeapplicationlist"
-    ],
-    "endpoint": "/viewapplicationlist",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "viewmsmedetail/:msmeDetailId",
-    "views": [
-      "dtic/viewmsmedetail"
-    ],
-    "endpoint": "/viewmsmedetail",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "viewmsmeform",
-    "views": [
-      "dtic/viewmsmeform"
-    ],
-    "endpoint": "/viewmsmeform",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "serviceenterprisereportform",
-    "views": [
-      "dtic/serviceenterprisereportform"
-    ],
-    "endpoint": "/serviceenterprisereportform",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "manufacturingenterprisereportform",
-    "views": [
-      "dtic/manufacturingenterprisereportform"
-    ],
-    "endpoint": "/manufacturingenterprisereportform",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "microlevelreportform",
-    "views": [
-      "dtic/microlevelreportform"
-    ],
-    "endpoint": "/microlevelreportform",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "smalllevelreportform",
-    "views": [
-      "dtic/smalllevelreportform"
-    ],
-    "endpoint": "/smalllevelreportform",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "mediumlevelreportform",
-    "views": [
-      "dtic/mediumlevelreportform"
-    ],
-    "endpoint": "/mediumlevelreportform",
-    "controller": "DTICMSMEController"
-  },
-  {
-    "path": "viewmsmeeditform/:msmeDetailId",
-    "views": [
-      "dtic/viewmsmeeditform"
-    ],
-    "endpoint": "/viewmsmeeditform",
-    "controller": "DTICMSMEController"
-  },
-  {
     "path": "uploadBankCoveringLetter/:applicantId/:schemeCategory",
     "views": [
       "dtic/uploadBankCoveringLetter"
@@ -717,6 +605,38 @@
     ],
     "endpoint": "/printRoster",
     "controller": "DTICCoordinationController"
+  },
+  {
+    "path": "letterList",
+    "views": [
+      "employee/letterList"
+    ],
+    "endpoint": "/letterList",
+    "controller": "CommonController"
+  },
+  {
+    "path": "viewLetter/:letterId",
+    "views": [
+      "cmcs/viewLetter"
+    ],
+    "endpoint": "/viewLetter",
+    "controller": "CommonController"
+  },
+  {
+    "path": "updateProcess/:letterId",
+    "views": [
+      "cmcs/updateProcess"
+    ],
+    "endpoint": "/updateProcess",
+    "controller": "CommonController"
+  },
+  {
+    "path": "loadHistory/:letterId",
+    "views": [
+      "cmcs/cmcsHistory"
+    ],
+    "endpoint": "/loadHistory",
+    "controller": "CommonController"
   },
   {
     "path": "internalAuditList",

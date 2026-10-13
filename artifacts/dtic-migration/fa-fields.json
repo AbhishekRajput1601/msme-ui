@@ -5865,1655 +5865,6 @@
     ],
     "inlineScripts": 2
   },
-  "dtic/msmeapplicationlist": {
-    "fields": [],
-    "events": [
-      "loadMSMEApplicationList()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/viewmsmedetail": {
-    "fields": [
-      {
-        "disabled": "disabled",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.industrialArea"
-      }
-    ],
-    "events": [
-      "fetchMSMEDetail()"
-    ],
-    "inlineScripts": 1
-  },
-  "dtic/viewmsmeform": {
-    "fields": [
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.uamAvailability",
-        "value": "yes",
-        "name": "uamAvailability",
-        "required": "required",
-        "data-ng-change": "resetUAMAvailDetailsIfYes()"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.uamAvailability",
-        "value": "no",
-        "name": "uamAvailability",
-        "required": "required",
-        "data-ng-change": "resetUAMAvailDetailsIfNo()"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.uamNumber",
-        "placeholder": "e.g. UDYAM-XX-00-0000000",
-        "name": "uamNumber",
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.udyogAadhaar",
-        "value": "no",
-        "name": "udyogAadhaar",
-        "data-ng-change": "populateDetailsThroughUdyogAadhaar(msmeDetailData.udyogAadhaar, msmeDetailData.uamNumber, msmeDetailData.aadhaarNumber)"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.udyogAadhaar",
-        "value": "yes",
-        "name": "udyogAadhaar",
-        "data-ng-change": "populateDetailsThroughUdyogAadhaar(msmeDetailData.udyogAadhaar, msmeDetailData.uamNumber, msmeDetailData.aadhaarNumber)"
-      },
-      {
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'",
-        "type": "text",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "data-ng-model": "msmeDetailData.uamDate",
-        "id": "uamDate",
-        "name": "uamDate"
-      },
-      {
-        "id": " ",
-        "data-ng-required": "msmeDetailData.uamAvailability=='no'",
-        "data-ng-model": "msmeDetailData.previousRegistrationName",
-        "class": [
-          "form-control"
-        ],
-        "name": "previousRegistrationName",
-        "data-ng-change": "onPreviousRegistrationNameChange()"
-      },
-      {
-        "data-ng-required": "msmeDetailData.previousRegistrationName=='EM1' || msmeDetailData.previousRegistrationName=='EM2' || msmeDetailData.previousRegistrationName=='SSI'",
-        "class": [
-          "form-control",
-          "alpha-numeric-only",
-          "number12"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.previousRegistrationValue",
-        "name": "previousRegistrationValue"
-      },
-      {
-        "required": "required",
-        "id": "selectmsmeType",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.msmeType",
-        "name": "msmeType"
-      },
-      {
-        "required": "required",
-        "id": "selectmsmeType",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.unitStatus",
-        "name": "unitStatus"
-      },
-      {
-        "type": "radio",
-        "required": "required",
-        "data-ng-model": "msmeDetailData.inIndustrialArea",
-        "value": "yes",
-        "name": "inIndustrialArea"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.inIndustrialArea",
-        "value": "no",
-        "name": "inIndustrialArea"
-      },
-      {
-        "required": "required",
-        "name": "industrialArea",
-        "id": "selectindustrialArea",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.industrialArea",
-        "data-ng-change": "fetchIndustrialAreaLocations(vacantLandData.industrialAreaId);loadFYCollectorRates(vacantLandData.industrialAreaId)"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inIndustrialArea=='no'",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.areaLocality",
-        "name": "areaLocality"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-numberic-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.plotNumber",
-        "name": "plotNumber"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.areaInSqm",
-        "name": "areaInSqm"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.allotteeName",
-        "name": "allotteeName"
-      },
-      {
-        "type": "text",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "data-ng-required": "msmeDetailData.inIndustrialArea!='no'",
-        "data-ng-model": "msmeDetailData.leaseDeedDate",
-        "id": "leaseDeedDate",
-        "name": "leaseDeedDate"
-      },
-      {
-        "type": "radio",
-        "required": "",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Manufacturing",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Warehouse",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Service",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.activity",
-        "required": "required",
-        "value": "Commercially",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "required": "required",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Ancillary",
-        "name": "activityName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.products",
-        "name": "productsName",
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.investmentInLac",
-        "name": "investmentInLac",
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inIndustrialArea!='no' && msmeDetailData.uamAvailability=='yes'",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.leaseRentPerYear",
-        "name": "leaseRentPerYear"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inIndustrialArea!='no' && msmeDetailData.uamAvailability=='yes'",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.maintenanceCharge",
-        "name": "maintenanceChargeName"
-      },
-      {
-        "type": "radio",
-        "required": "required",
-        "data-ng-model": "msmeDetailData.inUnitExport",
-        "value": "yes",
-        "name": "inUnitExport"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.inUnitExport",
-        "required": "required",
-        "value": "no",
-        "name": "inUnitExport"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inUnitExport=='yes'",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.exportTurnoverInLac",
-        "name": "exportTurnoverInLac"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-only-space-dot"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.ownerOrPartnerName",
-        "name": "ownerOrPartnerName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitName",
-        "name": "unitName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "no-special-start"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitAddress1",
-        "name": "unitAddress1"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "no-special-start"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitAddress2",
-        "name": "unitAddress2"
-      },
-      {
-        "class": [
-          "form-control",
-          "no-special-start"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitAddress3",
-        "name": "unitAddress3"
-      },
-      {
-        "name": "district",
-        "id": "selectUnitDistrict",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.unitDistrict",
-        "data-ng-change": "fetchUnitTehsilByDistrict(msmeDetailData.unitDistrict)",
-        "required": "required"
-      },
-      {
-        "id": "selectUnitTehsil",
-        "data-ng-model": "msmeDetailData.unitTehsil",
-        "class": [
-          "form-control"
-        ]
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only",
-          "number6"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitPinCode",
-        "name": "unitPinCode"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.state",
-        "name": "state",
-        "data-ng-init": "msmeDetailData.state='Madhya Pradesh'",
-        "disabled": "disabled"
-      },
-      {
-        "class": [
-          "form-control",
-          "no-space"
-        ],
-        "type": "email",
-        "id": "unitEmailId",
-        "data-ng-model": "msmeDetailData.unitEmail",
-        "name": "unitEmail"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only",
-          "number12"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitPhoneNumber",
-        "name": "unitPhoneNumber",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "id": "selectTypeOfOrganization",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.typeOfOrganization",
-        "name": "typeOfOrganization"
-      },
-      {
-        "id": "selectCategory",
-        "data-ng-model": "msmeDetailData.category",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "category"
-      },
-      {
-        "id": "selectGender",
-        "data-ng-model": "msmeDetailData.gender",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "gender"
-      },
-      {
-        "id": "isHandicapped",
-        "data-ng-model": "msmeDetailData.isHandicapped",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "handicapped"
-      },
-      {
-        "id": "isHandicapped",
-        "data-ng-model": "msmeDetailData.isMinority",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "minority"
-      },
-      {
-        "id": "selectEnterprise",
-        "data-ng-model": "msmeDetailData.enterpriseType",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "enterpriseType"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "value": "{{$index + 1}}",
-        "disabled": "disabled"
-      },
-      {
-        "id": "selectActivityType",
-        "data-ng-model": "activityDetails.activityType",
-        "class": [
-          "form-control"
-        ],
-        "name": "activityType_{{$index}}",
-        "required": "required",
-        "data-ng-change": "fetchUamActivitiesByType(activityDetails.activityType, $index)"
-      },
-      {
-        "id": "selectActivityDetail1",
-        "data-ng-model": "activityDetails.activityDetail1",
-        "class": [
-          "form-control"
-        ],
-        "name": "activityDetail1_{{$index}}",
-        "required": "required"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "activityDetails.activityDetail2",
-        "name": "activityDetail2_{{$index}}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "activityDetails.activityDetail3",
-        "name": "activityDetail3_{{$index}}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "activityDetails.othersActivity",
-        "name": "othersActivity_{{$index}}"
-      },
-      {
-        "required": "required",
-        "type": "text",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "data-ng-model": "msmeDetailData.productionDate",
-        "id": "productionDate",
-        "name": "productionDate"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.prodCapacity",
-        "name": "prodCapacity"
-      },
-      {
-        "id": "isHandicapped",
-        "data-ng-model": "msmeDetailData.isExport",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "isExport"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.annualTurnOver",
-        "name": "annualTurnOver"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.installedCapacity",
-        "name": "installedCapacity"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.installedCapacityUnits",
-        "name": "installedCapacityUnits"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.msme.landhouse}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.msme.plantandmachinery}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.msme.equipment}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.fa.othersActivityDetail}"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.landOrHouseInvestment",
-        "name": "landOrHouseInvestment"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.plantOrMachineryInvestment",
-        "name": "plantOrMachineryInvestment"
-      },
-      {
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.othersInvestment",
-        "name": "othersInvestment"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "value": "Total",
-        "style": "font-weight: bold; text-align: right;"
-      },
-      {
-        "disabled": "disabled",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "value": "{{msmeDetailData.landOrHouseInvestment--msmeDetailData.plantOrMachineryInvestment--msmeDetailData.othersInvestment}}"
-      },
-      {
-        "name": "bankName",
-        "id": "bankName",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.bankName",
-        "required": "required"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-numeric-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.branchname",
-        "name": "branchName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.accountnumber",
-        "data-ng-pattern": "/^\\d{8,16}$/",
-        "name": "accountNo",
-        "id": "accountNo",
-        "maxlength": "15"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-numeric-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.ifsc",
-        "name": "ifsc"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.totalEmployments",
-        "name": "totalEmployments"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpEmptGen",
-        "name": "msmeMpEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpScEmptGen",
-        "name": "msmeMpScEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpStEmptGen",
-        "name": "msmeMpStEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpObcEmptGen",
-        "name": "msmeMpObcEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "type": "file",
-        "class": [
-          "btn",
-          "btn-primary",
-          "btn-xs"
-        ],
-        "file-model": "fileData.employmentGivenUpload",
-        "id": "employmentGivenDoc",
-        "accept": "application/pdf"
-      }
-    ],
-    "events": [
-      "addMSMEDetailFunction(msmeDetailForm, msmeDetailForm.$valid, fileData)",
-      "addNewUamDetailsChoice()",
-      "fetchIndustrialAreaLocations(vacantLandData.industrialAreaId);loadFYCollectorRates(vacantLandData.industrialAreaId)",
-      "fetchUamActivitiesByType(activityDetails.activityType, $index)",
-      "fetchUnitTehsilByDistrict(msmeDetailData.unitDistrict)",
-      "loadMSMEFormDetail();",
-      "msmeDetailData.activityDetailsList=[{}]",
-      "msmeDetailData.inIndustrialArea=='yes'",
-      "msmeDetailData.inUnitExport=='yes'",
-      "msmeDetailData.state='Madhya Pradesh'",
-      "msmeDetailData.udyogAadhaar='no'",
-      "onPreviousRegistrationNameChange()",
-      "populateDetailsThroughUdyogAadhaar(msmeDetailData.udyogAadhaar, msmeDetailData.uamNumber, msmeDetailData.aadhaarNumber)",
-      "removeUamDetailsChoice()",
-      "resetUAMAvailDetailsIfNo()",
-      "resetUAMAvailDetailsIfYes()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/serviceenterprisereportform": {
-    "fields": [
-      {
-        "id": "fromDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "fromDateInput"
-      },
-      {
-        "id": "toDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "toDateInput"
-      }
-    ],
-    "events": [
-      "downloadServiceEnterpriseReport(fromDateInput, toDateInput)",
-      "searchServiceReport()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/manufacturingenterprisereportform": {
-    "fields": [
-      {
-        "id": "fromDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "fromDateInput"
-      },
-      {
-        "id": "toDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "toDateInput"
-      }
-    ],
-    "events": [
-      "downloadManufacturingEnterpriseReport(fromDateInput, toDateInput)",
-      "searchProductionReport()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/microlevelreportform": {
-    "fields": [
-      {
-        "id": "fromDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "fromDateInput"
-      },
-      {
-        "id": "toDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "toDateInput"
-      }
-    ],
-    "events": [
-      "downloadMicroLevelReport()",
-      "fetchMicroLevelApplicantList()",
-      "validateReportForm()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/smalllevelreportform": {
-    "fields": [
-      {
-        "id": "fromDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "fromDateInput"
-      },
-      {
-        "id": "toDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "toDateInput"
-      }
-    ],
-    "events": [
-      "downloadSmallLevelReport(fromDateInput, toDateInput)",
-      "fetchSmallLevelApplicantList()",
-      "validateReportForm()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/mediumlevelreportform": {
-    "fields": [
-      {
-        "id": "fromDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "fromDateInput"
-      },
-      {
-        "id": "toDateId",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "type": "text",
-        "data-ng-model": "toDateInput"
-      }
-    ],
-    "events": [
-      "downloadMediumLevelReport(fromDateInput, toDateInput)",
-      "fetchMediumLevelApplicantList()",
-      "validateReportForm()"
-    ],
-    "inlineScripts": 2
-  },
-  "dtic/viewmsmeeditform": {
-    "fields": [
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.uamAvailability",
-        "value": "yes",
-        "name": "uamAvailability",
-        "required": "required",
-        "data-ng-change": "resetUAMAvailDetailsIfYes()"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.uamAvailability",
-        "value": "no",
-        "name": "uamAvailability",
-        "required": "required",
-        "data-ng-change": "resetUAMAvailDetailsIfNo()"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.uamNumber",
-        "placeholder": "e.g. UDYAM-XX-00-0000000",
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.udyogAadhaar",
-        "value": "no",
-        "name": "udyogAadhaar",
-        "data-ng-change": "populateDetailsThroughUdyogAadhaar(msmeDetailData.udyogAadhaar, msmeDetailData.uamNumber, msmeDetailData.aadhaarNumber)"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.udyogAadhaar",
-        "value": "yes",
-        "name": "udyogAadhaar",
-        "data-ng-change": "populateDetailsThroughUdyogAadhaar(msmeDetailData.udyogAadhaar, msmeDetailData.uamNumber, msmeDetailData.aadhaarNumber)"
-      },
-      {
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'",
-        "type": "text",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "data-ng-model": "msmeDetailData.uamDate",
-        "id": "uamDate",
-        "name": "uamDate"
-      },
-      {
-        "id": " ",
-        "data-ng-required": "msmeDetailData.uamAvailability=='no'",
-        "data-ng-model": "msmeDetailData.previousRegistrationName",
-        "class": [
-          "form-control"
-        ],
-        "name": "previousRegistrationName",
-        "data-ng-change": "onPreviousRegistrationNameChange()"
-      },
-      {
-        "data-ng-required": "msmeDetailData.previousRegistrationName=='EM1' || msmeDetailData.previousRegistrationName=='EM2' || msmeDetailData.previousRegistrationName=='SSI'",
-        "class": [
-          "form-control",
-          "alpha-numeric-only",
-          "number12"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.previousRegistrationValue",
-        "name": "previousRegistrationValue"
-      },
-      {
-        "required": "required",
-        "id": "selectmsmeType",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.msmeType",
-        "name": "msmeType"
-      },
-      {
-        "required": "required",
-        "id": "selectmsmeType",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.unitStatus",
-        "name": "unitStatus"
-      },
-      {
-        "type": "radio",
-        "required": "required",
-        "data-ng-model": "msmeDetailData.inIndustrialArea",
-        "value": "yes",
-        "name": "inIndustrialArea"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.inIndustrialArea",
-        "value": "no",
-        "name": "inIndustrialArea"
-      },
-      {
-        "required": "required",
-        "name": "industrialArea",
-        "id": "selectindustrialArea",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.industrialArea"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-numberic-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.plotNumber",
-        "name": "plotNumber"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inIndustrialArea=='no'",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.areaLocality",
-        "name": "areaLocality"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.areaInSqm",
-        "name": "areaInSqm"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.allotteeName",
-        "name": "allotteeName"
-      },
-      {
-        "type": "text",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "data-ng-required": "msmeDetailData.inIndustrialArea!='no'",
-        "data-ng-model": "msmeDetailData.leaseDeedDate",
-        "id": "leaseDeedDate",
-        "name": "leaseDeedDate"
-      },
-      {
-        "id": " ",
-        "data-ng-model": "msmeDetailData.category2",
-        "class": [
-          "form-control"
-        ],
-        "name": "category2"
-      },
-      {
-        "type": "radio",
-        "required": "",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Manufacturing",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Warehouse",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Service",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.activity",
-        "required": "required",
-        "value": "Commercially",
-        "name": "activityName"
-      },
-      {
-        "type": "radio",
-        "required": "required",
-        "data-ng-model": "msmeDetailData.activity",
-        "value": "Ancillary",
-        "name": "activityName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.products",
-        "name": "productsName",
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.investmentInLac",
-        "name": "investmentInLac",
-        "data-ng-required": "msmeDetailData.uamAvailability=='yes'"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inIndustrialArea!='no' && msmeDetailData.uamAvailability=='yes'",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.leaseRentPerYear",
-        "name": "leaseRentPerYear"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inIndustrialArea!='no' && msmeDetailData.uamAvailability=='yes'",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.maintenanceCharge",
-        "name": "maintenanceChargeName"
-      },
-      {
-        "type": "radio",
-        "required": "required",
-        "data-ng-model": "msmeDetailData.inUnitExport",
-        "value": "yes",
-        "name": "inUnitExport"
-      },
-      {
-        "type": "radio",
-        "data-ng-model": "msmeDetailData.inUnitExport",
-        "required": "required",
-        "value": "no",
-        "name": "inUnitExport"
-      },
-      {
-        "data-ng-required": "msmeDetailData.inUnitExport=='yes'",
-        "class": [
-          "form-control",
-          "number-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.exportTurnoverInLac",
-        "name": "exportTurnoverInLac"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-only-space-dot"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.ownerOrPartnerName",
-        "name": "ownerOrPartnerName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitName",
-        "name": "unitName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitAddress1",
-        "name": "unitAddress1"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitAddress2",
-        "name": "unitAddress2"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitAddress3",
-        "name": "unitAddress3"
-      },
-      {
-        "name": "district",
-        "id": "selectUnitDistrict",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.unitDistrict",
-        "data-ng-change": "fetchUnitTehsilByDistrict(msmeDetailData.unitDistrict)",
-        "required": "required"
-      },
-      {
-        "id": "selectUnitTehsil",
-        "data-ng-model": "msmeDetailData.unitTehsil",
-        "class": [
-          "form-control"
-        ]
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only",
-          "number6"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitPinCode",
-        "name": "unitPinCode"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.state",
-        "name": "state",
-        "data-ng-init": "msmeDetailData.state='Madhya Pradesh'",
-        "readonly": "readonly"
-      },
-      {
-        "class": [
-          "form-control",
-          "no-space"
-        ],
-        "type": "email",
-        "id": "unitEmailId",
-        "data-ng-model": "msmeDetailData.unitEmail",
-        "name": "unitEmail"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only",
-          "number12"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.unitPhoneNumber",
-        "name": "unitPhoneNumber",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "id": "selectTypeOfOrganization",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.typeOfOrganization",
-        "name": "typeOfOrganization"
-      },
-      {
-        "id": "selectGender",
-        "data-ng-model": "msmeDetailData.gender",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "gender"
-      },
-      {
-        "id": "isHandicapped",
-        "data-ng-model": "msmeDetailData.isHandicapped",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "handicapped"
-      },
-      {
-        "id": "isHandicapped",
-        "data-ng-model": "msmeDetailData.isMinority",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "minority"
-      },
-      {
-        "id": "selectEnterprise",
-        "data-ng-model": "msmeDetailData.enterpriseType",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "enterpriseType"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "value": "{{$index + 1}}",
-        "disabled": "disabled"
-      },
-      {
-        "id": "selectActivityType",
-        "data-ng-model": "activityDetails.activityType",
-        "class": [
-          "form-control"
-        ],
-        "name": "activityType_{{$index}}",
-        "required": "required",
-        "data-ng-change": "fetchUamActivitiesByType(activityDetails.activityType, $index)"
-      },
-      {
-        "id": "selectActivityDetail1",
-        "data-ng-model": "activityDetails.activityDetail1",
-        "class": [
-          "form-control"
-        ],
-        "name": "activityDetail1_{{$index}}",
-        "required": "required"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "activityDetails.activityDetail2",
-        "name": "activityDetail2_{{$index}}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "activityDetails.activityDetail3",
-        "name": "activityDetail3_{{$index}}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "data-ng-model": "activityDetails.othersActivity",
-        "name": "othersActivity_{{$index}}"
-      },
-      {
-        "required": "required",
-        "type": "text",
-        "class": [
-          "form-control",
-          "date"
-        ],
-        "data-ng-model": "msmeDetailData.productionDate",
-        "id": "productionDate",
-        "name": "productionDate"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.prodCapacity",
-        "name": "prodCapacity"
-      },
-      {
-        "id": "isHandicapped",
-        "data-ng-model": "msmeDetailData.isExport",
-        "class": [
-          "form-control"
-        ],
-        "required": "required",
-        "name": "isExport"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.annualTurnOver",
-        "name": "annualTurnOver"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.installedCapacity",
-        "name": "installedCapacity"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.installedCapacityUnits",
-        "name": "installedCapacityUnits"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.msme.landhouse}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.msme.plantandmachinery}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.msme.equipment}"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "th:value": "#{application.fa.othersActivityDetail}"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.landOrHouseInvestment",
-        "name": "landOrHouseInvestment"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.plantOrMachineryInvestment",
-        "name": "plantOrMachineryInvestment"
-      },
-      {
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.othersInvestment",
-        "name": "othersInvestment"
-      },
-      {
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "disabled": "disabled",
-        "value": "Total",
-        "style": "font-weight: bold; text-align: right;"
-      },
-      {
-        "readonly": "readonly",
-        "class": [
-          "form-control"
-        ],
-        "type": "text",
-        "value": "{{msmeDetailData.landOrHouseInvestment--msmeDetailData.plantOrMachineryInvestment--msmeDetailData.othersInvestment}}"
-      },
-      {
-        "name": "bankName",
-        "id": "bankName",
-        "class": [
-          "form-control"
-        ],
-        "data-ng-model": "msmeDetailData.bankName",
-        "required": "required"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-numeric-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.branchname",
-        "name": "branchName"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.accountnumber",
-        "data-ng-pattern": "/^\\d{8,16}$/",
-        "name": "accountNo",
-        "id": "accountNo",
-        "maxlength": "15"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "alpha-numeric-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.ifsc",
-        "name": "ifsc"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "number-only",
-          "number10"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.totalEmployments",
-        "name": "totalEmployments"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpEmptGen",
-        "name": "msmeMpEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpScEmptGen",
-        "name": "msmeMpScEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpStEmptGen",
-        "name": "msmeMpStEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "required": "required",
-        "class": [
-          "form-control",
-          "digits-only"
-        ],
-        "type": "text",
-        "data-ng-model": "msmeDetailData.msmeMpObcEmptGen",
-        "name": "msmeMpObcEmptGen",
-        "maxlength": "10"
-      },
-      {
-        "type": "file",
-        "class": [
-          "btn",
-          "btn-primary",
-          "btn-xs"
-        ],
-        "file-model": "fileData.employmentGivenUpload",
-        "id": "employmentGiven",
-        "accept": "application/pdf"
-      }
-    ],
-    "events": [
-      "addMSMEDetailFunction(msmeDetailForm, msmeDetailForm.$valid, fileData)",
-      "addNewUamDetailsChoice()",
-      "fetchUamActivitiesByType(activityDetails.activityType, $index)",
-      "fetchUnitTehsilByDistrict(msmeDetailData.unitDistrict)",
-      "loadMSMEFormDetail(); fetchMSMEDetailForEdit();",
-      "msmeDetailData.activityDetailsList=[{}]",
-      "msmeDetailData.state='Madhya Pradesh'",
-      "msmeDetailData.udyogAadhaar='no'",
-      "onPreviousRegistrationNameChange()",
-      "populateDetailsThroughUdyogAadhaar(msmeDetailData.udyogAadhaar, msmeDetailData.uamNumber, msmeDetailData.aadhaarNumber)",
-      "removeUamDetailsChoice()",
-      "resetUAMAvailDetailsIfNo()",
-      "resetUAMAvailDetailsIfYes()"
-    ],
-    "inlineScripts": 2
-  },
   "dtic/uploadBankCoveringLetter": {
     "fields": [
       {
@@ -12970,6 +11321,210 @@
     "fields": [],
     "events": [
       "loadDTICRosterForPrint()"
+    ],
+    "inlineScripts": 1
+  },
+  "employee/letterList": {
+    "fields": [],
+    "events": [
+      "loadLetterList()"
+    ],
+    "inlineScripts": 2
+  },
+  "cmcs/viewLetter": {
+    "fields": [],
+    "events": [
+      "downloadDocument(letterData.documentId)",
+      "loadLetterById()"
+    ],
+    "inlineScripts": 2
+  },
+  "cmcs/updateProcess": {
+    "fields": [
+      {
+        "required": "",
+        "name": "caseid",
+        "id": "caseid",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.letterNo",
+        "data-ng-disabled": "true"
+      },
+      {
+        "required": "",
+        "name": "comments",
+        "id": "comments",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "requestProcessBean.comments",
+        "style": "max-width: 100%"
+      },
+      {
+        "required": "",
+        "name": "decisionDate",
+        "id": "decisionDate",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "requestProcessBean.decisionDate"
+      },
+      {
+        "required": "required",
+        "name": "assignedToSection",
+        "id": "assignedToSection",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "requestProcessBean.assigneeSection",
+        "data-ng-change": "populateAssignToUsersInUpdate()"
+      },
+      {
+        "required": "required",
+        "name": "assignedToUserId",
+        "id": "assignedToUserId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "requestProcessBean.assignee"
+      },
+      {
+        "required": "required",
+        "name": "statusId",
+        "id": "statusId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "requestProcessBean.statusId"
+      },
+      {
+        "type": "file",
+        "name": "document",
+        "id": "document",
+        "class": [
+          "form-control"
+        ],
+        "file-model": "document"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "requestProcessBean.documentDesc",
+        "maxlength": "150"
+      },
+      {
+        "required": "",
+        "name": "oicName",
+        "id": "oicName",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.assignedToUserName",
+        "data-ng-disabled": "true"
+      },
+      {
+        "name": "letterNo",
+        "id": "letterNo",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.letterNo",
+        "disabled": "disabled"
+      },
+      {
+        "name": "letterDate",
+        "id": "letterDate",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.letterDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "inNumber",
+        "id": "inNumber",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.inNumber",
+        "disabled": "disabled"
+      },
+      {
+        "name": "inDate",
+        "id": "inDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.inDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "sendingDate",
+        "id": "sendingDate",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.sendingDate",
+        "disabled": "disabled"
+      },
+      {
+        "name": "relatedTo",
+        "id": "relatedTo",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.relatedTo",
+        "disabled": "disabled"
+      },
+      {
+        "name": "timeLimit",
+        "id": "timeLimit",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "letterData.timeLimit",
+        "disabled": "disabled"
+      },
+      {
+        "name": "documentDesc",
+        "id": "documentDesc",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "letterData.documentDesc",
+        "disabled": "disabled"
+      }
+    ],
+    "events": [
+      "downloadDocument(hearing.documentId)",
+      "downloadDocument(letterData.documentId)",
+      "loadHistoryByLetterId()",
+      "loadLetterById()",
+      "populateAssignToUsersInUpdate()",
+      "updateProcessSubmit(letterForm.$valid)"
+    ],
+    "inlineScripts": 2
+  },
+  "cmcs/cmcsHistory": {
+    "fields": [],
+    "events": [
+      "loadHistoryByLetterId()"
     ],
     "inlineScripts": 1
   },

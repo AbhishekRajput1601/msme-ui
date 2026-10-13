@@ -2,12 +2,10 @@
 export function installActions(state, { request, loading, navigation, params, format, later, dom }) {
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,Array.isArray(items) ? Number(k) : k));
 const identity = value => value;
-const $sce = { trustAsHtml: identity, trustAsResourceUrl: identity };
 const fetchInternalAuditList = () => { state.listVersion++; loading.finish(); };
 const fetchExternalAuditListForDTIC = () => { state.listVersion++; loading.finish(); };
 const fetchFactualDetailListForDTIC = () => { state.listVersion++; loading.finish(); };
 const fetchProformaClauseListForDTIC = () => { state.listVersion++; loading.finish(); };
-
 let lastObjectId="", lastSchemeId="", lastSchemeTypeId="";
 state.started = false;
 state.startOrStopSpinner = function(isStart) {

@@ -2,14 +2,12 @@
 export function installActions(state, { request, loading, navigation, params, format, later, dom }) {
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,Array.isArray(items) ? Number(k) : k));
 const identity = value => value;
-const $sce = { trustAsHtml: identity, trustAsResourceUrl: identity };
 const fetchApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchYuvaUdhamiApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchResubmittedApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchResubmittedYuvaudhamiApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchInProcessApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchInProcessYuvaudhamiApplicants = () => { state.listVersion++; loading.finish(); };
-
 let lastObjectId="", lastSchemeId="", lastSchemeTypeId="";
 state.started = false;
 state.setApplicationId = function() {

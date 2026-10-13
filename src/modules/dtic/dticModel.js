@@ -19,6 +19,25 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
   // Angular created the model through ng-model; React needs it before field initializers run.
   if (controller === 'DTICMSMEController') {
     state.msmeDetailData = { activityDetailsList: [{}], udyogAadhaar: 'no' }
+  } else if (controller === 'DTICBudgetPlanningController') {
+    state.budgetData = { planningSchemeAmountBeans: [{}] }
+    state.budgetList = []
+    state.tableArray = []
+    state.document = {}
+    state.documentDesc = []
+    state.fyList = []
+    state.quarterList = []
+    state.financialYearId = params.financialYearId || '0'
+    state.quarterId = params.quarterId || '0'
+  } else if (controller === 'CommonController') {
+    state.letterData = {}
+    state.requestProcessBean = {}
+    state.statusList = []
+    state.assignedToSectionList = []
+    state.hearingList = []
+    state.assigneeList = []
+    state.letterId = params.letterId || ''
+    state.responseObject = {}
   }
   const navigation = {
     open: url => window.open(dticDocument(url), '_blank', 'noopener'),
@@ -94,7 +113,7 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
     },
   })
   // Prevent invalid or duplicate submissions before calling the original rules.
-  for (const name of ['raiseQueryByDtic', 'addInspectionStatus', 'addCommitteeStatus', 'addCommitteesStatus', 'addZonalStatus', 'uploadDisbursementOrder', 'uploadOtherDocument', 'addFAMSMEDetailUnitFunction', 'addFAMSMEDetailUnitForSanction', 'addFAMSMEDetailApparelFunction']) {
+  for (const name of ['raiseQueryByDtic', 'addInspectionStatus', 'addCommitteeStatus', 'addCommitteesStatus', 'addZonalStatus', 'uploadDisbursementOrder', 'uploadOtherDocument', 'addFAMSMEDetailUnitFunction', 'addFAMSMEDetailUnitForSanction', 'addFAMSMEDetailApparelFunction', 'addDTICHeadsDemandBudget', 'updateDTICHeadsDemandBudget', 'updateDTICHeadsUsesSurrenderBudget']) {
     const action = state[name]
     if (action) state[name] = (valid, ...args) => { if (valid && !state.saving) return action(valid, ...args) }
   }

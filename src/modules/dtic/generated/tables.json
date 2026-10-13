@@ -212,87 +212,6 @@
       null
     ]
   },
-  "dtic/msmeapplicationlist": {
-    "endpoint": "fetchmsmeapplications",
-    "columns": [
-      "uamNumber",
-      "uamDate",
-      "msmeType",
-      "ownerOrPartnerName",
-      "productionDate",
-      "createdOn",
-      null
-    ]
-  },
-  "dtic/microlevelreportform": {
-    "endpoint": "fetchmicrolevelapplicants/",
-    "columns": [
-      "uamNumber",
-      "uamDate",
-      "ownerOrPartnerName",
-      "unitName",
-      "unitAddress",
-      "category",
-      "gender",
-      "isHandicappedString",
-      "enterpriseType",
-      null,
-      "productionDate",
-      null,
-      null,
-      "prodCapacity",
-      "landOrHouseInvestment",
-      "plantOrMachineryInvestment",
-      "totalEmployments",
-      "localEmployments"
-    ]
-  },
-  "dtic/smalllevelreportform": {
-    "endpoint": "fetchsmalllevelapplicants/",
-    "columns": [
-      "uamNumber",
-      "uamDate",
-      "ownerOrPartnerName",
-      "unitName",
-      "unitAddress",
-      "category",
-      "gender",
-      "isHandicappedString",
-      "enterpriseType",
-      "nicCode",
-      "productionDate",
-      "prodClassification",
-      "prodName",
-      "prodCapacity",
-      "landOrHouseInvestment",
-      "plantOrMachineryInvestment",
-      "totalEmployments",
-      "localEmployments"
-    ]
-  },
-  "dtic/mediumlevelreportform": {
-    "endpoint": "fetchmediumlevelapplicants/",
-    "columns": [
-      "uamNumber",
-      "uamDate",
-      "ownerOrPartnerName",
-      "unitName",
-      "unitAddress",
-      "category",
-      "gender",
-      "isHandicappedString",
-      "enterpriseType",
-      "nicCode",
-      "productionDate",
-      "prodClassification",
-      "prodName",
-      "prodCapacity",
-      "landOrHouseInvestment",
-      "plantOrMachineryInvestment",
-      "totalEmployments",
-      "localEmployments"
-    ]
-  },
   "dtic/budgetPlanning/allocatedBudgetDetails": {
     "endpoint": "fetchDTICBudgetByFY",
     "columns": [
@@ -337,6 +256,19 @@
       "mobileNumber",
       "emailId",
       "month",
+      null
+    ]
+  },
+  "employee/letterList": {
+    "endpoint": "fetchLetters",
+    "columns": [
+      "letterNo",
+      "letterDate",
+      "inNumber",
+      "inDate",
+      "assignedToUserName",
+      "sendingDate",
+      "status",
       null
     ]
   },

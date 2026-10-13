@@ -248,87 +248,6 @@ if (status == 2 && status != 19) {
     		cell('td:eq(5)', nRow).html('<div class="hidden-sm hidden-xs action-buttons"><a class="blue" href="#viewapplicantdetail/'+aData.applicantId+'"><span th:text="#{application.page.view}" >View</span></a></div>');
       
 },
-"dtic/msmeapplicationlist": (cell,nRow,aData,iDataIndex) => {
-
-    		
-        	cell('td:eq(6)', nRow).html('<div class="action-buttons"><a class="blue" href="#viewmsmedetail/'+aData.msmeDetailId+'"><span th:text="#{application.page.viewprint}" >View</span></a> | <a class="blue" href="#viewmsmeeditform/'+aData.msmeDetailId+'"><span th:text="#{application.page.edit}" >Edit</span></a> </div>');
-      
-},
-"dtic/microlevelreportform": (cell,nRow,aData,iDataIndex) => {
-
-    		cell('td:eq(0)', nRow).addClass( 'customFont' );
-    		cell('td:eq(1)', nRow).addClass( 'customFont' );
-    		cell('td:eq(2)', nRow).addClass( 'customFont' );
-    		cell('td:eq(3)', nRow).addClass( 'customFont' );
-    		cell('td:eq(4)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(5)', nRow).addClass( 'customFont' );
-    		cell('td:eq(6)', nRow).addClass( 'customFont' );
-    		cell('td:eq(7)', nRow).addClass( 'customFont' );
-    		cell('td:eq(8)', nRow).addClass( 'customFont' );
-    		cell('td:eq(9)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(10)', nRow).addClass( 'customFont' );
-    		cell('td:eq(11)', nRow).addClass( 'customFont' );
-    		cell('td:eq(12)', nRow).addClass( 'customFont' );
-    		cell('td:eq(13)', nRow).addClass( 'customFont' );
-    		cell('td:eq(14)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(15)', nRow).addClass( 'customFont' );
-    		cell('td:eq(16)', nRow).addClass( 'customFont' );
-    		cell('td:eq(17)', nRow).addClass( 'customFont' );
-      
-},
-"dtic/smalllevelreportform": (cell,nRow,aData,iDataIndex) => {
-
-    		cell('td:eq(0)', nRow).addClass( 'customFont' );
-    		cell('td:eq(1)', nRow).addClass( 'customFont' );
-    		cell('td:eq(2)', nRow).addClass( 'customFont' );
-    		cell('td:eq(3)', nRow).addClass( 'customFont' );
-    		cell('td:eq(4)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(5)', nRow).addClass( 'customFont' );
-    		cell('td:eq(6)', nRow).addClass( 'customFont' );
-    		cell('td:eq(7)', nRow).addClass( 'customFont' );
-    		cell('td:eq(8)', nRow).addClass( 'customFont' );
-    		cell('td:eq(9)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(10)', nRow).addClass( 'customFont' );
-    		cell('td:eq(11)', nRow).addClass( 'customFont' );
-    		cell('td:eq(12)', nRow).addClass( 'customFont' );
-    		cell('td:eq(13)', nRow).addClass( 'customFont' );
-    		cell('td:eq(14)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(15)', nRow).addClass( 'customFont' );
-    		cell('td:eq(16)', nRow).addClass( 'customFont' );
-    		cell('td:eq(17)', nRow).addClass( 'customFont' );
-      
-},
-"dtic/mediumlevelreportform": (cell,nRow,aData,iDataIndex) => {
-
-    		cell('td:eq(0)', nRow).addClass( 'customFont' );
-    		cell('td:eq(1)', nRow).addClass( 'customFont' );
-    		cell('td:eq(2)', nRow).addClass( 'customFont' );
-    		cell('td:eq(3)', nRow).addClass( 'customFont' );
-    		cell('td:eq(4)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(5)', nRow).addClass( 'customFont' );
-    		cell('td:eq(6)', nRow).addClass( 'customFont' );
-    		cell('td:eq(7)', nRow).addClass( 'customFont' );
-    		cell('td:eq(8)', nRow).addClass( 'customFont' );
-    		cell('td:eq(9)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(10)', nRow).addClass( 'customFont' );
-    		cell('td:eq(11)', nRow).addClass( 'customFont' );
-    		cell('td:eq(12)', nRow).addClass( 'customFont' );
-    		cell('td:eq(13)', nRow).addClass( 'customFont' );
-    		cell('td:eq(14)', nRow).addClass( 'customFont' );
-    		
-    		cell('td:eq(15)', nRow).addClass( 'customFont' );
-    		cell('td:eq(16)', nRow).addClass( 'customFont' );
-    		cell('td:eq(17)', nRow).addClass( 'customFont' );
-      
-},
 "dtic/budgetPlanning/allocatedBudgetDetails": (cell,nRow,aData,iDataIndex) => {
 
 			cell('td:eq(4)', nRow).html((aData.amount-aData.headsAmount).toFixed(2));
@@ -354,6 +273,18 @@ if (status == 2 && status != 19) {
 				} else {
 					cell('td:eq(7)', nRow).html('<a class="blue" href="#viewRoster/'+aData.inspectionOfficeId+'"><span th:text="#{application.coordination.viewRoster}">View Roster</span></a>');
 				}				
+			
+},
+"employee/letterList": (cell,nRow,aData,iDataIndex) => {
+
+			
+				var status=aData.statusId;
+				
+				if(status==1){
+					cell('td:eq(7)', nRow).html('<a class="blue" href="#viewLetter/'+aData.letterId+'"><span th:text="#{application.page.view}" >View</span></a> | <a class="blue" href="#updateProcess/'+aData.letterId+'"><span th:text="#{application.legal.updateCaseDetails}">Update</span></a>');
+	        	} else {
+	        		cell('td:eq(7)', nRow).html('<a class="blue" href="#viewLetter/'+aData.letterId+'"><span th:text="#{application.page.view}" >View</span></a>');
+	        	}
 			
 },
 "dtic/audit/internalAuditListForDTIC": (cell,nRow,aData,iDataIndex) => {

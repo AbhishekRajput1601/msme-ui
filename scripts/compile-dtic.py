@@ -50,8 +50,13 @@ for m in re.finditer(r"\.when\('([^']+)',\s*\{", routing):
         else: raise ValueError((m[1], endpoint))
     routes.append({'path': m[1].lstrip('/'), 'views': paths, 'endpoint': endpoint, 'controller': controller})
 
-EXTRA_CONTROLLERS = {'DTICBudgetPlanningController', 'DTICCoordinationController', 'AuditDTICController', 'DTICSelfEmploymentController'}
-extra_endpoints = {}
+EXTRA_CONTROLLERS = {'DTICBudgetPlanningController', 'DTICCoordinationController', 'AuditDTICController', 'DTICSelfEmploymentController', 'CommonController'}
+extra_endpoints = {
+    '/letterList': ['employee/letterList'],
+    '/viewLetter': ['cmcs/viewLetter'],
+    '/updateProcess': ['cmcs/updateProcess'],
+    '/loadHistory': ['cmcs/cmcsHistory'],
+}
 for java_path in ROOT.parents[3].glob('*/src/main/java/**/*Controller.java'):
     if not any(word in java_path.name for word in ['DTICBudget', 'DTICCoordination', 'AuditDTIC', 'SelfEmploymentDTIC']): continue
     text = uncomment(java_path.read_text(encoding='utf-8'))
@@ -63,7 +68,9 @@ for java_path in ROOT.parents[3].glob('*/src/main/java/**/*Controller.java'):
 for item in all_routes:
     if item['controller'] not in EXTRA_CONTROLLERS: continue
     endpoint = re.search(r"templateUrl:\s*(?:function\([^)]*\)\s*\{\s*return\s*)?'([^']+)'", item['templateExpression'])
+    if not endpoint: continue
     endpoint = '/' + endpoint[1].rstrip('/')
+    if endpoint not in extra_endpoints: continue
     routes.append({'path':item['route'].lstrip('/'), 'views':extra_endpoints[endpoint], 'endpoint':endpoint, 'controller':item['controller']})
 
 # Reuse the existing reviewed static binding compiler, without running its output phase.
@@ -173,15 +180,26 @@ for name in inventory:
     tables[name] = {'endpoint':endpoint[1], 'columns':re.findall(r'"mData"\s*:\s*(null|"[^"]+")',columns)}
     tables[name]['columns'] = [json.loads(c) for c in tables[name]['columns']]
 (OUT/'tables.json').write_text(json.dumps(tables,indent=2),encoding='utf-8')
+if 'employee/letterList' not in rows:
+    rows['employee/letterList'] = """
+var status=aData.statusId;
+if(status==1){
+    cell('td:eq(7)', nRow).html('<a class="blue" href="#viewLetter/'+aData.letterId+'"><span th:text="#{application.page.view}" >View</span></a> | <a class="blue" href="#updateProcess/'+aData.letterId+'"><span th:text="#{application.legal.updateCaseDetails}">Update</span></a>');
+} else {
+    cell('td:eq(7)', nRow).html('<a class="blue" href="#viewLetter/'+aData.letterId+'"><span th:text="#{application.page.view}" >View</span></a>');
+}
+"""
 (OUT/'rows.js').write_text('export const rowRules = {\n'+',\n'.join(json.dumps(k)+': (cell,nRow,aData,iDataIndex) => {\n'+v+'\n}' for k,v in rows.items())+'\n}\n',encoding='utf-8')
 print(f'Compiled {len(routes)} DTIC routes and {len(inventory)} templates; inventory contains {len(all_routes)} total DTIC routes.')
 
 controller_source = uncomment((ROOT / 'angular/dtic/controller.js').read_text(encoding='utf-8'))
+common_controller_source = uncomment((ROOT / 'angular/common/CommonController.js').read_text(encoding='utf-8'))
 extra_installers = []
 for controller in sorted(EXTRA_CONTROLLERS):
-    start = controller_source.index("'"+controller+"'")
-    end = controller_source.find('.controller(',start)
-    source = controller_source[start:end if end!=-1 else len(controller_source)]
+    src = common_controller_source if controller == 'CommonController' else controller_source
+    start = src.index("'"+controller+"'")
+    end = src.find('.controller(',start)
+    source = src[start:end if end!=-1 else len(src)]
     functions = {}; spans = []
     for m in re.finditer(r'\$scope\.(\w+)\s*=\s*function\s*\([^)]*\)\s*\{',source):
         end = balanced(source,m.end()-1)
@@ -206,9 +224,78 @@ for controller in sorted(EXTRA_CONTROLLERS):
     body=re.sub(r'for\s*\(\s*([ijk])\s+in\b',r'for (var \1 in',body)
     for a,b in [('$scope','state'),('$rootScope','state'),('$window','navigation'),('$http','request'),('$loading','loading'),('$routeParams','params'),('$filter','format'),('$timeout','later'),('angular.forEach','each'),('angular.identity','identity'),('angular.toJson','JSON.stringify'),('angular.fromJson','JSON.parse')]:body=body.replace(a,b)
     body=re.sub(r'(?<!\w)\$\(','dom(',body)
-    refresh_functions=['fetchDTICBudgetByFY','fetchDTICDemandByFY','fetchInspectionOffices','fetchInternalAuditList','fetchExternalAuditListForDTIC','fetchFactualDetailListForDTIC','fetchProformaClauseListForDTIC','fetchApplicants','fetchYuvaUdhamiApplicants','fetchResubmittedApplicants','fetchResubmittedYuvaudhamiApplicants','fetchInProcessApplicants','fetchInProcessYuvaudhamiApplicants','fetchTotalApplications','fetchApplicationsByStatus']
+    refresh_functions=['fetchDTICBudgetByFY','fetchDTICDemandByFY','fetchInspectionOffices','fetchInternalAuditList','fetchExternalAuditListForDTIC','fetchFactualDetailListForDTIC','fetchProformaClauseListForDTIC','fetchApplicants','fetchYuvaUdhamiApplicants','fetchResubmittedApplicants','fetchResubmittedYuvaudhamiApplicants','fetchInProcessApplicants','fetchInProcessYuvaudhamiApplicants','fetchTotalApplications','fetchApplicationsByStatus','fetchLetters']
     declarations='\n'.join('const '+name+' = () => { state.listVersion++; loading.finish(); };' for name in refresh_functions if re.search(r'\b'+name+r'\(',body))
     declarations+='\nlet lastObjectId="", lastSchemeId="", lastSchemeTypeId="";\n'
+    if controller == 'CommonController':
+        body += """
+state.loadLetterPage = function() {
+\tloading.start('sample-1');
+\tvar responsePromise = request.get('fetchusergroupsmap');
+\tresponsePromise.success(function(data, status, headers, config) {
+\t\tstate.assignedToSectionList = data;
+\t\tloading.finish('sample-1');
+\t});
+};
+state.loadLetterList = function() {
+\tloading.start('sample-1');
+\tfetchLetters();
+};
+state.loadLetterById = function() {
+\tstate.disabled = true;
+\tstate.letterId = params.letterId;
+\tloading.start('sample-1');
+\tvar responsePromise = request.get('fetchLetterDetail/' + params.letterId);
+\tresponsePromise.success(function(data, status, headers, config) {
+\t\tstate.letterData = data;
+\t});
+\tvar responsePromise2 = request.get('getStatusList');
+\tresponsePromise2.success(function(data, status, headers, config) {
+\t\tstate.statusList = data;
+\t});
+\tvar responsePromise3 = request.get('fetchusergroupsmap');
+\tresponsePromise3.success(function(data, status, headers, config) {
+\t\tstate.assignedToSectionList = data;
+\t\tloading.finish('sample-1');
+\t});
+};
+state.updateProcessSubmit = function(isValid) {
+\tif (!isValid) {
+\t\treturn false;
+\t}
+\tstate.letterId = params.letterId;
+\tstate.requestProcessBean = state.requestProcessBean || {};
+\tstate.requestProcessBean.letterId = params.letterId;
+\tloading.start('sample-1');
+\tvar responsePromise = request.post('updateProcessSubmit', state.requestProcessBean);
+\tresponsePromise.success(function(data, status, headers, config) {
+\t\tstate.responseObject = data;
+\t\tif (state.responseObject && state.responseObject.successMessage != null) {
+\t\t\tnavigation.location.href = '#letterList';
+\t\t}
+\t\tloading.finish('sample-1');
+\t});
+};
+state.loadHistoryByLetterId = function() {
+\tloading.start('sample-1');
+\tvar responsePromise = request.get('fetchHistoryByLetterId/' + params.letterId);
+\tresponsePromise.success(function(data, status, headers, config) {
+\t\tstate.hearingList = data;
+\t\tloading.finish('sample-1');
+\t});
+};
+state.downloadDocument = function(documentId) {
+\tnavigation.open('downloadDocument/' + documentId);
+};
+state.populateAssignToUsersInUpdate = function() {
+\tloading.start('sample-1');
+\tvar responsePromise = request.get('fetchusersbygroupcode/' + (state.requestProcessBean && state.requestProcessBean.assigneeSection));
+\tresponsePromise.success(function(data, status, headers, config) {
+\t\tstate.assigneeList = data;
+\t\tloading.finish('sample-1');
+\t});
+};
+"""
     (OUT/(controller+'.js')).write_text(header.replace('installFaActions','installActions')+declarations+body+'\nstate.loadDate = () => {};\n}\n',encoding='utf-8')
     extra_installers.append(controller)
 (OUT/'extraActions.js').write_text('\n'.join(f"import {{ installActions as {c} }} from './{c}'" for c in extra_installers)+'\nexport default {'+','.join(extra_installers)+'}\n',encoding='utf-8')
