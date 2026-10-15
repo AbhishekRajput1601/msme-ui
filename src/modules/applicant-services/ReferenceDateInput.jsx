@@ -17,7 +17,7 @@ function loadWidget() {
   return widget
 }
 
-export default function ReferenceDateInput({ attrs, onError }) {
+export default function ReferenceDateInput({ attrs, onError, options = {} }) {
   const input=useRef(null), latest=useRef(attrs)
   latest.current=attrs
   useEffect(()=>{
@@ -25,7 +25,7 @@ export default function ReferenceDateInput({ attrs, onError }) {
     loadWidget().then(jquery=>{
       if (disposed) return
       picker=jquery(input.current)
-      picker.datetimepicker({ lang:'ch',timepicker:false,format:'d/m/Y',onSelectDate() {
+      picker.datetimepicker({ lang:'ch',timepicker:false,format:'d/m/Y', ...options, onSelectDate() {
         latest.current.onChange({target:input.current})
       } })
     }).catch(error=>{ if (!disposed) onError(error) })

@@ -437,20 +437,20 @@
   {
     "key": "dtic-11",
     "label": {
-      "en": "Enrolment",
-      "hi": "Enrolment"
+      "en": "Enrollment",
+      "hi": "नामांकन"
     },
     "iconName": "bar-chart-o",
     "children": [
       {
         "key": "dtic-11-0",
         "label": {
-          "en": "Manage Enrolment",
-          "hi": "Manage Enrolment"
+          "en": "Manage Enrollment",
+          "hi": "नामांकन प्रबंधित करें"
         },
         "iconName": "bar-chart-o",
-        "legacyHref": "#enrolmentList",
-        "href": "/mpmsme/dtic/home#enrolmentList"
+        "legacyHref": "#enrollmentList",
+        "href": "/department/dtic/enrollmentList"
       }
     ]
   },
@@ -470,7 +470,7 @@
         },
         "iconName": "dashboard",
         "legacyHref": "#supplierNameList",
-        "href": "/mpmsme/dtic/home#supplierNameList"
+        "href": "/department/dtic/supplierNameList"
       },
       {
         "key": "dtic-12-1",
@@ -480,7 +480,7 @@
         },
         "iconName": "dashboard",
         "legacyHref": "#supplyNameList",
-        "href": "/mpmsme/dtic/home#supplyNameList"
+        "href": "/department/dtic/supplyNameList"
       }
     ]
   },
@@ -500,7 +500,7 @@
         },
         "iconName": "dashboard",
         "legacyHref": "#ox1Form",
-        "href": "/mpmsme/dtic/home#ox1Form"
+        "href": "/department/dtic/ox1Form"
       },
       {
         "key": "dtic-13-1",
@@ -510,7 +510,7 @@
         },
         "iconName": "dashboard",
         "legacyHref": "#ox2Form",
-        "href": "/mpmsme/dtic/home#ox2Form"
+        "href": "/department/dtic/ox2Form"
       },
       {
         "key": "dtic-13-2",
@@ -520,7 +520,7 @@
         },
         "iconName": "dashboard",
         "legacyHref": "#ox3Form",
-        "href": "/mpmsme/dtic/home#ox3Form"
+        "href": "/department/dtic/ox3Form"
       },
       {
         "key": "dtic-13-3",
@@ -530,7 +530,7 @@
         },
         "iconName": "dashboard",
         "legacyHref": "#ox4Form",
-        "href": "/mpmsme/dtic/home#ox4Form"
+        "href": "/department/dtic/ox4Form"
       }
     ]
   },
@@ -542,7 +542,7 @@
     },
     "iconName": "bar-chart-o",
     "legacyHref": "#legacyData",
-    "href": "/mpmsme/dtic/home#legacyData"
+    "href": "/department/dtic/legacyData"
   },
   {
     "key": "dtic-15",
@@ -559,7 +559,7 @@
           "hi": "Complete Data Of Land Applicant"
         },
         "legacyHref": "#completeDataOfLandApplicant",
-        "href": "/mpmsme/dtic/home#completeDataOfLandApplicant"
+        "href": "/department/dtic/completeDataOfLandApplicant"
       },
       {
         "key": "dtic-15-1",
@@ -568,7 +568,7 @@
           "hi": "Esign and payment pendency report"
         },
         "legacyHref": "#esignPaymentPendencyReport",
-        "href": "/mpmsme/dtic/home#esignPaymentPendencyReport"
+        "href": "/department/dtic/esignPaymentPendencyReport"
       }
     ]
   }

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "serviceenterprisereportform",
+    "views": [
+      "serviceenterprisereportform"
+    ],
+    "controller": "DTICMSMEReports"
+  },
+  {
+    "path": "manufacturingenterprisereportform",
+    "views": [
+      "manufacturingenterprisereportform"
+    ],
+    "controller": "DTICMSMEReports"
+  },
+  {
+    "path": "microlevelreportform",
+    "views": [
+      "microlevelreportform"
+    ],
+    "controller": "DTICMSMEReports"
+  },
+  {
+    "path": "smalllevelreportform",
+    "views": [
+      "smalllevelreportform"
+    ],
+    "controller": "DTICMSMEReports"
+  },
+  {
+    "path": "mediumlevelreportform",
+    "views": [
+      "mediumlevelreportform"
+    ],
+    "controller": "DTICMSMEReports"
+  }
+]

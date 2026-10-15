@@ -6,6 +6,7 @@ import DticTable from '../DticTable'
 import { dticDocument, dticLink } from '../dticService'
 import { createInfrastructureState } from './infrastructureModel'
 import InfrastructureMap from './InfrastructureMap'
+import { configureLandRecords, isLandRecord } from './landRecords'
 import views from './generated/views.json'
 import { expressions } from './generated/expressions'
 import { rowRules } from './generated/rows'
@@ -72,6 +73,7 @@ export default function InfrastructurePage({ match, locale }) {
     Object.assign(state, { viewBundle: views, expressionBundle: expressions, translations, tableBundle: tables, rowRules })
     async function initialize() {
       let name = route.views[0], doc = null
+      if (isLandRecord(name)) configureLandRecords(state)
       if (route.views.length > 1 || serverViews.has(name) || ['dtic/idPendingApplicantList','dtic/editVacantLandForm'].includes(name)) {
         const endpoint = route.endpoint + Object.values(params).map(value => '/' + encodeURIComponent(value)).join('')
         const response = await http.get('/dtic' + endpoint, { signal: abort.signal, responseType: 'text', headers: { Accept: 'text/html', 'X-Requested-With': 'XMLHttpRequest' } })
@@ -107,7 +109,7 @@ export default function InfrastructurePage({ match, locale }) {
   if (error) return <div className="alert alert-danger" role="alert">{error}</div>
   if (!content) return <p role="status">Loading...</p>
   const { name,state,doc } = content
-  return <div className="dtic-page dtic-infrastructure" data-dtic-view={name}>
+  return <div className={isLandRecord(name) ? 'dtic-page dtic-land-records' : 'dtic-page dtic-infrastructure'} data-dtic-view={name}>
     {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
     {state.fileError && <div className="alert alert-danger" role="alert">{state.fileError}</div>}
     {(state.busy || state.saving) && <p role="status">Processing...</p>}

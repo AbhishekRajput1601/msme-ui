@@ -1,3 +1,38 @@
+/* Keep page titles close to the navbar, including legacy form wrappers. */
+.legacy-portal .portal-body > main#page-wrapper {
+  padding-top: 10px !important;
+}
+
+.legacy-portal #page-wrapper .page-header,
+.legacy-portal #page-wrapper .portal-page-header > h1 {
+  margin-top: 0;
+}
+
+/* Empty legacy heading rows are spacers, not visible page titles. */
+.legacy-portal #page-wrapper .page-header:empty,
+.legacy-portal #page-wrapper .row:has(> .col-md-12:only-child > .page-header:only-child:empty) {
+  display: none;
+}
+
+/* Applicant modules also carry legacy top margins and profile padding. */
+.legacy-portal.applicant-portal .portal-body > main#page-wrapper,
+.legacy-portal.dtic-portal .portal-body > main#page-wrapper {
+  padding-top: 18px !important;
+}
+
+.legacy-portal.applicant-portal #page-wrapper .page-header,
+.legacy-portal.applicant-portal #page-wrapper .portal-page-header > h1 {
+  margin-top: 0 !important;
+}
+
+.legacy-portal.applicant-portal #page-wrapper > .profile-page-container {
+  padding-top: 0;
+}
+
+.legacy-portal.applicant-portal #page-wrapper :is(.industrial-unit-page, .infrastructure-detail) #ms {
+  margin-top: 0 !important;
+}
+
 /* One heading treatment across the authenticated application pages. */
 .legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .divheadertxt, .new-divheadtext, .infrastructure-application-heading) {
   color: #fff !important;

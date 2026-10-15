@@ -25,7 +25,16 @@ def js(source):
     # Repair two unterminated conditions in faTenCr_scheme (bankDoc1/2).
     if source.endswith("=='Made-ups and readymade garment"):
         source += "s'"
-    source = re.sub(r'\.([\w]+)_\{\{(.*?)\}\}', lambda m: '[' + json.dumps(m[1] + '_') + '+(' + m[2] + ')]', source)
+    def _repl_dynamic(m):
+        prefix = m.group(1)
+        indices = re.findall(r'_\{\{(.*?)\}\}', m.group(2))
+        expr_parts = [json.dumps(prefix + '_')]
+        for idx, item in enumerate(indices):
+            if idx > 0:
+                expr_parts.append(json.dumps('_'))
+            expr_parts.append('(' + item + ')')
+        return '[' + '+'.join(expr_parts) + ']'
+    source = re.sub(r'\.([\w]+)((?:_\{\{.*?\}\})+)', _repl_dynamic, source)
     # Pipe filters occur in read-only labels; logical OR must remain JS OR.
     pipes = re.split(r'(?<!\|)\|(?!\|)', source)
     source = pipes[0]

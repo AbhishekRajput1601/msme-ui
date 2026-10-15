@@ -65,11 +65,12 @@ export function dticCells(name, row, index, rules = rowRules, tableConfig = tabl
 function Cell({ markup, state, row, eligible }) {
   const doc = new DOMParser().parseFromString(markup, 'text/html')
   const render = (node, key) => {
-    if (node.nodeType === 3) return node.textContent
+    if (node.nodeType === 3) return node.textContent.replace(/\bEnrolment\b/g, 'Enrollment')
     if (node.nodeType !== 1 || !['A', 'SPAN', 'DIV', 'BR', 'B', 'I', 'STRONG', 'INPUT', 'BUTTON', 'P', 'SMALL'].includes(node.tagName)) return null
     const tag = node.tagName.toLowerCase()
     const translation = node.getAttribute('th:text')?.match(/^#\{(.+)\}$/)?.[1]
-    const children = state.translations[state.locale]?.[translation] || [...node.childNodes].map(render)
+    const translated = state.translations[state.locale]?.[translation]
+    const children = translated ? (typeof translated === 'string' ? translated.replace(/\bEnrolment\b/g, 'Enrollment') : translated) : [...node.childNodes].map(render)
     const props = { key, className: node.className || undefined, title: node.getAttribute('title') || undefined }
     if (tag === 'input') {
       const id = row.applicationId || row.applicantId || row.requestId || ''
@@ -103,7 +104,7 @@ export default function DticTable({ name, node, state }) {
     const params = { sEcho: 1, iDisplayStart: start, iDisplayLength: length, sSearch: search, iColumns: config.columns.length, iSortingCols: 0 }
     Object.assign(params, state.tableParams?.() || {})
     config.columns.forEach((column, i) => Object.assign(params, { ['mDataProp_' + i]: column || '', ['bSortable_' + i]: false, ['bSearchable_' + i]: true }))
-    dticRequest('get', config.endpoint, params, abort.signal).then(async data => {
+    dticRequest('get', state.tableEndpoint?.() || config.endpoint, params, abort.signal).then(async data => {
       if (!Array.isArray(data.aaData)) throw new Error('The server returned an invalid application list.')
       const gated = data.aaData.filter(row => Number(row.currentStatusId) === 19).map(row => row.applicationId)
       const eligible = gated.length ? await dticRequest('get', 'eligibleCompleteIds', { applicationIds: gated.join(',') }, abort.signal).catch(() => []) : []

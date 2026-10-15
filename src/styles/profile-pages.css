@@ -456,6 +456,7 @@ button.portal-lang-capsule:hover,
   padding: 12px 16px;
   background: #f7f9fa;
   border-bottom: 1px solid #e5e9ec;
+  text-align: center;
 }
 
 .legacy-portal .portal-dropdown-user {
@@ -465,6 +466,7 @@ button.portal-lang-capsule:hover,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 .legacy-portal .portal-dropdown-sub {
@@ -473,6 +475,8 @@ button.portal-lang-capsule:hover,
   font-weight: 600;
   text-transform: uppercase;
   margin-top: 2px;
+  text-align: center;
+  display: block;
 }
 
 .legacy-portal .portal-dropdown a,

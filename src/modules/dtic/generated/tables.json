@@ -212,6 +212,18 @@
       null
     ]
   },
+  "dtic/msmeapplicationlist": {
+    "endpoint": "fetchmsmeapplications",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "msmeType",
+      "ownerOrPartnerName",
+      "productionDate",
+      "createdOn",
+      null
+    ]
+  },
   "dtic/budgetPlanning/allocatedBudgetDetails": {
     "endpoint": "fetchDTICBudgetByFY",
     "columns": [
@@ -314,6 +326,61 @@
       "auditExternalBean.dticName",
       "deptName",
       "status",
+      null
+    ]
+  },
+  "dtic/supplyNameList": {
+    "endpoint": "fetchSupplyNameList",
+    "columns": [
+      "index",
+      "supplyName",
+      "supplyTypeName",
+      "supplyCategory",
+      "districtName",
+      "emailId",
+      "mobileNo",
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "dtic/supplierNameList": {
+    "endpoint": "fetchSupplierNameList",
+    "columns": [
+      "index",
+      "supplierName",
+      "supplierTypeName",
+      "supplySource",
+      "districtName",
+      "emailId",
+      "mobileNo",
+      "external",
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "dtic/enrolmentList": {
+    "endpoint": "fetchAllEnrolment",
+    "columns": [
+      null,
+      "userId",
+      "firstName",
+      "emailId",
+      "mobileNumber",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "dtic/enrolment/viewenrolmentform": {
+    "endpoint": "fetchOffice",
+    "columns": [
+      null,
+      null,
+      null,
+      "officeTypeName",
+      null,
+      null,
       null
     ]
   }

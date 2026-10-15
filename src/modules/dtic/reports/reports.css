@@ -1,0 +1,100 @@
+/* Headings use the shared centered blue theme in portal-headings.css. */
+/* Preserve the report body and control styles. */
+/* Reserve the same label height above Submit as above the date inputs. */
+.legacy-portal #page-wrapper .dtic-msme-reports form .form-group > label:empty {
+  display: block;
+  height: 20px;
+  margin-bottom: 5px;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .panel-body::before,
+.legacy-portal #page-wrapper .dtic-msme-reports .panel-body::after {
+  display: table;
+  content: " ";
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .panel-body::after { clear: both; }
+.legacy-portal #page-wrapper .dtic-msme-reports .btn {
+  display: inline-block !important;
+  padding: 6px 12px !important;
+  font-weight: 400 !important;
+  box-shadow: none !important;
+  transform: none;
+  transition: none !important;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .btn-success {
+  color: #fff !important;
+  background-color: #5cb85c !important;
+  border-color: #4cae4c !important;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .btn-success:hover {
+  background-color: #449d44 !important;
+  border-color: #398439 !important;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .btn-xs {
+  padding: 1px 5px !important;
+  font-size: 12px !important;
+  border-radius: 3px !important;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports #dynamic-table th,
+.legacy-portal #page-wrapper .dtic-msme-reports #dynamic-table td { font-size: 12px; }
+
+/* Enterprise reports use nested tables. Bootstrap grid classes on their
+   column headings must not turn those table cells into floated blocks. */
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 {
+  width: 100%;
+  min-width: 1200px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-bottom: 0;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 > thead > tr > th {
+  display: table-cell;
+  float: none;
+  width: 22%;
+  padding: 12px 8px !important;
+  text-align: center;
+  white-space: normal;
+  background: #eaf2f8;
+  color: #23527c;
+  border: 1px solid #d5dee7;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 > thead > tr > th:first-child {
+  width: 12%;
+  text-align: left;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 > tbody > tr > td {
+  padding: 10px 8px !important;
+  border: 1px solid #d5dee7;
+  vertical-align: middle;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 .customTable {
+  width: 100%;
+  table-layout: fixed;
+  margin: 0;
+  background: transparent;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 .customTable :is(th, td) {
+  width: 33.333333%;
+  padding: 4px !important;
+  text-align: center !important;
+  white-space: normal;
+  overflow-wrap: normal;
+  border: 0 !important;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .customTable2 .customTable th {
+  font-size: 12px !important;
+  color: #334155;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .col-md-12:has(> .table-responsive > .customTable2) > .col-md-2 {
+  float: none;
+  width: auto;
+  padding: 0;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .col-md-12:has(> .table-responsive > .customTable2) > .col-md-2 label:empty {
+  display: none;
+}
+.legacy-portal #page-wrapper .dtic-msme-reports .table-responsive:has(> .customTable2) {
+  clear: both;
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 15px;
+}

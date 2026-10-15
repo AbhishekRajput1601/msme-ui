@@ -276,6 +276,14 @@
     "controller": "DTICSelfEmploymentController"
   },
   {
+    "path": "supplierInfo",
+    "views": [
+      "dtic/supplierInfo"
+    ],
+    "endpoint": "/supplierInfo",
+    "controller": "DTICController"
+  },
+  {
     "path": "viewsendbackapplications",
     "views": [
       "dtic/sendbackapplicationslist"
@@ -453,6 +461,38 @@
     ],
     "endpoint": "/viewtfcletterform",
     "controller": "DTICSelfEmploymentController"
+  },
+  {
+    "path": "viewapplicationlist",
+    "views": [
+      "dtic/msmeapplicationlist"
+    ],
+    "endpoint": "/viewapplicationlist",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "viewmsmedetail/:msmeDetailId",
+    "views": [
+      "dtic/viewmsmedetail"
+    ],
+    "endpoint": "/viewmsmedetail",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "viewmsmeform",
+    "views": [
+      "dtic/viewmsmeform"
+    ],
+    "endpoint": "/viewmsmeform",
+    "controller": "DTICMSMEController"
+  },
+  {
+    "path": "viewmsmeeditform/:msmeDetailId",
+    "views": [
+      "dtic/viewmsmeeditform"
+    ],
+    "endpoint": "/viewmsmeeditform",
+    "controller": "DTICMSMEController"
   },
   {
     "path": "uploadBankCoveringLetter/:applicantId/:schemeCategory",
@@ -733,5 +773,93 @@
     ],
     "endpoint": "/viewProformaClause",
     "controller": "AuditDTICController"
+  },
+  {
+    "path": "addSupplyNameForm",
+    "views": [
+      "dtic/addSupplyNameForm"
+    ],
+    "endpoint": "/addSupplyNameForm",
+    "controller": "DTICController"
+  },
+  {
+    "path": "viewEditSupplyName/:id",
+    "views": [
+      "dtic/viewEditSupplyNameForm"
+    ],
+    "endpoint": "/viewEditSupplyName",
+    "controller": "DTICController"
+  },
+  {
+    "path": "viewEditSupplierName/:id",
+    "views": [
+      "dtic/viewEditSupplierNameForm"
+    ],
+    "endpoint": "/viewEditSupplierName",
+    "controller": "DTICController"
+  },
+  {
+    "path": "supplyNameList",
+    "views": [
+      "dtic/supplyNameList"
+    ],
+    "endpoint": "/supplyNameList",
+    "controller": "DTICController"
+  },
+  {
+    "path": "supplierNameList",
+    "views": [
+      "dtic/supplierNameList"
+    ],
+    "endpoint": "/supplierNameList",
+    "controller": "DTICController"
+  },
+  {
+    "path": "ox1Form",
+    "views": [
+      "dtic/ox1Form"
+    ],
+    "endpoint": "/ox1Form",
+    "controller": "DTICController"
+  },
+  {
+    "path": "ox2Form",
+    "views": [
+      "dtic/ox2Form"
+    ],
+    "endpoint": "/ox2Form",
+    "controller": "DTICController"
+  },
+  {
+    "path": "ox3Form",
+    "views": [
+      "dtic/ox3Form"
+    ],
+    "endpoint": "/ox3Form",
+    "controller": "DTICController"
+  },
+  {
+    "path": "ox4Form",
+    "views": [
+      "dtic/ox4Form"
+    ],
+    "endpoint": "/ox4Form",
+    "controller": "DTICController"
+  },
+  {
+    "path": "enrolmentList",
+    "views": [
+      "dtic/enrolmentList"
+    ],
+    "endpoint": "/enrolmentList",
+    "controller": "DTICController"
+  },
+  {
+    "path": "viewenrolmentform/:userId",
+    "views": [
+      "dtic/enrolment/viewenrolmentform"
+    ],
+    "endpoint": "/viewenrolmentform",
+    "controller": "DTICController"
   }
 ]

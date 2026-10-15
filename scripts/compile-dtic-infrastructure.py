@@ -38,7 +38,7 @@ for m in re.finditer(r"\.when\('([^']+)',\s*\{", routing):
     block = routing[m.end():balanced(routing, m.end()-1)]
     if not re.search(r"controller\s*:\s*'DTICIDController'", block): continue
     if m[1].startswith(('/supplierInfo', '/eSingAOLetter')) and m[1] == '/supplierInfo': continue
-    if m[1].split('/')[1] in ('dashboard', 'legacyData', 'enrolmentList', 'viewEnrolment', 'viewenrolmentform', 'completeDataOfLandApplicant', 'esignPaymentPendencyReport', 'id') and m[1].startswith(('/legacyData', '/enrolment', '/viewEnrolment', '/viewenrolment', '/completeData', '/esignPayment', '/id/editViewLegacyData')): continue
+    if m[1].startswith(('/enrolment', '/viewEnrolment', '/viewenrolment')): continue
     endpoint = re.search(r"templateUrl:\s*(?:function\([^)]*\)\s*\{\s*return\s*)?'([^']+)'", block)
     endpoint = '/' + endpoint[1].strip('/')
     if endpoint not in endpoints: raise ValueError(('Missing endpoint', m[1], endpoint))
@@ -67,6 +67,12 @@ while pending:
     for wrapper in soup.select('#page-wrapper'): wrapper['id'] = 'dtic-page-content'
     for el in soup.select('[th\\:replace]'): pending.append(el['th:replace'].split('::')[0].strip())
     for el in soup.find_all():
+        if el.get('data-ng-bind-html') == 'errorMessage': el.string = '{{errorMessage}}'
+        if el.get('ng-options') == 'y for y in years':
+            del el['ng-options']
+            option = soup.new_tag('option', attrs={'data-ng-repeat': 'y in years', 'value': '{{y}}'})
+            option.string = '{{y}}'
+            el.append(option)
         # These directives were provided by Angular and the old date/number widgets.
         if el.get('data-ng-keyup'): el['data-ng-change'] = el.get('data-ng-change', '') + ';' + el['data-ng-keyup']
         if el.get('ng-maxlength'): el['maxlength'] = el['ng-maxlength']
@@ -168,7 +174,7 @@ for source,statement in ns['expressions']:
     code=ns['js'](source)
     lines.append('s => {'+code+'},' if statement else 's => ('+code+'),')
 (OUT/'expressions.js').write_text('\n'.join(lines+ [']']),encoding='utf-8')
-css = '\n'.join('@scope (.dtic-infrastructure[data-dtic-view="'+name+'"]) {\n'+'\n'.join(styles)+'\n}' for name,styles in page_styles.items() if styles)
+css = '\n'.join('@scope ([data-dtic-view="'+name+'"]) {\n'+'\n'.join(styles)+'\n}' for name,styles in page_styles.items() if styles)
 css = css.replace('../fonts/', '/mpmsme/fonts/').replace('../img/', '/mpmsme/img/')
 (OUT/'reference.css').write_text(css,encoding='utf-8')
 (AUDIT/'inventory.json').write_text(json.dumps(inventory,ensure_ascii=False,indent=2),encoding='utf-8')

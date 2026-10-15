@@ -1,7 +1,7 @@
 {
   "passed": true,
   "mode": "Controlled fixtures; no live submissions",
-  "requests": 74,
+  "requests": 72,
   "dialogs": [
     "Please enter both Investment Amount and Turnover Amount.",
     "Are you sure you want to save the data?",

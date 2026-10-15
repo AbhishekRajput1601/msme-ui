@@ -1,0 +1,71 @@
+{
+  "microlevelreportform": {
+    "endpoint": "fetchmicrolevelapplicants",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "ownerOrPartnerName",
+      "unitName",
+      "unitAddress",
+      "category",
+      "gender",
+      "isHandicappedString",
+      "enterpriseType",
+      "nicCode",
+      "productionDate",
+      "prodClassification",
+      "prodName",
+      "prodCapacity",
+      "landOrHouseInvestment",
+      "plantOrMachineryInvestment",
+      "totalEmployments",
+      "localEmployments"
+    ]
+  },
+  "smalllevelreportform": {
+    "endpoint": "fetchsmalllevelapplicants",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "ownerOrPartnerName",
+      "unitName",
+      "unitAddress",
+      "category",
+      "gender",
+      "isHandicappedString",
+      "enterpriseType",
+      "nicCode",
+      "productionDate",
+      "prodClassification",
+      "prodName",
+      "prodCapacity",
+      "landOrHouseInvestment",
+      "plantOrMachineryInvestment",
+      "totalEmployments",
+      "localEmployments"
+    ]
+  },
+  "mediumlevelreportform": {
+    "endpoint": "fetchmediumlevelapplicants",
+    "columns": [
+      "uamNumber",
+      "uamDate",
+      "ownerOrPartnerName",
+      "unitName",
+      "unitAddress",
+      "category",
+      "gender",
+      "isHandicappedString",
+      "enterpriseType",
+      "nicCode",
+      "productionDate",
+      "prodClassification",
+      "prodName",
+      "prodCapacity",
+      "landOrHouseInvestment",
+      "plantOrMachineryInvestment",
+      "totalEmployments",
+      "localEmployments"
+    ]
+  }
+}

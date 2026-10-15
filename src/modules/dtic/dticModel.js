@@ -38,6 +38,36 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
     state.assigneeList = []
     state.letterId = params.letterId || ''
     state.responseObject = {}
+  } else if (controller === 'DTICController') {
+    state.supplierInfoData = { status: 'INACTIVE', external: 'N' }
+    state.supplyNameBean = { status: 'INACTIVE' }
+    state.opData = {}
+    state.districts = []
+    state.supplierTypes = []
+    state.supplyTypes = []
+    state.respondentStates = []
+    state.states = []
+    state.tehsils = []
+    state.permanentDistricts = []
+    state.permanentTehsils = []
+    state.officeTypeList = []
+    state.officesList = []
+    state.categories = []
+    state.designationList = []
+    state.genderList = []
+    state.responseObject = {}
+    state.previewFile = file => {
+      if (file && file instanceof Blob) {
+        const reader = new FileReader()
+        reader.onload = e => {
+          state.profileImageStr = e.target.result
+          const img = document.querySelector('#imgProfile, #profile_pic, #userProfilePic, .profile-img, img[alt*="profile" i]')
+          if (img) img.src = e.target.result
+          notify()
+        }
+        reader.readAsDataURL(file)
+      }
+    }
   }
   const navigation = {
     open: url => window.open(dticDocument(url), '_blank', 'noopener'),

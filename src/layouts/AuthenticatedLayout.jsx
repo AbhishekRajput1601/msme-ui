@@ -79,7 +79,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
     }
   }, [isUserMenuOpen])
 
-  return <div className={`legacy-portal${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
     <header className="postLoginHeader portal-header-legacy-theme">
       {/* Main Header Bar */}
       <div className="portal-header-main-bar">
@@ -127,11 +127,11 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
                   if (event.key === 'Escape') setIsUserMenuOpen(false)
                 }}
               >
-                <div className="portal-dropdown-header">
-                  <div className="portal-dropdown-user">
+                <div className="portal-dropdown-header" style={{ textAlign: 'center' }}>
+                  <div className="portal-dropdown-user" style={{ textAlign: 'center' }}>
                     <i className="fa fa-user-circle fa-fw" /> {userName}
                   </div>
-                  <div className="portal-dropdown-sub">{formattedRole}</div>
+                  <div className="portal-dropdown-sub" style={{ textAlign: 'center' }}>{formattedRole}</div>
                 </div>
                 {isApplicant && (
                   <>

@@ -141,6 +141,114 @@
     ],
     "inlineEvents": []
   },
+  "dtic/dticlegacyData": {
+    "source": "pages\\dtic\\dticlegacyData.html",
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "Verify",
+        "name": "verify",
+        "ng-model": "verify"
+      },
+      {
+        "required": "required",
+        "name": "industrialArea",
+        "id": "selectindustrialArea",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.industrialAreaId"
+      },
+      {
+        "required": "required",
+        "name": "locationType",
+        "id": "selectLocationType",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.locationType"
+      },
+      {
+        "required": "required",
+        "name": "purpose",
+        "id": "selectPurpose",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.purpose"
+      },
+      {
+        "required": "required",
+        "name": "categoryAllottee",
+        "id": "selectCategoryAllotteee",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.categoryAllottee"
+      },
+      {
+        "required": "required",
+        "name": "ownerGender",
+        "id": "selectOwnerGender",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.ownerGender"
+      },
+      {
+        "required": "required",
+        "name": "allotmentType",
+        "id": "selectAllotmentType",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.allotmentType"
+      },
+      {
+        "required": "required",
+        "name": "categoryOfIndustry",
+        "id": "selectCategoryOfIndustry",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.categoryOfIndustry"
+      },
+      {
+        "required": "required",
+        "name": "currentStatus",
+        "id": "selectCurrentStatus",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "legacyData.currentStatus"
+      }
+    ],
+    "events": [
+      "historicListExportToExcel()",
+      "legacyDataList()",
+      "loadIndustrialArea(); loadPurpose(); loadCategoryOfIndustry()",
+      "searchByLegecyDataFilters()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-success"
+        ],
+        "data-ng-click": "historicListExportToExcel()",
+        "style": "cursor: pointer;"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-init",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-submit",
+      "ng-model"
+    ],
+    "inlineEvents": []
+  },
   "dtic/dticVacantLandForm": {
     "source": "pages\\dtic\\dticVacantLandForm.html",
     "fields": [
@@ -1704,6 +1812,381 @@
       "ng-if",
       "ng-model",
       "ng-pattern",
+      "ng-show"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/dticViewEditLegacyData": {
+    "source": "pages\\dtic\\dticViewEditLegacyData.html",
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "id",
+        "name": "id",
+        "ng-model": "id"
+      },
+      {
+        "type": "hidden",
+        "id": "verifyedEntity",
+        "name": "verifyedEntity",
+        "ng-model": "verifyedEntity"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "zone",
+        "name": "zone",
+        "ng-model": "zone",
+        "disabled": "disabled",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "district",
+        "name": "district",
+        "ng-model": "district",
+        "disabled": "disabled",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "industrialArea",
+        "name": "industrialArea",
+        "ng-model": "industrialArea",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "dticName",
+        "name": "dticName",
+        "ng-model": "dticName",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "plotNo",
+        "name": "plotNo",
+        "ng-model": "plotNo",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "areaInSqm",
+        "name": "areaInSqm",
+        "ng-model": "areaInSqm",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "locationType",
+        "name": "locationType",
+        "ng-model": "locationType",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "purpose",
+        "name": "purpose",
+        "ng-model": "purpose",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "nameOfUnit",
+        "name": "nameOfUnit",
+        "ng-model": "nameOfUnit",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "constitutionOfTheFirm",
+        "name": "constitutionOfTheFirm",
+        "ng-model": "constitutionOfTheFirm",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "nameOfAllottee",
+        "name": "nameOfAllottee",
+        "ng-model": "nameOfAllottee",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "categoryAllottee",
+        "name": "categoryAllottee",
+        "ng-model": "categoryAllottee",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "ownerGender",
+        "name": "ownerGender",
+        "ng-model": "ownerGender",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "allotmentType",
+        "name": "allotmentType",
+        "ng-model": "allotmentType",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "loiDate",
+        "name": "loiDate",
+        "ng-model": "loiDate",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "dateOfAllotmentOrTransferOrder",
+        "name": "dateOfAllotmentOrTransferOrder",
+        "ng-model": "dateOfAllotmentOrTransferOrder",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "premiumAmount",
+        "name": "premiumAmount",
+        "ng-model": "premiumAmount",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "leaseRent",
+        "name": "leaseRent",
+        "ng-model": "leaseRent",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "developmentCharge",
+        "name": "developmentCharge",
+        "ng-model": "developmentCharge",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "maintenanceCharge",
+        "name": "maintenanceCharge",
+        "ng-model": "maintenanceCharge",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "otherCharges",
+        "name": "otherCharges",
+        "ng-model": "otherCharges",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "leaseDeedExecutionDate",
+        "name": "leaseDeedExecutionDate",
+        "ng-model": "leaseDeedExecutionDate",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "possessionDate",
+        "name": "possessionDate",
+        "ng-model": "possessionDate",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "leaseStartDate",
+        "name": "leaseStartDate",
+        "ng-model": "leaseStartDate",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "leaseEndDate",
+        "name": "leaseEndDate",
+        "ng-model": "leaseEndDate",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "dateOfProduction",
+        "name": "dateOfProduction",
+        "ng-model": "dateOfProduction",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "productsManufacturing",
+        "name": "productsManufacturing",
+        "ng-model": "productsManufacturing",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "categoryOfIndustry",
+        "name": "categoryOfIndustry",
+        "ng-model": "categoryOfIndustry",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "investment",
+        "name": "investment",
+        "ng-model": "investment",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "employment",
+        "name": "employment",
+        "ng-model": "employment"
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "currentStatus",
+        "name": "currentStatus",
+        "ng-model": "currentStatus",
+        "required": ""
+      },
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "id": "statusOfPlots",
+        "name": "statusOfPlots",
+        "ng-model": "statusOfPlots",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "id": "additionalInformation",
+        "name": "additionalInformation",
+        "ng-model": "additionalInformation"
+      }
+    ],
+    "events": [
+      "loadLegacyDataWithID()",
+      "saveLegacyData()",
+      "verifyLegacyEntity()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "href": "#/legacyData"
+      },
+      {
+        "class": [
+          "btn",
+          "btn-success"
+        ],
+        "data-ng-click": "verifyLegacyEntity()",
+        "style": "cursor: pointer;"
+      }
+    ],
+    "directives": [
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-init",
+      "data-ng-submit",
+      "ng-disabled",
+      "ng-model",
       "ng-show"
     ],
     "inlineEvents": []
@@ -4162,5 +4645,99 @@
         "onclick": "jQuery('#paymentDetails').print();"
       }
     ]
+  },
+  "dtic/completeDataOfLandApplicant": {
+    "source": "pages\\dtic\\completeDataOfLandApplicant.html",
+    "fields": [
+      {
+        "id": "year",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "year",
+        "required": ""
+      },
+      {
+        "id": "month",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "month",
+        "required": ""
+      }
+    ],
+    "events": [
+      "fetchDticWiseCompleteDataOfLandApplicant()",
+      "landApplicantListExportToExcel()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-success",
+          "mt22"
+        ],
+        "data-ng-click": "landApplicantListExportToExcel()",
+        "style": "cursor: pointer;"
+      }
+    ],
+    "directives": [
+      "data-ng-bind-html",
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-submit",
+      "ng-app",
+      "ng-repeat"
+    ],
+    "inlineEvents": []
+  },
+  "dtic/EsignPaymentPendencyReport": {
+    "source": "pages\\dtic\\EsignPaymentPendencyReport.html",
+    "fields": [
+      {
+        "id": "year",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "year",
+        "required": ""
+      },
+      {
+        "id": "month",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "month",
+        "required": ""
+      }
+    ],
+    "events": [
+      "esignListExportToExcel()",
+      "esignPaymentPendencyReportBean()"
+    ],
+    "links": [
+      {
+        "class": [
+          "btn",
+          "btn-success",
+          "mt22"
+        ],
+        "data-ng-click": "esignListExportToExcel()",
+        "style": "cursor: pointer;"
+      }
+    ],
+    "directives": [
+      "data-ng-bind-html",
+      "data-ng-click",
+      "data-ng-if",
+      "data-ng-model",
+      "data-ng-repeat",
+      "data-ng-submit",
+      "ng-app",
+      "ng-repeat"
+    ],
+    "inlineEvents": []
   }
 }

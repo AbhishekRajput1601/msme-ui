@@ -10,7 +10,10 @@ const evaluate = (id, s) => {
   if (id == null) return undefined
   try { return (s.expressionBundle || expressions)[id](s) } catch (error) { if (error instanceof TypeError) return undefined; throw error }
 }
-const interpolate = (parts, s) => parts?.map(part => typeof part === 'number' ? evaluate(part, s) ?? '' : part).join('') || ''
+const interpolate = (parts, s) => {
+  const text = parts?.map(part => typeof part === 'number' ? evaluate(part, s) ?? '' : part).join('') || ''
+  return text.replace(/\bEnrolment\b/g, 'Enrollment')
+}
 const css = value => Object.fromEntries(String(value).split(';').filter(v => v.includes(':')).map(v => { const at = v.indexOf(':'); return [v.slice(0, at).trim().replace(/-([a-z])/g, (_,c) => c.toUpperCase()), v.slice(at + 1).trim().replace(/\s*!important$/, '')] }))
 
 function run(id, s, root) {
@@ -38,14 +41,15 @@ function validation(form, root, submitted = true) {
 function ViewNode({ node, scope: s, root, repeated = false }) {
   const formRef = useRef(null)
   const initializedRef = useRef(null)
+  const repeatScopes = useRef(new Map())
   const conditionMet = node.if == null || !!evaluate(node.if, s)
   useEffect(() => {
-    if (conditionMet && node.init != null && (root.initializePerInstance ? initializedRef.current !== root : !root.initialized.has(node))) {
+    if (!(node.repeat && !repeated) && conditionMet && node.init != null && (root.initializePerInstance ? initializedRef.current !== root : !root.initialized.has(node))) {
       initializedRef.current = root
       root.initialized.add(node)
       run(node.init, s, root)
     }
-  }, [node, root, s, conditionMet])
+  }, [node, root, s, conditionMet, repeated])
   useEffect(() => {
     if (formRef.current) { validation(formRef.current,root,false); root.notify() }
   }, [node,root])
@@ -59,13 +63,20 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (node.repeat && !repeated) {
     const items = evaluate(node.repeat.items, s) || []
     return Object.entries(items).map(([key, value], index) => {
-      const child = Object.create(s)
+      const identity = value && typeof value === 'object' ? value : key
+      let child = root.stableRepeatScopes && repeatScopes.current.get(identity)
+      if (!child) {
+        child = Object.create(s)
+        if (root.stableRepeatScopes) { child.$$viewKey = repeatScopes.current.size; repeatScopes.current.set(identity, child) }
+      }
+      Object.setPrototypeOf(child, s)
       child.$parent = s
       const [first, second] = node.repeat.names
       child[first] = second ? key : value
       if (second) child[second] = value
       Object.assign(child, { $index: index, $first: index === 0, $last: index === Object.keys(items).length - 1, $even: index % 2 === 0, $odd: index % 2 !== 0 })
-      return <ViewNode key={key} node={node} scope={child} root={root} repeated />
+      for (const alias of node.indexAliases || []) child[alias] = index
+      return <ViewNode key={root.stableRepeatScopes ? child.$$viewKey : key} node={node} scope={child} root={root} repeated />
     })
   }
   if (node.if != null && !evaluate(node.if, s)) return null

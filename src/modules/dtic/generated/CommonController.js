@@ -3,6 +3,7 @@ export function installActions(state, { request, loading, navigation, params, fo
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,Array.isArray(items) ? Number(k) : k));
 const identity = value => value;
 const fetchLetters = () => { state.listVersion++; loading.finish(); };
+const fetchMSMEApplications = () => { state.listVersion++; loading.finish(); };
 let lastObjectId="", lastSchemeId="", lastSchemeTypeId="";
 state.started = false;
 state.changePasswordData = {};

@@ -352,4 +352,764 @@ textarea {
 .ay tr:first-child td{border-top: 0;}
 .ay tr td:last-child {border-right: 0;}
 
+
+.table-fixed{
+    max-height: 500px;
+    overflow-y: auto!important;
+    position: relative;
+}
+.table-fixed th {
+    position: sticky;
+    z-index: 100;
+    background: rgb(48 134 223);
+    top: 0;
+}
+thead.bg-primary.text-white tr+tr th {
+    top: 49px;
+}
+.select2 + .select2 {
+    display: none;
+}
+.select2-container{width:100%!important;}
+        .supplerbox {
+        }
+        
+        .p-0 {
+            padding: 0!important;
+        }
+        
+        .m-0 {
+            margin: 0!important;
+        }
+        
+        input[type=date] {
+            line-height: 1.5;
+        }
+        
+        .main-table .bg-primary {
+            color: rgb(255 255 255);
+            background-color: rgb(48 134 223);
+        }
+        
+        .main-table tr th {
+            text-align: center;
+            border: 1px solid rgb(38 120 205)!important;
+            font-size: 13px;
+            text-shadow: 0 0 8px #00000036;
+        }
+        
+        .main-table textarea {
+            resize: vertical;
+            min-width: 180px;
+        }
+        
+        .main-table tbody tr td {
+            vertical-align: middle;
+        }
+        
+        .main-table>thead>tr>th:last-child,
+        .main-table>tbody>tr>td:last-child {
+            width: 200px;
+        }
+        
+        .main-table thead tr:nth-child(2) th {
+            background: rgb(40 181 248);
+            border-color: rgb(38 147 199)!important;
+        }
+        
+        .main-table thead tr:nth-child(2) th,
+        .sd-table tr td {
+            width: 200px;
+        }
+         .main-table thead tr:first-child th:first-child,
+         .main-table tbody tr td:first-child
+       {
+         width: 140px;
+    		min-width: 140px;
+        }
+        
+         .main-table thead tr:nth-child(2) th:nth-child(3),
+        .sd-table tr td:nth-child(3){
+            width: 80px!important;
+            min-width: 80px!important;
+           
+        }
+         .main-table thead tr:nth-child(2) th:first-child,
+       
+         .sd-table tr td:first-child
+        {
+               width: 140px;
+    		min-width: 140px;
+        }
+        
+         .main-table thead tr:nth-child(2) th:nth-child(2),
+         
+        .sd-table tr td:nth-child(2) {
+                 width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+        }
+        
+        .main-table thead tr:nth-child(2) th:last-child,
+        .sd-table tr td:last-child {
+            width: 80px!important;
+            min-width: 80px!important;
+            text-align: left;
+        }
+     .main-table   .form-control {
+   
+		    min-height: 30px;
+		   
+		    font-size: 12px;
+		    padding: 4px 12px;
+		}
+        .sd-table input[type="button"] {
+            height: 28px;
+            width: 28px;
+            font-size: 22px;
+            line-height: 27px;
+            padding: 0;
+            color: rgb(255 255 255);
+            border: 0;
+            border-radius: 4px;
+            outline: 0 none!important;
+        }
+        
+        .sd-table input[type="button"]:hover,
+        .btn-save:hover {
+            opacity: .8;
+        }
+        
+        input.add {
+            background: rgb(14 197 121);
+        }
+        
+        input.remove {
+            background: rgb(255 77 110);
+        }
+        
+        .main-table tfoot {
+            background: rgb(244 247 248);
+            font-weight: 600;
+        }
+        
+        .title2 {
+            font-size: 19px;
+            font-weight: 600;
+            color: rgb(36 159 217);
+            margin-bottom: 20px;
+            border-left: 2px solid rgb(46 161 215);
+            background: rgb(231 247 255);
+            display: table;
+            padding: 8px 20px;
+            margin-top: 0;
+            position: relative;
+            height: 38px;
+        }
+        
+        .title2:after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 0;
+            border-left: 19px solid rgb(231 247 255);
+            border-top: 19px solid rgb(0 0 0 / 0%);
+            border-bottom: 19px solid rgb(0 0 0 / 0%);
+        }
+        
+        .btn-save {
+            color: rgb(255 255 255)!important;
+            background-color: rgb(215 121 41 / 90%);
+            border-color: rgb(209 124 52);
+            padding: 7px 24px;
+            font-weight: 600;
+            outline: 0 none!important;
+        }
+        .responsive-md{
+		    width: 100%;
+		    margin-bottom: 15px;
+		    overflow-x: auto;
+		    overflow-y: hidden;
+		}
+		.table .table {
+    		background-color: transparent;
+		}
+		/* .main-table tbody tr td {
+		   padding: 12px 8px;
+		   border: 1px solid rgb(217 238 242);
+		}
+		.main-table>tbody>tr>td {
+		    border-bottom: 1px solid rgb(81 199 255)!important;
+		}
+		
+		.main-table>tbody>tr:nth-of-type(odd) td.p-0 {
+		    background: rgb(240 254 255);
+		}
+		
+		.sd-table tr:last-child td {
+		    border-bottom: 0;
+		}
+		.sd-table tr:first-child td {
+		    border-top: 0;
+		}
+		.main-table>tbody>tr:nth-of-type(even) td.p-0 {
+		    background: rgb(203 246 255);
+		}
+		 .main-table>tbody>tr:nth-of-type(even) td.p-0  .sd-table tr td {
+		   border-color: rgb(203 246 255);
+		}
+		 .main-table>tbody>tr:nth-of-type(odd) td.p-0  .sd-table tr td {
+		   border-color: rgb(240 254 255);
+		}
+		.sd-table {
+		    border-color: #fff;
+		}
+		
+		.main-table>tbody>tr:nth-of-type(even){
+		    background: rgb(231 251 255);
+		} */
+        @media (max-width: 1400px) {
+           /*  .main-table thead tr:nth-child(2) th,
+            .sd-table tr td {
+                width: 138px;
+                min-width: 138px;
+            } */
+            .supplerbox {
+                max-width: 100%;
+            }
+        }
+    
+
+.table-fixed{
+    max-height: 500px;
+    overflow-y: auto!important;
+    position: relative;
+}
+.table-fixed th {
+    position: sticky;
+    z-index: 100;
+    background: rgb(48 134 223);
+    top: 0;
+}
+thead.bg-primary.text-white tr+tr th {
+    top: 35px;
+}
+  .sd-table tr td , thead tr:nth-child(2) th{
+            width: 120px;
+            max-width:120px;
+            min-width:120px;
+        }
+        .sd-table tr td.action, thead tr:nth-child(2) th.action{
+        width: 80px;
+            max-width:80px;
+            min-width:80px;
+        }
+      
+.select2 + .select2 {
+    display: none;
+}
+.select2-container{width:100%!important;}
+        .supplerbox {
+        }
+        
+        .p-0 {
+            padding: 0!important;
+        }
+        
+        .m-0 {
+            margin: 0!important;
+        }
+        
+        input[type=date] {
+            line-height: 1.5;
+        }
+        
+        .main-table .bg-primary {
+            color: rgb(255 255 255);
+            background-color: rgb(48 134 223);
+        }
+        
+        .main-table tr th {
+            text-align: center;
+            border: 1px solid rgb(38 120 205)!important;
+            font-size: 13px;
+            text-shadow: 0 0 8px #00000036;
+        }
+        
+        .main-table textarea.form-control {
+            resize: vertical;
+            min-width: 180px;
+        }
+        
+        .main-table tbody tr td {
+            vertical-align: middle;
+        }
+        
+    
+        
+        .main-table thead tr:nth-child(2) th {
+            background: rgb(40 181 248);
+            border-color: rgb(38 147 199)!important;
+        }
+      
+     
+      
+     
+     .main-table   .form-control {
+   
+    min-height: 30px;
+   
+    font-size: 12px;
+    padding: 4px 8px;
+    min-width: 65px;
+
+
+
+}
+        .sd-table input[type="button"] {
+            height: 28px;
+            width: 28px;
+            font-size: 22px;
+            line-height: 27px;
+            padding: 0;
+            color: rgb(255 255 255);
+            border: 0;
+            border-radius: 4px;
+            outline: 0 none!important;
+        }
+        
+        .sd-table input[type="button"]:hover,
+        .btn-save:hover {
+            opacity: .8;
+        }
+        
+        input.add {
+            background: rgb(14 197 121);
+        }
+        
+        input.remove {
+            background: rgb(255 77 110);
+        }
+        
+        .main-table tfoot {
+            background: rgb(244 247 248);
+            font-weight: 600;
+        }
+        
+        .title2 {
+            font-size: 19px;
+            font-weight: 600;
+            color: rgb(36 159 217);
+            margin-bottom: 20px;
+            border-left: 2px solid rgb(46 161 215);
+            background: rgb(231 247 255);
+            display: table;
+            padding: 8px 20px;
+            margin-top: 0;
+            position: relative;
+            height: 38px;
+        }
+        
+        .title2:after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 0;
+            border-left: 19px solid rgb(231 247 255);
+            border-top: 19px solid rgb(0 0 0 / 0%);
+            border-bottom: 19px solid rgb(0 0 0 / 0%);
+        }
+        
+        .btn-save {
+            color: rgb(255 255 255)!important;
+            background-color: rgb(215 121 41 / 90%);
+            border-color: rgb(209 124 52);
+            padding: 7px 24px;
+            font-weight: 600;
+            outline: 0 none!important;
+        }
+        .responsive-md{
+		    width: 100%;
+		    margin-bottom: 15px;
+		    overflow-x: auto;
+		    overflow-y: hidden;
+		}
+		.table .table {
+    background-color: transparent;
+}
+        @media (max-width: 1400px) {
+            
+            .supplerbox {
+                max-width: 100%;
+            }
+        }
+    
+
+.table-fixed{
+    max-height: 500px;
+    overflow-y: auto!important;
+    position: relative;
+}
+.table-fixed th {
+    position: sticky;
+    z-index: 100;
+    background: rgb(48 134 223);
+    top: 0;
+}
+thead.bg-primary.text-white tr+tr th {
+    top: 42px;
+}
+.select2 + .select2 {
+    display: none;
+}
+.select2-container{width:100%!important;}
+        .supplerbox {
+        }
+        
+        .p-0 {
+            padding: 0!important;
+        }
+        
+        .m-0 {
+            margin: 0!important;
+        }
+        
+        input[type=date] {
+            line-height: 1.5;
+        }
+        
+        .main-table .bg-primary {
+            color: rgb(255 255 255);
+            background-color: rgb(48 134 223);
+        }
+        
+        .main-table tr th {
+            text-align: center;
+            border: 1px solid rgb(38 120 205)!important;
+            font-size: 13px;
+            text-shadow: 0 0 8px #00000036;
+        }
+        
+        .main-table textarea {
+            resize: vertical;
+            min-width: 180px;
+        }
+        
+        .main-table tbody tr td {
+            vertical-align: middle;
+        }
+        
+        .main-table>thead>tr>th:last-child,
+        .main-table>tbody>tr>td:last-child {
+            width: 200px;
+        }
+        
+        .main-table thead tr:nth-child(2) th {
+            background: rgb(40 181 248);
+            border-color: rgb(38 147 199)!important;
+        }
+        
+     .main-table thead tr:first-child th:first-child,
+         .main-table tbody tr td:first-child
+       {
+         width: 140px;
+    		min-width: 140px;
+        }
+        
+        
+        .main-table thead tr:nth-child(2) th,
+        .sd-table tr td {
+               width: 75px;
+    min-width: 75px;
+        }
+        .main-table thead tr:nth-child(2) th:first-child,
+       
+         .sd-table tr td:first-child
+        {
+               width: 140px;
+    		min-width: 140px;
+        }
+        
+         .main-table thead tr:nth-child(2) th:nth-child(2),
+         
+        .sd-table tr td:nth-child(2) {
+                 width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+        }
+        
+        
+        .main-table thead tr:nth-child(2) th:nth-child(5),
+        .sd-table tr td:last-child {
+            width: 80px!important;
+            min-width: 80px!important;
+            text-align: left;
+        }
+     .main-table   .form-control {
+   
+    min-height: 30px;
+   
+    font-size: 12px;
+    padding: 4px 12px;
+}
+        .sd-table input[type="button"] {
+            height: 28px;
+            width: 28px;
+            font-size: 22px;
+            line-height: 27px;
+            padding: 0;
+            color: rgb(255 255 255);
+            border: 0;
+            border-radius: 4px;
+            outline: 0 none!important;
+        }
+        
+        .sd-table input[type="button"]:hover,
+        .btn-save:hover {
+            opacity: .8;
+        }
+        
+        input.add {
+            background: rgb(14 197 121);
+        }
+        
+        input.remove {
+            background: rgb(255 77 110);
+        }
+        
+        .main-table tfoot {
+            background: rgb(244 247 248);
+            font-weight: 600;
+        }
+        
+        .title2 {
+            font-size: 19px;
+            font-weight: 600;
+            color: rgb(36 159 217);
+            margin-bottom: 20px;
+            border-left: 2px solid rgb(46 161 215);
+            background: rgb(231 247 255);
+            display: table;
+            padding: 8px 20px;
+            margin-top: 0;
+            position: relative;
+            height: 38px;
+        }
+        
+        .title2:after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 0;
+            border-left: 19px solid rgb(231 247 255);
+            border-top: 19px solid rgb(0 0 0 / 0%);
+            border-bottom: 19px solid rgb(0 0 0 / 0%);
+        }
+        
+        .btn-save {
+            color: rgb(255 255 255)!important;
+            background-color: rgb(215 121 41 / 90%);
+            border-color: rgb(209 124 52);
+            padding: 7px 24px;
+            font-weight: 600;
+            outline: 0 none!important;
+        }
+        .responsive-md{
+		    width: 100%;
+		    margin-bottom: 15px;
+		    overflow-x: auto;
+		    overflow-y: hidden;
+		}
+		.table .table {
+    background-color: transparent;
+}
+        @media (max-width: 1400px) {
+           
+            .supplerbox {
+                max-width: 100%;
+            }
+        }
+    
+
+.table-fixed{
+    max-height: 500px;
+    overflow-y: auto!important;
+    position: relative;
+}
+.table-fixed th {
+    position: sticky;
+    z-index: 100;
+    background: rgb(48 134 223);
+    top: 0;
+}
+thead.bg-primary.text-white tr+tr th {
+    top: 35px;
+}
+ .sd-table tr td , thead tr:nth-child(2) th{
+            width: 120px;
+            max-width: 120px;
+            min-width: 120px;
+        }
+        .sd-table tr td.action, thead tr:nth-child(2) th.action{
+        width: 80px;
+            max-width:80px;
+            min-width:80px;
+        }
+.select2 + .select2 {
+    display: none;
+}
+.select2-container{width:100%!important;}
+        .supplerbox {
+        }
+        
+        .p-0 {
+            padding: 0!important;
+        }
+        
+        .m-0 {
+            margin: 0!important;
+        }
+        
+        input[type=date] {
+            line-height: 1.5;
+        }
+        
+        .main-table .bg-primary {
+            color: rgb(255 255 255);
+            background-color: rgb(48 134 223);
+        }
+        
+        .main-table tr th {
+            text-align: center;
+            border: 1px solid rgb(38 120 205)!important;
+            font-size: 13px;
+            text-shadow: 0 0 8px #00000036;
+        }
+        
+        .main-table textarea.form-control {
+            resize: vertical;
+            min-width: 180px;
+        }
+        
+        .main-table tbody tr td {
+            vertical-align: middle;
+        }
+        
+        
+        
+        .main-table thead tr:nth-child(2) th {
+            background: rgb(40 181 248);
+            border-color: rgb(38 147 199)!important;
+        }
+        
+      
+          
+       
+     .main-table   .form-control {
+   
+    min-height: 30px;
+   
+    font-size: 12px;
+    padding: 4px 8px;
+    min-width: 65px;
+
+
+
+}
+        .sd-table input[type="button"] {
+            height: 28px;
+            width: 28px;
+            font-size: 25px;
+            line-height: 27px;
+            padding: 0;
+            color: rgb(255 255 255);
+            border: 0;
+            border-radius: 4px;
+            outline: 0 none!important;
+        }
+        
+        .sd-table input[type="button"]:hover,
+        .btn-save:hover {
+            opacity: .8;
+        }
+        
+        input.add {
+            background: rgb(14 197 121);
+        }
+        
+        input.remove {
+            background: rgb(255 77 110);
+        }
+        
+        .main-table tfoot {
+            background: rgb(244 247 248);
+            font-weight: 600;
+        }
+        
+        .title2 {
+            font-size: 19px;
+            font-weight: 600;
+            color: rgb(36 159 217);
+            margin-bottom: 20px;
+            border-left: 2px solid rgb(46 161 215);
+            background: rgb(231 247 255);
+            display: table;
+            padding: 8px 20px;
+            margin-top: 0;
+            position: relative;
+            height: 38px;
+        }
+        
+        .title2:after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 0;
+            border-left: 19px solid rgb(231 247 255);
+            border-top: 19px solid rgb(0 0 0 / 0%);
+            border-bottom: 19px solid rgb(0 0 0 / 0%);
+        }
+        
+        .btn-save {
+            color: rgb(255 255 255)!important;
+            background-color: rgb(215 121 41 / 90%);
+            border-color: rgb(209 124 52);
+            padding: 7px 24px;
+            font-weight: 600;
+            outline: 0 none!important;
+        }
+        .responsive-md{
+		    width: 100%;
+		    margin-bottom: 15px;
+		    overflow-x: auto;
+		    overflow-y: hidden;
+		}
+		.table .table {
+    background-color: transparent;
+}
+        @media (max-width: 1400px) {
+           
+            .supplerbox {
+                max-width: 100%;
+            }
+        }
+    
+
+@media screen and (max-width:400px) {
+	.frmlbl label {
+		height: 40px;
+	}
+	.res_div {
+		width: 100%;
+		overflow-x: scroll
+	}
+	.res_div .col-md-8 {
+		width: 550px;
+	}
+	.res_div .col-md-4 {
+		width: 300px;
+		float: left
+	}
+}
+
 }

@@ -157,6 +157,68 @@ export const rowRules = {
 
 							
 },
+"dtic/dticlegacyData": (cell,nRow,aData,iDataIndex) => {
+
+								cell('td:eq(1)', nRow).html(aData.zone);
+								
+								cell('td:eq(2)', nRow).html(aData.district);
+								cell('td:eq(3)', nRow).html(aData.industrialArea);
+								cell('td:eq(4)', nRow).html(aData.dticName);
+								cell('td:eq(5)', nRow).html(aData.plotNo);
+								cell('td:eq(6)', nRow).html(
+										parseFloat(aData.areaInSqm));
+								cell('td:eq(7)', nRow).html(aData.locationType);
+								cell('td:eq(8)', nRow).html(aData.purpose);
+								cell('td:eq(9)', nRow).html(aData.nameOfUnit);
+								cell('td:eq(10)', nRow).html(
+										aData.constitutionOfTheFirm);
+								cell('td:eq(11)', nRow).html(aData.nameOfAllottee);
+								
+								cell('td:eq(12)', nRow).html(
+										aData.categoryAllottee);
+								cell('td:eq(13)', nRow).html(aData.ownerGender);
+								cell('td:eq(14)', nRow).html(aData.allotmentType);
+								cell('td:eq(15)', nRow).html(aData.loiDate);
+								cell('td:eq(16)', nRow).html(
+										aData.dateOfAllotmentOrTransferOrder);
+								cell('td:eq(17)', nRow).html(aData.premiumAmount);
+								cell('td:eq(18)', nRow).html(aData.leaseRent);
+								cell('td:eq(19)', nRow).html(
+										aData.developmentCharge);
+								cell('td:eq(20)', nRow).html(
+										aData.maintenanceCharge);
+								cell('td:eq(21)', nRow).html(aData.otherCharges);
+								cell('td:eq(22)', nRow).html(
+										aData.leaseDeedExecutionDate);
+								cell('td:eq(23)', nRow).html(aData.possessionDate);
+								cell('td:eq(24)', nRow).html(aData.leaseStartDate);
+								cell('td:eq(25)', nRow).html(aData.leaseEndDate);
+								cell('td:eq(26)', nRow).html(
+										aData.dateOfProduction);
+								cell('td:eq(27)', nRow).html(
+										aData.productsManufacturing);
+								cell('td:eq(28)', nRow).html(
+										aData.categoryOfIndustry);
+								cell('td:eq(29)', nRow).html(aData.investment);
+								cell('td:eq(30)', nRow)
+										.html(
+												(aData.employment != "") ? aData.employment
+														: "--");
+								cell('td:eq(31)', nRow).html(aData.currentStatus);
+								cell('td:eq(32)', nRow).html(aData.statusOfPlots);
+								cell('td:eq(33)', nRow).html(
+										aData.additionalInformation);
+								if (aData.verifyedEntity) {
+									cell('td:eq(34)', nRow).html('<span class="green-text">Verifyed</span>');
+									
+					        	 	} else {
+					        	 		cell('td:eq(34)', nRow).html('<div class="action-buttons"><a class="blue" href="#id/editViewLegacyData/'+aData.id+'"><span> Edit/Verify</span></a></div>');
+										
+					        			}
+									
+							
+							
+},
 "dtic/id/applicantListForNotice": (cell,nRow,aData,iDataIndex) => {
 
         	cell('td:eq(4)', nRow).html('<b>Industrial Area: </b>' + aData.vacantLandBean.industrialAreaName + '<br/> <b>District: </b>' +aData.vacantLandBean.districtName + '<br/> <b>Tehsil: </b>'+ aData.vacantLandBean.tehsilName);

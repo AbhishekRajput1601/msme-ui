@@ -5,6 +5,7 @@ import { useTranslation } from '../hooks/useTranslation'
 import { getDefaultRouteForRoles } from '../routes/roleRoutes'
 import { ASSETS, backendLink, useLegacyWebsite } from '../modules/public/legacyWebsite'
 import { WebsiteMenuItem } from '../modules/public/WebsiteContent'
+import indiaEmblem from '../assets/branding/emblem-india.png'
 
 export default function PublicLayout() {
   const { authenticated, roles } = useAuth()
@@ -93,12 +94,9 @@ export default function PublicLayout() {
           <div className="public-brand-row">
             <Link className="logo-brand-wrap" to="/">
               <img
-                src={website.departmentLogo || '/img/emblem-india.png'}
-                alt={website.departmentName || 'State Emblem of India'}
+                src={isAuthPage ? '/image/indus_logo.png' : indiaEmblem}
+                alt={isAuthPage ? 'Government of Madhya Pradesh emblem' : 'State Emblem of India'}
                 className="mp-emblem-img"
-                onError={event => {
-                  if (event.currentTarget.getAttribute('src') !== '/img/emblem-india.png') event.currentTarget.src = '/img/emblem-india.png'
-                }}
               />
               <div className="logo-title">
                 <h5>{website.governmentName || (hindi ? 'मध्यप्रदेश शासन' : 'Government of Madhya Pradesh')}</h5>

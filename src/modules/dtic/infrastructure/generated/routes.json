@@ -24,6 +24,14 @@
     "controller": "DTICIDController"
   },
   {
+    "path": "legacyData",
+    "endpoint": "/legacyData",
+    "views": [
+      "dtic/dticlegacyData"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
     "path": "entervacantland",
     "endpoint": "/entervacantLand",
     "views": [
@@ -68,6 +76,14 @@
     "endpoint": "/editVacantLandDetail",
     "views": [
       "dtic/editVacantLandForm"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "id/editViewLegacyData/:id",
+    "endpoint": "/editViewLegacyData",
+    "views": [
+      "dtic/dticViewEditLegacyData"
     ],
     "controller": "DTICIDController"
   },
@@ -345,6 +361,22 @@
     "endpoint": "/viewAnnualPaymentDetails",
     "views": [
       "dtic/id/viewAnnualPaymentDetails"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "completeDataOfLandApplicant",
+    "endpoint": "/completeDataOfLandApplicant",
+    "views": [
+      "dtic/completeDataOfLandApplicant"
+    ],
+    "controller": "DTICIDController"
+  },
+  {
+    "path": "esignPaymentPendencyReport",
+    "endpoint": "/esignPaymentPendencyReport",
+    "views": [
+      "dtic/EsignPaymentPendencyReport"
     ],
     "controller": "DTICIDController"
   }

@@ -1,0 +1,207 @@
+/* Bootstrap 5 table paint must not cover the original Bootstrap 3 OX colors. */
+.legacy-portal #page-wrapper .dtic-ox .table {
+  --bs-table-bg: transparent;
+  --bs-table-color: inherit;
+}
+.legacy-portal #page-wrapper .dtic-ox .table > :not(caption) > * > * {
+  box-shadow: none;
+}
+
+/* ── OX Form Headings Based on Portal Theme (#337ab7) ── */
+.legacy-portal #page-wrapper .dtic-ox .title2 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  border-left: 4px solid #1f4e79 !important;
+  display: table !important;
+  padding: 8px 22px !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  position: relative !important;
+  height: 38px !important;
+  line-height: 22px !important;
+  border-radius: 4px 0 0 4px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12) !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .title2:after {
+  content: '' !important;
+  position: absolute !important;
+  left: 100% !important;
+  top: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 19px solid #337ab7 !important;
+  border-top: 19px solid transparent !important;
+  border-bottom: 19px solid transparent !important;
+  border-right: 0 !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .title2 :is(span, *),
+.legacy-portal #page-wrapper .dtic-ox .title2 {
+  color: #ffffff !important;
+}
+
+/* ── OX Form Buttons Based on Theme ── */
+
+/* 1. SAVE Button (#submitBtn, .btn-save) */
+.legacy-portal #page-wrapper .dtic-ox .btn-save,
+.legacy-portal #page-wrapper .dtic-ox #submitBtn {
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  border: 1px solid #2e6da4 !important;
+  padding: 8px 28px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 4px !important;
+  outline: 0 none !important;
+  cursor: pointer !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.15s ease-in-out !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-save:hover,
+.legacy-portal #page-wrapper .dtic-ox #submitBtn:hover {
+  background-color: #286090 !important;
+  border-color: #204d74 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  transform: translateY(-1px);
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-save:active,
+.legacy-portal #page-wrapper .dtic-ox #submitBtn:active {
+  background-color: #204d74 !important;
+  border-color: #1a3e5e !important;
+  transform: translateY(0);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-save:focus-visible,
+.legacy-portal #page-wrapper .dtic-ox #submitBtn:focus-visible {
+  outline: 2px solid #337ab7 !important;
+  outline-offset: 2px !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-save:disabled,
+.legacy-portal #page-wrapper .dtic-ox #submitBtn:disabled {
+  background-color: #90bddc !important;
+  border-color: #90bddc !important;
+  color: #ffffff !important;
+  cursor: not-allowed !important;
+  opacity: 0.65 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* 2. Export to Excel Button */
+.legacy-portal #page-wrapper .dtic-ox .btn-secondary,
+.legacy-portal #page-wrapper .dtic-ox input[value="Export to Excel"] {
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  border: 1px solid #2e6da4 !important;
+  padding: 6px 18px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border-radius: 4px !important;
+  outline: 0 none !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  transition: all 0.15s ease-in-out !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-secondary:hover,
+.legacy-portal #page-wrapper .dtic-ox input[value="Export to Excel"]:hover {
+  background-color: #286090 !important;
+  border-color: #204d74 !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18) !important;
+  transform: translateY(-1px);
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-secondary:active,
+.legacy-portal #page-wrapper .dtic-ox input[value="Export to Excel"]:active {
+  background-color: #204d74 !important;
+  border-color: #1a3e5e !important;
+  transform: translateY(0);
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-secondary:focus-visible,
+.legacy-portal #page-wrapper .dtic-ox input[value="Export to Excel"]:focus-visible {
+  outline: 2px solid #337ab7 !important;
+  outline-offset: 2px !important;
+}
+
+/* 3. Primary & Default Button Overrides */
+.legacy-portal #page-wrapper .dtic-ox .btn-primary {
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  border-color: #2e6da4 !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .btn-primary:hover {
+  background-color: #286090 !important;
+  border-color: #204d74 !important;
+  color: #ffffff !important;
+}
+
+/* 4. Table Header Theming */
+.legacy-portal #page-wrapper .dtic-ox .table-fixed th,
+.legacy-portal #page-wrapper .dtic-ox .main-table thead.bg-primary,
+.legacy-portal #page-wrapper .dtic-ox .main-table thead.bg-primary tr:first-child th {
+  background: #337ab7 !important;
+  background-color: #337ab7 !important;
+  border-color: #2e6da4 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .main-table thead tr:nth-child(2) th {
+  background: #428bca !important;
+  background-color: #428bca !important;
+  border-color: #357ebd !important;
+  color: #ffffff !important;
+}
+
+/* 5. Add / Remove Row Buttons in SD-Table */
+.legacy-portal #page-wrapper .dtic-ox .sd-table input[type="button"] {
+  height: 28px !important;
+  width: 28px !important;
+  font-size: 20px !important;
+  line-height: 24px !important;
+  padding: 0 !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  outline: 0 none !important;
+  transition: all 0.15s ease-in-out !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .sd-table :is(input.addfields, input.add) {
+  background-color: #198754 !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .sd-table :is(input.addfields, input.add):hover {
+  background-color: #157347 !important;
+  opacity: 0.9 !important;
+  transform: translateY(-1px);
+}
+
+.legacy-portal #page-wrapper .dtic-ox .sd-table input.remove {
+  background-color: #dc3545 !important;
+}
+
+.legacy-portal #page-wrapper .dtic-ox .sd-table input.remove:hover {
+  background-color: #bb2d3b !important;
+  opacity: 0.9 !important;
+  transform: translateY(-1px);
+}
+

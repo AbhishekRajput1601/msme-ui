@@ -248,6 +248,12 @@ if (status == 2 && status != 19) {
     		cell('td:eq(5)', nRow).html('<div class="hidden-sm hidden-xs action-buttons"><a class="blue" href="#viewapplicantdetail/'+aData.applicantId+'"><span th:text="#{application.page.view}" >View</span></a></div>');
       
 },
+"dtic/msmeapplicationlist": (cell,nRow,aData,iDataIndex) => {
+
+    		
+        	cell('td:eq(6)', nRow).html('<div class="action-buttons"><a class="blue" href="#viewmsmedetail/'+aData.msmeDetailId+'"><span th:text="#{application.page.viewprint}" >View</span></a> | <a class="blue" href="#viewmsmeeditform/'+aData.msmeDetailId+'"><span th:text="#{application.page.edit}" >Edit</span></a> </div>');
+      
+},
 "dtic/budgetPlanning/allocatedBudgetDetails": (cell,nRow,aData,iDataIndex) => {
 
 			cell('td:eq(4)', nRow).html((aData.amount-aData.headsAmount).toFixed(2));
@@ -323,5 +329,77 @@ if (status == 2 && status != 19) {
 				}else
 					cell('td:eq(6)', nRow).html('<a class="blue" href="#viewProformaClause/'+aData.proformaId+'"><span th:text="#{application.page.viewprint}">View/Print</span></a>');
 			
+},
+"dtic/supplyNameList": (cell,nRow,aData,iDataIndex) => {
+
+cell('td:eq(0)', nRow).html(iDataIndex + 1);
+cell('td:eq(1)', nRow).html(aData.supplyName != null ? aData.supplyName : "");
+cell('td:eq(2)', nRow).html(aData.supplyTypeName != null ? aData.supplyTypeName : "");
+cell('td:eq(3)', nRow).html(aData.supplyCategory != null ? aData.supplyCategory : "-");
+cell('td:eq(4)', nRow).html(aData.districtName != null ? aData.districtName : "");
+cell('td:eq(5)', nRow).html(aData.emailId != null ? aData.emailId : "-");
+cell('td:eq(6)', nRow).html(aData.mobileNo != null ? aData.mobileNo : "-");
+cell('td:eq(7)', nRow).html(aData.status != null ? aData.status : "");
+cell('td:eq(8)', nRow).html('<a class="blue" href="#viewEditSupplyName/' + aData.id + '"><span>View / Edit</span></a>');
+
+},
+"dtic/supplierNameList": (cell,nRow,aData,iDataIndex) => {
+
+cell('td:eq(0)', nRow).html(iDataIndex + 1);
+cell('td:eq(1)', nRow).html(aData.supplierName != null ? aData.supplierName : "");
+cell('td:eq(2)', nRow).html(aData.supplierTypeName != null ? aData.supplierTypeName : "");
+cell('td:eq(3)', nRow).html(aData.supplySource != null ? aData.supplySource : "-");
+cell('td:eq(4)', nRow).html(aData.districtName != null ? aData.districtName : "");
+cell('td:eq(5)', nRow).html(aData.emailId != null ? aData.emailId : "");
+cell('td:eq(6)', nRow).html(aData.mobileNo != null ? aData.mobileNo : "");
+cell('td:eq(7)', nRow).html(aData.external == 'Y' ? 'Yes' : 'No');
+cell('td:eq(8)', nRow).html(aData.status != null ? aData.status : "");
+cell('td:eq(9)', nRow).html('<a class="blue" href="#viewEditSupplierName/' + aData.id + '"><span>View / Edit</span></a>');
+
+},
+"dtic/enrolmentList": (cell,nRow,aData,iDataIndex) => {
+
+cell('td:eq(0)', nRow).html(iDataIndex + 1);
+cell('td:eq(1)', nRow).html(aData.userId != null ? aData.userId : "");
+cell('td:eq(2)', nRow).html(aData.firstName != null ? aData.firstName : "");
+cell('td:eq(3)', nRow).html(aData.emailId != null ? aData.emailId : "");
+cell('td:eq(4)', nRow).html(aData.mobileNumber != null ? aData.mobileNumber : "");
+cell('td:eq(5)', nRow).html('<a class="blue" href="#viewenrolmentform/' + aData.userId + '"><span th:text="#{application.page.viewEdit}">View Edit</span></a>');
+
+},
+"dtic/enrolment/viewenrolmentform": (cell,nRow,aData,iDataIndex) => {
+
+
+								if (aData.officeNameEnglish) {
+									cell('td:eq(1)', nRow)
+									.html(
+											(aData.officeNameEnglish != null ? aData.officeNameEnglish
+													: ""));	
+								} else if (aData.officeNameHindi) {
+									cell('td:eq(1)', nRow)
+									.html(
+											(aData.officeNameHindi != null ? aData.officeNameHindi
+													: ""));	
+								}								
+								
+								cell('td:eq(2)', nRow)
+										.html(
+												(aData.address1 != null ? aData.address1+" "
+														: " ")
+														+ (aData.address2 != null ? aData.address2+" "
+																: " ")
+														+ (aData.address3 != null ? aData.address3
+																: " "));
+								cell('td:eq(4)', nRow)
+										.html(
+												(aData.districtName != null ? aData.districtName
+														: ""));
+								cell('td:eq(5)', nRow).html(
+										(aData.pincode != null ? aData.pincode
+												: ""));
+								cell('td:eq(6)', nRow)
+										.html(
+												'<a class="blue" href="#viewOffice/'+aData.officeId+'" ><span th:text="#{application.page.viewEdit}">View Edit</span></a>');
+							
 }
 }

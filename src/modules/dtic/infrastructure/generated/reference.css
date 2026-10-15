@@ -1,4 +1,4 @@
-@scope (.dtic-infrastructure[data-dtic-view="dtic/dticVacantLandList"]) {
+@scope ([data-dtic-view="dtic/dticVacantLandList"]) {
 
 		/* Fix line wrapping */
 		#dynamic-table th:nth-child(3),
@@ -11,7 +11,7 @@
 		}
 	
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/eSignViewAllotmentLetter"]) {
+@scope ([data-dtic-view="dtic/eSignViewAllotmentLetter"]) {
 
 #scrollTopBtn {
 	position: fixed;
@@ -178,7 +178,23 @@ th, td {
 }
 
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/dticVacantLandForm"]) {
+@scope ([data-dtic-view="dtic/dticlegacyData"]) {
+
+.res_div_1500{overflow:hidden}
+.red-text {
+	color: red;
+}
+
+.green-text {
+    color: green;
+}
+.center-text-large {
+	text-align: center;
+	font-size: 1.5 em;
+}
+
+}
+@scope ([data-dtic-view="dtic/dticVacantLandForm"]) {
 
 body {
 	font-family: Arial, sans-serif;
@@ -223,7 +239,7 @@ input[readonly] {
 }
 
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/tenderDetails"]) {
+@scope ([data-dtic-view="dtic/tenderDetails"]) {
 
         body { font-family: Arial, sans-serif; padding: 20px; }
         .details-box { border: 1px solid #ccc; border-radius: 8px; padding: 20px; width: 50%; margin: auto; }
@@ -231,7 +247,7 @@ input[readonly] {
         .label { font-weight: bold; }
     
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/groupLoi2"]) {
+@scope ([data-dtic-view="dtic/groupLoi2"]) {
 
         body {
             font-family: Arial, sans-serif;
@@ -275,7 +291,7 @@ input[readonly] {
         }
     
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/editVacantLandForm"]) {
+@scope ([data-dtic-view="dtic/editVacantLandForm"]) {
 
         body {
             font-family: Arial, sans-serif;
@@ -313,7 +329,7 @@ input[readonly] {
         }
     
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/uploadLOILetter"]) {
+@scope ([data-dtic-view="dtic/uploadLOILetter"]) {
 
 #scrollTopBtn {
 	position: fixed;
@@ -467,7 +483,7 @@ th, td {
 }
 
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/uploadPossessionLetter"]) {
+@scope ([data-dtic-view="dtic/uploadPossessionLetter"]) {
 
 		/* ====== Global Reset ====== */
 		* {
@@ -673,7 +689,7 @@ th, td {
 		}
 	
 }
-@scope (.dtic-infrastructure[data-dtic-view="dtic/viewApplicationDetail"]) {
+@scope ([data-dtic-view="dtic/viewApplicationDetail"]) {
 
 .table tbody tr td:first-child, .table tbody tr td:last-child, .table th:first-child, .table th:last-child {
     text-align: left;

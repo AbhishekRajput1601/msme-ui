@@ -6,6 +6,8 @@ import { createDticState } from './dticModel'
 import { dticRequest } from './dticService'
 import routes from './dticRoutes'
 import InfrastructurePage from './infrastructure/InfrastructurePage'
+import OxPage from './ox/OxPage'
+import ReportsPage from './reports/ReportsPage'
 import views from './generated/views.json'
 import translations from './generated/translations.json'
 import { expressions } from './generated/expressions'
@@ -30,6 +32,8 @@ export function matchDticRoute(pathname) {
 export default function DticPage() {
   const location = useLocation(), { locale } = useTranslation()
   const match = matchDticRoute(location.pathname)
+  if (match?.route.controller === 'DTICMSMEReports') return <ReportsPage key={location.pathname+locale} match={match} locale={locale} />
+  if (match?.route.controller === 'OXController') return <OxPage key={location.pathname+locale} match={match} locale={locale} />
   if (match?.route.controller === 'DTICIDController') return <InfrastructurePage key={location.pathname+locale} match={match} locale={locale} />
   return <DticContent key={location.pathname+locale} match={matchDticRoute(location.pathname)} locale={locale} />
 }

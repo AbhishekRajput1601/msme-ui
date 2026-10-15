@@ -1,0 +1,34 @@
+[
+  {
+    "path": "ox1Form",
+    "views": [
+      "dtic/ox1Form"
+    ],
+    "endpoint": "/ox1Form",
+    "controller": "OXController"
+  },
+  {
+    "path": "ox2Form",
+    "views": [
+      "dtic/ox2Form"
+    ],
+    "endpoint": "/ox2Form",
+    "controller": "OXController"
+  },
+  {
+    "path": "ox3Form",
+    "views": [
+      "dtic/ox3Form"
+    ],
+    "endpoint": "/ox3Form",
+    "controller": "OXController"
+  },
+  {
+    "path": "ox4Form",
+    "views": [
+      "dtic/ox4Form"
+    ],
+    "endpoint": "/ox4Form",
+    "controller": "OXController"
+  }
+]
