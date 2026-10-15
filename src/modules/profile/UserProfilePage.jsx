@@ -3,6 +3,7 @@ import { useTranslation } from '../../hooks/useTranslation'
 import { useAuth } from '../../hooks/useAuth'
 import ProfileNavTabs from './components/ProfileNavTabs'
 import { fetchUserProfile, updateUserProfile } from './services/profileService'
+import { getTodayString, isFutureDate } from '../../utils/dateUtils'
 
 export default function UserProfilePage() {
   const { locale } = useTranslation()
@@ -177,6 +178,11 @@ export default function UserProfilePage() {
 
     if (!formData.mobileNumber || !formData.emailId) {
       setErrorMessage(hindi ? 'कृपया मोबाइल नंबर और ईमेल दर्ज करें।' : 'Please provide mobile number and email.')
+      return
+    }
+
+    if (formData.dob && isFutureDate(formData.dob)) {
+      setErrorMessage(hindi ? 'जन्म तिथि भविष्य की नहीं हो सकती।' : 'Date of Birth cannot be in the future.')
       return
     }
 
@@ -427,6 +433,7 @@ export default function UserProfilePage() {
                       className="form-control"
                       value={formData.dob || ''}
                       onChange={handleChange}
+                      max={getTodayString()}
                       disabled={!isEditing}
                     />
                   </div>

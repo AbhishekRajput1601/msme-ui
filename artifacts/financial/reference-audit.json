@@ -1,0 +1,345 @@
+{
+  "templates": [
+    {
+      "template": "fa/powerBiDashbord",
+      "sha256": "921ec37967aa6520baa7edec9aca81ba036c413dd3f0b97af7715817252a2b9b",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 0,
+      "tables": 0,
+      "modals": 0
+    },
+    {
+      "template": "fa/report",
+      "sha256": "4452a1d5053c3438d64f7d64c3e4635cb47fa720a7d5ba26fd2b4c270adcb5b9",
+      "fields": 4,
+      "compiledFields": 4,
+      "options": 5,
+      "conditions": 1,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/financialReportDitrictWise",
+      "sha256": "d35a93bce85268d6d8c522af81670f77912501657fc6dd58ca8c35e66d527d86",
+      "fields": 8,
+      "compiledFields": 8,
+      "options": 0,
+      "conditions": 1,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/financialReportSchemeWise",
+      "sha256": "61ada1bbb8009585419459f901b47534184b6ca42f1638e85359248cc3599804",
+      "fields": 8,
+      "compiledFields": 8,
+      "options": 0,
+      "conditions": 1,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/msmeDetailsReportDistrictWise",
+      "sha256": "953b4ff3abf7adfc6fa5315771edcefd4b12c08069411322500d746b47a33d71",
+      "fields": 9,
+      "compiledFields": 9,
+      "options": 0,
+      "conditions": 3,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/msmeDetailReportList",
+      "sha256": "32468ae0d51ac1df5e6297fe3065c6a93332a6f9b4c36e40d3a9f20aefce5448",
+      "fields": 5,
+      "compiledFields": 5,
+      "options": 5,
+      "conditions": 1,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/reportScheme",
+      "sha256": "8909d342f74e32f71143b98aeae28fe8beabb75fcae507f770792c684edc39e3",
+      "fields": 4,
+      "compiledFields": 4,
+      "options": 5,
+      "conditions": 1,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/sanctionedVsDisbursementReport",
+      "sha256": "50f55c08cd3b891041a00d4ec6124bd1a02e6fe1180b265825060fffa48e40f8",
+      "fields": 8,
+      "compiledFields": 8,
+      "options": 0,
+      "conditions": 1,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/viewFADetailUnitNew2",
+      "sha256": "c14d9713135c31e599ba68e2f13fd994bf824d44e02225d42411221f28e87d28",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 59,
+      "tables": 20,
+      "modals": 0
+    },
+    {
+      "template": "fa/querybydtic",
+      "sha256": "1c28a3b2a001c0b482578a9719ceea204d981b447b198aa919be124399b3daa2",
+      "fields": 2,
+      "compiledFields": 2,
+      "options": 0,
+      "conditions": 5,
+      "tables": 0,
+      "modals": 0
+    },
+    {
+      "template": "fa/fapendingapplicantsunit",
+      "sha256": "2a23e4fc34c5e57fad0d4af0ecde98dd8fff388264beff4149de98b35d2ae392",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 2,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "applicant/fa/faHistory",
+      "sha256": "93f188dcf19bf687ca5029e12ae64d1763138da8b852b493416cb4fbe48590b9",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 10,
+      "tables": 2,
+      "modals": 0
+    },
+    {
+      "template": "fa/faCommitteesStatusUnit",
+      "sha256": "69cf1be2bf35fb021db35e1b5d6ab86993994acabfbafd0c7a9c488e37c2228c",
+      "fields": 6,
+      "compiledFields": 6,
+      "options": 0,
+      "conditions": 11,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/faOtherUploadDocuments",
+      "sha256": "6d1eaf00a6da0715f83d2b651456f0a047f6228ec4b1bd1092eb5cd9af3c1e16",
+      "fields": 2,
+      "compiledFields": 2,
+      "options": 0,
+      "conditions": 6,
+      "tables": 2,
+      "modals": 0
+    },
+    {
+      "template": "dtic/viewdownloadfaacceptanceform",
+      "sha256": "51c0ba381f4c9f4dfecad5e559a2a6bae294fbd4990d9cf0ba872b23f716cd7c",
+      "fields": 2,
+      "compiledFields": 2,
+      "options": 0,
+      "conditions": 4,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/faacceptanceamountdetailunit",
+      "sha256": "ba92bd6287a4a669a4ac8204f7c135899ca2ff2522f158d247ff9213187db0e4",
+      "fields": 82,
+      "compiledFields": 82,
+      "options": 0,
+      "conditions": 181,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "dtic/viewfaacceptanceamountdetailunit",
+      "sha256": "3c0c3deb481c7955210d059218f31c549d88c3bc3759369b955e53886c275fd8",
+      "fields": 17,
+      "compiledFields": 17,
+      "options": 0,
+      "conditions": 42,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/faDisbursementUnit",
+      "sha256": "78097cf7838d1463062593b4921acd6549d49a4d70b0b9f45e8c50b2565d5af3",
+      "fields": 9,
+      "compiledFields": 9,
+      "options": 0,
+      "conditions": 2,
+      "tables": 3,
+      "modals": 0
+    },
+    {
+      "template": "fa/faDisbursementUnit_new1",
+      "sha256": "0661df2d4ba5e738836d1f81a8a1c8906ed69c16a51568b87671f4f266b75bf2",
+      "fields": 14,
+      "compiledFields": 14,
+      "options": 0,
+      "conditions": 2,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/faDisbursementUnit_new2",
+      "sha256": "63aa2373e32aa141937e8cb7afcc70dabb27a004dae4904d5328eb9712e6775e",
+      "fields": 4,
+      "compiledFields": 4,
+      "options": 0,
+      "conditions": 2,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/infradevelopmetList",
+      "sha256": "12082e7b54bc4c64b23bbf57394021283d14bab9cd1f014e0283200c4fd8b5fd",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 2,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "fa/viewfaInfrastructure",
+      "sha256": "c023b0df04260ebfea8f91cea897fbaf4d24cb5d7a77a8e61c0b626bfeee8ddb",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 10,
+      "tables": 3,
+      "modals": 0
+    },
+    {
+      "template": "fa/viewfaDisbursementUnit",
+      "sha256": "256238ccd8f8f2ee564e4f1fdbc45dd56400dc1064d76af3a1014ded479ab1cd",
+      "fields": 3,
+      "compiledFields": 3,
+      "options": 0,
+      "conditions": 0,
+      "tables": 2,
+      "modals": 0
+    },
+    {
+      "template": "dtic/fapendingapplicantsapparel",
+      "sha256": "86e4c9a9e46c4bee343cd9ace03686ed67a55294160277e3eac9519854595032",
+      "fields": 0,
+      "compiledFields": 0,
+      "options": 0,
+      "conditions": 2,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "dtic/faCommitteeStatusUnit",
+      "sha256": "9048901ec17952defa99d9224d01d73ee69e9bf84786a3c0bfd775c2c1a722b4",
+      "fields": 6,
+      "compiledFields": 6,
+      "options": 0,
+      "conditions": 12,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "dtic/viewfaCommitteeStatusUnit",
+      "sha256": "c5978e9698b630b2a64902067413d23b5cba1f880966d559b13e1b44c6cb28b0",
+      "fields": 6,
+      "compiledFields": 6,
+      "options": 0,
+      "conditions": 10,
+      "tables": 1,
+      "modals": 0
+    },
+    {
+      "template": "applicant/fa/viewfaacceptanceamountdetailunit",
+      "sha256": "d30f9b02be862e6ff0b7d03579967125b87ad906eebd2cbacd0b21da9e65e312",
+      "fields": 17,
+      "compiledFields": 17,
+      "options": 0,
+      "conditions": 42,
+      "tables": 1,
+      "modals": 0
+    }
+  ],
+  "sources": [
+    {
+      "path": "angular\\fa\\customdirective.js",
+      "sha256": "1b043f12b3daa3406258ec0d8a0d1e3de55a70f76a595799d2892bc57d78b34c"
+    },
+    {
+      "path": "angular\\fa\\districtReportJs.js",
+      "sha256": "d918245f24d40b6b538545bdc173a2dc19b7963961ee7641a34ca1f1c20ec3c6"
+    },
+    {
+      "path": "angular\\fa\\FAController.js",
+      "sha256": "06f1cb2e1b94bc96198ed6e6b5bec1ccbcaadf0c332f995b0e4b87d3646d3e0f"
+    },
+    {
+      "path": "angular\\fa\\FARouting.js",
+      "sha256": "3a57df0ef9e7c3db631452b7be7ae87efaa3cbec05d19f9a3b6b8d24c596892a"
+    },
+    {
+      "path": "angular\\fa\\msmeDetailDistrictWiseReportJs.js",
+      "sha256": "bc832d376fcd67582fdee84b62578a27653a62864fb61b52cf38cc2f04e389ed"
+    },
+    {
+      "path": "angular\\fa\\msmeDetailListReportJs.js",
+      "sha256": "406e8598fed15b1374584fc069d442b01618a84d5f60c45c9f92cb4df4d1bda3"
+    },
+    {
+      "path": "angular\\fa\\pagging_searching.js",
+      "sha256": "e23e5c1544b724c7849b3758a0a68a6c0216b99822efd94c01e31f6441583595"
+    },
+    {
+      "path": "angular\\fa\\reportJs.js",
+      "sha256": "00ce640cc2fa43e776f22f977461530e8e11d2b348122dff8ec8480156562e7b"
+    },
+    {
+      "path": "angular\\fa\\reportScheme.js",
+      "sha256": "bf2692a0518da67fdbfa5867f4c6b0f6d6f45edba46178692a6ca737c40d4a63"
+    },
+    {
+      "path": "angular\\fa\\sanctionedReport.js",
+      "sha256": "d2f2cc89fe00f33f7b0252a00cd49384c3121ffb8fd7dc39a93fb22b9c801271"
+    },
+    {
+      "path": "angular\\fa\\schemeReportJs.js",
+      "sha256": "3987276ab6041399c20cc96886f6d9f453ecd8f3510ef79b8357db69fcd40651"
+    },
+    {
+      "path": "angular\\applicant\\fa\\controller.js",
+      "sha256": "ef97624357c182ede27cdcc2a6bfbd7cb2919e4b859888567def057c1c4c61ef"
+    },
+    {
+      "path": "angular\\dtic\\controller.js",
+      "sha256": "c2af572f463c936189d59cd6f682afaec694b037ff321284846ffcfb63cfe01f"
+    },
+    {
+      "path": "angular\\common\\CommonController.js",
+      "sha256": "28a57590d4876dc518db8520ddf8c809bceec21134edc5d2a8f3fbd674773b8c"
+    },
+    {
+      "path": "css\\bootstrap.min.css",
+      "sha256": "08c201b05ee368a22f9d0958b0ae03da23cb1bfda011b6611c70366dc50b7d51"
+    },
+    {
+      "path": "css\\sb-admin-2.css",
+      "sha256": "af04e74153158fd86a3cba1b045b79f4648f8eeaa4895c2a7f64dab2d01c3d4c"
+    }
+  ],
+  "limitations": [
+    "Missing role-specific legacy templates have documented shared-template substitutions.",
+    "Dashboard uses existing portal tiles and shell statistics API because fa/dashboard.html is absent.",
+    "Browser fixtures do not verify live backend authorization, file downloads or persistence."
+  ]
+}

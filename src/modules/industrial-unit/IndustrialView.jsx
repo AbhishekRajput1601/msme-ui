@@ -24,7 +24,7 @@ function run(id, s, root) {
 
 function validation(form, root, submitted = true) {
   const previous = root[form.name || 'form']
-  const state = { $submitted: submitted || root[form.name || 'form']?.$submitted || false, $valid: true, $invalid: false, $error: {} }
+  const state = { ...previous, $submitted: submitted || root[form.name || 'form']?.$submitted || false, $valid: true, $invalid: false, $error: {} }
   for (const el of form.elements) {
     if (el.disabled || !el.willValidate) continue
     const error = { required: el.validity.valueMissing, pattern: el.validity.patternMismatch, min: el.validity.rangeUnderflow, max: el.validity.rangeOverflow, number: el.validity.badInput, email: el.validity.typeMismatch, maxlength: el.validity.tooLong, minlength: el.validity.tooShort }
@@ -139,10 +139,29 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     else if (attrs.type === 'radio') attrs.checked = String(value) === String(attrs.value)
     else if (!file) attrs.value = objectOptions ? value?.[objectOptions[4]] ?? '' : attrs.type === 'date' ? filter('date', value, 'yyyy-MM-dd') : value ?? ''
     if (node.pattern) attrs.pattern = node.pattern.replace(/^\//, '').replace(/\/[a-z]*$/, '')
+    const isFromDate = ['fromDateId','fromDate','fromDateInput','entryDate1'].includes(attrs.id || node.model)
+    const isToDate = ['toDateId','toDate','toDateInput','entryDate2'].includes(attrs.id || node.model)
     attrs.onChange = e => {
       let value = file ? e.target.files?.[0] : attrs.type === 'checkbox' ? e.target.checked : attrs.type === 'number' ? e.target.value === '' ? '' : Number(e.target.value) : e.target.value
       if (objectOptions) value = (s[objectOptions[3]] || []).find(item => String(item[objectOptions[4]]) === e.target.value) || null
-      if (attrs.type === 'date') value = filter('date', value, 'dd/MM/yyyy')
+      if (attrs.type === 'date') {
+        value = filter('date', value, 'dd/MM/yyyy')
+        const iso = filter('date', value, 'yyyy-MM-dd')
+        if (isFromDate) {
+          const currentTo = s.toDateInput || s.toDate || s.entryDate2 || s.reportForm?.entryDate2
+          if (currentTo && iso > filter('date', currentTo, 'yyyy-MM-dd')) {
+            window.alert('From Date (Start Date) cannot be greater than To Date (End Date).')
+            value = ''
+          }
+        }
+        if (isToDate) {
+          const currentFrom = s.fromDateInput || s.fromDate || s.entryDate1 || s.reportForm?.entryDate1
+          if (currentFrom && iso < filter('date', currentFrom, 'yyyy-MM-dd')) {
+            window.alert('To Date (End Date) cannot be earlier than From Date (Start Date).')
+            value = ''
+          }
+        }
+      }
       if (root.convertFieldValue) value = root.convertFieldValue(value, attrs, node)
       if (node.maxValue != null && evaluate(node.maxValue, s) && Number(value) > Number(evaluate(node.maxValue,s))) {
         window.alert('The value exceeds ' + evaluate(node.maxValue,s)); value = ''
@@ -167,6 +186,14 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
       if (root.schemeYear === '2025') attrs.min = '2025-02-24'
       else if (root.schemeYear === '2021') attrs.max = '2025-02-23'
       else attrs.max = filter('date',new Date(),'yyyy-MM-dd')
+    }
+    if (isFromDate) {
+      const toVal = s.toDateInput || s.toDate || s.entryDate2 || s.reportForm?.entryDate2
+      if (toVal) attrs.max = filter('date', toVal, 'yyyy-MM-dd')
+    }
+    if (isToDate) {
+      const fromVal = s.fromDateInput || s.fromDate || s.entryDate1 || s.reportForm?.entryDate1
+      if (fromVal) attrs.min = filter('date', fromVal, 'yyyy-MM-dd')
     }
   }
   if (node.tag === 'form') {

@@ -43,6 +43,7 @@ import ApplicantServicesPage from '../modules/applicant-services/ApplicantServic
 import AdminDashboard from '../modules/admin/AdminDashboard'
 import DepartmentDashboard from '../modules/department/DepartmentDashboard'
 import DticPage from '../modules/dtic/DticPage'
+import FinancialPage from '../modules/financial/FinancialPage'
 import dticRoutes from '../modules/dtic/dticRoutes'
 
 // Pilot Module: Industrial Land Allotment (ID)
@@ -73,7 +74,7 @@ import { useAuth } from '../hooks/useAuth'
 function AccountRedirect({ page }) {
   const { roles, loading } = useAuth()
   if (loading) return null
-  return <Navigate to={`${roles.includes('ROLE_DTIC') ? '/department/dtic' : '/applicant'}/${page}`} replace />
+  return <Navigate to={`${roles.includes('ROLE_DTIC') ? '/department/dtic' : roles.includes('ROLE_FA') ? '/department/fa' : '/applicant'}/${page}`} replace />
 }
 
 // List of all department officer roles supported
@@ -245,9 +246,11 @@ export default function AppRoutes() {
         {['change-password', 'changepassword'].map(path => <Route key={path} path={`dtic/${path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DepartmentProfilePage password /></ProtectedRoute>} />)}
         {dticRoutes.map(route => <Route key={route.path} path={`dtic/${route.path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />)}
         <Route path="dtic/*" element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />
+        <Route path="fa/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />
         <Route path=":roleSubpath/dashboard" element={<DepartmentDashboard />} />
+        <Route path="fa/fa/*" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />
         <Route path=":roleSubpath/fa/*" element={<IndustrialUnitPage />} />
-        <Route path="fa/*" element={<IndustrialUnitPage />} />
+        <Route path="fa/*" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />
       </Route>
 
       {/* ─── 5. Legacy AngularJS Hash-Route Compatibility Fallbacks ──────── */}

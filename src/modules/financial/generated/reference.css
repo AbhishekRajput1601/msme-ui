@@ -1,0 +1,16 @@
+@scope (.financial-page) {
+
+    .m15 {
+      margin-top: 15px !important;
+    }
+  
+
+.m15{margin-top:15px!important;}
+
+
+    /* Apply margin to create spacing */
+    .blank-line {
+      margin-bottom: 20px; /* Adjust the value as needed */
+    }
+  
+}

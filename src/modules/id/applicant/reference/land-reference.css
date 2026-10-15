@@ -137,14 +137,14 @@
   overflow-x: auto;
   overflow-y: visible;
   width: 100%;
-  border: 1px solid #90bddc;
+  border: 1px solid #d1d5db;
   border-radius: 6px;
   background: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin: 10px 0 16px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: #90bddc #f1f5f9;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 .land-reference-page .land-table-scroll-container::-webkit-scrollbar {
@@ -158,15 +158,15 @@
 }
 
 .land-reference-page .land-table-scroll-container::-webkit-scrollbar-thumb {
-  background: #90bddc;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 .land-reference-page .land-table-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: #3071a9;
+  background: #94a3b8;
 }
 
-/* ── Table Base Styling: Theme Blue Borders ────────────────────────── */
+/* ── Table Base Styling: Clean Neutral Borders ────────────────────────── */
 .land-reference-page table.land-styled-table,
 .land-reference-page #dynamic-table {
   width: max-content;
@@ -176,7 +176,7 @@
   margin: 0;
   font-size: 13px;
   background: #ffffff;
-  border: 1px solid #3071a9 !important;
+  border: 1px solid #d1d5db !important;
 }
 
 /* Table Header: as old (#428bca) but a little darker (#3071a9), solid color, blue border */
@@ -230,11 +230,11 @@
   color: #ffffff !important;
 }
 
-/* Table Body Cells: Blue grid lines */
+/* Table Body Cells: Neutral grid lines (NOT blue) */
 .land-reference-page #dynamic-table td,
 .land-reference-page #dynamic-table tbody td {
   padding: 8px 10px;
-  border: 1px solid #90bddc !important;
+  border: 1px solid #e5e7eb !important;
   vertical-align: middle;
   font-size: 13px;
   line-height: 1.42857143;
@@ -258,7 +258,7 @@
   color: #777777;
   font-size: 13px;
   background-color: #ffffff !important;
-  border: 1px solid #90bddc !important;
+  border: 1px solid #e5e7eb !important;
 }
 
 /* Sticky First Column (S.No.) */
@@ -272,7 +272,7 @@
   max-width: 50px;
   text-align: center;
   font-weight: normal;
-  border-right: 2px solid #3071a9 !important;
+  border-right: 1px solid #e5e7eb !important;
 }
 
 .land-reference-page #dynamic-table thead th:nth-child(1) {

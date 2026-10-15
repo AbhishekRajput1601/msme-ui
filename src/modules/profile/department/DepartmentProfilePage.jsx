@@ -9,17 +9,17 @@ import { expressions } from './generated/expressions'
 import './generated/reference.css'
 import './department-profile.css'
 
-export default function DepartmentProfilePage({ password = false }) {
+export default function DepartmentProfilePage({ password = false, request, dashboard }) {
   const { locale } = useTranslation()
-  return <AccountContent key={`${password}-${locale}`} password={password} locale={locale} />
+  return <AccountContent key={`${password}-${locale}`} password={password} locale={locale} request={request} dashboard={dashboard} />
 }
 
-function AccountContent({ password, locale }) {
+function AccountContent({ password, locale, request, dashboard }) {
   const navigate = useNavigate(), [, render] = useReducer(n => n + 1, 0), [state, setState] = useState(null)
   useEffect(() => {
     const abort = new AbortController()
     const sidebar = document.getElementById('sideNav'), originalDisplay = sidebar?.style.display || ''
-    const model = createDepartmentProfileState({ navigate, locale, signal: abort.signal, notify: () => { if (!abort.signal.aborted) render() }, onExpiry: expired => { if (sidebar) sidebar.style.display = expired ? 'none' : originalDisplay } })
+    const model = createDepartmentProfileState({ navigate, locale, request, dashboard, signal: abort.signal, notify: () => { if (!abort.signal.aborted) render() }, onExpiry: expired => { if (sidebar) sidebar.style.display = expired ? 'none' : originalDisplay } })
     Object.assign(model, { expressionBundle: expressions, viewBundle: views, translations })
     model.prepareElement = (attrs, node) => {
       if (node.children?.some(child => child.model === 'sameAsAbovecheck')) {
@@ -57,7 +57,7 @@ function AccountContent({ password, locale }) {
     }
     setState(model)
     return () => { abort.abort(); if (sidebar) sidebar.style.display = originalDisplay }
-  }, [locale, navigate, password])
+  }, [locale, navigate, password, request, dashboard])
   if (!state) return null
   const error = state.responseObject.errorMessage || state.error
   const retry = async () => {

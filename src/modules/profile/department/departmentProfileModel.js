@@ -14,7 +14,7 @@ export function passwordStrength(password = '') {
 
 // CommonController.updateDepartmentUserProfile's multipart contract.
 const updateFields = 'userId firstName middleName lastName fatherOrHusbandFirstName fatherOrHusbandMiddleName fatherOrHusbandLastName emailId mobileNumber mobileNumberPrev aadhaarNumber telephoneNumber genderId address1 address2 address3 districtId tehsilId blockId pinCode permanentAddress1 permanentAddress2 permanentAddress3 permanentCity permanentDistrictId permanentTehsilId permanentBlockId permanentPinCode'.split(' ')
-export function createDepartmentProfileState({ notify, navigate, locale, signal, request, alert = window.alert, confirm = window.confirm, onExpiry = () => {} }) {
+export function createDepartmentProfileState({ notify, navigate, locale, signal, request, dashboard = '/department/dtic/dashboard', alert = window.alert, confirm = window.confirm, onExpiry = () => {} }) {
   // CommonController is mounted under /dtic/*, not the context root. The
   // DTIC client also lets Axios set the multipart boundary for profile updates.
   const transport = request || ((method, endpoint, data) => dticRequest(method, endpoint, data, signal))
@@ -98,7 +98,7 @@ export function createDepartmentProfileState({ notify, navigate, locale, signal,
   state.changePasswordFunction = valid => {
     if (!valid || passwordStrength(state.changePasswordData.password).weak || !state.changePasswordData.otp || !state.otpGenerated) return
     return save('dochangepassword', { ...state.changePasswordData }, () => {
-      state.changePasswordData = {}; alert('Your password changed successfully'); onExpiry(false); navigate('/department/dtic/dashboard')
+      state.changePasswordData = {}; alert('Your password changed successfully'); onExpiry(false); navigate(dashboard)
     }, error => alert(error.response || error.request ? 'An error occurred. Please try again.' : 'Incorrect OTP. Please try again.'))
   }
   state.hidePassword = () => { state.showCurrentPassword = state.showNewPassword = state.showConfirmPassword = false }
@@ -107,7 +107,7 @@ export function createDepartmentProfileState({ notify, navigate, locale, signal,
     const result = await call('get', 'verifyUserPasswordExpiry')
     const message = result.successMessage || ''
     if (message.includes('Your password has expired')) { onExpiry(true); alert('Your password has expired. Please Update your Password') }
-    else if (message.includes('Your password will expire')) { if (!confirm(message)) navigate('/department/dtic/dashboard') }
+    else if (message.includes('Your password will expire')) { if (!confirm(message)) navigate(dashboard) }
     else if (message.includes('Your password is still valid')) onExpiry(false)
     else if (message) alert(message)
   }

@@ -1,0 +1,34 @@
+{
+  "fa/financialReportDitrictWise": {
+    "endpoint": "fetchDistrictWiseReportData",
+    "export": "faReportExportToExcel"
+  },
+  "fa/financialReportSchemeWise": {
+    "endpoint": "fetchSchemeWiseReportData",
+    "export": "faReportSchemWiseExportToExcel"
+  },
+  "fa/sanctionedVsDisbursementReport": {
+    "endpoint": "fetchSanctionedVsDisbursementReportData",
+    "export": "faReportSanctionedVsDisbursementExportToExcel"
+  },
+  "fa/msmeDetailsReportDistrictWise": {
+    "endpoint": "fetchDistrictWiseReportData",
+    "export": "msmeReportExportToExcel"
+  },
+  "fa/msmeDetailReportList": {
+    "endpoint": "fetchReportData",
+    "export": "msmeDetailReportExportToExcel"
+  },
+  "fa/report": {
+    "endpoint": "fetchReportData",
+    "export": "faDetailReportExportToExcel"
+  },
+  "detailList": {
+    "endpoint": "dashboardReportData",
+    "export": "faDetailReportExportToExcel"
+  },
+  "fa/reportScheme": {
+    "endpoint": "fetchSchemeReportData",
+    "export": "faDetailReportExportToExcel"
+  }
+}

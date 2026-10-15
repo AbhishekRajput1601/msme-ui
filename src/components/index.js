@@ -15,6 +15,7 @@ export { default as Sidebar } from './ui/Sidebar'
 export { default as Input } from './forms/Input'
 export { default as Select } from './forms/Select'
 export { default as DatePicker } from './forms/DatePicker'
+export { default as DateRangePicker } from './forms/DateRangePicker'
 export { default as FileUpload } from './forms/FileUpload'
 
 // Table Components

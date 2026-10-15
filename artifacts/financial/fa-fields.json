@@ -1,0 +1,2262 @@
+{
+  "fa/powerBiDashbord": {
+    "fields": [],
+    "events": [],
+    "inlineScripts": 1
+  },
+  "fa/report": {
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "currentPage"
+      },
+      {
+        "type": "hidden",
+        "id": "totalPages"
+      },
+      {
+        "type": "hidden",
+        "id": "currentPage1"
+      },
+      {
+        "name": "dataTables-example_length",
+        "id": "page",
+        "aria-controls": "dataTables-example",
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "style": "width: 80px;"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/financialReportDitrictWise": {
+    "fields": [
+      {
+        "type": "radio",
+        "id": "searchField1",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "2"
+      },
+      {
+        "type": "radio",
+        "id": "searchField3",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "3"
+      },
+      {
+        "type": "radio",
+        "id": "searchField4",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "4"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate1",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate1"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate2",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate2"
+      },
+      {
+        "type": "radio",
+        "id": "appType1",
+        "ng-model": "reportForm.appType",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "appType2",
+        "ng-model": "reportForm.appType",
+        "ng-value": "2"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/financialReportSchemeWise": {
+    "fields": [
+      {
+        "type": "radio",
+        "id": "searchField1",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "2"
+      },
+      {
+        "type": "radio",
+        "id": "searchField3",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "3"
+      },
+      {
+        "type": "radio",
+        "id": "searchField4",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "4"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate1",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate1"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate2",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate2"
+      },
+      {
+        "type": "radio",
+        "id": "appType1",
+        "ng-model": "reportForm.appType",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "appType2",
+        "ng-model": "reportForm.appType",
+        "ng-value": "2"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/msmeDetailsReportDistrictWise": {
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "reportType",
+        "value": "MSME_DETAIL_REPORT"
+      },
+      {
+        "type": "radio",
+        "id": "searchField1",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "2"
+      },
+      {
+        "type": "radio",
+        "id": "searchField3",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "3"
+      },
+      {
+        "type": "radio",
+        "id": "searchField4",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "4"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate1",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate1"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate2",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate2"
+      },
+      {
+        "type": "radio",
+        "id": "appType1",
+        "ng-model": "reportForm.appType",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "appType2",
+        "ng-model": "reportForm.appType",
+        "ng-value": "2"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/msmeDetailReportList": {
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "reportType",
+        "value": "MSME_DETAIL_REPORT"
+      },
+      {
+        "type": "hidden",
+        "id": "currentPage"
+      },
+      {
+        "type": "hidden",
+        "id": "totalPages"
+      },
+      {
+        "type": "hidden",
+        "id": "currentPage1"
+      },
+      {
+        "name": "dataTables-example_length",
+        "id": "page",
+        "aria-controls": "dataTables-example",
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "style": "width: 80px;"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/reportScheme": {
+    "fields": [
+      {
+        "type": "hidden",
+        "id": "currentPage"
+      },
+      {
+        "type": "hidden",
+        "id": "totalPages"
+      },
+      {
+        "type": "hidden",
+        "id": "currentPage1"
+      },
+      {
+        "name": "dataTables-example_length",
+        "id": "page",
+        "aria-controls": "dataTables-example",
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "style": "width: 80px;"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/sanctionedVsDisbursementReport": {
+    "fields": [
+      {
+        "type": "radio",
+        "id": "searchField1",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "2"
+      },
+      {
+        "type": "radio",
+        "id": "searchField3",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "3"
+      },
+      {
+        "type": "radio",
+        "id": "searchField4",
+        "ng-model": "reportForm.searchField",
+        "ng-value": "4"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate1",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate1"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate2",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "reportForm.entryDate2"
+      },
+      {
+        "type": "radio",
+        "id": "appType1",
+        "ng-model": "reportForm.appType",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "appType2",
+        "ng-model": "reportForm.appType",
+        "ng-value": "2"
+      }
+    ],
+    "events": [],
+    "inlineScripts": 3
+  },
+  "fa/viewFADetailUnitNew2": {
+    "fields": [],
+    "events": [
+      "downloadFaDocuments(faData.faIndustrialUnitBean.employmentGivenUploadId)",
+      "downloadFaDocuments(faData.faIndustrialUnitBean.gstSellDocUploadId)",
+      "downloadFaDocuments(faData.faIndustrialUnitBean.permissionDocUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caLoanAcceptanceDocUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caProofOfOwnershipUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.cafirstSellBillDateUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditExpUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditSellExpUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditSellSavingUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pharmaExpUploadId1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pharmaExpUploadId2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pharmaExpUploadId3Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.plantMachineExpenseUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.powerloomExpAfterUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload3Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload4Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload5Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload6Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload7Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload8Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload9Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.wasteMgmtEstbCompUpload1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.wasteMgmtEstbCompUpload2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.wasteMgmtEstbCompUpload3Id)",
+      "loadUserIndustrialDetailsByApplicationId();"
+    ],
+    "inlineScripts": 1
+  },
+  "fa/querybydtic": {
+    "fields": [
+      {
+        "name": "comments",
+        "required": "true",
+        "class": [
+          "form-control"
+        ],
+        "maxlength": "200",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.comments"
+      },
+      {
+        "name": "decisionDate",
+        "required": "true",
+        "class": [
+          "form-control"
+        ],
+        "type": "date",
+        "data-ng-model": "faMsmeDetailData.decisionDate",
+        "min": "{{todayDate}}",
+        "max": "{{todayDate}}"
+      }
+    ],
+    "events": [
+      "loadPages()",
+      "raiseQueryByDtic(faMSMEDetailForm.$valid)"
+    ],
+    "inlineScripts": 4
+  },
+  "fa/fapendingapplicantsunit": {
+    "fields": [],
+    "events": [
+      "faCommitteesStatusUnit('Unit',currentStatusId)",
+      "generateExcel('Unit')",
+      "loadPendingApplicantList()"
+    ],
+    "inlineScripts": 2
+  },
+  "applicant/fa/faHistory": {
+    "fields": [],
+    "events": [
+      "faDisbursementUnitView(bean.status)",
+      "goBackToBatch()",
+      "loadFAApplicantDetail();loadHistory()"
+    ],
+    "inlineScripts": 1
+  },
+  "fa/faCommitteesStatusUnit": {
+    "fields": [
+      {
+        "name": "comments",
+        "required": "true",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faMsmeDetailData.comments",
+        "maxlength": "200"
+      },
+      {
+        "name": "decisionDate",
+        "required": "",
+        "id": "meetingDateId",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.decisionDate"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "faMsmeDetailData.document",
+        "id": "document",
+        "name": "document",
+        "data-ng-model": "faMsmeDetailData.document"
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "yes",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "no",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "pending",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      }
+    ],
+    "events": [
+      "",
+      "addCommitteesStatus(faMSMEDetailForm.$valid)",
+      "loadPages()"
+    ],
+    "inlineScripts": 2
+  },
+  "fa/faOtherUploadDocuments": {
+    "fields": [
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "required": "",
+        "file-model": "faData.faOtherDocument",
+        "accept": "application/pdf",
+        "name": "faOtherDocument",
+        "data-ng-model": "faData.faOtherDocument"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faData.remarks",
+        "name": "remarks",
+        "maxlength": "200",
+        "required": ""
+      }
+    ],
+    "events": [
+      "downloadFaDocuments(bean.faOtherDocumentId)",
+      "getFaOtherDocuments()",
+      "uploadOtherDocument(faMSMEDetailForm.$valid)"
+    ],
+    "inlineScripts": 1
+  },
+  "dtic/viewdownloadfaacceptanceform": {
+    "fields": [
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "acceptanceFile",
+        "data-ng-model": "acceptanceFile"
+      },
+      {
+        "type": "button",
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "th:value": "#{application.page.back}",
+        "onclick": "window.history.back()"
+      }
+    ],
+    "events": [
+      "downloadAcceptanceLetter()",
+      "getApplicationId()",
+      "uploadAcceptanceLetter(acceptanceFile)"
+    ],
+    "inlineScripts": 1
+  },
+  "fa/faacceptanceamountdetailunit": {
+    "fields": [
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faIndustSubsidyAmt",
+        "name": "faIndustSubsidyAmt",
+        "required": "true",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "true",
+        "data-ng-model": "faMsmeDetailData.faIndustSubsidyRemarks",
+        "name": "faIndustSubsidyRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "true",
+        "data-ng-model": "faMsmeDetailData.faQualityCerfAmt",
+        "name": "faqualityCerfAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "true",
+        "data-ng-model": "faMsmeDetailData.faqualityCerfAmtRemarks",
+        "name": "faqualityCerfAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "required": "",
+        "data-ng-model": "faMsmeDetailData.faReimbursementPatentsAmt",
+        "name": "faReimbursementPatentsAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "true",
+        "data-ng-model": "faMsmeDetailData.faReimbursementPatentsAmtRemarks",
+        "name": "faReimbursementPatentsAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faInfraDevAmt",
+        "name": "faInfraDevAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "required": "true",
+        "data-ng-model": "faMsmeDetailData.faInfraDevAmtRemarks",
+        "name": "faInfraDevAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faPlantTreatAmt",
+        "name": "faPlantTreatAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faPlantTreatAmtRemarks",
+        "name": "faPlantTreatAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faEnergyAmt",
+        "name": "faEnergyAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faEnergyAmtRemarks",
+        "name": "faEnergyAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faUpgradeAmt",
+        "name": "faUpgradeAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faUpgradeAmtRemarks",
+        "name": "faUpgradeAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterNo",
+        "name": "faSanctionLetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.faSanctionLetterDate",
+        "name": "faSanctionletterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faPharmLabAmt",
+        "name": "faPharmLabAmt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.faPharmLabAmtRemarks",
+        "name": "faPharmLabAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa11LetterNo",
+        "name": "fa11LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa11LetterDate",
+        "name": "fa11LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa11Amt",
+        "name": "fa11Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa11Remarks",
+        "name": "fa11Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa12LetterNo",
+        "name": "fa12LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa12LetterDate",
+        "name": "fa12LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa12Amt",
+        "name": "fa12Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa12Remarks",
+        "name": "fa12Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa13LetterNo",
+        "name": "fa13LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa13LetterDate",
+        "name": "fa13LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa13Amt",
+        "name": "fa13Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa13Remarks",
+        "name": "fa13Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa14LetterNo",
+        "name": "fa14LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa14LetterDate",
+        "name": "fa14LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa14Amt",
+        "name": "fa14Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa14Remarks",
+        "name": "fa14Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa15LetterNo",
+        "name": "fa15LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa15LetterDate",
+        "name": "fa15LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa15Amt",
+        "name": "fa15Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa15Remarks",
+        "name": "fa15Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa16LetterNo",
+        "name": "fa16LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa16LetterDate",
+        "name": "fa16LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa16Amt",
+        "name": "fa16Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa16Remarks",
+        "name": "fa16Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa17LetterNo",
+        "name": "fa17LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa17LetterDate",
+        "name": "fa17LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa17Amt",
+        "name": "fa17Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa17Remarks",
+        "name": "fa17Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa18LetterNo",
+        "name": "fa18LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa18LetterDate",
+        "name": "fa18LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa18Amt",
+        "name": "fa18Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa18Remarks",
+        "name": "fa18Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa19LetterNo",
+        "name": "fa19LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa19LetterDate",
+        "name": "fa19LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa19Amt",
+        "name": "fa19Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa19Remarks",
+        "name": "fa19Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa20LetterNo",
+        "name": "fa20LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa20LetterDate",
+        "name": "faPharmLabLetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa20Amt",
+        "name": "fa20Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa20Remarks",
+        "name": "fa20Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa21LetterNo",
+        "name": "fa21LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa21LetterDate",
+        "name": "fa21LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa21Amt",
+        "name": "fa21Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa21Remarks",
+        "name": "fa21Remarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa22LetterNo",
+        "name": "fa22LetterNo",
+        "required": "true"
+      },
+      {
+        "required": "required",
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faMsmeDetailData.fa22LetterDate",
+        "name": "fa22LetterDate",
+        "type": "text",
+        "autocomplete": "off"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa22Amt",
+        "name": "fa22Amt",
+        "maxlength": "13",
+        "onkeydown": "if(event.key==='.'){event.preventDefault();}",
+        "oninput": "event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "required": "true",
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.fa22Remarks",
+        "name": "fa22Remarks"
+      },
+      {
+        "type": "file",
+        "accept": "application/pdf",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "faMsmeDetailData.acceptanceFile",
+        "name": "document",
+        "data-ng-model": "faMsmeDetailData.acceptanceFile"
+      },
+      {
+        "type": "button",
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "th:value": "#{application.page.back}",
+        "onclick": "window.history.back()"
+      }
+    ],
+    "events": [
+      "addFAMSMEDetailUnitForSanction(faMSMEDetailForm.$valid,faMSMEDetailForm)",
+      "fetchMsmeDetailSelectionByApplicationId()"
+    ],
+    "inlineScripts": 2
+  },
+  "dtic/viewfaacceptanceamountdetailunit": {
+    "fields": [
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faIndustSubsidyAmt",
+        "name": "faIndustSubsidyAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faIndustSubsidyRemarks",
+        "name": "faIndustSubsidyRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faQualityCerfAmt",
+        "name": "faqualityCerfAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faqualityCerfAmtRemarks",
+        "name": "faqualityCerfAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faReimbursementPatentsAmt",
+        "name": "faReimbursementPatentsAmt",
+        "maxlength": "13"
+      },
+      {
+        "data-ng-required": "",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faReimbursementPatentsAmtRemarks",
+        "name": "faReimbursementPatentsAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faInfraDevAmt",
+        "name": "faInfraDevAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faInfraDevAmtRemarks",
+        "name": "faInfraDevAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPlantTreatAmt",
+        "name": "faPlantTreatAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPlantTreatAmtRemarks",
+        "name": "faPlantTreatAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faEnergyAmt",
+        "name": "faEnergyAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faEnergyAmtRemarks",
+        "name": "faEnergyAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faUpgradeAmt",
+        "name": "faUpgradeAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faUpgradeAmtRemarks",
+        "name": "faUpgradeAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPharmLabAmt",
+        "name": "faPharmLabAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPharmLabAmtRemarks",
+        "name": "faPharmLabAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disabled",
+        "data-ng-model": "faMsmeDetailData.totalamt",
+        "name": "total amount"
+      }
+    ],
+    "events": [
+      "downloadFaDocuments(faMsmeDetailData.dlacSanctionUploadId)",
+      "loadFAMSMEDetailUnitForSanction()"
+    ],
+    "inlineScripts": 2
+  },
+  "fa/faDisbursementUnit": {
+    "fields": [
+      {
+        "type": "button",
+        "class": [
+          "btn",
+          "btn-info",
+          "m15"
+        ],
+        "value": "More Details ",
+        "ng-click": "ShowHideDisbursementDetails()"
+      },
+      {
+        "class": [
+          "form-control",
+          "mb-3",
+          "number-OnlyTwoDecimal"
+        ],
+        "id": "totalsanctionamt",
+        "data-ng-model": "faMsmeDetailData.totalamt",
+        "type": "text",
+        "disabled": "disabled",
+        "name": "totalamt"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "data-ng-model": "totalDisbursementAmt",
+        "id": "totalDisbursementAmt",
+        "type": "text",
+        "disabled": "disabled",
+        "name": "totalamt"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "id": "pendingamt",
+        "type": "text",
+        "value": "{{(faMsmeDetailData.totalamt-totalDisbursementAmt).toFixed(0);}}",
+        "disabled": "disabled",
+        "name": "remaining"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faData.faLetterNo",
+        "name": "faLetterNo",
+        "maxlength": "13",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control",
+          "dateStart"
+        ],
+        "id": "dateStart",
+        "data-ng-model": "faData.faLetterDate",
+        "name": "faLetterDate",
+        "required": ""
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faData.disbursementAmt",
+        "name": "disbursementAmt",
+        "maxlength": "13",
+        "required": ""
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "faData.disbursementDoc",
+        "name": "disbursementDoc",
+        "required": "",
+        "data-ng-model": "faData.disbursementDoc"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faData.remarks",
+        "name": "remarks",
+        "required": ""
+      }
+    ],
+    "events": [
+      "ShowHideDisbursementDetails()",
+      "downloadFaDocuments(bean.disbursementID)",
+      "fetchDisbursementsDetails();",
+      "uploadDisbursementOrder(faMSMEDetailForm2.$submitted)"
+    ],
+    "inlineScripts": 3
+  },
+  "fa/faDisbursementUnit_new1": {
+    "fields": [
+      {
+        "type": "radio",
+        "id": "searchField1",
+        "ng-model": "searchField",
+        "ng-value": "1"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "ng-model": "searchField",
+        "ng-value": "2"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate1",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "entryDate1",
+        "ng-change": "displayMessage();"
+      },
+      {
+        "name": "entryDate",
+        "id": "entryDate2",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "entryDate2"
+      },
+      {
+        "type": "radio",
+        "id": "searchField",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "3"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "4"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "7"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "6"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "9"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "8"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "11"
+      },
+      {
+        "type": "radio",
+        "id": "searchField",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "10"
+      },
+      {
+        "type": "radio",
+        "id": "searchField2",
+        "data-ng-click": "loadList();",
+        "ng-model": "searchField",
+        "ng-value": "5"
+      },
+      {
+        "type": "checkbox",
+        "data-ng-model": "bean.check",
+        "name": "selec_{{$index}}"
+      }
+    ],
+    "events": [
+      "displayMessage();",
+      "loadList()",
+      "loadList();",
+      "proceedtoDisbursement()",
+      "reset();"
+    ],
+    "inlineScripts": 3
+  },
+  "fa/faDisbursementUnit_new2": {
+    "fields": [
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "size": "10",
+        "type": "text",
+        "data-ng-model": "totalDisbursedAmount"
+      },
+      {
+        "type": "button",
+        "class": [
+          "btn",
+          "btn-primary"
+        ],
+        "value": "Calculate Disbursement Amount",
+        "data-ng-click": "distribute()"
+      },
+      {
+        "type": "checkbox",
+        "value": "{{bean.applicationId}}",
+        "data-ng-model": "bean.check",
+        "name": "selec_{{$index}}"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "data-ng-model": "bean.disbursementAmount",
+        "name": "disAmount_{{$index}}",
+        "size": "15"
+      }
+    ],
+    "events": [
+      "DisbursementExportToExcel();",
+      "distribute()",
+      "onLoadPage();",
+      "processDisbursement()"
+    ],
+    "inlineScripts": 3
+  },
+  "fa/infradevelopmetList": {
+    "fields": [],
+    "events": [
+      "generateExcel('Unit')",
+      "loadInfrastructureList()"
+    ],
+    "inlineScripts": 2
+  },
+  "fa/viewfaInfrastructure": {
+    "fields": [],
+    "events": [
+      "loadInfrastructureById();"
+    ],
+    "inlineScripts": 1
+  },
+  "fa/viewfaDisbursementUnit": {
+    "fields": [
+      {
+        "class": [
+          "form-control",
+          "mb-3",
+          "number-OnlyTwoDecimal"
+        ],
+        "id": "totalsanctionamt",
+        "data-ng-model": "faMsmeDetailData.totalamt",
+        "type": "text",
+        "disabled": "disabled",
+        "name": "totalamt"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "data-ng-model": "totalDisbursementAmt",
+        "id": "totalDisbursementAmt",
+        "type": "text",
+        "disabled": "disabled",
+        "name": "totalamt"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "id": "pendingamt",
+        "type": "text",
+        "value": "{{(faMsmeDetailData.totalamt-totalDisbursementAmt).toFixed(0);}}",
+        "disabled": "disabled",
+        "name": "remaining"
+      }
+    ],
+    "events": [
+      "downloadFaDocuments(bean.disbursementID)",
+      "fetchDisbursementsDetails()"
+    ],
+    "inlineScripts": 2
+  },
+  "dtic/fapendingapplicantsapparel": {
+    "fields": [],
+    "events": [
+      "generateExcel('Institute')",
+      "loadPendingApplicantList()"
+    ],
+    "inlineScripts": 2
+  },
+  "dtic/faCommitteeStatusUnit": {
+    "fields": [
+      {
+        "name": "comments",
+        "data-ng-required": "faMsmeDetailData.status=='no'",
+        "id": "meetingDateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faMsmeDetailData.comments"
+      },
+      {
+        "type": "date",
+        "class": [
+          "form-control"
+        ],
+        "ng-model": "faMsmeDetailData.decisionDate",
+        "min": "{{todayDate}}",
+        "max": "{{todayDate}}",
+        "required": ""
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "faMsmeDetailData.document",
+        "name": "document",
+        "data-ng-model": "faMsmeDetailData.document"
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "yes",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "no",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "pending",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      }
+    ],
+    "events": [
+      "",
+      "addCommitteeStatus(faMSMEDetailForm.$valid)",
+      "loadPages()"
+    ],
+    "inlineScripts": 2
+  },
+  "dtic/viewfaCommitteeStatusUnit": {
+    "fields": [
+      {
+        "name": "comments",
+        "data-ng-required": "faMsmeDetailData.status=='no'",
+        "id": "meetingDateId",
+        "class": [
+          "form-control"
+        ],
+        "data-ng-model": "faMsmeDetailData.comments"
+      },
+      {
+        "name": "decisionDate",
+        "required": "",
+        "id": "meetingDateId",
+        "class": [
+          "form-control",
+          "date"
+        ],
+        "type": "text",
+        "data-ng-model": "faMsmeDetailData.decisionDate"
+      },
+      {
+        "type": "file",
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-xs"
+        ],
+        "file-model": "faMsmeDetailData.document",
+        "name": "document",
+        "data-ng-model": "faMsmeDetailData.document"
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "yes",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "no",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      },
+      {
+        "required": "required",
+        "type": "radio",
+        "name": "approve",
+        "value": "pending",
+        "data-ng-model": "faMsmeDetailData.status",
+        "data-ng-change": ""
+      }
+    ],
+    "events": [
+      "",
+      "addCommitteesStatus(faMSMEDetailForm.$valid)",
+      "loadPage()"
+    ],
+    "inlineScripts": 2
+  },
+  "applicant/fa/viewfaacceptanceamountdetailunit": {
+    "fields": [
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faIndustSubsidyAmt",
+        "name": "faIndustSubsidyAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faIndustSubsidyRemarks",
+        "name": "faIndustSubsidyRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faQualityCerfAmt",
+        "name": "faqualityCerfAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faqualityCerfAmtRemarks",
+        "name": "faqualityCerfAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faReimbursementPatentsAmt",
+        "name": "faReimbursementPatentsAmt",
+        "maxlength": "13"
+      },
+      {
+        "data-ng-required": "",
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faReimbursementPatentsAmtRemarks",
+        "name": "faReimbursementPatentsAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faInfraDevAmt",
+        "name": "faInfraDevAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faInfraDevAmtRemarks",
+        "name": "faInfraDevAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPlantTreatAmt",
+        "name": "faPlantTreatAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPlantTreatAmtRemarks",
+        "name": "faPlantTreatAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faEnergyAmt",
+        "name": "faEnergyAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faEnergyAmtRemarks",
+        "name": "faEnergyAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faUpgradeAmt",
+        "name": "faUpgradeAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faUpgradeAmtRemarks",
+        "name": "faUpgradeAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-OnlyTwoDecimal"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPharmLabAmt",
+        "name": "faPharmLabAmt",
+        "maxlength": "13"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disbaled",
+        "data-ng-model": "faMsmeDetailData.faPharmLabAmtRemarks",
+        "name": "faPharmLabAmtRemarks"
+      },
+      {
+        "class": [
+          "form-control"
+        ],
+        "type": "text",
+        "disabled": "disabled",
+        "data-ng-model": "faMsmeDetailData.totalamt",
+        "name": "total amount"
+      }
+    ],
+    "events": [
+      "downloadFaDocumentsByApplicant(faMsmeDetailData.dlacSanctionUploadId)",
+      "loadFAMSMEDetailUnitForSanction()"
+    ],
+    "inlineScripts": 2
+  }
+}

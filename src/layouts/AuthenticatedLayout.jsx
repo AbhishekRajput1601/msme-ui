@@ -35,6 +35,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const navigate = useNavigate()
   const location = useLocation()
   const isApplicant = location.pathname.startsWith('/applicant')
+  const isFinancial = roles.includes('ROLE_FA') && location.pathname.startsWith('/department/fa')
   const isDtic = roles.includes('ROLE_DTIC') && location.pathname.startsWith('/department')
   const dashboard = getDefaultRouteForRoles(roles)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
@@ -146,11 +147,11 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
                     </Link>
                   </>
                 )}
-                {isDtic && <>
-                  <Link to="/department/dtic/profile" onClick={() => setIsUserMenuOpen(false)}>
+                {(isDtic || isFinancial) && <>
+                  <Link to={isFinancial ? "/department/fa/profile" : "/department/dtic/profile"} onClick={() => setIsUserMenuOpen(false)}>
                     <i className="fa fa-user fa-fw" /> {locale === 'hi' ? 'प्रोफ़ाइल अपडेट करें' : 'Update Profile'}
                   </Link>
-                  <Link to="/department/dtic/change-password" onClick={() => setIsUserMenuOpen(false)}>
+                  <Link to={isFinancial ? "/department/fa/change-password" : "/department/dtic/change-password"} onClick={() => setIsUserMenuOpen(false)}>
                     <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
                   </Link>
                 </>}

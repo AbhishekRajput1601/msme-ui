@@ -1,4 +1,5 @@
 import { dticRequest, dticDocument } from '../dticService'
+import { validateDateRange } from '../../../utils/dateUtils'
 
 // Same actions, parameters, visibility conditions and downloads as DTICMSMEController.
 export function createReportState({ locale, notify, signal, request = dticRequest, open = url => window.open(url, '_blank', 'noopener') }) {
@@ -8,6 +9,8 @@ export function createReportState({ locale, notify, signal, request = dticReques
     const current = ++revision
     state.errorMessage = ''; state[property] = ''; state.busy = false
     if (!state.fromDateInput || !state.toDateInput) { state.errorMessage = 'Please enter date'; notify(); return }
+    const range = validateDateRange(state.fromDateInput, state.toDateInput)
+    if (!range.valid) { state.errorMessage = range.error; notify(); return }
     state.busy = true; notify()
     try {
       const data = await request('get', endpoint, { fromDate: state.fromDateInput, toDate: state.toDateInput }, signal)
@@ -25,6 +28,8 @@ export function createReportState({ locale, notify, signal, request = dticReques
     state['download'+kind+'Report'] = () => {
       state.errorMessage = ''
       if (!state.fromDateInput || !state.toDateInput) { state.errorMessage = 'Please enter date'; notify(); return }
+      const range = validateDateRange(state.fromDateInput, state.toDateInput)
+      if (!range.valid) { state.errorMessage = range.error; notify(); return }
       const dates = [state.fromDateInput, state.toDateInput].map(value => encodeURIComponent(value.replaceAll('/', '-'))).join('/')
       open(dticDocument('download'+kind.toLowerCase()+'report/'+dates))
     }

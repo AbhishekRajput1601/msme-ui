@@ -243,13 +243,13 @@
   text-decoration: underline !important;
 }
 
-/* ── 2a. Table Styling: Theme Blue Heading & Blue Lines ────────────────────── */
+/* ── 2a. Table Styling: Theme Blue Heading & Clean Neutral Lines ─────────── */
 .industrial-unit-page table,
 .industrial-unit-page .table,
 .industrial-unit-page #dynamic-table {
   width: 100% !important;
   border-collapse: collapse !important;
-  border: 1px solid #337ab7 !important;
+  border: 1px solid #d1d5db !important;
   margin-bottom: 15px !important;
   background-color: #ffffff !important;
 }
@@ -278,7 +278,7 @@
   color: #ffffff !important;
 }
 
-/* Table Lines: Theme Blue Borders */
+/* Table Lines: Clean Neutral Borders (Inner lines are NOT blue) */
 .industrial-unit-page .table-bordered,
 .industrial-unit-page .table-bordered th,
 .industrial-unit-page .table-bordered td,
@@ -290,7 +290,7 @@
 .industrial-unit-page .table>tfoot>tr>th,
 .industrial-unit-page #dynamic-table td,
 .industrial-unit-page #dynamic-table th {
-  border: 1px solid #90bddc !important;
+  border: 1px solid #e5e7eb !important;
   vertical-align: middle !important;
 }
 

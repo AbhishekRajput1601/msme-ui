@@ -347,6 +347,7 @@ export function resolveLegacyHashRoute(pathname, hash = '') {
   cleanPath = cleanPath.replace(/\/+$/, '')
 
   const baseReactPath = LEGACY_PATH_MAP[cleanPath] || '/applicant'
+  if (baseReactPath === '/department/fa') return baseReactPath + '/' + (hash.replace(/^#\/?/, '') || 'dashboard')
   const infrastructureHash = hash.replace(/^#\/?/, '')
   if (baseReactPath.startsWith('/department') && /^(?:fa\/)?(?:infradevelopmetList|viewfaInfrastructure)(?:\/|$)/i.test(infrastructureHash)) {
     return '/department/fa/' + infrastructureHash.replace(/^fa\//i, '')

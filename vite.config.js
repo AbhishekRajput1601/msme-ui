@@ -47,6 +47,9 @@ export default defineConfig({
             url.includes('/logout') ||
             url.includes('/fetch') ||
             url.includes('/download') ||
+            // Meeting agenda opens in a new tab with an HTML Accept header,
+            // but Spring returns an Excel attachment rather than a React page.
+            url.includes('/generateExcelNewMeetingAgenda/') ||
             url.includes('/upload') ||
             req.method === 'POST'
           ) {

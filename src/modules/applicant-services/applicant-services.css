@@ -6,6 +6,20 @@
 .applicant-services-page .pagination button:disabled { color: #777; cursor: default; }
 .applicant-services-page .pagination button[aria-current=page] { color: white; background: #337ab7; }
 .applicant-services-page .services-loading { padding: 8px 15px; }
+.applicant-services-page table,
+.applicant-services-page .table,
+.applicant-services-page #dynamic-table {
+  border: 1px solid #d1d5db !important;
+  border-collapse: collapse !important;
+}
+.applicant-services-page .table-bordered th,
+.applicant-services-page .table-bordered td,
+.applicant-services-page table th,
+.applicant-services-page table td,
+.applicant-services-page #dynamic-table th,
+.applicant-services-page #dynamic-table td {
+  border: 1px solid #e5e7eb !important;
+}
 @media print {
   body:has(.applicant-services-page #awardForm) * { visibility: hidden; }
   .applicant-services-page #awardForm, .applicant-services-page #awardForm * { visibility: visible; }

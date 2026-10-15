@@ -1,0 +1,251 @@
+[
+  {
+    "path": "powerBiDashbord",
+    "views": [
+      "fa/powerBiDashbord"
+    ],
+    "endpoint": "powerBiDashbord",
+    "controller": "FAController"
+  },
+  {
+    "path": "report",
+    "views": [
+      "fa/report"
+    ],
+    "endpoint": "report",
+    "controller": "FAController"
+  },
+  {
+    "path": "districtWiseReport",
+    "views": [
+      "fa/financialReportDitrictWise"
+    ],
+    "endpoint": "districtWiseReport",
+    "controller": "FAController"
+  },
+  {
+    "path": "schemeWiseReport",
+    "views": [
+      "fa/financialReportSchemeWise"
+    ],
+    "endpoint": "schemeWiseReport",
+    "controller": "FAController"
+  },
+  {
+    "path": "districtWiseMsmeDetailsReport",
+    "views": [
+      "fa/msmeDetailsReportDistrictWise"
+    ],
+    "endpoint": "districtWiseMsmeDetailsReport",
+    "controller": "FAController"
+  },
+  {
+    "path": "msmeDetailReportList/:districtId",
+    "views": [
+      "fa/msmeDetailReportList"
+    ],
+    "endpoint": "msmeDetailReportList",
+    "controller": "FAController"
+  },
+  {
+    "path": "report/:districtId",
+    "views": [
+      "fa/report"
+    ],
+    "endpoint": "report",
+    "controller": "FAController"
+  },
+  {
+    "path": "reportStatus/:districtId/:status",
+    "views": [
+      "fa/report"
+    ],
+    "endpoint": "reportStatus",
+    "controller": "FAController"
+  },
+  {
+    "path": "report/:districtId/:scheme",
+    "views": [
+      "fa/reportScheme"
+    ],
+    "endpoint": "report",
+    "controller": "FAController"
+  },
+  {
+    "path": "SanctionedVsDisbursement",
+    "views": [
+      "fa/sanctionedVsDisbursementReport"
+    ],
+    "endpoint": "SanctionedVsDisbursement",
+    "controller": "FAController"
+  },
+  {
+    "path": "detailList",
+    "views": [
+      "fa/report"
+    ],
+    "endpoint": "detailList",
+    "controller": "FAController"
+  },
+  {
+    "path": "viewfaapplicantdetailunitnew/:applicationId",
+    "views": [
+      "fa/viewFADetailUnitNew2"
+    ],
+    "endpoint": "viewfaapplicantdetailunitnew",
+    "controller": "FAController"
+  },
+  {
+    "path": "querybydtic/:applicationId/:establishmentType",
+    "views": [
+      "fa/querybydtic"
+    ],
+    "endpoint": "querybydtic",
+    "controller": "FAController"
+  },
+  {
+    "path": "dticfapendingapplicantsunit",
+    "views": [
+      "fa/fapendingapplicantsunit"
+    ],
+    "endpoint": "dticfapendingapplicantsunit",
+    "controller": "FAController"
+  },
+  {
+    "path": "fa/viewfaapplicantHistory/:applicationId/:establishmentType",
+    "views": [
+      "applicant/fa/faHistory"
+    ],
+    "endpoint": "viewFaHistory",
+    "controller": "FAController"
+  },
+  {
+    "path": "faCommitteesStatusUnit/:applicationIds/:establishmentType",
+    "views": [
+      "fa/faCommitteesStatusUnit"
+    ],
+    "endpoint": "faCommitteesStatusUnit",
+    "controller": "FAController"
+  },
+  {
+    "path": "faOtherUploadDocuments/:applicationId/:establishmentType",
+    "views": [
+      "fa/faOtherUploadDocuments"
+    ],
+    "endpoint": "faOtherUploadDocuments",
+    "controller": "FAController"
+  },
+  {
+    "path": "faacceptanceamountdetailunit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewdownloadfaacceptanceform",
+      "fa/faacceptanceamountdetailunit"
+    ],
+    "endpoint": "faacceptanceamountdetailunit",
+    "controller": "FAController"
+  },
+  {
+    "path": "viewdownloadfaacceptanceform/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewfaacceptanceamountdetailunit"
+    ],
+    "endpoint": "viewdownloadfaacceptanceform",
+    "controller": "FAController"
+  },
+  {
+    "path": "faDisbursementUnit/:applicationId/:establishmentType",
+    "views": [
+      "fa/faDisbursementUnit"
+    ],
+    "endpoint": "faDisbursementUnit",
+    "controller": "FAController"
+  },
+  {
+    "path": "faDisbursementUnit_new",
+    "views": [
+      "fa/faDisbursementUnit_new1"
+    ],
+    "endpoint": "faDisbursementUnit_new",
+    "controller": "FAController"
+  },
+  {
+    "path": "faDisbursementUnit_new2/:encodedList",
+    "views": [
+      "fa/faDisbursementUnit_new2"
+    ],
+    "endpoint": "faDisbursementUnit_new2",
+    "controller": "FAController"
+  },
+  {
+    "path": "faDisbursementUnit1",
+    "views": [
+      "fa/faDisbursementUnit_new1"
+    ],
+    "endpoint": "faDisbursementUnit1",
+    "controller": "FAController"
+  },
+  {
+    "path": "infradevelopmetList",
+    "views": [
+      "fa/infradevelopmetList"
+    ],
+    "endpoint": "infradevelopmetList",
+    "controller": "FAController"
+  },
+  {
+    "path": "viewfaInfrastructure/:id",
+    "views": [
+      "fa/viewfaInfrastructure"
+    ],
+    "endpoint": "viewfaInfrastructure",
+    "controller": "FAController"
+  },
+  {
+    "path": "viewfaDisbursementUnit/:applicationId/:establishmentType",
+    "views": [
+      "fa/viewfaDisbursementUnit"
+    ],
+    "endpoint": "viewfaDisbursementUnit",
+    "controller": "FAController"
+  },
+  {
+    "path": "fa/newapplicantformapparel",
+    "views": [
+      "dtic/fapendingapplicantsapparel"
+    ],
+    "endpoint": "fa/newapplicantformapparel",
+    "controller": "FAController"
+  },
+  {
+    "path": "faCommitteeStatusUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/faCommitteeStatusUnit"
+    ],
+    "endpoint": "faCommitteeStatusUnit",
+    "controller": "FAController"
+  },
+  {
+    "path": "viewfaCommitteeStatusUnit/:applicationId/:establishmentType",
+    "views": [
+      "dtic/viewfaCommitteeStatusUnit"
+    ],
+    "endpoint": "viewfaCommitteeStatusUnit",
+    "controller": "FAController"
+  },
+  {
+    "path": "fa/viewfaDisbursementUnit/:applicationId/:establishmentType",
+    "views": [
+      "fa/viewfaDisbursementUnit"
+    ],
+    "endpoint": "fa/viewfaDisbursementUnit",
+    "controller": "FAController"
+  },
+  {
+    "path": "fa/viewfaacceptanceamountdetailunit/:applicationId/:establishmentType",
+    "views": [
+      "applicant/fa/viewfaacceptanceamountdetailunit"
+    ],
+    "endpoint": "fa/viewfaacceptanceamountdetailunit",
+    "controller": "FAController"
+  }
+]

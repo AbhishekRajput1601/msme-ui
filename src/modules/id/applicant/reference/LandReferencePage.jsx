@@ -5,6 +5,7 @@ import { get } from '../../../../api/httpClient'
 import { jsonData } from '../../../../api/responseData'
 import IndustrialView from '../../../industrial-unit/IndustrialView'
 import { filter } from '../../../industrial-unit/viewHelpers'
+import { getTodayString } from '../../../../utils/dateUtils'
 import { loadAnnualPayment, fetchAnnualHistory, fetchAnnualDetail, saveAnnualPayment, annualCharges } from '../services/landAnnualPaymentService'
 import { loadNoticeWorkflow, saveNoticeWorkflow } from '../services/landNoticeService'
 import LandReferenceTable from './LandReferenceTable'
@@ -39,7 +40,7 @@ function ReferenceContent({ name }) {
       downloadNoticeDocument:id => window.open('/mpmsme/applicant/downloadNoticeDocument/'+encodeURIComponent(id),'_blank','noopener'),
       prepareField(attrs) {
         if (['fyFrom','fyTo'].includes(attrs.name)) { attrs.type='number'; attrs.min=1900; attrs.max=9999; attrs.step=1 }
-        if (attrs.name === 'appealDate') attrs.type='date'
+        if (attrs.name === 'appealDate') { attrs.type='date'; attrs.max = getTodayString() }
       },
       calculateAPTotal() {
         const years = Math.max(0,Number(model.paymentData.fyTo || 0)-Number(model.paymentData.fyFrom || 0))

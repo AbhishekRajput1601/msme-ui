@@ -62,7 +62,7 @@ export function dticCells(name, row, index, rules = rowRules, tableConfig = tabl
   return result
 }
 
-function Cell({ markup, state, row, eligible }) {
+export function Cell({ markup, state, row, eligible }) {
   const doc = new DOMParser().parseFromString(markup, 'text/html')
   const render = (node, key) => {
     if (node.nodeType === 3) return node.textContent.replace(/\bEnrolment\b/g, 'Enrollment')
@@ -80,7 +80,7 @@ function Cell({ markup, state, row, eligible }) {
     }
     if (tag === 'a') {
       const href = node.getAttribute('href') || ''
-      if (href.startsWith('#')) return <Link {...props} to={dticLink(href)}>{children}</Link>
+      if (href.startsWith('#')) return <Link {...props} to={(state.resolveLink || dticLink)(href)}>{children}</Link>
       if (node.classList.contains('accept-link')) return <button {...props} className="dtic-action-link" disabled={state.saving}
         onClick={() => state.acceptApplication(row.applicationId)}>{children}</button>
       const action = href.match(/^javascript:(\w+)\(['"]([^'"]+)['"]\)/)
@@ -104,9 +104,10 @@ export default function DticTable({ name, node, state }) {
     const params = { sEcho: 1, iDisplayStart: start, iDisplayLength: length, sSearch: search, iColumns: config.columns.length, iSortingCols: 0 }
     Object.assign(params, state.tableParams?.() || {})
     config.columns.forEach((column, i) => Object.assign(params, { ['mDataProp_' + i]: column || '', ['bSortable_' + i]: false, ['bSearchable_' + i]: true }))
-    dticRequest('get', state.tableEndpoint?.() || config.endpoint, params, abort.signal).then(async data => {
+    const request = state.tableRequest || dticRequest
+    request('get', state.tableEndpoint?.() || config.endpoint, params, abort.signal).then(async data => {
       if (!Array.isArray(data.aaData)) throw new Error('The server returned an invalid application list.')
-      const gated = data.aaData.filter(row => Number(row.currentStatusId) === 19).map(row => row.applicationId)
+      const gated = state.tableRequest ? [] : data.aaData.filter(row => Number(row.currentStatusId) === 19).map(row => row.applicationId)
       const eligible = gated.length ? await dticRequest('get', 'eligibleCompleteIds', { applicationIds: gated.join(',') }, abort.signal).catch(() => []) : []
       if (!abort.signal.aborted) setResult({ rows: data.aaData, eligible, count: Number(data.iTotalDisplayRecords || 0), total: Number(data.iTotalRecords || 0) })
     }).catch(error => { if (!abort.signal.aborted) setResult({ rows: [], eligible: [], error: error.message }) })

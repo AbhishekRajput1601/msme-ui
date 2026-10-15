@@ -1,0 +1,35 @@
+{
+  "fa/fapendingapplicantsunit": {
+    "endpoint": "fetchpendingapplicants/Unit",
+    "columns": [
+      null,
+      "applicationId",
+      "applicationDate",
+      "unitOrInstName",
+      "status",
+      null
+    ]
+  },
+  "fa/infradevelopmetList": {
+    "endpoint": "fetchInfrastructureList",
+    "columns": [
+      "id",
+      "createdDate",
+      "applicantName",
+      "districtName",
+      null
+    ]
+  },
+  "dtic/fapendingapplicantsapparel": {
+    "endpoint": "fetchpendingapplicants/Institution",
+    "columns": [
+      null,
+      "applicationId",
+      "applicationDate",
+      "establishmentType",
+      "unitOrInstName",
+      "status",
+      null
+    ]
+  }
+}

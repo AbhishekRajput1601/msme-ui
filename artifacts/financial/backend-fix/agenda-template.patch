@@ -1,0 +1,30 @@
+--- E:\eclipse\MSME%20-%20LAND%20ALLOTMENT%20AND%20FINANCIAL%20ASSISTANCE\mpindustry-fa\src\main\java\com\mapit\mpindustry\fa\controller\FAController.java
++++ E:\eclipse\MSME%20-%20LAND%20ALLOTMENT%20AND%20FINANCIAL%20ASSISTANCE\mpindustry-fa\src\main\java\com\mapit\mpindustry\fa\controller\FAController.java
+@@ -1325,12 +1325,12 @@
+ 			fileName = "FA_Committee_Output_Apparel.xlsx";
+ 		}
+ 
+-		String fileRealPath = request.getSession().getServletContext()
+-				.getRealPath("/WEB-INF/classes/" + fileName);
+-
+-		FileInputStream excelFile = new FileInputStream(new File(fileRealPath));
+-
+-		XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
++		// Templates are packaged in src/main/resources, including embedded-server runs.
++		XSSFWorkbook workbook;
++		try (java.io.InputStream excelFile =
++				new org.springframework.core.io.ClassPathResource(fileName).getInputStream()) {
++			workbook = new XSSFWorkbook(excelFile);
++		}
+ 		XSSFSheet sheet1 = workbook.getSheetAt(0);
+ 		int rowCounter = 13;
+ 	//	int rowCounter2 = 4;
+@@ -1448,7 +1448,7 @@
+ 			byte[] outArray = outStream.toByteArray();
+ 			response.setContentLength(outArray.length);
+ 			String mimeType = request.getServletContext().getMimeType(
+-					fileRealPath);
++					fileName);
+ 			if (mimeType == null) {
+ 				// set to binary type if MIME mapping not found
+ 				mimeType = "application/octet-stream";

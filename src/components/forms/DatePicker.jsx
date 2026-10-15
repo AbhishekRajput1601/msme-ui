@@ -1,10 +1,22 @@
 /**
  * DatePicker.jsx
  * ─────────────────────────────────────────────────────────────────────────────
- * Accessible date input wrapper supporting min/max dates and calendar icon styling.
+ * Accessible, robust date input wrapper supporting:
+ * - disablePast (prevents picking dates in the past)
+ * - disableFuture (prevents picking dates in the future)
+ * - startDate / endDate constraints (ensures start date <= end date)
+ * - Custom min / max bounds
+ * - Built-in validation message and shortcuts
  */
 
-import React, { useId } from 'react'
+import React, { useId, useMemo } from 'react'
+import {
+  getTodayString,
+  toISODateString,
+  isPastDate,
+  isFutureDate,
+  isStartDateAfterEndDate
+} from '../../utils/dateUtils'
 
 export default function DatePicker({
   label,
@@ -14,6 +26,11 @@ export default function DatePicker({
   onChange,
   min,
   max,
+  startDate, // If this picker is an End Date, startDate sets the minimum bound
+  endDate,   // If this picker is a Start Date, endDate sets the maximum bound
+  disablePast = false,
+  disableFuture = false,
+  showShortcuts = false,
   placeholder,
   error,
   helperText,
@@ -28,27 +45,128 @@ export default function DatePicker({
   const errorId = `${dateId}-error`
   const helperId = `${dateId}-helper`
 
-  const hasError = Boolean(error)
+  // Format today's string
+  const todayStr = useMemo(() => getTodayString(), [])
+
+  // Calculate effective minimum date
+  const effectiveMin = useMemo(() => {
+    const candidates = []
+    if (disablePast) candidates.push(todayStr)
+    if (min) candidates.push(toISODateString(min))
+    if (startDate) candidates.push(toISODateString(startDate))
+    if (candidates.length === 0) return undefined
+    // Pick the latest min date
+    return candidates.reduce((latest, current) => (!latest || current > latest ? current : latest), '')
+  }, [disablePast, min, startDate, todayStr])
+
+  // Calculate effective maximum date
+  const effectiveMax = useMemo(() => {
+    const candidates = []
+    if (disableFuture) candidates.push(todayStr)
+    if (max) candidates.push(toISODateString(max))
+    if (endDate) candidates.push(toISODateString(endDate))
+    if (candidates.length === 0) return undefined
+    // Pick the earliest max date
+    return candidates.reduce((earliest, current) => (!earliest || current < earliest ? current : earliest), '')
+  }, [disableFuture, max, endDate, todayStr])
+
+  // Automatic validation message if no explicit error prop is passed
+  const calculatedError = useMemo(() => {
+    if (error) return error
+    if (!value) return null
+
+    const isoVal = toISODateString(value)
+    if (disablePast && isPastDate(isoVal)) {
+      return 'Date cannot be in the past.'
+    }
+    if (disableFuture && isFutureDate(isoVal)) {
+      return 'Date cannot be in the future.'
+    }
+    if (effectiveMin && isoVal < effectiveMin) {
+      if (startDate) return 'End date cannot be earlier than start date.'
+      return `Date cannot be earlier than ${effectiveMin}.`
+    }
+    if (effectiveMax && isoVal > effectiveMax) {
+      if (endDate) return 'Start date cannot be later than end date.'
+      return `Date cannot be later than ${effectiveMax}.`
+    }
+    if (startDate && isStartDateAfterEndDate(startDate, isoVal)) {
+      return 'End date cannot be earlier than start date.'
+    }
+    if (endDate && isStartDateAfterEndDate(isoVal, endDate)) {
+      return 'Start date cannot be later than end date.'
+    }
+    return null
+  }, [error, value, disablePast, disableFuture, effectiveMin, effectiveMax, startDate, endDate])
+
+  const hasError = Boolean(calculatedError)
   const ariaDescribedBy = hasError
     ? errorId
     : helperText
     ? helperId
     : undefined
 
+  const handleChange = (e) => {
+    if (onChange) {
+      onChange(e)
+    }
+  }
+
+  const handleSetToday = (e) => {
+    e.preventDefault()
+    if (onChange) {
+      onChange({ target: { name, value: todayStr } })
+    }
+  }
+
+  const handleClear = (e) => {
+    e.preventDefault()
+    if (onChange) {
+      onChange({ target: { name, value: '' } })
+    }
+  }
+
   return (
     <div className={`w-full ${className}`}>
       {label && (
-        <label
-          htmlFor={dateId}
-          className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5"
-        >
-          {label}
-          {required && (
-            <span className="text-red-500 ml-1" aria-hidden="true">
-              *
-            </span>
+        <div className="flex items-center justify-between mb-1.5">
+          <label
+            htmlFor={dateId}
+            className="block text-xs font-semibold uppercase tracking-wider text-gray-700"
+          >
+            {label}
+            {required && (
+              <span className="text-red-500 ml-1" aria-hidden="true">
+                *
+              </span>
+            )}
+          </label>
+          {showShortcuts && !disabled && (
+            <div className="flex items-center gap-1.5 text-xs">
+              <button
+                type="button"
+                onClick={handleSetToday}
+                className="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer"
+                title="Select today's date"
+              >
+                Today
+              </button>
+              {value && (
+                <>
+                  <span className="text-gray-300">|</span>
+                  <button
+                    type="button"
+                    onClick={handleClear}
+                    className="text-gray-500 hover:text-red-600 cursor-pointer"
+                    title="Clear selected date"
+                  >
+                    Clear
+                  </button>
+                </>
+              )}
+            </div>
           )}
-        </label>
+        </div>
       )}
 
       <div className="relative rounded-lg shadow-xs">
@@ -67,10 +185,10 @@ export default function DatePicker({
           id={dateId}
           name={name}
           type="date"
-          value={value || ''}
-          onChange={onChange}
-          min={min}
-          max={max}
+          value={value ? toISODateString(value) : ''}
+          onChange={handleChange}
+          min={effectiveMin}
+          max={effectiveMax}
           disabled={disabled}
           required={required}
           placeholder={placeholder}
@@ -98,7 +216,7 @@ export default function DatePicker({
               clipRule="evenodd"
             />
           </svg>
-          {error}
+          {calculatedError}
         </p>
       )}
 

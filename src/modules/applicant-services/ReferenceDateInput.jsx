@@ -25,11 +25,27 @@ export default function ReferenceDateInput({ attrs, onError, options = {} }) {
     loadWidget().then(jquery=>{
       if (disposed) return
       picker=jquery(input.current)
-      picker.datetimepicker({ lang:'ch',timepicker:false,format:'d/m/Y', ...options, onSelectDate() {
-        latest.current.onChange({target:input.current})
-      } })
-    }).catch(error=>{ if (!disposed) onError(error) })
+      const computedOptions = { lang:'ch',timepicker:false,format:'d/m/Y', ...options }
+      if (attrs.disablePast || options.disablePast) {
+        computedOptions.minDate = 0
+      }
+      if (attrs.min) {
+        computedOptions.minDate = attrs.min
+      }
+      if (attrs.disableFuture || options.disableFuture) {
+        computedOptions.maxDate = 0
+      }
+      if (attrs.max) {
+        computedOptions.maxDate = attrs.max
+      }
+      picker.datetimepicker({
+        ...computedOptions,
+        onSelectDate() {
+          latest.current.onChange?.({ target: input.current })
+        }
+      })
+    }).catch(error=>{ if (!disposed) onError?.(error) })
     return ()=>{ disposed=true; picker?.datetimepicker('destroy') }
-  },[])
+  },[attrs.min, attrs.max, attrs.disablePast, attrs.disableFuture])
   return <input {...attrs} ref={input} type="text" value={filter('date',attrs.value,'dd/MM/yyyy')} onKeyPress={event=>event.preventDefault()} />
 }

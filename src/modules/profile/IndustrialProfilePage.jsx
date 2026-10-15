@@ -8,6 +8,12 @@ import {
   updateIndustrialPartners,
   updateIndustrialRegNocs,
 } from './services/profileService'
+import {
+  getTodayString,
+  isPastDate,
+  isFutureDate,
+  isStartDateAfterEndDate
+} from '../../utils/dateUtils'
 
 export default function IndustrialProfilePage() {
   const { locale } = useTranslation()
@@ -299,6 +305,61 @@ export default function IndustrialProfilePage() {
       return
     }
 
+    // Date validations
+    if (formData.udyamRegDate && isFutureDate(formData.udyamRegDate)) {
+      setErrorMessage(hindi ? 'उद्यम पंजीकरण तिथि भविष्य की नहीं हो सकती।' : 'Udyam Registration Date cannot be in the future.')
+      return
+    }
+
+    if (formData.factoryActLicNoDoi && formData.factoryActLicNoValidUpto && isStartDateAfterEndDate(formData.factoryActLicNoDoi, formData.factoryActLicNoValidUpto)) {
+      setErrorMessage(hindi ? 'फैक्ट्री लाइसेंस: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'Factory Act License: Issue Date cannot be after Valid Upto date (Valid Upto cannot be before Issue Date).')
+      return
+    }
+
+    if (formData.factoryActLicNoValidUpto && isPastDate(formData.factoryActLicNoValidUpto)) {
+      setErrorMessage(hindi ? 'फैक्ट्री लाइसेंस: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'Factory Act License: Valid Upto date cannot be in the past.')
+      return
+    }
+
+    if (formData.pcbRegNoEstablishedDoi && formData.pcbRegNoEstablishedValidUpto && isStartDateAfterEndDate(formData.pcbRegNoEstablishedDoi, formData.pcbRegNoEstablishedValidUpto)) {
+      setErrorMessage(hindi ? 'पीसीबी सीटीई: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'PCB CTE Consent: Issue Date cannot be after Valid Upto date.')
+      return
+    }
+
+    if (formData.pcbRegNoEstablishedValidUpto && isPastDate(formData.pcbRegNoEstablishedValidUpto)) {
+      setErrorMessage(hindi ? 'पीसीबी सीटीई: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'PCB CTE Consent: Valid Upto date cannot be in the past.')
+      return
+    }
+
+    if (formData.pcbRegNoOperateDoi && formData.pcbRegNoOperateValidUpto && isStartDateAfterEndDate(formData.pcbRegNoOperateDoi, formData.pcbRegNoOperateValidUpto)) {
+      setErrorMessage(hindi ? 'पीसीबी सीटीओ: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'PCB CTO Consent: Issue Date cannot be after Valid Upto date.')
+      return
+    }
+
+    if (formData.pcbRegNoOperateValidUpto && isPastDate(formData.pcbRegNoOperateValidUpto)) {
+      setErrorMessage(hindi ? 'पीसीबी सीटीओ: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'PCB CTO Consent: Valid Upto date cannot be in the past.')
+      return
+    }
+
+    if (formData.cinDoi && isFutureDate(formData.cinDoi)) {
+      setErrorMessage(hindi ? 'सीआईएन जारी करने की तिथि भविष्य की नहीं हो सकती।' : 'CIN Date of Issue cannot be in the future.')
+      return
+    }
+
+    for (const noc of regNocList) {
+      if (noc.certiValidUpto && isPastDate(noc.certiValidUpto)) {
+        setErrorMessage(hindi ? `एनओसी (${noc.certiType || 'Certificate'}): वैधता तिथि पिछली तिथि नहीं हो सकती।` : `NOC (${noc.certiType || 'Certificate'}): Valid Upto date cannot be in the past.`)
+        return
+      }
+    }
+
+    for (const partner of partnersList) {
+      if (partner.dob && isFutureDate(partner.dob)) {
+        setErrorMessage(hindi ? `साझेदार (${partner.name || 'Partner'}): जन्म तिथि भविष्य की नहीं हो सकती।` : `Partner (${partner.name || 'Partner'}): Date of Birth cannot be in the future.`)
+        return
+      }
+    }
+
     setSubmitting(true)
     try {
       const dataPayload = new FormData()
@@ -541,6 +602,7 @@ export default function IndustrialProfilePage() {
                           className="form-control"
                           value={formData.udyamRegDate || ''}
                           onChange={handleChange}
+                          max={getTodayString()}
                           disabled={!isEditing}
                         />
                       </div>
@@ -918,6 +980,7 @@ export default function IndustrialProfilePage() {
                             className="form-control input-sm"
                             value={formData.factoryActLicNoDoi || ''}
                             onChange={handleChange}
+                            max={formData.factoryActLicNoValidUpto || getTodayString()}
                             disabled={!isEditing}
                           />
                         </div>
@@ -929,6 +992,7 @@ export default function IndustrialProfilePage() {
                             className="form-control input-sm"
                             value={formData.factoryActLicNoValidUpto || ''}
                             onChange={handleChange}
+                            min={formData.factoryActLicNoDoi || getTodayString()}
                             disabled={!isEditing}
                           />
                         </div>
@@ -977,6 +1041,7 @@ export default function IndustrialProfilePage() {
                             className="form-control input-sm"
                             value={formData.pcbRegNoEstablishedDoi || ''}
                             onChange={handleChange}
+                            max={formData.pcbRegNoEstablishedValidUpto || getTodayString()}
                             disabled={!isEditing}
                           />
                         </div>
@@ -988,6 +1053,7 @@ export default function IndustrialProfilePage() {
                             className="form-control input-sm"
                             value={formData.pcbRegNoEstablishedValidUpto || ''}
                             onChange={handleChange}
+                            min={formData.pcbRegNoEstablishedDoi || getTodayString()}
                             disabled={!isEditing}
                           />
                         </div>
@@ -1036,6 +1102,7 @@ export default function IndustrialProfilePage() {
                             className="form-control input-sm"
                             value={formData.pcbRegNoOperateDoi || ''}
                             onChange={handleChange}
+                            max={formData.pcbRegNoOperateValidUpto || getTodayString()}
                             disabled={!isEditing}
                           />
                         </div>
@@ -1047,6 +1114,7 @@ export default function IndustrialProfilePage() {
                             className="form-control input-sm"
                             value={formData.pcbRegNoOperateValidUpto || ''}
                             onChange={handleChange}
+                            min={formData.pcbRegNoOperateDoi || getTodayString()}
                             disabled={!isEditing}
                           />
                         </div>
@@ -1095,6 +1163,7 @@ export default function IndustrialProfilePage() {
                           className="form-control input-sm"
                           value={formData.cinDoi || ''}
                           onChange={handleChange}
+                          max={getTodayString()}
                           disabled={!isEditing}
                         />
                       </div>
@@ -1646,6 +1715,7 @@ export default function IndustrialProfilePage() {
                               className="form-control input-sm"
                               value={noc.certiValidUpto || ''}
                               onChange={(e) => handleRegNocChange(idx, 'certiValidUpto', e.target.value)}
+                              min={getTodayString()}
                               disabled={!isEditing}
                             />
                           </td>

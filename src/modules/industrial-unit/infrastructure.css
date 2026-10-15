@@ -134,7 +134,7 @@
   width: 100%;
   margin-bottom: 20px;
   border-collapse: collapse;
-  border: 1px solid #337ab7;
+  border: 1px solid #d1d5db;
 }
 
 .legacy-portal .infrastructure-page .table> :not(caption)>*>* {
@@ -144,7 +144,7 @@
   color: #333;
   background-color: transparent;
   box-shadow: none;
-  border-top: 1px solid #90bddc;
+  border-top: 1px solid #e5e7eb;
 }
 
 .legacy-portal .infrastructure-page .table>thead>tr>th {
@@ -180,7 +180,7 @@
 .legacy-portal .infrastructure-page .table-bordered,
 .legacy-portal .infrastructure-page .table-bordered td,
 .legacy-portal .infrastructure-page .table-bordered th {
-  border: 1px solid #90bddc;
+  border: 1px solid #e5e7eb;
 }
 
 .legacy-portal .infrastructure-page .btn {
