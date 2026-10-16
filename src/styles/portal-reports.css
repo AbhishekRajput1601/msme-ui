@@ -16,8 +16,84 @@
 }
 .legacy-portal #page-wrapper #ms .report-heading p { margin: 0 0 6px; font-size: 13px; }
 .legacy-portal #page-wrapper #ms .report-heading h2 { margin: 0; font-size: 22px; font-weight: 700; }
-.legacy-portal .report-print-button { display: inline-flex; align-items: center; gap: 8px; }
+.legacy-portal #page-wrapper .report-print-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: auto !important;
+  min-height: 40px;
+  max-height: none !important;
+  padding: 8px 14px !important;
+  white-space: nowrap;
+}
 .legacy-portal .report-print-button img { width: 20px; height: 20px; object-fit: contain; }
+
+/* Keep the original report tables, with one heading and compact document spacing. */
+.legacy-portal #page-wrapper .report-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legacy-portal #page-wrapper .report-form > [align="left"] {
+  flex: 1 1 260px;
+}
+.legacy-portal #page-wrapper .report-form > [align="right"] {
+  flex: 0 0 auto;
+  width: auto;
+}
+.legacy-portal #page-wrapper .report-form > [align="left"] .form-group > div {
+  color: #526575 !important;
+  font-size: 13px;
+  font-weight: 400 !important;
+}
+.legacy-portal #page-wrapper .report-form > #ms {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 12px !important;
+  margin-top: 4px !important;
+}
+.legacy-portal #page-wrapper .industrial-unit-page:has(#ms) .panel > .panel-heading {
+  font-size: 16px !important;
+  padding: 12px 16px !important;
+}
+.legacy-portal #page-wrapper .industrial-unit-page:has(#ms) .panel > .panel-heading > a {
+  display: inline-block;
+  margin-left: 6px !important;
+  text-decoration: none !important;
+}
+.legacy-portal #page-wrapper #ms .panel-heading1,
+.legacy-portal #page-wrapper #ms .panel-heading1 :is(div, span) {
+  background: #fff !important;
+  color: #222 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+.legacy-portal #page-wrapper #ms .panel-heading1 {
+  padding: 12px !important;
+  border: 0 !important;
+}
+.legacy-portal #page-wrapper #ms > div:has(> .panel-heading1) {
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+  border: 0 !important;
+}
+.legacy-portal #page-wrapper #ms div[class*="col-md"] {
+  float: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+.legacy-portal #page-wrapper #ms table {
+  margin: 8px 0 12px !important;
+  table-layout: fixed;
+}
+.legacy-portal #page-wrapper #ms :is(td, th) {
+  padding: 7px 9px !important;
+  vertical-align: top !important;
+  overflow-wrap: anywhere;
+}
+.legacy-portal #page-wrapper #ms :is(td, th) :is(label, p) { margin: 0; }
 
 @media print {
   @page { size: A4 portrait; margin: 14mm 12mm; }
@@ -74,6 +150,13 @@
   }
   .legacy-portal #page-wrapper #ms .report-heading h2 { font-size: 16pt !important; color: #111 !important; }
   .legacy-portal #page-wrapper #ms .report-heading p { font-size: 10pt !important; color: #333 !important; }
+  .legacy-portal #page-wrapper #ms .panel-heading1,
+  .legacy-portal #page-wrapper #ms .panel-heading1 :is(div, span) {
+    font-size: 12pt !important;
+    color: #111 !important;
+    background: #fff !important;
+    break-after: avoid;
+  }
   .legacy-portal #page-wrapper #ms div[class*="col-md"] {
     float: none !important;
     width: 100% !important;
@@ -86,7 +169,7 @@
     max-width: 100% !important;
     border-collapse: collapse !important;
     margin: 0 0 10pt !important;
-    table-layout: auto !important;
+    table-layout: fixed !important;
     font-size: 10pt !important;
   }
   .legacy-portal #page-wrapper #ms thead { display: table-header-group !important; }
@@ -99,7 +182,8 @@
     vertical-align: top !important;
     overflow-wrap: anywhere;
   }
-  .legacy-portal #page-wrapper #ms :is(th, td[colspan="4"]) {
+  .legacy-portal #page-wrapper #ms th,
+  .legacy-portal #page-wrapper #ms td[colspan]:only-child {
     background: #eee !important;
     font-weight: 700 !important;
     print-color-adjust: exact;
@@ -112,4 +196,5 @@
   }
   .legacy-portal #page-wrapper #ms a::after { content: none !important; }
   .legacy-portal #page-wrapper #ms :is(button, .btn, input[type="file"]) { display: none !important; }
+  .legacy-portal #page-wrapper .report-print-button { display: none !important; }
 }

@@ -53,7 +53,13 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   useEffect(() => {
     if (formRef.current) { validation(formRef.current,root,false); root.notify() }
   }, [node,root])
-  if (node.text) return interpolate(node.text, s)
+  if (node.text) {
+    const text = interpolate(node.text, s)
+    if (text.trim() === 'Please click on Print Image for Printing of this Form.') {
+      return root.locale === 'hi' ? 'केवल आवेदन पत्र प्रिंट करें या PDF के रूप में सहेजें।' : 'Print or save a PDF of the application form only.'
+    }
+    return text
+  }
   if (root.renderNode) {
     const rendered = root.renderNode(node, s)
     if (rendered !== undefined) return rendered
@@ -111,17 +117,41 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (attrs.src?.startsWith('../')) attrs.src = '/legacy/' + attrs.src.slice(3)
   if (attrs.src?.startsWith('/mpmsme/image/')) attrs.src = '/image/' + attrs.src.slice('/mpmsme/image/'.length)
   if (attrs.src?.startsWith('/mpmsme/img/')) attrs.src = '/img/' + attrs.src.slice('/mpmsme/img/'.length)
-  if (node.click != null) attrs.onClick = e => {
-    if (node.tag === 'a') e.preventDefault()
-    if (e.currentTarget.type === 'submit' && e.currentTarget.form) validation(e.currentTarget.form,root)
-    run(node.click, s, root)
+  const isBack =
+    node.children?.some(c => c.translation === 'application.page.back' || (Array.isArray(c.text) && c.text.includes('Back'))) ||
+    node.children?.some(c => c.children?.some(cc => cc.translation === 'application.page.back' || (Array.isArray(cc.text) && cc.text.includes('Back'))))
+
+  if (isBack) {
+    attrs.onClick = e => {
+      e.preventDefault()
+      if (typeof root.goBack === 'function') {
+        root.goBack()
+      } else if (typeof window !== 'undefined' && window.history) {
+        window.history.back()
+      }
+    }
+  } else if (node.click != null) {
+    attrs.onClick = e => {
+      if (node.tag === 'a') e.preventDefault()
+      if (e.currentTarget.type === 'submit' && e.currentTarget.form) validation(e.currentTarget.form,root)
+      run(node.click, s, root)
+    }
+  } else if (node.tag === 'a' && attrs.href && !attrs.href.startsWith('http') && !attrs.href.startsWith('#')) {
+    attrs.onClick = e => {
+      e.preventDefault()
+      if (typeof root.navigate === 'function') {
+        root.navigate(attrs.href)
+      } else {
+        window.location.href = attrs.href
+      }
+    }
   }
   if (node.blur != null) attrs.onBlur = () => run(node.blur, s, root)
   if (node.inline_click) attrs.onClick = e => {
     e.preventDefault()
     if (/print/.test(node.inline_click)) (root.print || (() => window.print()))()
     else if (root.inlineAction) root.inlineAction(node.inline_click)
-    else if (/history.back/.test(node.inline_click)) root.goBackToBatch()
+    else if (/history.back/.test(node.inline_click)) (root.goBack || root.goBackToBatch)()
     else { const id = node.inline_click.match(/#([\w]+)/)?.[1]; if (id) document.getElementById(id)?.click() }
   }
   if (attrs['data-toggle'] === 'tab') {
@@ -197,6 +227,9 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     }
   }
   if (node.tag === 'form') {
+    if (node.children?.some(child => child.attrs?.id?.includes('ms'))) {
+      attrs.className = `${attrs.className || ''} report-form`.trim()
+    }
     attrs.ref = formRef
     attrs.noValidate = true
     attrs.onChange = e => { validation(e.currentTarget, root, false); root.notify() }
@@ -225,7 +258,32 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   }
   // Native file controls retain the exact field names and upload bindings.
   let children = <ViewNodes nodes={node.children} scope={s} root={root} />
-  if (attrs.id === 'ms') children = <><header className="report-heading"><p>Government of Madhya Pradesh<br />Department of Micro, Small &amp; Medium Enterprises</p><h2>{root.reportTitle || 'Industrial Unit Application'}</h2></header>{children}</>
+  // React does not insert the tbody that the HTML parser supplied in AngularJS.
+  // Without it, Bootstrap's table selectors style labels/spans as extra cells.
+  if (node.tag === 'table' && node.children?.some(child => child.tag === 'tr')) {
+    const groups = []
+    const columns = Math.max(1, ...node.children.filter(child => child.tag === 'tr').map(row =>
+      (row.children || []).reduce((count, cell) => count + (['td', 'th'].includes(cell.tag) ? Number(cell.attrs?.colspan?.[0] || 1) : 0), 0)))
+    for (const original of node.children) {
+      let child = original
+      // A few legacy section titles were placed directly in tables or rows.
+      // Give them a real spanning cell so they survive pagination correctly.
+      if (child.tag === 'tr' && child.children?.length && child.children.every(cell => !['td', 'th'].includes(cell.tag))) {
+        child = { ...child, children: [{ tag: 'td', attrs: { colspan: [String(columns)] }, children: child.children }] }
+      } else if (!['tr', 'thead', 'tbody', 'tfoot', 'caption', 'colgroup'].includes(child.tag)) {
+        child = { tag: 'tr', attrs: {}, children: [{ tag: 'td', attrs: { colspan: [String(columns)] }, children: [child] }] }
+      }
+      if (child.tag === 'tr') {
+        if (!groups.at(-1)?.rows) groups.push({ rows: [] })
+        groups.at(-1).rows.push(child)
+      } else groups.push({ node: child })
+    }
+    children = groups.map((group, index) => group.rows
+      ? <tbody key={index}><ViewNodes nodes={group.rows} scope={s} root={root} /></tbody>
+      : <ViewNode key={index} node={group.node} scope={s} root={root} />)
+  }
+  const hasReportHeading = nodes => nodes?.some(child => child.attrs?.class?.some(value => /\bpanel-heading1\b/.test(value)) || hasReportHeading(child.children))
+  if (attrs.id === 'ms' && !hasReportHeading(node.children)) children = <><header className="report-heading"><p>Government of Madhya Pradesh<br />Department of Micro, Small &amp; Medium Enterprises</p><h2>{root.reportTitle || 'Industrial Unit Application'}</h2></header>{children}</>
   const currentLocale = root?.locale || 'en'
   if (node.translation) {
     attrs['data-translation'] = node.translation

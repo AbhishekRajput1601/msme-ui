@@ -37,10 +37,10 @@ export function amountWords(input) {
 const unitFiles = new Set(['gstSellDocUpload','employmentGivenUpload','permissionDocUpload','schemeDocUpload'])
 export function createIndustrialState({ params, navigate, notify, signal, locale }) {
   const state = {
-    faData: { faIndustrialUnitBean: { activityDetailsList: [{}], capitalInvestmentBeans: [], unitProductDetailsBeans: [{}], unitExpansionDetailsBeans: [] }, faRequiredAssistanceBean: { selectedOptions: {}, caExpInvDetailsBean: [{}], pharmaExpInvDetailsBeans: [{}] } },
+    faData: { schemeYear: '2025', faIndustrialUnitBean: { activityDetailsList: [{}], capitalInvestmentBeans: [], unitProductDetailsBeans: [{}], unitExpansionDetailsBeans: [] }, faRequiredAssistanceBean: { selectedOptions: {}, caExpInvDetailsBean: [{}], pharmaExpInvDetailsBeans: [{}] } },
     fileData: {}, cerfdata: { CertificationDetails: {} }, UnitAddressDetailsBean: {}, bankList1: [], unitList: [], sectorofinductryList: {},
-    applicationId: params.applicationId, establishmentType: 'Unit', step: 1, maxStep: 1,
-    disabled: true, finalSubmit: false, saveAsDraft: true, saveAndNext: false, formOpen: false, declarationAccepted: false,
+    applicationId: params.applicationId, establishmentType: 'Unit', step: 1, maxStep: 1, schemeYear: '2025',
+    disabled: true, finalSubmit: false, saveAsDraft: true, saveAndNext: false, formOpen: true, declarationAccepted: true,
     initialized: new Set(), locale, notify, busy: false, saving: false, error: '',
   }
   const navigation = {
@@ -57,7 +57,8 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
   function normalize() {
     const data = state.faData
     if (data?.faRequiredAssistanceBean) data.faRequiredAssistanceBean.selectedOptions ??= {}
-    if (data?.schemeYear) state.schemeYear = data.schemeYear
+    state.schemeYear = data?.schemeYear || state.schemeYear || '2025'
+    if (data && !data.schemeYear) data.schemeYear = state.schemeYear
     if (params.applicationId && data?.applicationId) {
       state.formOpen = true; state.declarationAccepted = true; state.maxStep = 3
       const policy = productionPolicy(data.faIndustrialUnitBean?.unitStartDate)
@@ -89,6 +90,19 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
     await post(endpoint, body)
   }
   Object.assign(state, {
+    goBack: () => {
+      if (typeof window !== 'undefined' && window.history.length > 1) {
+        navigate(-1)
+      } else {
+        const isSec = typeof window !== 'undefined' && window.location.pathname.includes('/secretary')
+        if (isSec) {
+          navigate(`/department/secretary/progress/${params.applicationId || ''}/Unit`)
+        } else {
+          navigate('/applicant/financial-assistance')
+        }
+      }
+    },
+    navigate,
     goBackToBatch: () => navigate('/applicant/financial-assistance'),
     fetchPanDetailsFromUserProfile: async () => { const profile = await get('fetchUserIndustrialDetails', { userId: '' }); state.faData.panNo = profile.panNo; refresh() },
     checkProductionDate() {
@@ -103,7 +117,17 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
     goToPreviousTab(_from, to) { state.step = Number(to.replace('#step','')); state.maxStep = state.step },
     reload() { state.UnitAddressDetailsBean = {}; state.faUnitAddressDetails = {}; refresh() },
     resetForm() { for (let i = 1; i <= 10; i++) { state['doc'+i] = null; const input = document.getElementById('doc'+i); if (input) input.value = '' } },
-    getTehsils: async blockId => { state.tehsils = await get('fetchtehsilmapbyblock', { blockId }); refresh() },
+    async getTehsils() {
+      const districtId = state.UnitAddressDetailsBean.districtId
+      state.UnitAddressDetailsBean.tehsilId = ''
+      state.tehsils = []
+      refresh()
+      if (!districtId) return
+      const tehsils = await get('fetchdistricttehsilmapbydistrictid', { districtId })
+      if (state.UnitAddressDetailsBean.districtId !== districtId) return
+      state.tehsils = tehsils
+      refresh()
+    },
     async setUnitDetails(id) {
       const unit = state.unitList.find(item => String(item.unitAddressId) === String(id))
       if (!unit) return

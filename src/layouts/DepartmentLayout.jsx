@@ -5,11 +5,13 @@
  */
 
 import React, { useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import AuthenticatedLayout from './AuthenticatedLayout'
 import { useAuth } from '../hooks/useAuth'
 import { useTranslation } from '../hooks/useTranslation'
 import DticSidebar from '../modules/dtic/DticSidebar'
 import FinancialSidebar from '../modules/financial/FinancialSidebar'
+import SecretarySidebar from '../modules/secretary/SecretarySidebar'
 
 export default function DepartmentLayout() {
   const { roles } = useAuth()
@@ -94,10 +96,21 @@ export default function DepartmentLayout() {
     [t, roles],
   )
 
+  const location = useLocation()
+  const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
+
   return (
     <AuthenticatedLayout
       sidebarItems={sidebarItems}
-      renderSidebar={roles.some(role => role === 'ROLE_DTIC' || role === 'DTIC') ? onNavigate => <DticSidebar onNavigate={onNavigate} /> : roles.some(role => role === 'ROLE_FA' || role === 'FA') ? onNavigate => <FinancialSidebar onNavigate={onNavigate} /> : undefined}
+      renderSidebar={
+        roles.some(role => role === 'ROLE_DTIC' || role === 'DTIC')
+          ? onNavigate => <DticSidebar onNavigate={onNavigate} />
+          : roles.some(role => role === 'ROLE_FA' || role === 'FA')
+          ? onNavigate => <FinancialSidebar onNavigate={onNavigate} />
+          : isSecretary
+          ? onNavigate => <SecretarySidebar onNavigate={onNavigate} />
+          : undefined
+      }
       portalTitle="Department Portal"
       portalSubtitle="Government of Madhya Pradesh"
       headerBadge={

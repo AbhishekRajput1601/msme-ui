@@ -1838,13 +1838,14 @@ export default function IndustrialProfilePage() {
 
                 <div className="col-md-6 col-sm-12">
                   <div className="form-group">
-                    <label style={{ fontSize: '11px', color: '#666' }}>
+                    <label htmlFor="cancelled-cheque-upload" style={{ fontSize: '11px', color: '#666' }}>
                       Cancelled Cheque / Bank Passbook (PDF/JPEG &lt;500KB) <span className="required-star">*</span>
                     </label>
                     <input
                       type="file"
+                      id="cancelled-cheque-upload"
                       name="cancelledChequeUpload"
-                      className="form-control"
+                      className="profile-document-upload"
                       accept=".pdf,.jpg,.jpeg"
                       onChange={handleFileChange}
                       disabled={!isEditing}

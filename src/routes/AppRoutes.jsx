@@ -69,6 +69,13 @@ import IndustrialProfilePage from '../modules/profile/IndustrialProfilePage'
 import IndustrialUnitPage from '../modules/industrial-unit/IndustrialUnitPage'
 import ChangePasswordPage from '../modules/profile/ChangePasswordPage'
 import DepartmentProfilePage from '../modules/profile/department/DepartmentProfilePage'
+import {
+  SecretaryDashboard,
+  SecretaryVerificationPage,
+  SecretaryBatchesPage,
+  SecretaryDetailPage,
+  SecretaryProgressPage,
+} from '../modules/secretary'
 import { useAuth } from '../hooks/useAuth'
 
 function AccountRedirect({ page }) {
@@ -247,6 +254,18 @@ export default function AppRoutes() {
         {dticRoutes.map(route => <Route key={route.path} path={`dtic/${route.path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />)}
         <Route path="dtic/*" element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />
         <Route path="fa/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />
+        {/* ─── Secretary Workflow Routes ─── */}
+        <Route path="secretary/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryDashboard /></ProtectedRoute>} />
+        <Route path="secretary/verification" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryVerificationPage /></ProtectedRoute>} />
+        <Route path="secretary/batches" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryBatchesPage /></ProtectedRoute>} />
+        <Route path="secretary/detail/:applicationNo" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryDetailPage /></ProtectedRoute>} />
+        <Route path="secretary/progress/:applicationNo" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryProgressPage /></ProtectedRoute>} />
+        <Route path="secretary/progress/:applicationNo/:establishmentType" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryProgressPage /></ProtectedRoute>} />
+        <Route path="secretary/fa/viewfaapplicantHistory/:applicationNo" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryProgressPage /></ProtectedRoute>} />
+        <Route path="secretary/fa/viewfaapplicantHistory/:applicationNo/:establishmentType" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><SecretaryProgressPage /></ProtectedRoute>} />
+        <Route path="secretary/change-password" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><ChangePasswordPage /></ProtectedRoute>} />
+        <Route path="secretary" element={<Navigate to="/department/secretary/dashboard" replace />} />
+
         <Route path=":roleSubpath/dashboard" element={<DepartmentDashboard />} />
         <Route path="fa/fa/*" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />
         <Route path=":roleSubpath/fa/*" element={<IndustrialUnitPage />} />

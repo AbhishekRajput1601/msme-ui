@@ -34,28 +34,30 @@
 }
 
 /* One heading treatment across the authenticated application pages. */
-.legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .divheadertxt, .new-divheadtext, .infrastructure-application-heading) {
+.legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .divheadertxt, .new-divheadtext, .infrastructure-application-heading, .page-header:not(:empty)) {
   color: #fff !important;
   background: #337ab7 !important;
-  border-color: #2e6da4 !important;
+  border: 1px solid #2e6da4 !important;
+  border-radius: 4px !important;
   font-weight: 700 !important;
   line-height: 1.4 !important;
   text-align: center !important;
   white-space: normal !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
-.legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .infrastructure-application-heading) {
-  font-size: 20px !important;
-  padding: 14px 18px !important;
+.legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .infrastructure-application-heading, .page-header:not(:empty)) {
+  font-size: 18px !important;
+  padding: 12px 18px !important;
 }
 
 .legacy-portal #page-wrapper :is(.divheadertxt, .new-divheadtext) {
-  font-size: 18px !important;
+  font-size: 16px !important;
   padding: 10px 15px !important;
 }
 
 /* Legacy templates sometimes color or size the breadcrumb spans separately. */
-.legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .divheadertxt, .new-divheadtext, .infrastructure-application-heading) :is(span, div, a, strong, h1, h2, h3, h4, h5, h6) {
+.legacy-portal #page-wrapper :is(.panel-heading, .panel-heading1, .divheadertxt, .new-divheadtext, .infrastructure-application-heading, .page-header:not(:empty)) :is(span, div, a, strong, h1, h2, h3, h4, h5, h6) {
   color: #fff !important;
   font-size: inherit !important;
   font-weight: 700 !important;

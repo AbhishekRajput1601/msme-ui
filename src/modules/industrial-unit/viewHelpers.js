@@ -35,6 +35,19 @@ export function filter(name, value, pattern) {
 
 export const faPath = hash => {
   const path = String(hash).replace(/^#\/?/, '')
+  const isSecretary = typeof window !== 'undefined' && window.location.pathname.includes('/secretary')
+  if (isSecretary) {
+    if (/^(?:fa\/)?(?:viewfaapplicantHistory|progress)(?:\/|$)/.test(path)) {
+      return `/department/secretary/progress/${path.replace(/^(?:fa\/)?(?:viewfaapplicantHistory|progress)\/?/, '')}`
+    }
+    if (/^(?:fa\/)?(?:newapplicantform)(?:\/|$)/.test(path)) {
+      return '/department/secretary/verification'
+    }
+    if (/^(?:fa\/)?(?:viewfaDisbursementUnit|viewfaacceptanceamountdetailunit)(?:\/|$)/.test(path)) {
+      return `/department/secretary/fa/${path.replace(/^fa\//, '')}`
+    }
+    return `/department/secretary/${path.replace(/^fa\//, '')}`
+  }
   const profiles = { updateindustryprofileapplicant: '/applicant/industry-profile', updateprofileapplicant: '/applicant/profile', dashboard: '/applicant/dashboard' }
   if (path === 'bank/addBankDetails') return '/applicant/bank-details/new'
   if (path === 'bank/banksList') return '/applicant/bank-details'
@@ -44,7 +57,14 @@ export const faPath = hash => {
 export const backendPath = value => {
   if (/^https?:\/\//.test(value)) return value
   if (value.startsWith('/mpmsme/')) return value
-  return '/mpmsme/applicant/' + value.replace(/^\/?(?:applicant\/)?/, '')
+  const prefix = typeof window !== 'undefined' && window.location.pathname.includes('/secretary')
+    ? '/mpmsme/secretary/'
+    : typeof window !== 'undefined' && window.location.pathname.includes('/dtic')
+    ? '/mpmsme/dtic/'
+    : typeof window !== 'undefined' && window.location.pathname.includes('/fa')
+    ? '/mpmsme/fa/'
+    : '/mpmsme/applicant/'
+  return prefix + value.replace(/^\/?(?:applicant\/|secretary\/|dtic\/|fa\/)?/, '')
 }
 
 export function businessError(data) {

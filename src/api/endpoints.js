@@ -547,6 +547,64 @@ export const AUDIT = {
   // placeholder
 }
 
+// ─── Secretary Module ──────────────────────────────────────────────────────────
+
+export const SECRETARY = {
+  /** [A] Fetch applications for secretary verification */
+  FETCH_APPLICATIONS: '/secretary/fetchApplications',
+
+  /** [A] Verify selected applications */
+  VERIFY: '/secretary/verify',
+
+  /** [A] Raise query on selected applications */
+  QUERY: '/secretary/query',
+
+  /** [A] Get verification history for an application */
+  HISTORY: '/secretary/history/{applicationNo}',
+
+  /** [A] Get full applicant detail data */
+  DETAIL_DATA: '/secretary/detailData/{applicationNo}',
+
+  /** [A] Get GM DTIC eligible amount and remark */
+  DTIC_ELIGIBLE: '/secretary/dticEligible/{applicationNo}',
+
+  /** [A] Get assistances and eligible amounts for applicant */
+  APPLICANT_ASSISTANCES: '/secretary/applicantAssistances/{applicationNo}',
+
+  /** [A] Fetch batch list for secretary */
+  FETCH_BATCHES: '/secretary/fetchBatches',
+
+  /** [A] Get enriched batch detail with applications */
+  BATCH_DETAIL: '/secretary/batchDetail/{batchId}',
+
+  /** [A] Forward/submit secretary batch to LDM */
+  SUBMIT_BATCH: '/secretary/submitBatch/{batchId}',
+
+  /** [D] Download covering letter for batch */
+  DOWNLOAD_COVERING_LETTER: '/secretary/downloadCoveringLetter/{batchId}',
+
+  /** [D] Download signed PDF */
+  DOWNLOAD_SIGNED_DOC: '/secretary/downloadSignedDocument/{applicationNo}',
+
+  /** [D] Download uploaded document */
+  DOWNLOAD_DOC: '/secretary/downloadDoc/{documentId}/{applicationNo}',
+
+  /** [A] Fetch progress history */
+  PROGRESS_HISTORY: '/secretary/progressHistory/{applicationNo}',
+
+  /** [A] Fetch digital signatures for application */
+  SIGNATURES: '/secretary/signatures/{applicationNo}',
+
+  /** [A] Fetch disbursement upload details */
+  FETCH_DISBURSEMENTS_UPLOAD: '/secretary/fetchDisbursementsUpload/{applicationId}',
+
+  /** [A] Fetch MSME detail unit for sanction */
+  FETCH_FA_MSME_DETAIL_FOR_SANCTION: '/secretary/fetchFAMSMEDetailUnitForSanction',
+
+  /** [A] Fetch MSME scheme selection by application ID */
+  FETCH_MSME_DETAIL_SELECTION: '/secretary/fetchMsmeDetailSelectionByApplicationId',
+}
+
 // ─── Helper ───────────────────────────────────────────────────────────────────
 
 /**

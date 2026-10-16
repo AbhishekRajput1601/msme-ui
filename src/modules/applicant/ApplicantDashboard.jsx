@@ -1,27 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
+import './applicant-dashboard.css'
 
 export default function ApplicantDashboard() {
-  const { t, locale } = useTranslation()
+  const { locale } = useTranslation()
   const hindi = locale === 'hi'
 
   return (
-    <div className="legacy-dashboard p-4">
-      <h1 className="page-header text-xl font-bold text-gray-800 border-b pb-2 mb-4">
-        {t('nav.dashboard', 'Applicant Dashboard')}
-      </h1>
+    <div className="applicant-dashboard" lang={hindi ? 'hi' : 'en'}>
+      <header className="applicant-dashboard__header">
+        <span className="applicant-dashboard__eyebrow">{hindi ? 'एमपी एमएसएमई • आवेदक पोर्टल' : 'MP MSME • Applicant Portal'}</span>
+        <h1>{hindi ? 'आवेदक डैशबोर्ड' : 'Applicant Dashboard'}</h1>
+        <p>{hindi ? 'अपने आवेदन प्रबंधित करें और अपने उद्योग के लिए सही सेवा चुनें।' : 'Manage your applications and find the right services for your business.'}</p>
+      </header>
+      <h2 className="applicant-dashboard__section-title">{hindi ? 'आपकी सेवाएं' : 'Your Services'}</h2>
 
       {/* Quick Action Tiles */}
-      <div className="row mb-4">
+      <div className="applicant-dashboard__grid">
         {/* 1. Land Allotment Applications */}
-        <div className="col-md-6 col-lg-3 mb-3">
-          <div className="panel panel-primary border border-blue-200 rounded p-4 bg-blue-50 shadow-sm flex flex-col justify-between h-full">
-            <div>
-              <h4 className="font-semibold text-blue-900 mb-1">
+        <div className="applicant-dashboard__cell">
+          <div className="applicant-service">
+            <div className="applicant-service__content">
+              <span className="applicant-service__icon" aria-hidden="true"><i className="fa fa-file-text-o" /></span>
+              <h3>
                 {hindi ? 'भूमि आवंटन आवेदन' : 'Land Allotment Applications'}
-              </h4>
-              <p className="text-xs text-blue-700 mb-4 mt-2">
+              </h3>
+              <p className="applicant-service__description">
                 {hindi
                   ? 'आपके द्वारा जमा किए गए आवेदनों की स्थिति देखें व प्रबंधित करें'
                   : 'Track and monitor your submitted land applications and status'}
@@ -29,21 +34,22 @@ export default function ApplicantDashboard() {
             </div>
             <Link
               to="/applicant/land-allotment"
-              className="btn btn-sm btn-primary inline-block text-xs font-semibold px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 self-start"
+              className="applicant-service__link"
             >
-              {hindi ? 'सभी आवेदन देखें' : 'View All Applications'} &rarr;
+              {hindi ? 'सभी आवेदन देखें' : 'View All Applications'} <span className="applicant-service__arrow" aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </div>
 
         {/* 2. Developed Land Allotment */}
-        <div className="col-md-6 col-lg-3 mb-3">
-          <div className="panel panel-success border border-emerald-200 rounded p-4 bg-emerald-50 shadow-sm flex flex-col justify-between h-full">
-            <div>
-              <h4 className="font-semibold text-emerald-900 mb-1">
+        <div className="applicant-dashboard__cell">
+          <div className="applicant-service">
+            <div className="applicant-service__content">
+              <span className="applicant-service__icon" aria-hidden="true"><i className="fa fa-building-o" /></span>
+              <h3>
                 {hindi ? 'विकसित भूमि आवंटन' : 'Developed Land Allotment'}
-              </h4>
-              <p className="text-xs text-emerald-700 mb-4 mt-2">
+              </h3>
+              <p className="applicant-service__description">
                 {hindi
                   ? 'विकसित औद्योगिक क्षेत्रों में उपलब्ध भूखंडों की सूची देखें एवं आवेदन करें'
                   : 'Browse available industrial plots in developed areas and apply online'}
@@ -51,21 +57,22 @@ export default function ApplicantDashboard() {
             </div>
             <Link
               to="/applicant/land-allotment/new"
-              className="btn btn-sm btn-success inline-block text-xs font-semibold px-3 py-1.5 bg-emerald-600 text-white rounded hover:bg-emerald-700 self-start"
+              className="applicant-service__link"
             >
-              {hindi ? 'आवेदन शुरू करें' : 'Apply For Land'} &rarr;
+              {hindi ? 'आवेदन शुरू करें' : 'Apply For Land'} <span className="applicant-service__arrow" aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </div>
 
         {/* 3. Undeveloped Land Allotment */}
-        <div className="col-md-6 col-lg-3 mb-3">
-          <div className="panel panel-warning border border-amber-200 rounded p-4 bg-amber-50 shadow-sm flex flex-col justify-between h-full">
-            <div>
-              <h4 className="font-semibold text-amber-900 mb-1">
+        <div className="applicant-dashboard__cell">
+          <div className="applicant-service">
+            <div className="applicant-service__content">
+              <span className="applicant-service__icon" aria-hidden="true"><i className="fa fa-map-marker" /></span>
+              <h3>
                 {hindi ? 'अविकसित भूमि आवंटन' : 'Undeveloped Land Allotment'}
-              </h4>
-              <p className="text-xs text-amber-700 mb-4 mt-2">
+              </h3>
+              <p className="applicant-service__description">
                 {hindi
                   ? 'अविकसित क्षेत्रों में बड़े औद्योगिक भूखंडों हेतु पार्सल देखें एवं आवेदन करें'
                   : 'Explore large industrial land parcels in undeveloped areas and quote'}
@@ -73,38 +80,39 @@ export default function ApplicantDashboard() {
             </div>
             <Link
               to="/applicant/land-allotment/explore"
-              className="btn btn-sm btn-warning inline-block text-xs font-semibold px-3 py-1.5 bg-amber-600 text-white rounded hover:bg-amber-700 self-start"
+              className="applicant-service__link"
             >
-              {hindi ? 'अविकसित भूमि देखें' : 'Explore Land'} &rarr;
+              {hindi ? 'अविकसित भूमि देखें' : 'Explore Land'} <span className="applicant-service__arrow" aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </div>
 
         {/* 4. MSME */}
-        <div className="col-md-6 col-lg-3 mb-3">
-          <div className="panel border border-purple-200 rounded p-4 bg-purple-50 shadow-sm flex flex-col justify-between h-full">
-            <div>
-              <h4 className="font-semibold text-purple-900 mb-1">
+        <div className="applicant-dashboard__cell">
+          <div className="applicant-service">
+            <div className="applicant-service__content">
+              <span className="applicant-service__icon" aria-hidden="true"><i className="fa fa-bar-chart-o" /></span>
+              <h3>
                 {hindi ? 'एमएसएमई (वित्तीय सहायता)' : 'MSME'}
-              </h4>
-              <p className="text-xs text-purple-700 mb-4 mt-2">
+              </h3>
+              <p className="applicant-service__description">
                 {hindi
                   ? 'औद्योगिक इकाइयों हेतु वित्तीय सहायता, सब्सिडी एवं एमएसएमई पुरस्कार'
                   : 'Financial assistance, incentives and award schemes for MSME units'}
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="applicant-service__actions">
               <Link
                 to="/applicant/financial-assistance"
-                className="btn btn-sm inline-block text-xs font-semibold px-3 py-1.5 bg-purple-600 text-white rounded hover:bg-purple-700"
+                className="applicant-service__link"
               >
-                {hindi ? 'वित्तीय सहायता' : 'Financial Assistance'} &rarr;
+                {hindi ? 'वित्तीय सहायता' : 'Financial Assistance'} <span className="applicant-service__arrow" aria-hidden="true">&rarr;</span>
               </Link>
               <Link
                 to="/applicant/msme-award"
-                className="btn btn-sm inline-block text-xs font-semibold px-3 py-1.5 bg-white text-purple-700 border border-purple-300 rounded hover:bg-purple-100"
+                className="applicant-service__link applicant-service__link--secondary"
               >
-                {hindi ? 'पुरस्कार' : 'Award'} &rarr;
+                {hindi ? 'पुरस्कार' : 'Award'} <span className="applicant-service__arrow" aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </div>

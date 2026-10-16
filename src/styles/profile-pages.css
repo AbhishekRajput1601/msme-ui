@@ -930,6 +930,62 @@ button.portal-lang-capsule:hover,
 }
 
 /* Standard Government Form File Upload Inputs */
+.legacy-portal :is(.profile-page-container, .industrial-unit-page, .infrastructure-page) form .btn + .btn {
+  margin-inline-start: 10px !important;
+}
+
+.legacy-portal .profile-page-container input.profile-document-upload[type="file"] {
+  display: block !important;
+  width: 300px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  border: 1px solid #b8c9d8 !important;
+  border-radius: 4px !important;
+  background: #fff !important;
+  color: #333 !important;
+  font-size: 13px !important;
+  line-height: 30px !important;
+  overflow: hidden;
+}
+
+.legacy-portal .profile-page-container input.profile-document-upload[type="file"]::file-selector-button {
+  margin: 0 8px 0 0 !important;
+  padding: 0 10px !important;
+  height: 30px;
+  border: 0 !important;
+  border-right: 1px solid #2e6da4 !important;
+  border-radius: 0 !important;
+  background: #337ab7 !important;
+  color: #fff !important;
+  font: inherit;
+  font-weight: 600 !important;
+  cursor: pointer;
+}
+
+.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:not(:disabled)::file-selector-button:hover {
+  background: #286090 !important;
+}
+
+.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:focus-visible {
+  outline: 2px solid #337ab7;
+  outline-offset: 3px;
+}
+
+.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:disabled {
+  background: #f5f7f9 !important;
+  color: #64748b !important;
+  cursor: not-allowed !important;
+}
+
+.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:disabled::file-selector-button {
+  background: #e2e8f0 !important;
+  color: #526575 !important;
+  border-color: #cbd5e1 !important;
+  cursor: not-allowed !important;
+}
+
 input[type="file"].form-control,
 .gov-file-upload-input {
   display: block;

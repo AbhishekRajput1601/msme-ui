@@ -37,6 +37,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const isApplicant = location.pathname.startsWith('/applicant')
   const isFinancial = roles.includes('ROLE_FA') && location.pathname.startsWith('/department/fa')
   const isDtic = roles.includes('ROLE_DTIC') && location.pathname.startsWith('/department')
+  const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
   const dashboard = getDefaultRouteForRoles(roles)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
@@ -155,6 +156,11 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
                     <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
                   </Link>
                 </>}
+                {isSecretary && (
+                  <Link to="/department/secretary/change-password" onClick={() => setIsUserMenuOpen(false)}>
+                    <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
+                  </Link>
+                )}
                 <button
                   onClick={() => {
                     setIsUserMenuOpen(false)

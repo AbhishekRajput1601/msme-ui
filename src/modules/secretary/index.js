@@ -1,0 +1,7 @@
+export { default as SecretarySidebar } from './SecretarySidebar'
+export { default as SecretaryDashboard } from './SecretaryDashboard'
+export { default as SecretaryVerificationPage } from './SecretaryVerificationPage'
+export { default as SecretaryBatchesPage } from './SecretaryBatchesPage'
+export { default as SecretaryDetailPage } from './SecretaryDetailPage'
+export { default as SecretaryProgressPage } from './SecretaryProgressPage'
+export * from './secretaryService'

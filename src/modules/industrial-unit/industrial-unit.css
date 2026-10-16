@@ -1,10 +1,42 @@
 /* Industrial Unit Styles - Exact Parity with AngularJS UI */
 
+.legacy-portal #page-wrapper .industrial-unit-page .unit-address-heading {
+  background: #337ab7;
+  border: 1px solid #2e6da4 !important;
+  border-radius: 4px;
+  padding: 12px 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.legacy-portal #page-wrapper .industrial-unit-page .unit-address-heading h3 {
+  color: #fff !important;
+  margin: 0 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+/* Container Background & Layout */
+.legacy-portal #page-wrapper:has(.industrial-unit-page) {
+  background-color: #f8fafc !important;
+}
+
 .industrial-unit-page {
-  padding: 0 !important;
+  padding: 16px 24px 40px !important;
   margin: 0 !important;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
+  min-height: calc(100vh - 190px);
+  background-color: #f8fafc !important;
+}
+
+.industrial-unit-page #page-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  display: block !important;
+  height: auto !important;
+  min-height: auto !important;
+  border: none !important;
 }
 
 .industrial-unit-page #industrial-unit-content {
@@ -14,12 +46,23 @@
   background: #fff;
 }
 
-/* ── 1. Page Heading in Middle of Every Page ────────────────────────────── */
+/* ── 1. Page Heading Banner Card ────────────────────────────── */
+/* ── 1. Page Heading Banner Card ────────────────────────────── */
 .industrial-unit-page .page-header {
   text-align: center !important;
-  margin: 8px 0 16px 0 !important;
-  padding-bottom: 8px !important;
-  border-bottom: 1px solid #eee !important;
+  margin: 0 auto 20px auto !important;
+  padding: 12px 20px !important;
+  background: #337ab7 !important;
+  background-image: linear-gradient(180deg, #337ab7 0%, #286090 100%) !important;
+  border: 1px solid #23527c !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 6px rgba(35, 82, 124, 0.25) !important;
+  max-width: 960px !important;
+}
+
+.industrial-unit-page .page-header *,
+.industrial-unit-page h1.page-header * {
+  color: #ffffff !important;
 }
 
 .industrial-unit-page .page-header h1,
@@ -32,8 +75,34 @@
   text-align: center !important;
   margin: 0 auto !important;
   font-weight: 700 !important;
-  font-size: 18px !important;
-  color: #23527c !important;
+  font-size: 17px !important;
+  color: #ffffff !important;
+  letter-spacing: 0.3px !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.industrial-unit-page h1.page-header::before,
+.industrial-unit-page .page-header h1::before {
+  content: "\f0d6";
+  font-family: FontAwesome;
+  font-size: 18px;
+  color: #ffffff !important;
+  margin-right: 6px;
+}
+
+/* Suppress duplicate top header when panel with its own heading is present, or when hidden */
+.industrial-unit-page:has(.panel-info) > #page-wrapper > .row:first-child,
+.industrial-unit-page:has(.panel) > #page-wrapper > .row:first-child,
+.industrial-unit-page:has(.panel-info) .page-header,
+.industrial-unit-page:has(.panel) .page-header,
+.industrial-unit-page .page-header[style*="display: none"],
+.industrial-unit-page h1.page-header[style*="display: none"],
+.industrial-unit-page [style*="display: none"] {
+  display: none !important;
 }
 
 .industrial-unit-page .panel-heading,
@@ -139,13 +208,33 @@
   text-align: center !important;
 }
 
-.industrial-unit-page .headingset {
+.industrial-unit-page .headingset,
+.industrial-unit-page label.headingset,
+.industrial-unit-page div[align="center"] > label,
+.industrial-unit-page .text-center > label.headingset {
+  display: block !important;
+  width: 100% !important;
   text-align: center !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #23527c !important;
-  display: inline-block !important;
-  margin: 8px auto !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background-color: #337ab7 !important;
+  background-image: linear-gradient(180deg, #337ab7 0%, #286090 100%) !important;
+  border: 1px solid #23527c !important;
+  border-radius: 4px !important;
+  padding: 8px 14px !important;
+  margin: 16px 0 12px 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  letter-spacing: 0.3px !important;
+  box-sizing: border-box !important;
+}
+
+.industrial-unit-page .headingset *,
+.industrial-unit-page label.headingset *,
+.industrial-unit-page div[align="center"] > label * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 13.5px !important;
 }
 
 .industrial-unit-page .tab-header {
@@ -202,10 +291,9 @@
   height: 0 !important;
 }
 
-.industrial-unit-page .row.mb-3>.col-md-6 {
-  float: none !important;
-  margin: 10px auto !important;
-  max-width: 650px !important;
+/* ── Commercial Production Date Verification block (Removed as per user request) ── */
+.industrial-unit-page .row.mb-3 {
+  display: none !important;
 }
 
 .industrial-unit-page .clearfix {
@@ -344,21 +432,26 @@
 }
 
 .industrial-unit-page .Alert-heading {
-  margin: 4px auto 10px auto !important;
-  padding: 6px 14px !important;
-  background-color: #fcf8e3 !important;
-  border: 1px solid #faebcc !important;
+  margin: 10px auto 28px auto !important;
+  padding: 12px 24px !important;
+  background-color: #fffcee !important;
+  border: 1px solid #fed7aa !important;
+  border-left: 5px solid #d97706 !important;
   border-radius: 4px !important;
-  max-width: 90% !important;
+  max-width: 92% !important;
   text-align: center !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
 }
 
 .industrial-unit-page .Alert-heading p {
   margin: 0 !important;
-  padding: 2px 0 !important;
+  padding: 0 !important;
   font-family: inherit !important;
-  font-size: 13px !important;
-  color: #8a6d3b !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  color: #78350f !important;
+  text-align: center !important;
 }
 
 .industrial-unit-page .help-block {
@@ -406,6 +499,97 @@
   margin-bottom: 5px !important;
   font-weight: 700 !important;
   color: #333 !important;
+}
+
+/* Radio button container: Fix ugly form-control border and sizing */
+.industrial-unit-page div.form-control:has(.radio-inline),
+.industrial-unit-page div.form-control:has(input[type="radio"]),
+.industrial-unit-page .form-control:has(.radio-inline) {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  height: auto !important;
+  min-height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 4px 0 !important;
+}
+
+.industrial-unit-page .radio-inline,
+.industrial-unit-page label.radio-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #333333 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+}
+
+.industrial-unit-page .radio-inline input[type="radio"],
+.industrial-unit-page label.radio-inline input[type="radio"] {
+  margin: 0 !important;
+  cursor: pointer !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Prevent fields from stretching unnecessarily wide */
+.industrial-unit-page input#unitStartDate,
+.industrial-unit-page input[name="unitStartDate"],
+.industrial-unit-page input#unitElectCompDate,
+.industrial-unit-page input[name="unitElectCompDate"],
+.industrial-unit-page input.dateOnlyPicker {
+  max-width: 260px !important;
+}
+
+/* Product table action buttons & grid alignment */
+.industrial-unit-page .col-md-14 {
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+}
+
+.industrial-unit-page button.addfields,
+.industrial-unit-page button.remove {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 4px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 4px !important;
+  cursor: pointer !important;
+  border: 1px solid transparent !important;
+  transition: all 0.15s ease !important;
+  vertical-align: middle !important;
+}
+
+.industrial-unit-page button.addfields {
+  background-color: #5cb85c !important;
+  color: #ffffff !important;
+  border-color: #4cae4c !important;
+}
+
+.industrial-unit-page button.addfields:hover {
+  background-color: #449d44 !important;
+  border-color: #398439 !important;
+}
+
+.industrial-unit-page button.remove {
+  background-color: #d9534f !important;
+  color: #ffffff !important;
+  border-color: #d43f3a !important;
+}
+
+.industrial-unit-page button.remove:hover {
+  background-color: #c9302c !important;
+  border-color: #ac2925 !important;
 }
 
 .industrial-unit-page label span+span {
@@ -793,169 +977,244 @@
   display: none !important;
 }
 
+/* ── Stepper Wizard (Exact match with Reference UI) ── */
 .industrial-unit-page .wizard {
-  margin-bottom: 16px !important;
+  background: transparent !important;
+  margin-bottom: 24px !important;
+  padding: 8px 0 20px 0 !important;
 }
 
 .industrial-unit-page .wizard .wizard-inner {
-  margin-bottom: 6px !important;
+  position: relative !important;
+  margin: 0 auto !important;
+  max-width: 920px !important;
+  padding: 10px 0 !important;
 }
 
-/* 1. Gap between tabs */
 .industrial-unit-page .wizard .nav-tabs {
   display: flex !important;
   flex-direction: row !important;
-  gap: 12px !important;
-  padding: 4px 0 !important;
-  list-style: none !important;
-  margin-bottom: 16px !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  position: relative !important;
   border-bottom: none !important;
-  justify-content: center !important;
-  align-items: stretch !important;
   background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
 }
 
+/* Base horizontal connecting line across all steps */
 .industrial-unit-page .wizard .nav-item {
   flex: 1 1 0 !important;
-  max-width: 320px !important;
+  position: relative !important;
   text-align: center !important;
   margin: 0 !important;
   list-style: none !important;
 }
 
-/* 2. Small, compact tab box with theme styling */
+.industrial-unit-page .wizard .nav-item:nth-child(1)::after,
+.industrial-unit-page .wizard .nav-item:nth-child(2)::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 24px !important;
+  left: 50% !important;
+  width: 100% !important;
+  height: 4px !important;
+  background: #e2edf7 !important;
+  border-radius: 2px !important;
+  z-index: 1 !important;
+}
+
+/* Active step has dark blue progress extending half-way forward */
+.industrial-unit-page .wizard .nav-item:has(> a.active):nth-child(1)::after {
+  background: linear-gradient(90deg, #174677 0%, #174677 50%, #e2edf7 50%, #e2edf7 100%) !important;
+}
+
+/* Explicitly disable any connecting line after step 3 or hidden steps */
+.industrial-unit-page .wizard .nav-item:nth-child(n+3)::after,
+.industrial-unit-page .wizard .nav-item:last-child::after,
+.industrial-unit-page .wizard .nav-item[style*="display: none"]::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Clean transparent button wrapper */
 .industrial-unit-page .wizard .nav-link {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: center !important;
-  gap: 3px !important;
-  padding: 8px 12px !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  color: #1f4e79 !important;
-  text-align: center !important;
-  background: #f8fafc !important;
-  border: 1px solid #cbd5e1 !important;
-  border-radius: 6px !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  position: relative !important;
+  z-index: 3 !important;
   text-decoration: none !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
-  transition: all 0.2s ease-in-out !important;
+  cursor: pointer !important;
 }
 
+/* Remove legacy-portal orange/yellow (#f07e01) hover and focus background completely */
+.legacy-portal .industrial-unit-page .wizard .nav,
+.legacy-portal .industrial-unit-page .wizard .nav-tabs,
+.legacy-portal .industrial-unit-page .wizard .nav-item,
+.legacy-portal .industrial-unit-page .wizard .nav-link,
+.legacy-portal .industrial-unit-page .wizard .nav-item > a,
+.legacy-portal .industrial-unit-page .wizard .nav > li > a,
+.legacy-portal .industrial-unit-page .wizard .nav-link:hover,
+.legacy-portal .industrial-unit-page .wizard .nav-link:focus,
+.legacy-portal .industrial-unit-page .wizard .nav-link:active,
+.legacy-portal .industrial-unit-page .wizard .nav-item > a:hover,
+.legacy-portal .industrial-unit-page .wizard .nav-item > a:focus,
+.legacy-portal .industrial-unit-page .wizard .nav-item > a:active,
+.legacy-portal .industrial-unit-page .wizard .nav > li > a:hover,
+.legacy-portal .industrial-unit-page .wizard .nav > li > a:focus,
+.legacy-portal .industrial-unit-page .wizard .nav > li > a:active,
+.legacy-portal .industrial-unit-page .wizard .nav > li.active > a,
+.legacy-portal .industrial-unit-page .wizard .nav > li.active > a:hover,
+.legacy-portal .industrial-unit-page .wizard .nav > li.active > a:focus,
+.legacy-portal .industrial-unit-page .wizard .nav-tabs > li > a:hover,
+.legacy-portal .industrial-unit-page .wizard .nav-tabs > li > a:focus,
+.industrial-unit-page .wizard .nav-link:hover,
+.industrial-unit-page .wizard .nav-link:focus,
+.industrial-unit-page .wizard .nav-link:active,
+.industrial-unit-page .wizard .nav-item > a:hover,
+.industrial-unit-page .wizard .nav-item > a:focus,
+.industrial-unit-page .wizard .nav-item > a:active,
+.industrial-unit-page .wizard .nav > li > a:hover,
+.industrial-unit-page .wizard .nav > li > a:focus,
+.industrial-unit-page .wizard .nav > li > a:active {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Subtle, polished hover on inactive nodes & pills instead of orange boxes */
+.industrial-unit-page .wizard .nav-link:not(.active):hover > span:first-child,
+.industrial-unit-page .wizard .nav-link:not(.active):hover .fa {
+  background-color: #dbeafe !important;
+  border-color: #93c5fd !important;
+  color: #1e3a8a !important;
+}
+
+.industrial-unit-page .wizard .nav-link:not(.active):hover > span+span,
+.industrial-unit-page .wizard .wizard-inner .nav-link:not(.active):hover > span+span {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+/* Circular Icon Node */
 .industrial-unit-page .wizard .nav-link > span:first-child,
 .industrial-unit-page .wizard .nav-link .fa {
-  display: block !important;
-  font-size: 14px !important;
-  color: #337ab7 !important;
-  margin: 0 auto 2px auto !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  font-size: 17px !important;
+  position: relative !important;
+  z-index: 4 !important;
+  transition: all 0.2s ease-in-out !important;
   line-height: 1 !important;
 }
 
-/* 3. Inner text pill: small compact size, NO GREEN (crisp white background & navy text) */
+/* Inactive Icon Node */
+.industrial-unit-page .wizard .nav-link:not(.active) > span:first-child,
+.industrial-unit-page .wizard .nav-link:not(.active) .fa,
+.industrial-unit-page .wizard .nav-link.disabled > span:first-child,
+.industrial-unit-page .wizard .nav-link.disabled .fa {
+  background-color: #eaf2fa !important;
+  box-shadow: 0 0 0 5px #f0f6fc !important;
+  border: 2px solid #d2e2ee !important;
+  color: #64748b !important;
+}
+
+/* Active Icon Node */
+.industrial-unit-page .wizard .nav-link.active > span:first-child,
+.industrial-unit-page .wizard .nav-link.active .fa {
+  background-color: #174677 !important;
+  box-shadow: 0 0 0 6px #dbeafe !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-size: 19px !important;
+}
+
+/* Capsule Pill Badge underneath node */
 .industrial-unit-page .wizard .nav-link > span+span,
 .industrial-unit-page .wizard .wizard-inner .nav-link > span+span,
 .industrial-unit-page .wizard .wizard-inner .nav-link>span+span {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 5px !important;
-  min-width: unset !important;
-  width: auto !important;
-  padding: 4px 10px !important;
-  background: #ffffff !important;
-  color: #1f4e79 !important;
-  border: 1px solid #d0dbe5 !important;
-  border-radius: 4px !important;
+  border-radius: 9999px !important;
+  padding: 6px 16px 6px 6px !important;
   font-size: 11.5px !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   letter-spacing: 0.3px !important;
   text-transform: uppercase !important;
-  margin: 2px auto 0 auto !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  margin: 0 auto !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
-/* 4. Active tab container and inner pill */
-.industrial-unit-page .wizard .nav-link.active {
-  color: #ffffff !important;
-  background-color: #337ab7 !important;
-  background-image: none !important;
-  border-color: #2e6da4 !important;
-  box-shadow: 0 2px 6px rgba(51, 122, 183, 0.25) !important;
+/* Inactive Pill */
+.industrial-unit-page .wizard .nav-link:not(.active) > span+span,
+.industrial-unit-page .wizard .wizard-inner .nav-link:not(.active) > span+span,
+.industrial-unit-page .wizard .nav-link.disabled > span+span,
+.industrial-unit-page .wizard .wizard-inner .nav-link.disabled > span+span {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #64748b !important;
 }
 
-.industrial-unit-page .wizard .nav-link.active > span:first-child,
-.industrial-unit-page .wizard .nav-link.active .fa {
-  color: #ffffff !important;
-}
-
+/* Active Pill */
 .industrial-unit-page .wizard .nav-link.active > span+span,
 .industrial-unit-page .wizard .wizard-inner .nav-link.active > span+span {
-  background: #ffffff !important;
-  color: #1f4e79 !important;
-  border-color: #ffffff !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  background: #edf5ff !important;
+  border: 1.5px solid #bfdbfe !important;
+  color: #174677 !important;
   font-weight: 700 !important;
 }
 
-/* 5. Inactive hover */
-.industrial-unit-page .wizard .nav-link:not(.active):not(.disabled):hover {
-  background: #eef5fb !important;
-  border-color: #90bddc !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08) !important;
-}
-
-.industrial-unit-page .wizard .nav-link:not(.active):not(.disabled):hover > span+span {
-  border-color: #90bddc !important;
-  color: #143e6a !important;
-}
-
-/* 6. Disabled state */
-.industrial-unit-page .wizard .nav-link.disabled {
-  pointer-events: none !important;
-  opacity: 0.75 !important;
-  background: #f1f5f9 !important;
-  border-color: #e2e8f0 !important;
-}
-
-.industrial-unit-page .wizard .nav-link.disabled > span:first-child {
-  color: #64748b !important;
-}
-
-.industrial-unit-page .wizard .nav-link.disabled > span+span {
-  background: #f8fafc !important;
-  color: #64748b !important;
-  border-color: #e2e8f0 !important;
-}
-
-/* 7. Step count badge */
+/* Step Number Count Badge inside Pill (positioned on the LEFT via order: -1) */
 .industrial-unit-page .wizard .count {
+  order: -1 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 17px !important;
-  height: 17px !important;
+  width: 22px !important;
+  height: 22px !important;
   border-radius: 50% !important;
-  background: #1f4e79 !important;
-  color: #ffffff !important;
-  font-size: 10px !important;
+  background: #ffffff !important;
+  margin: 0 8px 0 0 !important;
+  font-size: 11.5px !important;
   font-weight: 700 !important;
   font-style: normal !important;
-  margin-left: 4px !important;
-  padding: 0 !important;
   line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+.industrial-unit-page .wizard .nav-link:not(.active) .count,
+.industrial-unit-page .wizard .nav-link.disabled .count {
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
 }
 
 .industrial-unit-page .wizard .nav-link.active .count {
-  background: #1f4e79 !important;
-  color: #ffffff !important;
-}
-
-.industrial-unit-page .wizard .nav-link.disabled .count {
-  background: #94a3b8 !important;
-  color: #ffffff !important;
+  color: #174677 !important;
+  border: 1px solid #bfdbfe !important;
+  background: #ffffff !important;
 }
 
 .industrial-unit-page .action-buttons a,

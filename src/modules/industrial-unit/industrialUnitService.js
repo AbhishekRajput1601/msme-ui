@@ -1,14 +1,30 @@
 import http from '../../api/httpClient'
 import { businessError } from './viewHelpers'
 
+function getRolePrefix() {
+  if (typeof window !== 'undefined') {
+    const path = window.location.pathname
+    if (path.includes('/secretary')) return '/secretary'
+    if (path.includes('/dtic')) return '/dtic'
+    if (path.includes('/fa')) return '/fa'
+    if (path.includes('/collector')) return '/collector'
+    if (path.includes('/ldm')) return '/ldm'
+  }
+  return '/applicant'
+}
+
 export async function getUnitData(endpoint, params, signal) {
-  const response = await http.get(`/applicant/${endpoint.replace(/^\//, '')}`, { params, signal })
+  const prefix = getRolePrefix()
+  const cleanEndpoint = endpoint.replace(/^\//, '')
+  const response = await http.get(`${prefix}/${cleanEndpoint}`, { params, signal })
   if (typeof response.data === 'string' && /^\s*</.test(response.data)) throw new Error('The server did not return Industrial Unit data. Please sign in again.')
   return businessError(response.data)
 }
 
 export async function saveUnitData(endpoint, data, signal) {
-  const response = await http.post(`/applicant/${endpoint}`, data, { signal })
+  const prefix = getRolePrefix()
+  const cleanEndpoint = endpoint.replace(/^\//, '')
+  const response = await http.post(`${prefix}/${cleanEndpoint}`, data, { signal })
   if (!response.data || typeof response.data !== 'object') throw new Error('The server did not confirm that the data was saved.')
   return businessError(response.data)
 }
