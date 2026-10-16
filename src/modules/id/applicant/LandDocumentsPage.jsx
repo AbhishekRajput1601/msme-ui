@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { fetchApplicationDetail, fetchDocumentsList, getDownloadDocumentUrl } from './services/idApplicantService'
 import { fetchLandPage, saveLandDocuments } from './services/landApplicationService'
 import { isUndeveloped } from './landApplicationModel'
+import './land-documents.css'
 
 const categories = [
   ['doc2', 'Project report / scheme', true], ['doc3', 'Proposed construction layout and cost estimate', true],
@@ -52,19 +53,19 @@ export default function LandDocumentsPage({ correction = false }) {
     } catch (err) { setError(err.message) }
     finally { setBusy(false) }
   }
-  return <section className="panel panel-info"><div className="panel-heading">Land application documents</div><div className="panel-body">
-    <Link to="/applicant/land-allotment">Back to applications</Link>
+  return <section className="panel panel-info land-documents-page"><div className="panel-heading">Land application documents</div><div className="panel-body">
+    <Link className="land-documents-back" to="/applicant/land-allotment">← Back to applications</Link>
     {result.loading ? <p role="status">Loading document requirements…</p> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
-      {result.documents.length > 0 && <ul>{result.documents.map((doc, index) => <li key={index}>{doc.documentTypeShort ? <a href={getDownloadDocumentUrl(doc.documentTypeShort, applicantId)} target="_blank" rel="noreferrer">{doc.documentType}</a> : doc.documentType}</li>)}</ul>}
+      {result.documents.length > 0 && <div className="land-documents-existing"><h2>Uploaded documents</h2><ul>{result.documents.map((doc, index) => <li key={index}>{doc.documentTypeShort ? <a href={getDownloadDocumentUrl(doc.documentTypeShort, applicantId)} target="_blank" rel="noreferrer">{doc.documentType}</a> : doc.documentType}</li>)}</ul></div>}
       {saved ? <div role="status" className="alert alert-success"><p>{saved.message}</p><p>{correction ? 'The corrected documents have been saved. Continue to your query reply.' : 'Documents have been saved. Payment and any required eSign steps remain.'}</p><Link className="btn btn-primary" to={`/applicant/land-allotment/${correction ? 'query' : 'payment'}/${applicantId}/${encodeURIComponent(saved.parcelToken)}`}>{correction ? 'Continue to query reply' : 'Review payment'}</Link></div> : <form key={attempt} onSubmit={submit} aria-busy={busy}>
         {error && <div className="alert alert-danger" role="alert">{error}</div>}
-        <p>Documents: PDF or JPEG, each smaller than {result.undeveloped ? '10' : '2'} MB. Photographs must be smaller than 2 MB. Select only the files you want to replace when updating.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{(result.undeveloped ? [['doc1', 'Latest financial closure report', true], ...categories.map(([name, label, required]) => [name, label, required || ['doc10', 'doc11'].includes(name)]), ['doc12', 'Proof of establishment of unit (if applicable)']] : categories).map(([name, label, required]) => <div className="form-group" key={name}>
-          <label htmlFor={`land-${name}`}>{label}{required && !result.update ? ' *' : ''}</label>
+        <div className="land-documents-help" id="land-upload-help"><strong>Upload guidelines</strong><p>PDF or JPEG, smaller than {result.undeveloped ? '10' : '2'} MB per document. Photographs: JPEG, smaller than 2 MB.</p><p>{result.update ? 'Choose only the files you want to replace.' : 'Fields marked with * are required.'}</p></div>
+        <div className="land-documents-grid">{(result.undeveloped ? [['doc1', 'Latest financial closure report', true], ...categories.map(([name, label, required]) => [name, label, required || ['doc10', 'doc11'].includes(name)]), ['doc12', 'Proof of establishment of unit (if applicable)']] : categories).map(([name, label, required]) => <div className={`land-document-field${files[name] ? ' has-file' : ''}`} key={name}>
+          <label htmlFor={`land-${name}`}>{label}{required && !result.update && <span className="land-document-required"> *</span>}</label>
           <input id={`land-${name}`} name={name} type="file" accept={name === 'profileImage' ? '.jpg,.jpeg' : '.pdf,.jpg,.jpeg'} required={required && !result.update} disabled={busy} onChange={event => setFiles(current => { const next = { ...current }; if (event.target.files[0]) next[name] = event.target.files[0]; else delete next[name]; return next })} />
         </div>)}</div>
-        {!correction && <fieldset className="border p-4 my-5"><legend>Declaration</legend>{result.declarationText.map((text, index) => <p key={index}>{text}</p>)}<label><input type="checkbox" name="checkDeclaration" checked={declaration} required disabled={busy} onChange={event => setDeclaration(event.target.checked)} /> I accept this declaration.</label></fieldset>}
-        <button className="btn btn-primary" type="submit" disabled={busy}>{busy ? 'Saving documents…' : 'Save documents'}</button>
+        {!correction && <fieldset className="land-documents-declaration"><legend>Declaration</legend>{result.declarationText.map((text, index) => <p key={index}>{text}</p>)}<label><input type="checkbox" name="checkDeclaration" checked={declaration} required disabled={busy} onChange={event => setDeclaration(event.target.checked)} /> I accept this declaration.</label></fieldset>}
+        <div className="land-documents-actions"><button className="btn btn-primary" type="submit" disabled={busy}>{busy ? 'Saving documents…' : 'Save documents'}</button></div>
       </form>}
     </>}
   </div></section>

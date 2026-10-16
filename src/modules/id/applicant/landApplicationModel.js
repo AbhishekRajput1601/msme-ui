@@ -4,6 +4,19 @@ export const amountTotal = rows => (rows || []).reduce((sum, row) => sum + Math.
 
 export const isUndeveloped = data => /undeveloped land/i.test(data.vacantLandBean?.industrialAreaName || '')
 
+const addressIdFields = {
+  presentAddState: 'stateId', district: 'districtId', tehsil: 'tehsilId', block: 'blockId',
+  permanentAddState: 'permanentAddStateId', permanentDistrict: 'permanentAddDistrictId',
+}
+
+function addressIds(data) {
+  return Object.fromEntries(Object.entries(addressIdFields).map(([field, idField]) => {
+    const value = data[field]
+    // Retain a newly selected ID; replace server display labels with their IDs.
+    return [field, /^\d+$/.test(String(value ?? '')) ? value : data[idField] ?? value ?? '']
+  }))
+}
+
 export function undevelopedApplicationFee(area, maximum) {
   const sqm = Number(area)
   if (!Number.isFinite(sqm) || sqm <= 0 || !Number.isFinite(Number(maximum)) || Number(maximum) <= 0 || sqm > Number(maximum)) {
@@ -16,12 +29,7 @@ export function undevelopedApplicationFee(area, maximum) {
 export function normalizeApplication(data) {
   return {
     ...data,
-    presentAddState: data.presentAddState ?? data.stateId ?? '',
-    district: data.district ?? data.districtId ?? '',
-    tehsil: data.tehsil ?? data.tehsilId ?? '',
-    block: data.block ?? data.blockId ?? '',
-    permanentAddState: data.permanentAddState ?? data.permanentAddStateId ?? '',
-    permanentDistrict: data.permanentDistrict ?? data.permanentAddDistrictId ?? '',
+    ...addressIds(data),
     permanentTehsil: data.permanentTehsil ?? data.permanentTehsilName ?? '',
     permanentBlock: data.permanentBlock ?? data.permanentBlockName ?? '',
     isAlreadyLandAlloted: data.isAlreadyLandAlloted === true || data.isAlreadyLandAlloted === 'true' || data.isLandAllotedStr === 'true',
@@ -77,6 +85,55 @@ export function requireSaveSuccess(value, requireId = false) {
   if (!value.successMessage && String(value.id) === '1010') throw new Error('The captcha is incorrect. Refresh it and try again.')
   if (!value.successMessage || (requireId && !/^[1-9]\d*$/.test(String(value.id)))) throw new Error('The server did not confirm that the application was saved.')
   return value
+}
+
+// Match the values consumed by IDApplicantController and IDServiceImpl's saves.
+// Loaded profile/payment/plot beans are read-only response data, not save input.
+const applicationSaveFields = new Set(`
+  applicantId vacantLandId vacantLandIDEncrypt captchaText statusId forEdit
+  applicantTitle applicantFirstName applicantMiddleName applicantLastName
+  fatherOrHusbandTitle fatherOrHusbandFirstName fatherOrHusbandMiddleName fatherOrHusbandLastName
+  aadhaarNumber age dateOfBirth categoryId gender domicile minority physicallyDisabled
+  address1 address2 city pinCode district tehsil block stateId presentAddState
+  phoneNumber mobileNo mobileNumber fax website email
+  permanentAddress1 permanentAddress2 permanentCity permanentPinCode permanentAddState permanentAddStateId
+  permanentDistrict permanentTehsil permanentBlock permanentMobileNumber permanentPhoneNumber permanentFax permanentWebsite permanentEmail
+  constitution otherConstitution proposedActivity ventureType proposedVenture time
+  presentConnectedLoad presentMaxDemand expConnectedLoad expMaxDemand waterReq
+  isAlreadyLandAlloted detailOfAllotedLand isUndevelopedLandByApplicant
+  nomineeName nomineeRelation nomineeGender additionalInfo challanMode ddDate ddNumber
+  premiumCharges leaseRent securityDeposit advanceRent totalPlotArea developmentCharges maintenanceCharges applicationFees totalAmount
+  totalPresentOpenCoveredArea totalPresentOpenCoveredCost totalSubsequentOpenCoveredArea totalSubsequentOpenCoveredCost
+  totalPresentAndSubsequentArea totalPresentAndSubsequentCost
+`.trim().split(/\s+/))
+
+export function applicationSavePayload(data) {
+  const validated = validateApplication(data)
+  const payload = Object.fromEntries(Object.entries(validated).filter(([key]) => applicationSaveFields.has(key)))
+  for (const [field, value] of Object.entries(addressIds(validated))) {
+    if (value !== '' && value != null) {
+      if (!/^\d+$/.test(String(value))) throw new Error(`Select a valid ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} before saving.`)
+      payload[field] = String(value)
+    }
+  }
+  // The read endpoint returns a translated activity label. Saves require the
+  // selected plot's purpose ID, as in the original AngularJS controller.
+  const purposeId = validated.vacantLandBean?.purposeId ?? validated.proposedActivity
+  if (!/^[1-9]\d*$/.test(String(purposeId ?? ''))) {
+    throw new Error('The plot activity ID is missing. Reload the application before saving.')
+  }
+  payload.proposedActivity = String(purposeId)
+  const rowFields = {
+    idEmploymentBeans: ['empName', 'empNumber'],
+    investmentBeans: ['empName', 'empNumber'],
+    financeBeans: ['empName', 'empNumber'],
+    itemsManufactured: ['itemName', 'presentAnnualCapacity', 'presentProposedYOI', 'subsequentAnnualCapacity', 'subsequentProposedYOI'],
+    landDetails: ['phase', 'type', 'purpose', 'dimensionsL', 'dimensionsW', 'area', 'cost'],
+  }
+  for (const [key, fields] of Object.entries(rowFields)) {
+    if (validated[key]) payload[key] = validated[key].map(row => Object.fromEntries(fields.filter(field => row[field] !== undefined).map(field => [field, row[field]])))
+  }
+  return payload
 }
 
 export function canApplyToParcel(parcel) {

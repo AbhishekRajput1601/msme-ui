@@ -20,7 +20,7 @@ try {
     return { data: typeof response === 'function' ? response(config) : response, status: 200, statusText: 'OK', headers: { 'content-type': 'application/json' }, config }
   }
   const data = {
-    vacantLandId: 42, vacantLandIDEncrypt: 'opaque-token', isAlreadyLandAlloted: false,
+    vacantLandId: 42, vacantLandIDEncrypt: 'opaque-token', isAlreadyLandAlloted: false, proposedActivity: '1',
     idEmploymentBeans: [{ empName: 'Skilled Workers', empNumber: '1' }],
     investmentBeans: [{ empName: 'Plant and machinery', empNumber: '100' }],
     financeBeans: [{ empName: 'Own Fund', empNumber: '100' }],
@@ -30,6 +30,44 @@ try {
   assert.equal(JSON.parse(requests.at(-1).data).vacantLandId, 42)
   await service.saveLandApplication({ ...data, applicantId: 17 })
   assert.equal(requests.at(-1).url, '/applicant/id/updateIdApplicantDetail')
+  const loaded = { ...data, applicantId: 17, statusId: 1, nomineeName: 'Test nominee',
+    industrialProfileBean: { authorizedPersonDob: 'Oct 16, 1990, 12:00:00 AM' },
+    proposedActivity: 'Industrial',
+    district: 'Rewa', districtId: 12, tehsil: 'Test tehsil', tehsilId: 34,
+    block: 'Test block', blockId: 56, presentAddState: 'Madhya Pradesh', stateId: 23,
+    permanentDistrict: 'Rewa', permanentAddDistrictId: '12',
+    permanentAddState: 'Madhya Pradesh', permanentAddStateId: '23',
+    vacantLandBean: { industrialAreaName: 'Developed Area', purposeId: 1, responseOnly: true },
+    ctPaymentBean: { transactionDateTime: '16/10/2026' },
+    idPendingApplicants: [{ applicantId: 18 }], profileImage: {}, quotedArea: 100,
+    itemsManufactured: [{ itemName: 'Widgets', presentAnnualCapacity: '100', responseOnly: true }],
+    landDetails: [{ phase: 'Present/First Phase', type: 'Covered', purpose: 'Factory', dimensionsL: '10', dimensionsW: '10', area: '100', cost: '5' }],
+  }
+  await service.saveLandApplication(loaded)
+  const saved = JSON.parse(requests.at(-1).data)
+  assert.equal(saved.proposedActivity, '1', 'Save the plot purpose ID instead of the display label')
+  assert.equal(saved.district, '12')
+  assert.equal(saved.tehsil, '34')
+  assert.equal(saved.block, '56')
+  assert.equal(saved.presentAddState, '23')
+  assert.equal(saved.permanentDistrict, '12')
+  assert.equal(saved.permanentAddState, '23')
+  await service.saveLandApplication({ ...loaded, district: '99' })
+  assert.equal(JSON.parse(requests.at(-1).data).district, '99', 'Keep an edited district selection')
+  await assert.rejects(() => service.saveLandApplication({ ...data, proposedActivity: 'Industrial' }), /plot activity ID/)
+  for (const key of ['industrialProfileBean', 'vacantLandBean', 'ctPaymentBean', 'idPendingApplicants', 'profileImage', 'quotedArea']) assert.equal(key in saved, false)
+  assert.equal(saved.nomineeName, 'Test nominee')
+  assert.equal(saved.vacantLandIDEncrypt, 'opaque-token')
+  assert.equal(saved.applicantId, 17)
+  assert.equal(saved.totalPresentAndSubsequentArea, 100)
+  assert.equal(saved.itemsManufactured[0].responseOnly, undefined)
+  assert.deepEqual(saved.landDetails, loaded.landDetails)
+  assert.equal(loaded.industrialProfileBean.authorizedPersonDob, 'Oct 16, 1990, 12:00:00 AM', 'Keep display data intact')
+  response = () => { const error = new Error('Request failed with status code 400'); error.response = { status: 400, data: { detail: 'Invalid field: landDetails[0].area' } }; throw error }
+  await assert.rejects(() => service.saveLandApplication(loaded), /Invalid field: landDetails\[0\]\.area/)
+  response = () => { const error = new Error('Request failed with status code 400'); error.response = { status: 400, data: '<html>Bad Request</html>' }; throw error }
+  await assert.rejects(() => service.saveLandApplication(loaded), /changes have not been saved/)
+  response = { id: '17', successMessage: 'Saved' }
   await service.saveLandApplication({ ...data, applicantId: 17, statusId: 5 }, true)
   assert.equal(requests.at(-1).url, '/applicant/id/editIdApplicantDetail')
   await assert.rejects(() => service.saveLandApplication({ ...data, applicantId: 17, statusId: 1 }, true), /awaiting a query/)

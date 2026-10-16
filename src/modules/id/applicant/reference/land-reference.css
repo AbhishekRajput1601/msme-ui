@@ -366,6 +366,98 @@
   transform: none !important;
 }
 
+/* ── APPLICATION LIST TABLE COLUMN LAYOUT ────────────────────────── */
+/* Column 1: S. No. */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(1),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(1) {
+  width: 55px !important;
+  min-width: 55px !important;
+  max-width: 65px !important;
+  text-align: center !important;
+}
+
+/* Column 2: Application ID */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(2),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(2) {
+  width: 180px !important;
+  min-width: 170px !important;
+  white-space: nowrap !important;
+}
+
+/* Column 3: Application Date - fixed compact width */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(3),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(3) {
+  width: 135px !important;
+  min-width: 130px !important;
+  max-width: 150px !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+}
+
+/* Column 4: Industrial Area - widened with generous space for address */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(4),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(4) {
+  width: 290px !important;
+  min-width: 260px !important;
+  max-width: 380px !important;
+  white-space: normal !important;
+  line-height: 1.6 !important;
+  text-align: left !important;
+}
+
+/* Column 5: Plot/Shed Number */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(5),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(5) {
+  width: 130px !important;
+  min-width: 110px !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+/* Column 6: Inspection Date */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(6),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(6) {
+  width: 110px !important;
+  min-width: 100px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* Column 7: Payment Details */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(7),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(7) {
+  width: 160px !important;
+  min-width: 140px !important;
+  white-space: normal !important;
+  line-height: 1.5 !important;
+}
+
+/* Column 8: Application Status */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(8),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(8) {
+  width: 130px !important;
+  min-width: 120px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* Column 9: DTIC Comments */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(9),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(9) {
+  width: 150px !important;
+  min-width: 130px !important;
+  white-space: normal !important;
+}
+
+/* Column 10: Action */
+.land-reference-page[data-view="applicationList"] #dynamic-table th:nth-child(10),
+.land-reference-page[data-view="applicationList"] #dynamic-table td:nth-child(10) {
+  width: 180px !important;
+  min-width: 160px !important;
+  text-align: center !important;
+}
+
 /* ── DEVELOPED LAND ALLOTMENT TABLE COLUMN LAYOUT ──────────────────── */
 /* Column 2: Area & Location */
 .land-reference-page[data-view="vacantLandList"] #dynamic-table th:nth-child(2),

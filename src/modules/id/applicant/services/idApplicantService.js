@@ -117,6 +117,12 @@ export async function fetchDocumentsList(applicantId) {
   return data
 }
 
+export async function fetchIndustrialProfileDocumentsList(applicantId) {
+  const data = jsonData(await get('/applicant/id/fetchIndustrialProfileDocumentsList', { applicantId }))
+  if (!Array.isArray(data)) throw new Error('The server returned an invalid industrial profile document list.')
+  return data
+}
+
 export async function fetchAllLandAllotmentList(tableState = {}) {
   return dataTable(await get('/applicant/fetchAllLandAllotmentList', toLegacyDataTablesParams({ ...tableState, columnList: VACANT_LAND_COLUMNS })))
 }

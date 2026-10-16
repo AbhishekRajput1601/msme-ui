@@ -1,13 +1,19 @@
 import { get, post, upload } from '../../../../api/httpClient'
 import { jsonData } from '../../../../api/responseData'
-import { isUndeveloped, normalizeApplication, requireSaveSuccess, undevelopedApplicationFee, validateApplication } from '../landApplicationModel'
+import { applicationSavePayload, isUndeveloped, normalizeApplication, requireSaveSuccess, undevelopedApplicationFee } from '../landApplicationModel'
 
 const part = value => encodeURIComponent(String(value))
 
 export async function fetchLandPage(path, signal) {
   const response = await fetch(`/backend/applicant/${path}`, { credentials: 'include', signal })
   if (!response.ok) throw new Error(`The page could not be loaded (${response.status}).`)
-  const doc = new DOMParser().parseFromString(await response.text(), 'text/html')
+  // Read legacy form values without loading its remote images or frames.
+  // Keep the template detached; its contents are never inserted into the page.
+  const template = document.createElement('template')
+  template.innerHTML = await response.text()
+  const doc = template.content
+  // Preserve the form collection used by the other legacy-page readers.
+  doc.forms = doc.querySelectorAll('form')
   if (doc.querySelector('[name="j_password"]')) throw new Error('Your session has expired. Please log in again.')
   return doc
 }
@@ -33,16 +39,27 @@ export async function loadLandApplication(applicantId, parcelToken, signal, corr
     ...normalizeApplication(data), ...parcelFields, vacantLandId: Number(rawId), vacantLandIDEncrypt: parcelToken,
     ...(isUndeveloped(data) ? { totalPlotArea: data.applicantId ? data.totalPlotArea : '', quotedArea: null } : {}),
     constitution: data.constitution || profile.firmConstitution,
-    proposedActivity: data.proposedActivity || data.vacantLandBean.purposeId,
+    proposedActivity: data.vacantLandBean.purposeId,
   }
 }
 
 export async function saveLandApplication(data, correction = false) {
-  const payload = validateApplication(data)
-  delete payload.quotedArea
+  const payload = applicationSavePayload(data)
   const existing = Number(payload.applicantId) > 0
   if (correction && (!existing || Number(payload.statusId) !== 5)) throw new Error('Only applications awaiting a query reply can be corrected.')
-  const result = requireSaveSuccess(jsonData(await post(`/applicant/id/${correction ? 'edit' : existing ? 'update' : 'add'}IdApplicantDetail`, payload)), !existing)
+  let response
+  try {
+    response = await post(`/applicant/id/${correction ? 'edit' : existing ? 'update' : 'add'}IdApplicantDetail`, payload)
+  } catch (error) {
+    if (error.response?.status === 400) {
+      const body = error.response.data
+      const detail = body && typeof body === 'object' && (body.errorMessage || body.detail || body.message)
+      throw new Error(typeof detail === 'string' && detail.trim() && detail !== 'Bad Request'
+        ? detail : 'The server rejected the application data (400). Your changes have not been saved. Check the backend log for the rejected field.')
+    }
+    throw error
+  }
+  const result = requireSaveSuccess(jsonData(response), !existing)
   return { ...result, applicantId: existing ? payload.applicantId : result.id }
 }
 
