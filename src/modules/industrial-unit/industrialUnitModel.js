@@ -38,7 +38,7 @@ const unitFiles = new Set(['gstSellDocUpload','employmentGivenUpload','permissio
 export function createIndustrialState({ params, navigate, notify, signal, locale }) {
   const state = {
     faData: { schemeYear: '2025', faIndustrialUnitBean: { activityDetailsList: [{}], capitalInvestmentBeans: [], unitProductDetailsBeans: [{}], unitExpansionDetailsBeans: [] }, faRequiredAssistanceBean: { selectedOptions: {}, caExpInvDetailsBean: [{}], pharmaExpInvDetailsBeans: [{}] } },
-    fileData: {}, cerfdata: { CertificationDetails: {} }, UnitAddressDetailsBean: {}, bankList1: [], unitList: [], sectorofinductryList: {},
+    fileData: {}, cerfdata: { CertificationDetails: {} }, UnitAddressDetailsBean: {}, bankList1: [], unitList: [], sectorofinductryList: {}, assistanceList: [],
     applicationId: params.applicationId, establishmentType: 'Unit', step: 1, maxStep: 1, schemeYear: '2025',
     disabled: true, finalSubmit: false, saveAsDraft: true, saveAndNext: false, formOpen: true, declarationAccepted: true,
     initialized: new Set(), locale, notify, busy: false, saving: false, error: '',
@@ -138,10 +138,35 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
       refresh()
     },
     async fetchAppliedAssistanceList(unitName, unitType) {
-      const response = await get('fetchAppliedAssistance', { unitname: unitName, unitType })
-      state.assistanceList = typeof response.value === 'string' ? JSON.parse(response.value) : response
-      const tables = ['capital_assistance','quality_assistance','reimbursement_patents','infra_dev_exp_compensation','waste_mgmt_estb_exp_comp','energy_audit_assistance','powerloom_upgradation','pharma_lab_assistance',null,null,'freight_assistance_for_export','global_competitiveness','food_processing_unit','apparel_sector','textile_unit','footwear_furniture_toys_value_chain_product','boosting_circular_economy','motor_vehicle_scrapping_centre','logistics_warehousing_project','research_development_project','revival_sick_unit']
-      for (let i = 1; i <= 21; i++) state['fs'+i] = !state.assistanceList.some(item => item.tables?.includes('fa_' + tables[i-1]))
+      try {
+        const response = await get('fetchAppliedAssistance', { unitname: unitName, unitType })
+        let list = []
+        if (Array.isArray(response)) {
+          list = response
+        } else if (Array.isArray(response?.value)) {
+          list = response.value
+        } else if (typeof response?.value === 'string') {
+          try {
+            const parsed = JSON.parse(response.value)
+            list = Array.isArray(parsed) ? parsed : []
+          } catch {
+            list = []
+          }
+        } else if (Array.isArray(response?.data)) {
+          list = response.data
+        } else if (Array.isArray(response?.list)) {
+          list = response.list
+        }
+        state.assistanceList = list
+        const tables = ['capital_assistance','quality_assistance','reimbursement_patents','infra_dev_exp_compensation','waste_mgmt_estb_exp_comp','energy_audit_assistance','powerloom_upgradation','pharma_lab_assistance',null,null,'freight_assistance_for_export','global_competitiveness','food_processing_unit','apparel_sector','textile_unit','footwear_furniture_toys_value_chain_product','boosting_circular_economy','motor_vehicle_scrapping_centre','logistics_warehousing_project','research_development_project','revival_sick_unit']
+        for (let i = 1; i <= 21; i++) {
+          const table = tables[i-1]
+          state['fs'+i] = !table || !list.some(item => item?.tables?.includes('fa_' + table))
+        }
+      } catch (e) {
+        state.assistanceList = []
+        for (let i = 1; i <= 21; i++) state['fs'+i] = true
+      }
       refresh()
     },
     async fetchZEDCertificationDetails(number) {
@@ -177,7 +202,11 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
         unit.applicationId = state.faData.applicationId; unit.schemeYear = state.schemeYear
         state.responseObject = await post('fa/addFaIndustrialUnitDetails', unit)
         await upload('uploadFaIndustrialUnitDocument', Object.fromEntries(Object.entries(state.fileData).filter(([key]) => unitFiles.has(key) && (key !== 'employmentGivenUpload' || state.schemeYear === '2021') && (key !== 'schemeDocUpload' || state.schemeYear === '2025'))))
-        await state.fetchAppliedAssistanceList(state.faData.unitName, unit.unitType)
+        try {
+          await state.fetchAppliedAssistanceList(state.faData.unitName, unit.unitType)
+        } catch (e) {
+          console.warn('fetchAppliedAssistanceList failed', e)
+        }
         if (state.saveAndNext) { state.step = 3; state.maxStep = Math.max(3,state.maxStep) }
       })
     },

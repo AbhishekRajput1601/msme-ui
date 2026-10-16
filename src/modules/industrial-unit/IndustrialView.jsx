@@ -163,11 +163,18 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     const value = evaluate(node.read, s)
     const file = attrs.type === 'file'
     const objectOptions = node.options?.match(/^(\w+) as \1\.(\w+) for \1 in (\w+) track by \1\.(\w+)$/)
-    if (/\bdate\b/.test(attrs.className || '') && !file) attrs.type = 'date'
+    if (/\b(date|dateonlypicker)\b/i.test(attrs.className || '') && !file) attrs.type = 'date'
     if (root.prepareField) root.prepareField(attrs, node)
     if (attrs.type === 'checkbox') attrs.checked = Boolean(value)
     else if (attrs.type === 'radio') attrs.checked = String(value) === String(attrs.value)
     else if (!file) attrs.value = objectOptions ? value?.[objectOptions[4]] ?? '' : attrs.type === 'date' ? filter('date', value, 'yyyy-MM-dd') : value ?? ''
+    if (attrs.type === 'date') {
+      const prevClick = attrs.onClick
+      attrs.onClick = e => {
+        try { e.currentTarget.showPicker?.() } catch {}
+        prevClick?.(e)
+      }
+    }
     if (node.pattern) attrs.pattern = node.pattern.replace(/^\//, '').replace(/\/[a-z]*$/, '')
     const isFromDate = ['fromDateId','fromDate','fromDateInput','entryDate1'].includes(attrs.id || node.model)
     const isToDate = ['toDateId','toDate','toDateInput','entryDate2'].includes(attrs.id || node.model)

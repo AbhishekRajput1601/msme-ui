@@ -541,8 +541,23 @@
 .industrial-unit-page input[name="unitStartDate"],
 .industrial-unit-page input#unitElectCompDate,
 .industrial-unit-page input[name="unitElectCompDate"],
-.industrial-unit-page input.dateOnlyPicker {
+.industrial-unit-page input.dateOnlyPicker,
+.industrial-unit-page input[type="date"] {
   max-width: 260px !important;
+  cursor: pointer !important;
+}
+
+.industrial-unit-page input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer !important;
+  opacity: 0.8 !important;
+  font-size: 15px !important;
+  padding: 3px !important;
+  transition: opacity 0.15s ease, transform 0.15s ease !important;
+}
+
+.industrial-unit-page input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
 }
 
 /* Product table action buttons & grid alignment */
