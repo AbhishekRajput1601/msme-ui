@@ -4,6 +4,7 @@ import { fetchApplicationDetail, fetchDocumentsList, getDownloadDocumentUrl } fr
 import { fetchLandPage, saveLandDocuments } from './services/landApplicationService'
 import { isUndeveloped } from './landApplicationModel'
 import toast from '../../../utils/toast'
+import Spinner from '../../../components/loaders/Spinner'
 import './land-documents.css'
 
 const categories = [
@@ -65,7 +66,7 @@ export default function LandDocumentsPage({ correction = false }) {
   }
   return <section className="panel panel-info land-documents-page"><div className="panel-heading">Land application documents</div><div className="panel-body">
     <Link className="land-documents-back" to="/applicant/land-allotment">← Back to applications</Link>
-    {result.loading ? <p role="status">Loading document requirements…</p> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
+    {result.loading ? <Spinner /> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
       {result.documents.length > 0 && <div className="land-documents-existing"><h2>Uploaded documents</h2><ul>{result.documents.map((doc, index) => <li key={index}>{doc.documentTypeShort ? <a href={getDownloadDocumentUrl(doc.documentTypeShort, applicantId)} target="_blank" rel="noreferrer">{doc.documentType}</a> : doc.documentType}</li>)}</ul></div>}
       {saved ? <div role="status" className="alert alert-success"><p>{saved.message}</p><p>{correction ? 'The corrected documents have been saved. Continue to your query reply.' : 'Documents have been saved. Payment and any required eSign steps remain.'}</p><Link className="btn btn-primary" to={`/applicant/land-allotment/${correction ? 'query' : 'payment'}/${applicantId}/${encodeURIComponent(saved.parcelToken)}`}>{correction ? 'Continue to query reply' : 'Review payment'}</Link></div> : <form key={attempt} onSubmit={submit} aria-busy={busy}>
         <div className="land-documents-help" id="land-upload-help"><strong>Upload guidelines</strong><p>PDF or JPEG, smaller than {result.undeveloped ? '10' : '2'} MB per document. Photographs: JPEG, smaller than 2 MB.</p><p>{result.update ? 'Choose only the files you want to replace.' : 'Fields marked with * are required.'}</p></div>

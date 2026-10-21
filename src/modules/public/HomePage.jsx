@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { backendLink } from './legacyWebsite'
 import { WebsiteContent } from './WebsiteContent'
+import Spinner from '../../components/loaders/Spinner'
 
 const FALLBACK_SLIDES = [
   { src: '/img/hero-slider.jpg', alt: 'MSME Madhya Pradesh – Empowering Entrepreneurs' },
@@ -202,8 +203,8 @@ export default function HomePage() {
   if (website.loading) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', flexDirection: 'column', gap: 16 }}>
-        <div style={{ width: 44, height: 44, border: '4px solid #f57c00', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-        <p style={{ color: '#555' }}>Loading website content…</p>
+        <Spinner />
+
       </div>
     )
   }

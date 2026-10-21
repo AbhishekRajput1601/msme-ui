@@ -15,6 +15,7 @@ import {
   isStartDateAfterEndDate
 } from '../../utils/dateUtils'
 import { toast } from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 
 export default function IndustrialProfilePage() {
   const { locale } = useTranslation()
@@ -430,7 +431,8 @@ export default function IndustrialProfilePage() {
       </div>
 
 
-      {loading ? (
+      {loading && <Spinner />}
+      {false ? (
         <div className="panel panel-default">
           <div className="panel-body text-center py-5">
             <i className="fa fa-spinner fa-spin fa-2x text-primary" />

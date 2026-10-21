@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { fetchLandPage } from '../services/landApplicationService'
 import { landReferenceLink, landDownloadLink } from './landReferenceLinks'
 import toast from '../../../../utils/toast'
+import Spinner from '../../../../components/loaders/Spinner'
 import './land-reference.css'
 
 const tags = new Set('div section p span strong b em i u br hr ul ol li h1 h2 h3 h4 h5 h6 a img table thead tbody tfoot tr th td label form input textarea select option button small fieldset legend'.split(' '))
@@ -106,5 +107,5 @@ export default function ResolvedLandPage({ path, identity, amountField, back }) 
     }
     return React.createElement(tag,props,['input','img','br','hr'].includes(tag)?undefined:children)
   }
-  return <div className="land-reference-page" data-view="resolved">{result.loading?<p role="status">Loading....</p>:result.error?<p className="alert alert-danger" role="alert">{result.error}</p>:render(result.region,0)}</div>
+  return <div className="land-reference-page" data-view="resolved">{result.loading?<Spinner />:result.error?<p className="alert alert-danger" role="alert">{result.error}</p>:render(result.region,0)}</div>
 }

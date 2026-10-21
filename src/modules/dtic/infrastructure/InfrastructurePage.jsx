@@ -13,6 +13,7 @@ import tables from './generated/tables.json'
 import { rowRules } from './generated/rows'
 import translations from '../generated/translations.json'
 import toast from '../../../utils/toast'
+import Spinner from '../../../components/loaders/Spinner'
 import './generated/reference.css'
 import './infrastructure.css'
 
@@ -113,10 +114,10 @@ export default function InfrastructurePage({ match, locale }) {
     return () => abort.abort()
   }, [route, locale, navigate])
   if (error) return <div className="alert alert-danger" role="alert">{error}</div>
-  if (!content) return <p role="status">Loading...</p>
+  if (!content) return <Spinner />
   const { name,state,doc } = content
   return <div className={isLandRecord(name) ? 'dtic-page dtic-land-records' : 'dtic-page dtic-infrastructure'} data-dtic-view={name}>
-    {(state.busy || state.saving) && <p role="status">Processing...</p>}
+    {(state.busy || state.saving) && <Spinner />}
     {serverViews.has(name) ? <ServerDetails doc={doc} state={state} /> : <IndustrialView name={name} state={state} />}
   </div>
 }

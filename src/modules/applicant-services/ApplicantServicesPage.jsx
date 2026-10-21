@@ -8,6 +8,7 @@ import ReferenceDateInput from './ReferenceDateInput'
 import views from './generated/views'
 import { expressions } from './generated/expressions'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './generated/reference.css'
 import './applicant-services.css'
 
@@ -27,12 +28,12 @@ function PageContent({ name }) {
     setState(model)
     return () => abort.abort()
   },[params.id,params.applicationId,navigate])
-  if (!state) return <div role="status">Loading....</div>
+  if (!state) return <Spinner />
   state.locale=locale
   state.renderTable=node => <AwardTable node={node} state={state} />
   state.renderDate=attrs => <ReferenceDateInput attrs={attrs} onError={error => { state.error=error.message; toast.warning(error.message); render() }} />
   return <div className="applicant-services-page" data-view={name} onKeyDownCapture={referenceKeyDown}>
-    {state.busy && <div role="status" className="services-loading">Loading....</div>}
+    {state.busy && <Spinner />}
     <IndustrialView name={name} state={state} />
   </div>
 }

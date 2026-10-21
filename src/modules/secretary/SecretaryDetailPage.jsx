@@ -31,6 +31,7 @@ import {
   extractUploadedDocuments,
 } from './secretaryService'
 import { toast } from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './secretary.css'
 
 export default function SecretaryDetailPage() {
@@ -140,8 +141,8 @@ export default function SecretaryDetailPage() {
 
             <div className="panel-body">
               {loading ? (
-                <div className="text-center" style={{ padding: '30px' }}>
-                  <i className="fa fa-spinner fa-spin fa-2x" /> Loading applicant details...
+                <div>
+                  <Spinner />
                 </div>
               ) : (
                 <>

@@ -14,6 +14,7 @@ import views from './generated/views'
 import { expressions } from './generated/expressions'
 import tables from './generated/tables.json'
 import toast from '../../../../utils/toast'
+import Spinner from '../../../../components/loaders/Spinner'
 import './generated/reference.css'
 import './land-reference.css'
 
@@ -108,7 +109,7 @@ function ReferenceContent({ name }) {
     return () => abort.abort()
   },[name,params.applicantId,params.landId,params.paymentId,params.mode,params.id,params.decisionId,state])
   return <div className="land-reference-page" data-view={name}>
-    {(state.busy || state.saving) && <div role="status">Loading....</div>}
+    {(state.busy || state.saving) && <Spinner />}
     <IndustrialView name={name} state={state} />
   </div>
 }

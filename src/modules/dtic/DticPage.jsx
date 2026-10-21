@@ -16,6 +16,7 @@ import DticTable from './DticTable'
 import DticAgenda from './DticAgenda'
 import DticDashboard from './DticDashboard'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './generated/reference.css'
 import './dtic-page.css'
 import './dtic-msme-form.css'
@@ -79,10 +80,10 @@ function DticContent({ match, locale }) {
   }, [navigate,locale,match])
   if (!match) return <div className="alert alert-danger">This DTIC page has not yet been migrated.</div>
   if (error) return <div className="alert alert-danger" role="alert">{error}</div>
-  if (!content) return <p role="status">Loading....</p>
+  if (!content) return <Spinner />
   const { state,name } = content
   return <div className={`dtic-page${name === 'dtic/msmeapplicationlist' ? ' dtic-msme-list' : ''}${name === 'dtic/viewmsmeform' ? ' dtic-msme-form' : ''}`}>
-    {(state.busy || state.saving) && <p role="status">Loading....</p>}
+    {(state.busy || state.saving) && <Spinner />}
     <IndustrialView name={name} state={state} />
     {state.agendaOpen && <DticAgenda state={state} />}
   </div>

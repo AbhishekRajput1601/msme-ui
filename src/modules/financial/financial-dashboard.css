@@ -1,0 +1,33 @@
+.fa-dash-summary { display: grid; grid-template-columns: 1fr 2.3fr; border: 1px solid #cdd8e6; border-radius: 12px; overflow: hidden; margin-bottom: 28px; background: #fff; box-shadow: 0 8px 26px #223c9314; }
+.fa-dash-total { padding: 28px; background: linear-gradient(130deg, #286090, #223c93); color: #fff; border-top: 3px solid #f07e01; }
+.fa-dash-total .dtic-dash-eyebrow { color: #dae8ff; }
+.fa-dash-total > span { display: block; font-size: 14px; }
+.fa-dash-total > strong { display: block; font-size: clamp(28px, 3.5vw, 48px); line-height: 1.25; margin: 12px 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.fa-dash-total > p:not(.dtic-dash-eyebrow) { color: #e0eafa; font-size: 12px; margin-bottom: 22px; }
+.fa-dash-total > a { color: #fff; display: flex; align-items: center; justify-content: space-between; font-size: 13px; text-decoration: none; padding-top: 16px; border-top: 1px solid #ffffff40; }
+.fa-dash-total > a:hover { text-decoration: underline; }
+.fa-dash-milestones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fa-dash-milestone { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 16px; padding: 24px; color: var(--dash-ink); text-decoration: none; border-left: 1px solid #d5e0ef; background: linear-gradient(160deg, #fff, #e2ecfa); }
+.fa-dash-milestone.tone-amber { background: linear-gradient(160deg, #fff, #f8dfbc); }
+.fa-dash-milestone > span:not(.fa-dash-marker) { font-size: 13px; min-height: 36px; line-height: 1.5; }
+.fa-dash-milestone > strong { font-size: clamp(22px, 2.8vw, 36px); color: #223c93; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; max-width: 100%; }
+.fa-dash-milestone small { color: var(--dash-primary-dark); font-size: 11px; }
+.fa-dash-marker { width: 26px; height: 4px; background: #337ab7; border-radius: 4px; }
+.fa-dash-milestone.tone-teal .fa-dash-marker { background: #223c93; }
+.fa-dash-milestone.tone-amber .fa-dash-marker { background: #f07e01; }
+.fa-dash-milestone.tone-amber > strong { color: #a85900; }
+.fa-dash-milestone:hover small { text-decoration: underline; text-underline-offset: 4px; }
+.fa-dash-reports { border-top: 1px solid var(--dash-line); }
+.fa-dash-reports > a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 19px 0; color: var(--dash-ink); text-decoration: none; border-bottom: 1px solid var(--dash-line); }
+.fa-dash-reports strong { display: block; font-size: 13px; font-weight: 600; }
+.fa-dash-reports small { display: block; margin-top: 5px; color: var(--dash-muted); font-size: 11px; line-height: 1.6; }
+.fa-dash-reports a:hover { color: var(--dash-primary-dark); background: #eef5fb; }
+.fa-dash-tools { display: flex; align-items: center; gap: 28px; padding: 24px 0; margin-top: 28px; border-top: 1px solid var(--dash-line); }
+.fa-dash-tools h2 { font-size: 18px; margin: 0; font-weight: 650; }
+.fa-dash-tools > div { flex-shrink: 0; }
+.fa-dash-tools nav { display: flex; flex-wrap: wrap; gap: 12px; margin-left: auto; }
+.fa-dash-tools a { display: inline-flex; align-items: center; gap: 14px; padding: 12px 14px; background: #eef5fb; border: 1px solid #cfdded; border-radius: 7px; color: var(--dash-primary-dark); font-size: 12px; text-decoration: none; }
+.fa-dash-tools a:hover { background: #dbe8f9; border-color: #337ab7; }
+@media (prefers-reduced-motion: no-preference) { .fa-dash-summary { animation: dtic-dash-enter 380ms ease-out both; } .fa-dash-tools a, .fa-dash-reports > a { transition: background-color 180ms ease; } }
+@media (max-width: 1100px) { .fa-dash-summary { grid-template-columns: 1fr; } .fa-dash-milestone:first-child { border-left: 0; } .fa-dash-total { padding: 24px; } .fa-dash-tools { align-items: flex-start; flex-direction: column; gap: 18px; } .fa-dash-tools nav { margin-left: 0; } }
+@media (max-width: 560px) { .fa-dash-milestones { grid-template-columns: 1fr; } .fa-dash-milestone { display: grid; grid-template-columns: 1fr auto; padding: 20px; border-left: 0; border-top: 1px solid #d5e0ef; gap: 10px; } .fa-dash-marker { display: none; } .fa-dash-milestone > span:not(.fa-dash-marker) { min-height: 0; } .fa-dash-milestone > strong { font-size: 23px; } .fa-dash-tools nav, .fa-dash-tools a { width: 100%; } .fa-dash-tools a { justify-content: space-between; } }

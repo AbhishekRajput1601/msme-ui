@@ -21,6 +21,7 @@
 import React from 'react'
 import { Navigate, useLocation, Outlet } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import Spinner from '../components/loaders/Spinner'
 
 export default function ProtectedRoute({
   allowedRoles = [],
@@ -38,16 +39,9 @@ export default function ProtectedRoute({
     ? [allowedRoles]
     : []
 
-  // 1. While session verification is in progress, display a loading screen
+  // 1. While session verification is in progress, display a loading spinner in the middle of screen
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
-          <p className="text-sm font-medium text-gray-600">Verifying session...</p>
-        </div>
-      </div>
-    )
+    return <Spinner fullScreen />
   }
 
   // 2. Unauthenticated: redirect to login page and preserve requested URL in state

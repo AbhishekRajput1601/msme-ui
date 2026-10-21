@@ -4,6 +4,7 @@ import { getUnitData } from '../industrial-unit/industrialUnitService'
 import IndustrialView from '../industrial-unit/IndustrialView'
 import { applicantServiceLink } from './serviceLinks'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 
 // Ordered exactly as applicantAwardList.html's fnCreatedRow branches.
 export function awardAction(row) {
@@ -40,7 +41,7 @@ export default function AwardTable({ node, state }) {
   const count=result.count || 0, pages=Math.ceil(count/length), page=Math.floor(start/length)
   return <div>
     <div className="service-table-controls"><label>Show <select value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10,25,50,100].map(n => <option key={n}>{n}</option>)}</select> entries</label><label>Search: <input value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} /></label></div>
-    {result.loading && <div role="status">Processing...</div>}
+    {result.loading && <Spinner />}
     <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={!!result.loading}>
       <IndustrialView nodes={node.children.filter(child => child.tag === 'thead')} state={state} />
       <tbody>{result.data.map((row,index) => {

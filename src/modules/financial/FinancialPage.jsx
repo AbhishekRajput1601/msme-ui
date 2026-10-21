@@ -17,6 +17,7 @@ import reports from './generated/reports.json'
 import {rowRules} from './generated/rows'
 import {expressions} from './generated/expressions'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import '../industrial-unit/industrial-unit.css'
 import '../dtic/dtic-page.css'
 import './generated/reference.css'
@@ -67,7 +68,7 @@ function Content({match,locale,query}){
  },[navigate,locale])
  if(!match)return <div className="alert alert-warning">The legacy template for this Financial page is unavailable in the source checkout.</div>
  if(error)return <div className="alert alert-danger" role="alert">{error}</div>
- if(!content)return <p role="status">Loading....</p>
+ if(!content)return <Spinner />
  const {state,name}=content
- return <div className="industrial-unit-page dtic-page financial-page">{(state.busy||state.saving)&&<p role="status">Loading....</p>}<IndustrialView name={name} state={state}/></div>
+ return <div className="industrial-unit-page dtic-page financial-page">{(state.busy||state.saving)&&<Spinner />}<IndustrialView name={name} state={state}/></div>
 }

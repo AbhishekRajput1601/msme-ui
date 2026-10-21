@@ -7,6 +7,7 @@ import InfrastructurePages from './InfrastructurePages'
 import { createIndustrialState } from './industrialUnitModel'
 import { getUnitData } from './industrialUnitService'
 import translations from './generated/translations.json'
+import Spinner from '../../components/loaders/Spinner'
 import './generated/reference.css'
 import './industrial-unit.css'
 
@@ -97,15 +98,15 @@ function UnitContent({ route, id, establishmentType, locale }) {
 
   if (!state) {
     return (
-      <div className="text-center" style={{ textAlign: 'center', padding: '30px' }}>
-        <p>Loading....</p>
+      <div>
+        <Spinner />
       </div>
     )
   }
 
   return (
     <>
-      {state.saving && <div className="industrial-saving" role="status">Loading....</div>}
+      {state.saving && <Spinner />}
       {isQuery ? (
         <div className="panel panel-info">
           <div className="panel-heading text-center" style={{ textAlign: 'center' }}>

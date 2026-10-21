@@ -6,6 +6,7 @@ import IndustrialView from './IndustrialView'
 import translations from './generated/translations.json'
 import { businessError } from './viewHelpers'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './infrastructure.css'
 
 const listPath = '/department/fa/infradevelopmetList'
@@ -44,7 +45,7 @@ export default function InfrastructurePages({ id }) {
   }, [id, state])
   return <div className="infrastructure-page infrastructure-detail">
     {id ? <>
-      {state.busy && <div role="status">Loading....</div>}
+      {state.busy && <Spinner />}
       <IndustrialView name="viewfaInfrastructure" state={state} />
     </> : <InfrastructureList locale={locale} />}
   </div>
@@ -88,7 +89,7 @@ function InfrastructureList({ locale }) {
     <div className="row"><div className="panel panel-info">
       <div className="panel-heading">{t('application.fa.title', 'Financial Assistance')} &gt; <Link style={{ textDecoration: 'underline', color: '#ffffff', fontWeight: 700 }} to="/department/fa/dticfapendingapplicantsunit">{t('application.fa.industrialUnit', 'Industrial Unit')}</Link></div>
       <div className="panel-body"><div className="row">
-        {busy && <div id="processing-message" role="status">Processing...</div>}
+        {busy && <Spinner />}
         <div className="res_div">
           <div className="infrastructure-table-controls">
             <label>Show <select aria-label="Entries per page" value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10, 25, 50, 100].map(n => <option key={n}>{n}</option>)}</select> entries</label>

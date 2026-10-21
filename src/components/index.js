@@ -25,3 +25,7 @@ export { default as DataTable } from './tables/DataTable'
 export { default as Modal } from './modals/Modal'
 export { default as ConfirmDialog } from './modals/ConfirmDialog'
 export { default as SessionTimeoutModal } from './modals/SessionTimeoutModal'
+
+// Loader Components
+export { default as Spinner } from './loaders/Spinner'
+

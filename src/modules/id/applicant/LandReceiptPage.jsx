@@ -5,6 +5,7 @@ import { contentNodes } from '../../public/legacyWebsite'
 import { WebsiteContent } from '../../public/WebsiteContent'
 import { resolveLegacyHashRoute } from '../../../routes/roleRoutes'
 import toast from '../../../utils/toast'
+import Spinner from '../../../components/loaders/Spinner'
 
 export default function LandReceiptPage({ statusLookup = false, application = false }) {
   const { crn, locChallanId, applicantId, parcelToken } = useParams()
@@ -45,7 +46,7 @@ export default function LandReceiptPage({ statusLookup = false, application = fa
   }, [crn, locChallanId, applicantId, parcelToken, application, statusLookup, attempt])
   return <section className="panel panel-info"><div className="panel-heading">{statusLookup ? 'Check treasury payment status' : 'Land payment receipt and status'}</div><div className="panel-body">
     <Link to="/applicant/land-allotment">Back to applications</Link>
-    {result.loading ? <p role="status">Loading payment details…</p> : result.error ? <div className="alert alert-danger" role="alert"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Reload</button></div> : <>
+    {result.loading ? <Spinner /> : result.error ? <div className="alert alert-danger" role="alert"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Reload</button></div> : <>
       {!statusLookup && <WebsiteContent nodes={result.nodes} />}
       {result.fields.length > 0 && <form action="/backend/applicant/id/checkOnlinePaymentStatus" method="post" onSubmit={event => { if (submitting) event.preventDefault(); else setSubmitting(true) }}>
         {result.fields.map((field, index) => field.hidden || !statusLookup ? <input key={index} type="hidden" name={field.name} value={field.value} /> : <div className="form-group" key={index}><label htmlFor={`enquiry-${index}`}>{field.label}</label><input id={`enquiry-${index}`} className="form-control" name={field.name} defaultValue={field.value} required={field.name === 'urn'} readOnly={field.name !== 'urn'} /></div>)}

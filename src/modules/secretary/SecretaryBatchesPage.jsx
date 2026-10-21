@@ -19,6 +19,7 @@ import {
   downloadCoveringLetter,
 } from './secretaryService'
 import { toast } from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './secretary.css'
 
 export default function SecretaryBatchesPage() {
@@ -209,6 +210,7 @@ export default function SecretaryBatchesPage() {
               {/* ─── 1. Batch List View ─────────────────────────────────────── */}
               {!activeBatch && (
                 <div className="table-responsive">
+                  {loading && <Spinner />}
                   <table className="table table-striped table-bordered table-hover">
                     <thead>
                       <tr>
@@ -221,10 +223,10 @@ export default function SecretaryBatchesPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {loading ? (
+                      {false ? (
                         <tr>
                           <td colSpan="6" className="text-center" style={{ padding: '20px' }}>
-                            <i className="fa fa-spinner fa-spin fa-2x" /> Loading batches...
+                            <Spinner />
                           </td>
                         </tr>
                       ) : batches.length === 0 ? (
@@ -290,6 +292,7 @@ export default function SecretaryBatchesPage() {
                   </h4>
 
                   <div className="table-responsive">
+                  {loading && <Spinner />}
                     <table className="table table-striped table-bordered">
                       <thead>
                         <tr>

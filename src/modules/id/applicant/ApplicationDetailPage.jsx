@@ -10,6 +10,7 @@ import {
 import nodes from './reference/generated/application-detail/view.json'
 import { expressions } from './reference/generated/application-detail/expressions'
 import toast from '../../../utils/toast'
+import Spinner from '../../../components/loaders/Spinner'
 import './application-detail.css'
 
 export default function ApplicationDetailPage() {
@@ -57,7 +58,7 @@ function ApplicationDetailContent({ id }) {
     },
   }), [data, locale])
   if (error) return <div className="alert alert-danger" role="alert">{error} <Link to="/applicant/land-allotment">Back to Applications List</Link></div>
-  if (!data) return <p role="status">Loading application form details...</p>
+  if (!data) return <Spinner />
   const { application } = data
   const statusLower = (application.status || '').toLowerCase()
   return <div className="land-application-detail">

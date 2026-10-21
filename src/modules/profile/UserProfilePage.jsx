@@ -5,6 +5,7 @@ import ProfileNavTabs from './components/ProfileNavTabs'
 import { fetchUserProfile, updateUserProfile } from './services/profileService'
 import { getTodayString, isFutureDate } from '../../utils/dateUtils'
 import { toast } from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 
 export default function UserProfilePage() {
   const { locale } = useTranslation()
@@ -245,11 +246,12 @@ export default function UserProfilePage() {
       </div>
 
 
-      {loading ? (
+      {loading && <Spinner />}
+      {false ? (
         <div className="panel panel-default">
           <div className="panel-body text-center py-5">
-            <i className="fa fa-spinner fa-spin fa-2x text-primary" />
-            <p className="mt-2 text-muted">{hindi ? 'प्रोफ़ाइल विवरण लोड हो रहा है...' : 'Loading user profile details...'}</p>
+            <Spinner />
+
           </div>
         </div>
       ) : (

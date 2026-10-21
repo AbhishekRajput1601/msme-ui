@@ -4,6 +4,7 @@ import { useTranslation } from '../../hooks/useTranslation'
 import { contentNodes } from './legacyWebsite'
 import { backendUrl } from './publicRoutes'
 import { WebsiteContent } from './WebsiteContent'
+import Spinner from '../../components/loaders/Spinner'
 
 export function parsePublicContent(html, pageUrl) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
@@ -59,7 +60,7 @@ export default function PublicContentPage() {
   }, [result.title])
   return <article className="container public-content-page" lang={locale} aria-busy={result.loading}>
     <nav aria-label="Breadcrumb"><Link to="/">{locale === 'hi' ? 'मुख्य पृष्ठ' : 'Home'}</Link></nav>
-    {result.loading ? <p role="status">{locale === 'hi' ? 'सामग्री लोड हो रही है…' : 'Loading content…'}</p> : result.error ? <div role="alert"><p>{result.error}</p><button type="button" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
+    {result.loading ? <Spinner /> : result.error ? <div role="alert"><p>{result.error}</p><button type="button" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
       <h1 ref={heading} tabIndex={-1}>{result.title}</h1>
       <WebsiteContent nodes={result.nodes} />
     </>}

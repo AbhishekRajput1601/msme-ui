@@ -25,3 +25,30 @@ body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; c
 button, a, input, select, textarea { touch-action: manipulation; }
 button:not(:disabled), summary { cursor: pointer; }
 :focus-visible { outline: 2px solid #337ab7; outline-offset: 3px; }
+
+@keyframes portal-circle-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.portal-loader-circle {
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 50%;
+  animation: portal-circle-spin 0.75s linear infinite;
+}
+
+.portal-spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+

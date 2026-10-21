@@ -13,6 +13,7 @@ import {
   fetchProgressHistory,
 } from './secretaryService'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './secretary.css'
 
 export default function SecretaryProgressPage() {
@@ -151,8 +152,8 @@ export default function SecretaryProgressPage() {
           </div>
 
           {loading ? (
-            <div className="text-center" style={{ padding: '30px' }}>
-              <i className="fa fa-spinner fa-spin fa-2x" /> Loading progress details...
+            <div>
+              <Spinner />
             </div>
           ) : (
             <div

@@ -77,10 +77,11 @@ import {
   SecretaryProgressPage,
 } from '../modules/secretary'
 import { useAuth } from '../hooks/useAuth'
+import Spinner from '../components/loaders/Spinner'
 
 function AccountRedirect({ page }) {
   const { roles, loading } = useAuth()
-  if (loading) return null
+  if (loading) return <Spinner fullScreen />
   return <Navigate to={`${roles.includes('ROLE_DTIC') ? '/department/dtic' : roles.includes('ROLE_FA') ? '/department/fa' : '/applicant'}/${page}`} replace />
 }
 

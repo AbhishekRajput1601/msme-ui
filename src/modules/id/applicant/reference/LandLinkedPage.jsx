@@ -9,6 +9,7 @@ import { landReferenceLink } from './landReferenceLinks'
 import views from './generated/views'
 import { expressions } from './generated/expressions'
 import toast from '../../../../utils/toast'
+import Spinner from '../../../../components/loaders/Spinner'
 import './land-reference.css'
 import ResolvedLandPage from './ResolvedLandPage'
 
@@ -77,7 +78,7 @@ function LinkedContent() {
   state.digitalSignLoc=()=>sign(true)
   state.digitalSignPoss=()=>sign(true)
   return <div className="land-reference-page" data-view={possession?'uploadPossessionLetter':'uploadLOCLetter'}>
-    {result.loading?<p role="status">Loading....</p>:result.error?<p className="alert alert-danger" role="alert">{result.error}</p>:<>
+    {result.loading?<Spinner />:result.error?<p className="alert alert-danger" role="alert">{result.error}</p>:<>
       {gateway?<form action={gateway.action} method="post"><input type="hidden" name="msg" value={gateway.message}/><button className="btn btn-primary">Continue to eSign</button></form>:<IndustrialView name={possession?'uploadPossessionLetter':'uploadLOCLetter'} state={state}/>}
     </>}
   </div>

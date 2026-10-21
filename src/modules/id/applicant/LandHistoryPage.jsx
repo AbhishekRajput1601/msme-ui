@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { get } from '../../../api/httpClient'
 import { jsonData } from '../../../api/responseData'
 import toast from '../../../utils/toast'
+import Spinner from '../../../components/loaders/Spinner'
 
 export default function LandHistoryPage() {
   const { applicantId } = useParams()
@@ -24,7 +25,7 @@ export default function LandHistoryPage() {
   }, [applicantId, attempt])
   return <section className="panel panel-info"><div className="panel-heading">Application progress history</div><div className="panel-body">
     <Link to={`/applicant/land-allotment/detail/${encodeURIComponent(applicantId)}`}>Back to application</Link>
-    {result.loading ? <p role="status">Loading history…</p> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <div className="overflow-x-auto"><table className="table table-bordered"><thead><tr>{['Status', 'Assigned by', 'Assigned to', 'Comments', 'Decision date', 'Created date'].map(label => <th key={label}>{label}</th>)}</tr></thead><tbody>
+    {result.loading ? <Spinner /> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <div className="overflow-x-auto"><table className="table table-bordered"><thead><tr>{['Status', 'Assigned by', 'Assigned to', 'Comments', 'Decision date', 'Created date'].map(label => <th key={label}>{label}</th>)}</tr></thead><tbody>
       {result.rows.length ? result.rows.map((row, index) => <tr key={index}>{['status', 'assigner', 'assignee', 'comments', 'decisionDate', 'createdDate'].map(key => <td key={key}>{row[key] || '—'}</td>)}</tr>) : <tr><td colSpan={6}>No progress history is available.</td></tr>}
     </tbody></table></div>}
   </div></section>

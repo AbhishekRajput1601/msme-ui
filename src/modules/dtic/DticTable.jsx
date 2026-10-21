@@ -7,6 +7,7 @@ import { dticRequest, dticLink } from './dticService'
 import { rowRules } from './generated/rows'
 import tables from './generated/tables.json'
 import toast from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 
 export function dticCells(name, row, index, rules = rowRules, tableConfig = tables) {
   const result = {}
@@ -134,7 +135,7 @@ export default function DticTable({ name, node, state }) {
         </Link>}
       </div>
     </div>
-    {result.loading && <p role="status">Processing...</p>}
+    {result.loading && <Spinner />}
     <div className="dtic-table-scroll"><table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={!!result.loading}>
       <thead><tr>{headers.map((n, i) => <th key={i}><IndustrialView nodes={n.children} state={state} /></th>)}</tr></thead>
       <tbody>{result.rows.map((row, index) => {

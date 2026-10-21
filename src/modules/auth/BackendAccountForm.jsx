@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import { backendUrl } from '../public/publicRoutes'
 import { toast } from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 
 const actions = new Set(['/website/presignup', '/website/presignupauth', '/website/signup', '/website/resetpassword', '/website/login-through-mobile', '/website/login-through-mobileauth'])
 const messages = (doc, selector) => [...new Set([...doc.querySelectorAll(selector)].filter(node => !node.hidden && node.style.display !== 'none').map(node => node.textContent.trim()).filter(Boolean))]
@@ -107,7 +108,7 @@ export default function BackendAccountForm({ entry, fallbackAction, title }) {
     <h1>{title}</h1>
     <div ref={notice} tabIndex={-1}>
     </div>
-    {busy && <p role="status">Loading…</p>}
+    {busy && <Spinner />}
     {!form && !busy && <button type="button" onClick={() => setAttempt(value => value + 1)}>Retry</button>}
     {form?.fields && <form onSubmit={submit}>
       <fieldset disabled={busy}>

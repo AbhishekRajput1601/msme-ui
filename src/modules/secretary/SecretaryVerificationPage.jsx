@@ -16,6 +16,7 @@ import {
   fetchVerificationHistory,
 } from './secretaryService'
 import { toast } from '../../utils/toast'
+import Spinner from '../../components/loaders/Spinner'
 import './secretary.css'
 
 export default function SecretaryVerificationPage() {
@@ -263,6 +264,7 @@ export default function SecretaryVerificationPage() {
 
               {/* Applications table */}
               <div className="table-responsive">
+                {loading && <Spinner />}
                 <table className="table table-striped table-bordered table-hover">
                   <thead>
                     <tr>
@@ -287,10 +289,10 @@ export default function SecretaryVerificationPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {loading ? (
+                    {false ? (
                       <tr>
                         <td colSpan="8" className="text-center" style={{ padding: '20px' }}>
-                          <i className="fa fa-spinner fa-spin fa-2x fa-fw" /> Loading applications...
+                          <Spinner />
                         </td>
                       </tr>
                     ) : applications.length === 0 ? (
@@ -482,7 +484,7 @@ export default function SecretaryVerificationPage() {
             <div className="modal-body" style={{ padding: '15px', maxHeight: '400px', overflowY: 'auto' }}>
               {historyLoading ? (
                 <div className="text-center" style={{ padding: '20px' }}>
-                  <i className="fa fa-spinner fa-spin fa-2x" /> Loading history...
+                  <Spinner />
                 </div>
               ) : (
                 <table className="table table-bordered table-striped">

@@ -6,6 +6,7 @@ import { createDepartmentProfileState, passwordStrength } from './departmentProf
 import views from './generated/views.json'
 import translations from './generated/translations.json'
 import { expressions } from './generated/expressions'
+import Spinner from '../../../components/loaders/Spinner'
 import './generated/reference.css'
 import './department-profile.css'
 
@@ -68,7 +69,7 @@ function AccountContent({ password, locale, request, dashboard }) {
     } catch (failure) { state.error = failure.message; render() }
   }
   return <div className={`department-profile-page${password ? ' department-password-page' : ''}`}>
-    {state.loading && <p role="status">{locale === 'hi' ? 'कृपया प्रतीक्षा करें...' : 'Please wait...'}</p>}
+    {state.loading && <Spinner />}
     {error && <div className="department-profile-error" role="alert">
       <div><strong>{locale === 'hi' ? 'त्रुटि' : 'Unable to complete the request'}</strong><p>{error}</p></div>
       {!password && state.disabled && !state.saving && <button type="button" className="btn btn-default" disabled={state.loading} onClick={retry}>{locale === 'hi' ? 'पुनः प्रयास करें' : 'Retry'}</button>}

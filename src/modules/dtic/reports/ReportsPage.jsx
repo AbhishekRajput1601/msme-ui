@@ -7,6 +7,7 @@ import views from './generated/views.json'
 import tables from './generated/tables.json'
 import { expressions } from './generated/expressions'
 import translations from '../generated/translations.json'
+import Spinner from '../../../components/loaders/Spinner'
 import './generated/reference.css'
 import './reports.css'
 
@@ -25,9 +26,9 @@ export default function ReportsPage({ match, locale }) {
     setState(model)
     return () => abort.abort()
   }, [name, locale])
-  if (!state) return <p role="status">Loading....</p>
+  if (!state) return <Spinner />
   return <div className="dtic-page dtic-msme-reports">
-    {state.busy && <p role="status">Loading....</p>}
+    {state.busy && <Spinner />}
     <IndustrialView name={name} state={state} />
   </div>
 }
