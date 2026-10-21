@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { useTranslation } from '../../hooks/useTranslation'
 import { getCaptchaUrl } from '../../services/authService'
 import { getDefaultRouteForRoles } from '../../routes/roleRoutes'
+import { toast } from '../../utils/toast'
 import '../../styles/login-page.css'
 
 export default function LoginPage() {
@@ -19,7 +20,6 @@ export default function LoginPage() {
   const [captchaSrc, setCaptchaSrc] = useState(() => getCaptchaUrl())
   const [captchaError, setCaptchaError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
   const hindi = locale === 'hi'
 
   const refreshCaptcha = () => {
@@ -29,18 +29,19 @@ export default function LoginPage() {
   }
   const handleSubmit = async event => {
     event.preventDefault()
-    setErrorMessage(null)
     if (!username.trim() || !password) {
-      setErrorMessage('Please provide both username and password.')
+      toast.warning('Please provide both username and password.')
       return
     }
     setIsLoading(true)
     try {
       const user = await login({ username: username.trim(), password, captchaText: captchaText.trim(), loginType, language: hindi ? 'hi_IN' : 'en_US' })
+      toast.success(hindi ? 'सफलतापूर्वक लॉगिन हो गए!' : 'Login successful! Welcome.')
       navigate(location.state?.from?.pathname || getDefaultRouteForRoles(user.roles), { replace: true })
     } catch (error) {
       refreshCaptcha()
-      setErrorMessage(error?.response?.data?.message || error.message || 'Authentication failed. Please verify credentials.')
+      const msg = error?.response?.data?.message || error.message || 'Authentication failed. Please verify credentials.'
+      toast.error(msg)
     } finally { setIsLoading(false) }
   }
 
@@ -48,7 +49,7 @@ export default function LoginPage() {
     <div className="inner-content"><div className="panel panel-default content_text"><div className="panel-body content_text_body">
       <div className="side-bar"><div className="login"><div className="with-nav-tabs legacy-login-box">
         <p className="login-notice">Note: Only single login per User Name is allowed at a time. <br />If you try to login multiple, then only last logged in session will active.</p>
-        {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
+
         <ul className="nav nav-tabs" aria-label="Login type">
           <li><button type="button" className={loginType === 'APPLICANT' ? 'active' : ''} aria-pressed={loginType === 'APPLICANT'} onClick={() => setLoginType('APPLICANT')}><i className="fa fa-user" />{hindi ? 'उपयोगकर्ता' : 'User'}</button></li>
           <li><button type="button" className={loginType === 'DEPARTMENT' ? 'active' : ''} aria-pressed={loginType === 'DEPARTMENT'} onClick={() => setLoginType('DEPARTMENT')}><i className="fa fa-home" />{hindi ? 'विभाग' : 'Department'}</button></li>

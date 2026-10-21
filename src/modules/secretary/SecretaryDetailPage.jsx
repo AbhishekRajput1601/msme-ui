@@ -30,6 +30,7 @@ import {
   downloadUploadedDoc,
   extractUploadedDocuments,
 } from './secretaryService'
+import { toast } from '../../utils/toast'
 import './secretary.css'
 
 export default function SecretaryDetailPage() {
@@ -58,7 +59,9 @@ export default function SecretaryDetailPage() {
           if (detailResult.status === 'fulfilled' && detailResult.value) {
             setDetail(detailResult.value)
           } else if (detailResult.status === 'rejected') {
-            setError(detailResult.reason?.message || 'Applicant details could not be loaded from backend.')
+            const msg = detailResult.reason?.message || 'Applicant details could not be loaded from backend.'
+            setError(msg)
+            toast.error(msg)
           }
           if (historyResult.status === 'fulfilled' && Array.isArray(historyResult.value)) {
             setDetailHistory(historyResult.value)
@@ -95,7 +98,7 @@ export default function SecretaryDetailPage() {
     try {
       await downloadUploadedDoc(doc.id, detail?.applicationId || applicationNo, doc.label)
     } catch {
-      alert('Document not available for download.')
+      toast.error('Document not available for download.')
     }
   }
 
@@ -136,11 +139,6 @@ export default function SecretaryDetailPage() {
             </div>
 
             <div className="panel-body">
-              {error && (
-                <div className="alert alert-danger" role="alert">
-                  {error}
-                </div>
-              )}
               {loading ? (
                 <div className="text-center" style={{ padding: '30px' }}>
                   <i className="fa fa-spinner fa-spin fa-2x" /> Loading applicant details...

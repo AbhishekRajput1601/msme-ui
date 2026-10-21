@@ -8,11 +8,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchApplications } from './secretaryService'
+import toast from '../../utils/toast'
 import './secretary.css'
 
 export default function SecretaryDashboard() {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [applications, setApplications] = useState([])
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function SecretaryDashboard() {
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
-          setError(err.message || 'Failed to load applications.')
+          toast.error(err.message || 'Failed to load applications.')
         }
       })
       .finally(() => {
@@ -47,16 +47,6 @@ export default function SecretaryDashboard() {
           </h1>
         </div>
       </div>
-
-      {error && (
-        <div className="row">
-          <div className="col-md-12">
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="row">
         <div className="col-md-4">

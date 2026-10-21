@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import LandApplicationForm from './components/LandApplicationForm'
 import { loadLandApplication, saveLandApplication } from './services/landApplicationService'
+import toast from '../../../utils/toast'
 
 export default function LandApplicationEditPage({ correction = false }) {
   const { applicantId = '0', parcelToken } = useParams()
@@ -13,11 +14,17 @@ export default function LandApplicationEditPage({ correction = false }) {
     setResult({ loading: true })
     loadLandApplication(applicantId, parcelToken, controller.signal, correction)
       .then(data => { if (!controller.signal.aborted) setResult({ data }) })
-      .catch(error => { if (!controller.signal.aborted) setResult({ error: error.message }) })
+      .catch(error => {
+        if (!controller.signal.aborted) {
+          setResult({ error: error.message })
+          toast.error(error.message || 'Failed to load land application.')
+        }
+      })
     return () => controller.abort()
   }, [applicantId, parcelToken, attempt, correction])
   const save = async data => {
     const response = await saveLandApplication(data, correction)
+    toast.success(response.successMessage || 'Application details saved successfully!')
     navigate(`/applicant/land-allotment/${correction ? 'correct-documents' : 'documents'}/${response.applicantId}/${encodeURIComponent(parcelToken)}`, { state: { message: response.successMessage } })
   }
   return <section className="panel panel-info">

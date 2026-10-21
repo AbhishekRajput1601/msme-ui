@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import LandSigningDocument from './components/LandSigningDocument'
 import { loadSigningApplication, requestApplicationEsign, signApplicationWithDsc } from './services/landSigningService'
 import { getDownloadEsignedDocumentUrl } from './services/idApplicantService'
+import toast from '../../../utils/toast'
 
 export default function LandSigningPage() {
   const { applicantId, parcelToken } = useParams()
@@ -20,7 +21,12 @@ export default function LandSigningPage() {
     setResult({ loading: true }); setConfirmed(false); setError(''); setGateway(null); setSaved(false); setDetails({ aadhaarLast4Digits: '', remark: '' })
     loadSigningApplication(applicantId, parcelToken, controller.signal).then(data => {
       if (!controller.signal.aborted) setResult({ data })
-    }).catch(err => { if (!controller.signal.aborted) setResult({ error: err.message }) })
+    }).catch(err => {
+      if (!controller.signal.aborted) {
+        setResult({ error: err.message })
+        toast.error(err.message || 'Failed to load application document.')
+      }
+    })
     return () => controller.abort()
   }, [applicantId, parcelToken, attempt])
   const sign = async type => {
@@ -28,9 +34,19 @@ export default function LandSigningPage() {
     setBusy(true); setError('')
     try {
       const html = documentRef.current?.querySelector('.esignHtml')?.innerHTML
-      if (type === 'aadhaar') setGateway(await requestApplicationEsign(result.data.applicationData, html, details))
-      else { await signApplicationWithDsc(result.data.applicationData, html, details); setSaved(true) }
-    } catch (err) { setError(err.message) }
+      if (type === 'aadhaar') {
+        const gw = await requestApplicationEsign(result.data.applicationData, html, details)
+        setGateway(gw)
+        toast.info('Aadhaar signing request prepared. Proceed to provider.')
+      } else {
+        await signApplicationWithDsc(result.data.applicationData, html, details)
+        setSaved(true)
+        toast.success('Application signed with DSC successfully.')
+      }
+    } catch (err) {
+      setError(err.message)
+      toast.error(err.message || 'Signing failed.')
+    }
     finally { setBusy(false) }
   }
   const signedDocumentId = result.data?.applicationData.signedApplicationFormUploadDocId
@@ -39,7 +55,6 @@ export default function LandSigningPage() {
     <Link to={`/applicant/land-allotment/detail/${applicantId}`}>Back to application</Link>
     {result.loading ? <p role="status">Loading the application document…</p> : result.error ? <div className="alert alert-danger" role="alert"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
       <div ref={documentRef} className="overflow-x-auto"><LandSigningDocument {...result.data} /></div>
-      {error && <p role="alert" className="alert alert-danger">{error}</p>}
       {signed || saved ? <div role="status" className="alert alert-success"><p>{saved ? 'The server confirmed that the signed PDF was stored.' : 'This application is already signed.'}</p>{signedDocumentId && <a href={getDownloadEsignedDocumentUrl(signedDocumentId)}>Download signed application</a>}<p><Link to={`/applicant/land-allotment/detail/${applicantId}`}>Check application status</Link></p></div> : gateway ? <form action={gateway.action} method="post"><input type="hidden" name="msg" value={gateway.message} /><p>The signing request is ready. Continue to the signing provider to complete verification. Creating this request does not mean the application is signed.</p><button className="btn btn-primary">Continue to Aadhaar signing</button></form> : <div>
         <div className="form-group"><label htmlFor="sign-aadhaar">Last four Aadhaar digits (for Aadhaar signing)</label><input id="sign-aadhaar" name="aadhaarLast4Digits" className="form-control" inputMode="numeric" maxLength={4} autoComplete="off" value={details.aadhaarLast4Digits} disabled={busy} onChange={event => setDetails(current => ({ ...current, aadhaarLast4Digits: event.target.value }))} /></div>
         <div className="form-group"><label htmlFor="sign-remark">Remarks</label><textarea id="sign-remark" className="form-control" maxLength={800} value={details.remark} disabled={busy} onChange={event => setDetails(current => ({ ...current, remark: event.target.value }))} /></div>

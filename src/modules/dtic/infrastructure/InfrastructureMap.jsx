@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import toast from '../../../utils/toast'
 
 let library
 function loadLeaflet() {
@@ -27,7 +28,10 @@ export default function InfrastructureMap({ state }) {
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:18, attribution:'© OpenStreetMap contributors' }).addTo(map)
       L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', { maxZoom:19, subdomains:['mt0','mt1','mt2','mt3'], attribution:'Google' }).addTo(map)
       map.on('click', ({ latlng }) => {
-        if (latlng.lat < 21 || latlng.lat > 27 || latlng.lng < 74 || latlng.lng > 83) { window.alert('Location must be within Madhya Pradesh'); return }
+        if (latlng.lat < 21 || latlng.lat > 27 || latlng.lng < 74 || latlng.lng > 83) {
+          toast.warning('Location must be within Madhya Pradesh')
+          return
+        }
         if (marker) map.removeLayer(marker)
         marker = L.marker(latlng).addTo(map)
         state.vacantLandData.latitude = latlng.lat.toFixed(6)
@@ -35,7 +39,12 @@ export default function InfrastructureMap({ state }) {
         state.notify()
       })
       setReady(true)
-    }).catch(e => { if (!disposed) setError(e.message) })
+    }).catch(e => {
+      if (!disposed) {
+        setError(e.message)
+        toast.error(e.message || 'Failed to load map.')
+      }
+    })
     return () => { disposed = true; mapRef.current?.remove(); mapRef.current = null; polygonRef.current = null }
   }, [state])
   useEffect(() => {

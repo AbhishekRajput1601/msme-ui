@@ -7,6 +7,7 @@ import AwardTable from './AwardTable'
 import ReferenceDateInput from './ReferenceDateInput'
 import views from './generated/views'
 import { expressions } from './generated/expressions'
+import toast from '../../utils/toast'
 import './generated/reference.css'
 import './applicant-services.css'
 
@@ -29,9 +30,8 @@ function PageContent({ name }) {
   if (!state) return <div role="status">Loading....</div>
   state.locale=locale
   state.renderTable=node => <AwardTable node={node} state={state} />
-  state.renderDate=attrs => <ReferenceDateInput attrs={attrs} onError={error => { state.error=error.message; render() }} />
+  state.renderDate=attrs => <ReferenceDateInput attrs={attrs} onError={error => { state.error=error.message; toast.warning(error.message); render() }} />
   return <div className="applicant-services-page" data-view={name} onKeyDownCapture={referenceKeyDown}>
-    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
     {state.busy && <div role="status" className="services-loading">Loading....</div>}
     <IndustrialView name={name} state={state} />
   </div>

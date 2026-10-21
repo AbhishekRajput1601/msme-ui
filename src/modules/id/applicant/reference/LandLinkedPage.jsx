@@ -8,6 +8,7 @@ import IndustrialView from '../../../industrial-unit/IndustrialView'
 import { landReferenceLink } from './landReferenceLinks'
 import views from './generated/views'
 import { expressions } from './generated/expressions'
+import toast from '../../../../utils/toast'
 import './land-reference.css'
 import ResolvedLandPage from './ResolvedLandPage'
 
@@ -63,9 +64,13 @@ function LinkedContent() {
         if(!signed.SignedData)throw new Error('Invalid response from DSC Signer. Please check your DSC setup.')
         const saved=jsonData(await post('/applicant/'+(possession?'signPDFPossession':'signPDFLoc'),{id,billId:String(id),value:signed.SignedData,signedBase64PDF:signed.SignedData,type,reason:possession?'POSSESSION Signing':'APPLICATION_LOC Signing',serverDateTime:data.serverDateTime,signatureName:data.signatureName || 'Authorized Signatory',transactionId:data.transactionId}))
         if(!saved.vcId)throw new Error('The server did not confirm the signed letter was saved.')
+        toast.success('Signed letter saved successfully.')
         navigate('/applicant/land-allotment')
       }
-    }catch(error){state.error=error.message}finally{state.saving=false;render()}
+    }catch(error){
+      state.error=error.message
+      toast.error(error.message || 'Signing failed.')
+    }finally{state.saving=false;render()}
   }
   state.eSignAppDetailLOCForm=valid=>sign(false,valid)
   state.eSignApplicantDetailFormPossession=valid=>sign(false,valid)
@@ -73,7 +78,6 @@ function LinkedContent() {
   state.digitalSignPoss=()=>sign(true)
   return <div className="land-reference-page" data-view={possession?'uploadPossessionLetter':'uploadLOCLetter'}>
     {result.loading?<p role="status">Loading....</p>:result.error?<p className="alert alert-danger" role="alert">{result.error}</p>:<>
-      {state.error && <p className="alert alert-danger" role="alert">{state.error}</p>}
       {gateway?<form action={gateway.action} method="post"><input type="hidden" name="msg" value={gateway.message}/><button className="btn btn-primary">Continue to eSign</button></form>:<IndustrialView name={possession?'uploadPossessionLetter':'uploadLOCLetter'} state={state}/>}
     </>}
   </div>

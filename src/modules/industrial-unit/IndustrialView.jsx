@@ -3,6 +3,7 @@ import { expressions } from './generated/expressions'
 import views from './generated/views'
 import translations from './generated/translations.json'
 import { backendPath, faPath, filter, writePath } from './viewHelpers'
+import toast from '../../utils/toast'
 
 const names = { enctype: 'encType', class: 'className', for: 'htmlFor', readonly: 'readOnly', maxlength: 'maxLength', minlength: 'minLength', colspan: 'colSpan', rowspan: 'rowSpan', tabindex: 'tabIndex', autocomplete: 'autoComplete', novalidate: 'noValidate', cellpadding: 'cellPadding', cellspacing: 'cellSpacing', 'accept-charset': 'acceptCharset' }
 const booleans = new Set(['disabled','required','checked','readOnly','multiple','hidden','noValidate'])
@@ -187,21 +188,22 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
         if (isFromDate) {
           const currentTo = s.toDateInput || s.toDate || s.entryDate2 || s.reportForm?.entryDate2
           if (currentTo && iso > filter('date', currentTo, 'yyyy-MM-dd')) {
-            window.alert('From Date (Start Date) cannot be greater than To Date (End Date).')
+            toast.warning('From Date (Start Date) cannot be greater than To Date (End Date).')
             value = ''
           }
         }
         if (isToDate) {
           const currentFrom = s.fromDateInput || s.fromDate || s.entryDate1 || s.reportForm?.entryDate1
           if (currentFrom && iso < filter('date', currentFrom, 'yyyy-MM-dd')) {
-            window.alert('To Date (End Date) cannot be earlier than From Date (Start Date).')
+            toast.warning('To Date (End Date) cannot be earlier than From Date (Start Date).')
             value = ''
           }
         }
       }
       if (root.convertFieldValue) value = root.convertFieldValue(value, attrs, node)
       if (node.maxValue != null && evaluate(node.maxValue, s) && Number(value) > Number(evaluate(node.maxValue,s))) {
-        window.alert('The value exceeds ' + evaluate(node.maxValue,s)); value = ''
+        toast.warning('The value exceeds ' + evaluate(node.maxValue,s))
+        value = ''
       }
       if (/\balpha-only\b/.test(attrs.className || '') && typeof value === 'string') value = value.replace(/[^a-zA-Z .]/g,'')
       if (root.writeField) root.writeField(s, node.model, value)

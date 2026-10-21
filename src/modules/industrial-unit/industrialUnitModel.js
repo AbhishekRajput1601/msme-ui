@@ -2,6 +2,7 @@ import { installReferenceActions } from './generated/referenceActions'
 import { createRequests, getUnitData, saveUnitData } from './industrialUnitService'
 import { backendPath, faPath, filter, parseDate } from './viewHelpers'
 import { infrastructureUpload } from './infrastructureModel'
+import toast from '../../utils/toast'
 
 export function productionPolicy(value) {
   const date = parseDate(value)
@@ -77,8 +78,16 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
   async function save(operation) {
     if (state.saving) return
     state.saving = true; state.error = ''; notify()
-    try { await operation() } catch (error) { if (!signal.aborted) state.error = error.message }
-    finally { state.saving = false; state.busy = false; refresh() }
+    try {
+      await operation()
+    } catch (error) {
+      if (!signal.aborted) {
+        state.error = error.message
+        toast.error(error.message || 'Operation failed.')
+      }
+    } finally {
+      state.saving = false; state.busy = false; refresh()
+    }
   }
   async function upload(endpoint, entries, extra = {}) {
     const files = Object.entries(entries).filter(([, value]) => value instanceof File)
@@ -170,10 +179,15 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
       refresh()
     },
     async fetchZEDCertificationDetails(number) {
-      if (!number) return window.alert('Please Enter Certificate Number')
+      if (!number) return toast.warning('Please Enter Certificate Number')
       state.cerfdata = await get(`getcertifcateDetail/${encodeURIComponent(number)}/${encodeURIComponent(state.faData.udyamRegNo)}`)
       state.cerfdata.cerfnumber = number; state.isDisabled = true
       state.cerfdata.error = ['Invalid Details.', 'Something went worng'].includes(state.cerfdata.StatusMessage)
+      if (state.cerfdata.error) {
+        toast.error(state.cerfdata.StatusMessage || 'Failed to fetch ZED certification details.')
+      } else {
+        toast.success('ZED Certification details loaded successfully.')
+      }
       refresh()
     },
     downloadFaDocuments: id => window.open(backendPath(`downloadFaDocumentByDocumentId/${encodeURIComponent(id)}`), '_blank', 'noopener'),
@@ -193,6 +207,7 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
         if (!response.id) throw new Error('The server did not return an application ID.')
         state.faData.applicationId = response.id; state.responseObject = response
         state.step = 2; state.maxStep = Math.max(2, state.maxStep)
+        toast.success('Industrial profile details saved successfully.')
       })
     },
     addFaIndustrialUnitDetails(valid) {
@@ -208,6 +223,7 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
           console.warn('fetchAppliedAssistanceList failed', e)
         }
         if (state.saveAndNext) { state.step = 3; state.maxStep = Math.max(3,state.maxStep) }
+        toast.success('Industrial unit details saved successfully.')
       })
     },
     addFaIndustrialSchemeDetails: valid => saveScheme(valid, false),
@@ -216,8 +232,16 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
       if (state.isDisabled) return
       let body
       try { body = infrastructureUpload(state) }
-      catch (error) { window.alert(error.message); return }
-      return save(async () => { const response = await post('saveInfrstructureDevelopment', {}); if (!response.id) throw new Error('The server did not return an application ID.'); body.append('id',response.id); const result = await post('uploadInfrastructureDocument',body); state.responseObject = result; state.isDisabled = true; window.alert('Your application number is '+result.id) })
+      catch (error) { toast.warning(error.message); return }
+      return save(async () => {
+        const response = await post('saveInfrstructureDevelopment', {})
+        if (!response.id) throw new Error('The server did not return an application ID.')
+        body.append('id', response.id)
+        const result = await post('uploadInfrastructureDocument', body)
+        state.responseObject = result
+        state.isDisabled = true
+        toast.success('Your application number is ' + result.id)
+      })
     },
     uploadFADocuments() {
       return save(async () => {
@@ -225,6 +249,7 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
         body.append('applicationId', params.applicationId)
         for (const [name,file] of Object.entries(state.faData)) if (file instanceof File) body.append(name,file)
         state.responseObject1 = await post('addfaapplicantdocuments', body)
+        toast.success(state.responseObject1?.successMessage || 'Documents uploaded successfully.')
         if (state.responseObject1.successMessage) navigate('/applicant/financial-assistance')
       })
     },
@@ -243,7 +268,10 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
       await upload('uploadFaIndustrialSchemeDocument', files, scheme.selectedOptions)
       if (state.finalSubmit) {
         state.responseObject = await post('fa/addFaIndustrialSchemeDetails', { ...scheme, statusId: finalStatus })
+        toast.success('Application submitted successfully!')
         navigate('/applicant/financial-assistance')
+      } else {
+        toast.success('Scheme details saved successfully.')
       }
     })
   }

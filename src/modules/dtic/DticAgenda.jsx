@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { getTodayString, isPastDate } from '../../utils/dateUtils'
+import toast from '../../utils/toast'
 
 export default function DticAgenda({ state }) {
   const [remarks, setRemarks] = useState({}), [comment, setComment] = useState(null)
@@ -11,19 +12,44 @@ export default function DticAgenda({ state }) {
   useEffect(() => { ref.current?.focus() }, [])
   const rows = state.agendaRows || []
   function collect() {
-    if (!rows.length) { setError('No applications in the agenda.'); return null }
-    if (rows.some(row => !remarks[row.applicationNo]?.trim())) { setError('GM DTIC Remark is mandatory for every application.'); return null }
+    if (!rows.length) {
+      toast.warning('No applications in the agenda.')
+      setError('No applications in the agenda.')
+      return null
+    }
+    if (rows.some(row => !remarks[row.applicationNo]?.trim())) {
+      toast.warning('GM DTIC Remark is mandatory for every application.')
+      setError('GM DTIC Remark is mandatory for every application.')
+      return null
+    }
     setError('')
     return rows.map(row => ({ applicationNo: row.applicationNo, eligibleAmount: row.totalEligibleAmount ?? 0, gmRemark: remarks[row.applicationNo] }))
   }
   async function forward() {
     const appData = collect()
     if (!appData) return
-    if (!letterNo.trim()) { setError('Please enter the Covering Letter Number.'); return }
-    if (date && isPastDate(date)) { setError('Covering Letter Date cannot be in the past.'); return }
-    if (meetingDate && isPastDate(meetingDate)) { setError('Meeting Date cannot be in the past.'); return }
-    if (!file) { setError('Please upload the common Covering Letter (PDF).'); return }
+    if (!letterNo.trim()) {
+      toast.warning('Please enter the Covering Letter Number.')
+      setError('Please enter the Covering Letter Number.')
+      return
+    }
+    if (date && isPastDate(date)) {
+      toast.warning('Covering Letter Date cannot be in the past.')
+      setError('Covering Letter Date cannot be in the past.')
+      return
+    }
+    if (meetingDate && isPastDate(meetingDate)) {
+      toast.warning('Meeting Date cannot be in the past.')
+      setError('Meeting Date cannot be in the past.')
+      return
+    }
+    if (!file) {
+      toast.warning('Please upload the common Covering Letter (PDF).')
+      setError('Please upload the common Covering Letter (PDF).')
+      return
+    }
     await state.forwardBatch({ appData, letterNo, date, file, meetingDate })
+    toast.success('Batch forwarded successfully.')
   }
   return <div className="dtic-modal-backdrop"><section id="historyModal" className="dtic-modal" role="dialog" aria-modal="true" aria-label="Previous Application Data" tabIndex={-1} ref={ref}
     onKeyDown={e => { if (e.key === 'Escape') { if (comment) setComment(null); else state.closeAgenda() } }}>
@@ -32,7 +58,6 @@ export default function DticAgenda({ state }) {
       <div>जिला स्तरीय सहायता समिति बैठक दिनांक <input type="date" aria-label="Meeting date" min={today} value={meetingDate} onChange={e => setMeetingDate(e.target.value)} /> में प्रस्तुत प्रकरण</div>
     </div>
     <div className="modal-body">
-      {(error || state.error) && <div className="alert alert-danger" role="alert">{error || state.error}</div>}
       <div className="dtic-table-scroll"><table className="table table-bordered" style={{ minWidth:1250,fontSize:12 }}>
         <thead><tr>{['S.No','Application ID','Date of Application','Unit Organisation Name','Address','Date of Production','Udyam Registration','Investment in P&M and Building','Type of Assistance Applied','Applied Eligible Amount (Rs.) *','GM DTIC Remark *'].map(label => <th key={label}>{label}</th>)}</tr></thead>
         <tbody>{rows.map((row,index) => <tr key={row.applicationNo}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import { backendUrl } from '../public/publicRoutes'
+import { toast } from '../../utils/toast'
 import '../../styles/auth-recovery.css'
 
 export default function ForgotPasswordPage() {
@@ -16,8 +17,7 @@ export default function ForgotPasswordPage() {
   const [otpLoading, setOtpLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [resendTimer, setResendTimer] = useState(0)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSuccessMessage] = useState(null)
+
 
   useEffect(() => {
     if (resendTimer > 0) {
@@ -29,19 +29,16 @@ export default function ForgotPasswordPage() {
   }, [resendTimer])
 
   const handleGenerateOtp = async () => {
-    setErrorMessage(null)
-    setSuccessMessage(null)
-
     if (!userName.trim()) {
-      setErrorMessage(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
+      toast.warning(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
       return
     }
     if (!email.trim()) {
-      setErrorMessage(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
+      toast.warning(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
       return
     }
     if (!mobileNumber.trim()) {
-      setErrorMessage(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
+      toast.warning(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
       return
     }
 
@@ -62,14 +59,14 @@ export default function ForgotPasswordPage() {
       })
 
       setResendTimer(60)
-      setSuccessMessage(
+      toast.success(
         hindi
           ? 'ओटीपी आपके पंजीकृत मोबाइल नंबर और ईमेल पर भेज दिया गया है।'
           : 'OTP has been sent to your registered Mobile Number and Email Id.'
       )
     } catch {
       setResendTimer(60)
-      setSuccessMessage(
+      toast.success(
         hindi
           ? 'ओटीपी आपके पंजीकृत मोबाइल और ईमेल पर भेज दिया गया है।'
           : 'OTP has been sent to your registered Mobile Number and Email Id.'
@@ -81,23 +78,21 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setErrorMessage(null)
-    setSuccessMessage(null)
 
     if (!userName.trim()) {
-      setErrorMessage(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
+      toast.warning(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
       return
     }
     if (!email.trim()) {
-      setErrorMessage(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
+      toast.warning(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
       return
     }
     if (!mobileNumber.trim()) {
-      setErrorMessage(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
+      toast.warning(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
       return
     }
     if (!otp.trim()) {
-      setErrorMessage(
+      toast.warning(
         hindi
           ? 'कृपया ओटीपी दर्ज करें।'
           : 'Please enter Otp.'
@@ -123,13 +118,13 @@ export default function ForgotPasswordPage() {
 
       if (!res.ok) throw new Error(`Status ${res.status}`)
 
-      setSuccessMessage(
+      toast.success(
         hindi
           ? 'पासवर्ड रीसेट अनुरोध सफलतापूर्वक सबमिट कर दिया गया है।'
           : 'Password reset request has been submitted successfully.'
       )
     } catch {
-      setSuccessMessage(
+      toast.success(
         hindi
           ? 'पासवर्ड रीसेट अनुरोध सफलतापूर्वक सबमिट कर दिया गया है।'
           : 'Password reset request has been submitted successfully.'
@@ -142,17 +137,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="auth-recovery-page">
       <div className="forgot-password-card">
-        {errorMessage && (
-          <div className="auth-recovery-alert auth-recovery-alert-danger" role="alert">
-            {errorMessage}
-          </div>
-        )}
 
-        {successMessage && (
-          <div className="auth-recovery-alert auth-recovery-alert-success" role="status">
-            {successMessage}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} noValidate>
           {/* User Name */}

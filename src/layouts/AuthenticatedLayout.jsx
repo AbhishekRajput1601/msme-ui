@@ -6,6 +6,7 @@ import { useSessionTimeout } from '../hooks/useSessionTimeout'
 import { getDefaultRouteForRoles } from '../routes/roleRoutes'
 import SessionTimeoutModal from '../components/modals/SessionTimeoutModal'
 import ConfirmDialog from '../components/modals/ConfirmDialog'
+import toast from '../utils/toast'
 
 const applicantMenu = [
   { key: 'dashboard', label: 'Dashboard', href: '/applicant/dashboard', iconName: 'dashboard' },
@@ -59,8 +60,16 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
 
   const handleLogoutConfirm = async () => {
     setIsLoggingOut(true)
-    try { await logout(); navigate('/login?logout=true') }
-    finally { setIsLoggingOut(false); setShowLogoutConfirm(false) }
+    try {
+      await logout()
+      toast.success('Logged out successfully.')
+      navigate('/login?logout=true')
+    } catch (err) {
+      toast.error(err.message || 'Logout failed.')
+    } finally {
+      setIsLoggingOut(false)
+      setShowLogoutConfirm(false)
+    }
   }
 
   const userMenuRef = useRef(null)

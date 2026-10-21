@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth'
 import ProfileNavTabs from './components/ProfileNavTabs'
 import { fetchUserProfile, updateUserProfile } from './services/profileService'
 import { getTodayString, isFutureDate } from '../../utils/dateUtils'
+import { toast } from '../../utils/toast'
 
 export default function UserProfilePage() {
   const { locale } = useTranslation()
@@ -103,7 +104,9 @@ export default function UserProfilePage() {
       })
       .catch((err) => {
         if (active) {
-          setErrorMessage(err.message || 'Could not load profile details.')
+          const msg = err.message || 'Could not load profile details.'
+          setErrorMessage(msg)
+          toast.error(msg)
         }
       })
       .finally(() => {
@@ -158,7 +161,7 @@ export default function UserProfilePage() {
     if (selectedFiles && selectedFiles[0]) {
       const file = selectedFiles[0]
       if (file.size > 500 * 1024) {
-        alert(hindi ? 'फ़ाइल का आकार 500 KB से अधिक नहीं होना चाहिए।' : 'File size should not exceed 500 KB.')
+        toast.warning(hindi ? 'फ़ाइल का आकार 500 KB से अधिक नहीं होना चाहिए।' : 'File size should not exceed 500 KB.')
         e.target.value = ''
         return
       }
@@ -168,21 +171,19 @@ export default function UserProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setMessage(null)
-    setErrorMessage(null)
 
     if (!formData.firstName || !formData.lastName) {
-      setErrorMessage(hindi ? 'कृपया पहला और अंतिम नाम दर्ज करें।' : 'Please enter first and last name.')
+      toast.warning(hindi ? 'कृपया पहला और अंतिम नाम दर्ज करें।' : 'Please enter first and last name.')
       return
     }
 
     if (!formData.mobileNumber || !formData.emailId) {
-      setErrorMessage(hindi ? 'कृपया मोबाइल नंबर और ईमेल दर्ज करें।' : 'Please provide mobile number and email.')
+      toast.warning(hindi ? 'कृपया मोबाइल नंबर और ईमेल दर्ज करें।' : 'Please provide mobile number and email.')
       return
     }
 
     if (formData.dob && isFutureDate(formData.dob)) {
-      setErrorMessage(hindi ? 'जन्म तिथि भविष्य की नहीं हो सकती।' : 'Date of Birth cannot be in the future.')
+      toast.warning(hindi ? 'जन्म तिथि भविष्य की नहीं हो सकती।' : 'Date of Birth cannot be in the future.')
       return
     }
 
@@ -201,10 +202,10 @@ export default function UserProfilePage() {
       })
 
       const res = await updateUserProfile(dataPayload)
-      setMessage(res.successMessage || (hindi ? 'उपयोगकर्ता प्रोफ़ाइल सफलतापूर्वक अपडेट की गई।' : 'User profile updated successfully.'))
+      toast.success(res.successMessage || (hindi ? 'उपयोगकर्ता प्रोफ़ाइल सफलतापूर्वक अपडेट की गई।' : 'User profile updated successfully.'))
       setIsEditing(false)
     } catch (err) {
-      setErrorMessage(err.message || (hindi ? 'प्रोफ़ाइल अपडेट करने में त्रुटि।' : 'Failed to update profile.'))
+      toast.error(err.message || (hindi ? 'प्रोफ़ाइल अपडेट करने में त्रुटि।' : 'Failed to update profile.'))
     } finally {
       setSubmitting(false)
     }
@@ -243,18 +244,6 @@ export default function UserProfilePage() {
         </div>
       </div>
 
-      {/* Notifications */}
-      {message && (
-        <div className="alert alert-success" role="alert">
-          <i className="fa fa-check-circle" /> {message}
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="alert alert-danger" role="alert">
-          <i className="fa fa-exclamation-triangle" /> {errorMessage}
-        </div>
-      )}
 
       {loading ? (
         <div className="panel panel-default">

@@ -9,9 +9,10 @@ import InfrastructureMap from './InfrastructureMap'
 import { configureLandRecords, isLandRecord } from './landRecords'
 import views from './generated/views.json'
 import { expressions } from './generated/expressions'
-import { rowRules } from './generated/rows'
 import tables from './generated/tables.json'
+import { rowRules } from './generated/rows'
 import translations from '../generated/translations.json'
+import toast from '../../../utils/toast'
 import './generated/reference.css'
 import './infrastructure.css'
 
@@ -103,15 +104,18 @@ export default function InfrastructurePage({ match, locale }) {
       }
       if (!abort.signal.aborted) setContent({ name, state, doc })
     }
-    initialize().catch(e => { if (!abort.signal.aborted) setError(e.message) })
+    initialize().catch(e => {
+      if (!abort.signal.aborted) {
+        setError(e.message)
+        toast.error(e.message || 'Failed to initialize page.')
+      }
+    })
     return () => abort.abort()
   }, [route, locale, navigate])
   if (error) return <div className="alert alert-danger" role="alert">{error}</div>
   if (!content) return <p role="status">Loading...</p>
   const { name,state,doc } = content
   return <div className={isLandRecord(name) ? 'dtic-page dtic-land-records' : 'dtic-page dtic-infrastructure'} data-dtic-view={name}>
-    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
-    {state.fileError && <div className="alert alert-danger" role="alert">{state.fileError}</div>}
     {(state.busy || state.saving) && <p role="status">Processing...</p>}
     {serverViews.has(name) ? <ServerDetails doc={doc} state={state} /> : <IndustrialView name={name} state={state} />}
   </div>

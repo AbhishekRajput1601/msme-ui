@@ -18,6 +18,7 @@
  */
 
 import axios from 'axios'
+import { toast } from '../utils/toast'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -260,6 +261,7 @@ httpClient.interceptors.response.use(
     // A 200 OK can still carry an HTML login page when the session has expired
     // and Spring Security performs an internal forward instead of a 302.
     if (isLoginHtmlResponse(response)) {
+      toast.warning('Session expired – redirecting to login')
       notifySessionExpired('Session expired (HTML login detected)', 401)
       redirectToLogin('timeout=true')
       return Promise.reject(
@@ -271,8 +273,13 @@ httpClient.interceptors.response.use(
   (error) => {
     const status = error?.response?.status
 
+    if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
+      toast.error('Network connection issue. Please check your internet connection.')
+    }
+
     if (status === 401) {
       // 401 = not authenticated / session expired
+      toast.warning('Session expired – please log in again')
       notifySessionExpired('Unauthorised / session expired', 401)
       redirectToLogin('timeout=true')
       return Promise.reject(
@@ -282,6 +289,7 @@ httpClient.interceptors.response.use(
 
     if (status === 403) {
       // 403 = authenticated but not authorised
+      toast.error('Access denied – you do not have permission to access this resource')
       notifySessionExpired('Forbidden – insufficient permissions', 403)
       return Promise.reject(
         new Error('Forbidden – you do not have permission to access this resource'),

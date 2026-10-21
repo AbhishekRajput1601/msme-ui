@@ -14,6 +14,7 @@ import {
   isFutureDate,
   isStartDateAfterEndDate
 } from '../../utils/dateUtils'
+import { toast } from '../../utils/toast'
 
 export default function IndustrialProfilePage() {
   const { locale } = useTranslation()
@@ -172,7 +173,9 @@ export default function IndustrialProfilePage() {
       })
       .catch((err) => {
         if (active) {
-          setErrorMessage(err.message || 'Could not load industrial profile.')
+          const msg = err.message || 'Could not load industrial profile.'
+          setErrorMessage(msg)
+          toast.error(msg)
         }
       })
       .finally(() => {
@@ -229,7 +232,7 @@ export default function IndustrialProfilePage() {
       const isLargeDoc = name.includes('pcb') || name.includes('UploadId')
       const maxLimit = isLargeDoc ? 5 * 1024 * 1024 : 2 * 1024 * 1024
       if (file.size > maxLimit) {
-        alert(hindi ? `फ़ाइल का आकार ${isLargeDoc ? '5MB' : '2MB'} से अधिक नहीं होना चाहिए।` : `File size should not exceed ${isLargeDoc ? '5MB' : '2MB'}.`)
+        toast.warning(hindi ? `फ़ाइल का आकार ${isLargeDoc ? '5MB' : '2MB'} से अधिक नहीं होना चाहिए।` : `File size should not exceed ${isLargeDoc ? '5MB' : '2MB'}.`)
         e.target.value = ''
         return
       }
@@ -266,7 +269,7 @@ export default function IndustrialProfilePage() {
 
   const removePartner = (index) => {
     if (partnersList.length <= 1) {
-      alert(hindi ? 'कम से कम एक सदस्य आवश्यक है।' : 'At least one partner/member is required.')
+      toast.warning(hindi ? 'कम से कम एक सदस्य आवश्यक है।' : 'At least one partner/member is required.')
       return
     }
     setPartnersList((prev) => prev.filter((_, i) => i !== index))
@@ -297,65 +300,63 @@ export default function IndustrialProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setMessage(null)
-    setErrorMessage(null)
 
     if (!formData.indOrgName) {
-      setErrorMessage(hindi ? 'कृपया उद्योग / इकाई का नाम दर्ज करें।' : 'Please enter enterprise / unit name.')
+      toast.warning(hindi ? 'कृपया उद्योग / इकाई का नाम दर्ज करें।' : 'Please enter enterprise / unit name.')
       return
     }
 
     // Date validations
     if (formData.udyamRegDate && isFutureDate(formData.udyamRegDate)) {
-      setErrorMessage(hindi ? 'उद्यम पंजीकरण तिथि भविष्य की नहीं हो सकती।' : 'Udyam Registration Date cannot be in the future.')
+      toast.warning(hindi ? 'उद्यम पंजीकरण तिथि भविष्य की नहीं हो सकती।' : 'Udyam Registration Date cannot be in the future.')
       return
     }
 
     if (formData.factoryActLicNoDoi && formData.factoryActLicNoValidUpto && isStartDateAfterEndDate(formData.factoryActLicNoDoi, formData.factoryActLicNoValidUpto)) {
-      setErrorMessage(hindi ? 'फैक्ट्री लाइसेंस: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'Factory Act License: Issue Date cannot be after Valid Upto date (Valid Upto cannot be before Issue Date).')
+      toast.warning(hindi ? 'फैक्ट्री लाइसेंस: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'Factory Act License: Issue Date cannot be after Valid Upto date (Valid Upto cannot be before Issue Date).')
       return
     }
 
     if (formData.factoryActLicNoValidUpto && isPastDate(formData.factoryActLicNoValidUpto)) {
-      setErrorMessage(hindi ? 'फैक्ट्री लाइसेंस: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'Factory Act License: Valid Upto date cannot be in the past.')
+      toast.warning(hindi ? 'फैक्ट्री लाइसेंस: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'Factory Act License: Valid Upto date cannot be in the past.')
       return
     }
 
     if (formData.pcbRegNoEstablishedDoi && formData.pcbRegNoEstablishedValidUpto && isStartDateAfterEndDate(formData.pcbRegNoEstablishedDoi, formData.pcbRegNoEstablishedValidUpto)) {
-      setErrorMessage(hindi ? 'पीसीबी सीटीई: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'PCB CTE Consent: Issue Date cannot be after Valid Upto date.')
+      toast.warning(hindi ? 'पीसीबी सीटीई: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'PCB CTE Consent: Issue Date cannot be after Valid Upto date.')
       return
     }
 
     if (formData.pcbRegNoEstablishedValidUpto && isPastDate(formData.pcbRegNoEstablishedValidUpto)) {
-      setErrorMessage(hindi ? 'पीसीबी सीटीई: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'PCB CTE Consent: Valid Upto date cannot be in the past.')
+      toast.warning(hindi ? 'पीसीबी सीटीई: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'PCB CTE Consent: Valid Upto date cannot be in the past.')
       return
     }
 
     if (formData.pcbRegNoOperateDoi && formData.pcbRegNoOperateValidUpto && isStartDateAfterEndDate(formData.pcbRegNoOperateDoi, formData.pcbRegNoOperateValidUpto)) {
-      setErrorMessage(hindi ? 'पीसीबी सीटीओ: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'PCB CTO Consent: Issue Date cannot be after Valid Upto date.')
+      toast.warning(hindi ? 'पीसीबी सीटीओ: जारी करने की तिथि वैधता तिथि से बाद की नहीं हो सकती।' : 'PCB CTO Consent: Issue Date cannot be after Valid Upto date.')
       return
     }
 
     if (formData.pcbRegNoOperateValidUpto && isPastDate(formData.pcbRegNoOperateValidUpto)) {
-      setErrorMessage(hindi ? 'पीसीबी सीटीओ: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'PCB CTO Consent: Valid Upto date cannot be in the past.')
+      toast.warning(hindi ? 'पीसीबी सीटीओ: वैधता तिथि पिछली तिथि नहीं हो सकती।' : 'PCB CTO Consent: Valid Upto date cannot be in the past.')
       return
     }
 
     if (formData.cinDoi && isFutureDate(formData.cinDoi)) {
-      setErrorMessage(hindi ? 'सीआईएन जारी करने की तिथि भविष्य की नहीं हो सकती।' : 'CIN Date of Issue cannot be in the future.')
+      toast.warning(hindi ? 'सीआईएन जारी करने की तिथि भविष्य की नहीं हो सकती।' : 'CIN Date of Issue cannot be in the future.')
       return
     }
 
     for (const noc of regNocList) {
       if (noc.certiValidUpto && isPastDate(noc.certiValidUpto)) {
-        setErrorMessage(hindi ? `एनओसी (${noc.certiType || 'Certificate'}): वैधता तिथि पिछली तिथि नहीं हो सकती।` : `NOC (${noc.certiType || 'Certificate'}): Valid Upto date cannot be in the past.`)
+        toast.warning(hindi ? `एनओसी (${noc.certiType || 'Certificate'}): वैधता तिथि पिछली तिथि नहीं हो सकती।` : `NOC (${noc.certiType || 'Certificate'}): Valid Upto date cannot be in the past.`)
         return
       }
     }
 
     for (const partner of partnersList) {
       if (partner.dob && isFutureDate(partner.dob)) {
-        setErrorMessage(hindi ? `साझेदार (${partner.name || 'Partner'}): जन्म तिथि भविष्य की नहीं हो सकती।` : `Partner (${partner.name || 'Partner'}): Date of Birth cannot be in the future.`)
+        toast.warning(hindi ? `साझेदार (${partner.name || 'Partner'}): जन्म तिथि भविष्य की नहीं हो सकती।` : `Partner (${partner.name || 'Partner'}): Date of Birth cannot be in the future.`)
         return
       }
     }
@@ -386,10 +387,10 @@ export default function IndustrialProfilePage() {
         await updateIndustrialRegNocs(formData.userId, regNocList)
       }
 
-      setMessage(res.successMessage || (hindi ? 'औद्योगिक प्रोफ़ाइल सफलतापूर्वक अपडेट की गई।' : 'Industrial profile updated successfully.'))
+      toast.success(res.successMessage || (hindi ? 'औद्योगिक प्रोफ़ाइल सफलतापूर्वक अपडेट की गई।' : 'Industrial profile updated successfully.'))
       setIsEditing(false)
     } catch (err) {
-      setErrorMessage(err.message || (hindi ? 'औद्योगिक प्रोफ़ाइल अपडेट करने में त्रुटि।' : 'Failed to update industrial profile.'))
+      toast.error(err.message || (hindi ? 'औद्योगिक प्रोफ़ाइल अपडेट करने में त्रुटि।' : 'Failed to update industrial profile.'))
     } finally {
       setSubmitting(false)
     }
@@ -428,18 +429,6 @@ export default function IndustrialProfilePage() {
         </div>
       </div>
 
-      {/* Notifications */}
-      {message && (
-        <div className="alert alert-success" role="alert">
-          <i className="fa fa-check-circle" /> {message}
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="alert alert-danger" role="alert">
-          <i className="fa fa-exclamation-triangle" /> {errorMessage}
-        </div>
-      )}
 
       {loading ? (
         <div className="panel panel-default">

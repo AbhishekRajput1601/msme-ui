@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { get } from '../../../api/httpClient'
 import { jsonData } from '../../../api/responseData'
+import toast from '../../../utils/toast'
 
 export default function LandHistoryPage() {
   const { applicantId } = useParams()
@@ -13,7 +14,12 @@ export default function LandHistoryPage() {
     get('/applicant/id/fetchHistory', { applicantId }, { signal: controller.signal }).then(jsonData).then(rows => {
       if (!Array.isArray(rows)) throw new Error('The server returned an invalid progress history.')
       if (!controller.signal.aborted) setResult({ rows })
-    }).catch(error => { if (!controller.signal.aborted) setResult({ error: error.message }) })
+    }).catch(error => {
+      if (!controller.signal.aborted) {
+        setResult({ error: error.message })
+        toast.error(error.message || 'Failed to load progress history.')
+      }
+    })
     return () => controller.abort()
   }, [applicantId, attempt])
   return <section className="panel panel-info"><div className="panel-heading">Application progress history</div><div className="panel-body">

@@ -2,6 +2,7 @@ import { installFaActions } from './generated/faActions'
 import { createDticRequests, dticDocument, dticLink, dticRequest } from './dticService'
 import { filter } from '../industrial-unit/viewHelpers'
 import extraActions from './generated/extraActions'
+import toast from '../../utils/toast'
 
 export function createDticState({ params, navigate, notify, signal, locale, controller = 'DTICFAController' }) {
   const isApparel = params.establishmentType ? /apparel|institute/i.test(params.establishmentType) : (typeof window !== 'undefined' && /apparel/i.test(window.location.pathname))
@@ -72,7 +73,7 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
   const navigation = {
     open: url => window.open(dticDocument(url), '_blank', 'noopener'),
     confirm: message => window.confirm(message),
-    alert: message => window.alert(message),
+    alert: message => toast.info(message),
     location: { set href(value) { navigate(dticLink(value)) } },
   }
   const install = extraActions[controller] || installFaActions
@@ -87,7 +88,12 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
     if (state.saving) return
     state.saving = true; state.error = ''; notify()
     try { return await action() }
-    catch (error) { if (!signal.aborted) state.error = error.message }
+    catch (error) {
+      if (!signal.aborted) {
+        state.error = error.message
+        toast.error(error.message || 'Operation failed.')
+      }
+    }
     finally { state.saving = false; if (!signal.aborted) notify() }
   }
   state.IdList ||= []

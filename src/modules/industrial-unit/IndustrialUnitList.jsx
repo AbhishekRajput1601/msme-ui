@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getUnitData } from './industrialUnitService'
 import { amountWords, eligibility } from './industrialUnitModel'
 import { backendPath, faPath } from './viewHelpers'
+import toast from '../../utils/toast'
 
 export function applicationActions(row) {
   const id = encodeURIComponent(row.applicationId)
@@ -38,7 +39,12 @@ export default function IndustrialUnitList() {
     const params = { sEcho: retry + 1, iDisplayStart: start, iDisplayLength: length, sSearch: search, iColumns: 6, iSortingCols: 0 }
     getUnitData('fetchfaapplicants/Unit', params, abort.signal)
       .then(data => { if (!abort.signal.aborted) { setRows(data.aaData || data.data || []); setCount(Number(data.iTotalDisplayRecords ?? data.recordsFiltered ?? 0)) } })
-      .catch(err => { if (!abort.signal.aborted) setError(err.message) })
+      .catch(err => {
+        if (!abort.signal.aborted) {
+          setError(err.message)
+          toast.error(err.message || 'Failed to load applications.')
+        }
+      })
       .finally(() => { if (!abort.signal.aborted) setLoading(false) })
     return () => abort.abort()
   }, [start, length, search, retry])
@@ -55,7 +61,7 @@ export default function IndustrialUnitList() {
       setModal(false)
       if (destination === 'mpidc') window.location.assign('/mpmsme/sws/initiate')
       else navigate(faPath('fa/newapplicantsingleform/Unit'))
-    } catch (err) { window.alert(err.message) }
+    } catch (err) { toast.warning(err.message) }
   }
   return <div id="industrial-unit-content">
     <div className="row"><div className="panel panel-info">
@@ -69,7 +75,6 @@ export default function IndustrialUnitList() {
         </div>
       </div>
       <div className="panel-body">
-        {error && <div className="alert alert-danger" role="alert">{error} <button type="button" className="btn btn-default btn-sm" onClick={() => setRetry(v => v + 1)}>Retry</button></div>}
         <div className="row"><div className="res_div">
           <div className="industrial-table-controls">
             <label>
@@ -86,7 +91,7 @@ export default function IndustrialUnitList() {
           </div>
           <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={loading}>
             <thead><tr>{['Application Id', 'Application Date', 'Establishment Type', 'Establishment Name', 'Status', 'Action'].map(label => <th key={label}>{label}</th>)}</tr></thead>
-            <tbody>{rows.map(row => <tr key={row.applicationId}><td>{row.applicationId}</td><td>{row.submittedOn || ''}</td><td>{row.establishmentType}</td><td>{row.unitOrInstName}</td><td>{row.status}</td><td><div className="action-buttons">{applicationActions(row).map((action, index) => <span key={action.label}>{index > 0 && ' | '}{action.to ? <Link className="blue" to={action.to}>{action.label}</Link> : <a className="blue" href={action.href} target="_blank" rel="noreferrer">{action.label}</a>}</span>)}</div></td></tr>)}{!rows.length && <tr><td colSpan={6} style={{ textAlign: 'center' }}>{loading ? 'Processing...' : error ? 'Applications could not be loaded.' : 'No data available in table'}</td></tr>}</tbody>
+            <tbody>{rows.map(row => <tr key={row.applicationId}><td>{row.applicationId}</td><td>{row.submittedOn || ''}</td><td>{row.establishmentType}</td><td>{row.unitOrInstName}</td><td>{row.status}</td><td><div className="action-buttons">{applicationActions(row).map((action, index) => <span key={action.label}>{index > 0 && ' | '}{action.to ? <Link className="blue" to={action.to}>{action.label}</Link> : <a className="blue" href={action.href} target="_blank" rel="noreferrer">{action.label}</a>}</span>)}</div></td></tr>)}{!rows.length && <tr><td colSpan={6} style={{ textAlign: 'center' }}>{loading ? 'Processing...' : error ? <span>Applications could not be loaded. <button type="button" className="btn btn-default btn-xs" onClick={() => setRetry(v => v + 1)} style={{ marginLeft: '8px' }}>Retry</button></span> : 'No data available in table'}</td></tr>}</tbody>
           </table>
           <div className="industrial-table-controls">
             <span>Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries</span>

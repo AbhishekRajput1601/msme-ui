@@ -5,6 +5,7 @@ import { useTranslation } from '../../hooks/useTranslation'
 import IndustrialView from './IndustrialView'
 import translations from './generated/translations.json'
 import { businessError } from './viewHelpers'
+import toast from '../../utils/toast'
 import './infrastructure.css'
 
 const listPath = '/department/fa/infradevelopmetList'
@@ -32,13 +33,17 @@ export default function InfrastructurePages({ id }) {
     state.busy = true
     fetchInfrastructure('fetchInfrastructureById', { id }, abort.signal)
       .then(data => { if (!abort.signal.aborted) state.faData = data })
-      .catch(error => { if (!abort.signal.aborted) state.error = error.message })
+      .catch(error => {
+        if (!abort.signal.aborted) {
+          state.error = error.message
+          toast.error(error.message || 'Failed to load infrastructure details.')
+        }
+      })
       .finally(() => { if (!abort.signal.aborted) { state.busy = false; render() } })
     return () => abort.abort()
   }, [id, state])
   return <div className="infrastructure-page infrastructure-detail">
     {id ? <>
-      {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
       {state.busy && <div role="status">Loading....</div>}
       <IndustrialView name="viewfaInfrastructure" state={state} />
     </> : <InfrastructureList locale={locale} />}
@@ -66,7 +71,12 @@ function InfrastructureList({ locale }) {
       })
     fetchInfrastructure('fetchInfrastructureList', params, abort.signal)
       .then(result => { if (!abort.signal.aborted) setData(result) })
-      .catch(err => { if (!abort.signal.aborted) setError(err.message) })
+      .catch(err => {
+        if (!abort.signal.aborted) {
+          setError(err.message)
+          toast.error(err.message || 'Failed to load infrastructure list.')
+        }
+      })
       .finally(() => { if (!abort.signal.aborted) setBusy(false) })
     return () => abort.abort()
   }, [start, length, search])
@@ -78,7 +88,6 @@ function InfrastructureList({ locale }) {
     <div className="row"><div className="panel panel-info">
       <div className="panel-heading">{t('application.fa.title', 'Financial Assistance')} &gt; <Link style={{ textDecoration: 'underline', color: '#ffffff', fontWeight: 700 }} to="/department/fa/dticfapendingapplicantsunit">{t('application.fa.industrialUnit', 'Industrial Unit')}</Link></div>
       <div className="panel-body"><div className="row">
-        {error && <div className="text-error" style={{ color: 'red' }} role="alert"><strong>Error!</strong><p>{error}</p></div>}
         {busy && <div id="processing-message" role="status">Processing...</div>}
         <div className="res_div">
           <div className="infrastructure-table-controls">

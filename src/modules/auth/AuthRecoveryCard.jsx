@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import { getCaptchaUrl } from '../../services/authService'
 import { backendUrl } from '../public/publicRoutes'
+import { toast } from '../../utils/toast'
 import '../../styles/auth-recovery.css'
 
 function generateFallbackCaptcha() {
@@ -37,8 +38,6 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
   const [otpLoading, setOtpLoading] = useState(false)
   const [otpSent, setOtpSent] = useState(false)
   const [resendTimer, setResendTimer] = useState(0)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
     if (resendTimer > 0) {
@@ -57,27 +56,24 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
   }
 
   const handleGenerateOtp = async () => {
-    setErrorMessage(null)
-    setSuccessMessage(null)
-
     if (!userName.trim()) {
-      setErrorMessage(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
+      toast.warning(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
       return
     }
     if (!mobileNo.trim()) {
-      setErrorMessage(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
+      toast.warning(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
       return
     }
     if (!email.trim()) {
-      setErrorMessage(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
+      toast.warning(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
       return
     }
     if (!captchaText.trim()) {
-      setErrorMessage(hindi ? 'कृपया कैप्चा दर्ज करें।' : 'Please enter Captcha.')
+      toast.warning(hindi ? 'कृपया कैप्चा दर्ज करें।' : 'Please enter Captcha.')
       return
     }
     if (captchaError && captchaText.trim() !== fallbackCode) {
-      setErrorMessage(hindi ? 'अमान्य कैप्चा कोड।' : 'Invalid captcha code.')
+      toast.warning(hindi ? 'अमान्य कैप्चा कोड।' : 'Invalid captcha code.')
       return
     }
 
@@ -105,7 +101,7 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
 
       setOtpSent(true)
       setResendTimer(60)
-      setSuccessMessage(
+      toast.success(
         hindi
           ? 'ओटीपी आपके पंजीकृत मोबाइल नंबर और ईमेल पर भेज दिया गया है।'
           : 'OTP has been sent to your registered Mobile Number and Email Id.'
@@ -114,7 +110,7 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
       // In local development or standalone mode:
       setOtpSent(true)
       setResendTimer(60)
-      setSuccessMessage(
+      toast.success(
         hindi
           ? 'ओटीपी आपके पंजीकृत मोबाइल और ईमेल पर भेज दिया गया है (परीक्षण ओटीपी: 123456)।'
           : 'OTP has been sent to your registered Mobile Number and Email Id (Demo OTP: 123456).'
@@ -126,22 +122,20 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setErrorMessage(null)
-    setSuccessMessage(null)
 
     if (!captchaText.trim()) {
-      setErrorMessage(hindi ? 'कृपया कैप्चा दर्ज करें।' : 'Please enter Captcha.')
+      toast.warning(hindi ? 'कृपया कैप्चा दर्ज करें।' : 'Please enter Captcha.')
       return
     }
 
     if (captchaError && captchaText.trim() !== fallbackCode) {
-      setErrorMessage(hindi ? 'अमान्य कैप्चा कोड।' : 'Invalid captcha code.')
+      toast.warning(hindi ? 'अमान्य कैप्चा कोड।' : 'Invalid captcha code.')
       return
     }
 
     if (isUsernameRecovery) {
       if (!mobileNo.trim()) {
-        setErrorMessage(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
+        toast.warning(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
         return
       }
 
@@ -157,13 +151,13 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
 
         if (!res.ok) throw new Error(`Request failed (${res.status})`)
 
-        setSuccessMessage(
+        toast.success(
           hindi
             ? 'उपयोगकर्ता नाम आपके पंजीकृत मोबाइल नंबर पर भेज दिया गया है।'
             : 'User Name has been sent to your registered Mobile Number.'
         )
       } catch {
-        setSuccessMessage(
+        toast.success(
           hindi
             ? 'उपयोगकर्ता विवरण की पुष्टि कर दी गई है। कृपया अपना पंजीकृत मोबाइल जांचें।'
             : 'User recovery request submitted. Please check your registered mobile number.'
@@ -174,19 +168,19 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
     } else {
       // Forgot Password submission
       if (!userName.trim()) {
-        setErrorMessage(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
+        toast.warning(hindi ? 'कृपया उपयोगकर्ता नाम दर्ज करें।' : 'Please enter User Name.')
         return
       }
       if (!mobileNo.trim()) {
-        setErrorMessage(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
+        toast.warning(hindi ? 'कृपया मोबाइल नंबर दर्ज करें।' : 'Please enter Mobile Number.')
         return
       }
       if (!email.trim()) {
-        setErrorMessage(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
+        toast.warning(hindi ? 'कृपया ईमेल आईडी दर्ज करें।' : 'Please enter Email Id.')
         return
       }
       if (!otp.trim()) {
-        setErrorMessage(
+        toast.warning(
           hindi
             ? 'कृपया ओटीपी दर्ज करें। यदि प्राप्त नहीं हुआ तो "ओटीपी उत्पन्न करें" पर क्लिक करें।'
             : 'Please enter OTP. If not received yet, click "Generate OTP".'
@@ -194,15 +188,15 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
         return
       }
       if (!newPassword) {
-        setErrorMessage(hindi ? 'कृपया नया पासवर्ड दर्ज करें।' : 'Please enter New Password.')
+        toast.warning(hindi ? 'कृपया नया पासवर्ड दर्ज करें।' : 'Please enter New Password.')
         return
       }
       if (newPassword.length < 6) {
-        setErrorMessage(hindi ? 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।' : 'Password must be at least 6 characters.')
+        toast.warning(hindi ? 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।' : 'Password must be at least 6 characters.')
         return
       }
       if (newPassword !== confirmPassword) {
-        setErrorMessage(hindi ? 'पासवर्ड और पुष्टि पासवर्ड मेल नहीं खाते।' : 'Password and Confirm Password do not match.')
+        toast.warning(hindi ? 'पासवर्ड और पुष्टि पासवर्ड मेल नहीं खाते।' : 'Password and Confirm Password do not match.')
         return
       }
 
@@ -228,13 +222,13 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
 
         if (!res.ok) throw new Error(`Password reset failed (${res.status})`)
 
-        setSuccessMessage(
+        toast.success(
           hindi
             ? 'आपका पासवर्ड सफलतापूर्वक रीसेट कर दिया गया है। कृपया लॉगिन करें।'
             : 'Your password has been reset successfully. Please login with your new password.'
         )
       } catch {
-        setSuccessMessage(
+        toast.success(
           hindi
             ? 'आपका पासवर्ड सफलतापूर्वक रीसेट कर दिया गया है। कृपया लॉगिन करें।'
             : 'Your password has been reset successfully. Please login with your new password.'
@@ -256,7 +250,7 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
               role="tab"
               aria-selected={loginType === 'APPLICANT'}
               className={`auth-recovery-tab-btn ${loginType === 'APPLICANT' ? 'active' : ''}`}
-              onClick={() => { setLoginType('APPLICANT'); setErrorMessage(null); setSuccessMessage(null) }}
+              onClick={() => setLoginType('APPLICANT')}
             >
               <i className="fa fa-user" aria-hidden="true" />
               {hindi ? 'उपयोगकर्ता' : 'USER'}
@@ -268,7 +262,7 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
               role="tab"
               aria-selected={loginType === 'DEPARTMENT'}
               className={`auth-recovery-tab-btn ${loginType === 'DEPARTMENT' ? 'active' : ''}`}
-              onClick={() => { setLoginType('DEPARTMENT'); setErrorMessage(null); setSuccessMessage(null) }}
+              onClick={() => setLoginType('DEPARTMENT')}
             >
               <i className="fa fa-home" aria-hidden="true" />
               {hindi ? 'विभाग' : 'DEPARTMENT'}
@@ -278,18 +272,6 @@ export default function AuthRecoveryCard({ mode = 'username' }) {
 
         {/* Card Body */}
         <div className="auth-recovery-body">
-          {errorMessage && (
-            <div className="auth-recovery-alert auth-recovery-alert-danger" role="alert">
-              {errorMessage}
-            </div>
-          )}
-
-          {successMessage && (
-            <div className="auth-recovery-alert auth-recovery-alert-success" role="status">
-              {successMessage}
-            </div>
-          )}
-
           <form onSubmit={handleSubmit} noValidate>
             {isUsernameRecovery ? (
               /* ── Forgot Username Form ── */

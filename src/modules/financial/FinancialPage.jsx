@@ -16,6 +16,7 @@ import tables from './generated/tables.json'
 import reports from './generated/reports.json'
 import {rowRules} from './generated/rows'
 import {expressions} from './generated/expressions'
+import toast from '../../utils/toast'
 import '../industrial-unit/industrial-unit.css'
 import '../dtic/dtic-page.css'
 import './generated/reference.css'
@@ -41,7 +42,7 @@ function Content({match,locale,query}){
   const abort=new AbortController(),{route}=match
   const params={...Object.fromEntries(new URLSearchParams(query)),...match.params}
   const state=createFinancialState({params,navigate,locale,signal:abort.signal,notify:()=>{if(!abort.signal.aborted)render()}})
-  state.renderDate=attrs=><ReferenceDateInput attrs={attrs} options={{scrollInput:false,...(state.reportName?{maxDate:new Date()}: {})}} onError={error=>{state.error=error.message;state.notify()}}/>
+  state.renderDate=attrs=><ReferenceDateInput attrs={attrs} options={{scrollInput:false,...(state.reportName?{maxDate:new Date()}: {})}} onError={error=>{state.error=error.message;toast.warning(error.message);state.notify()}}/>
   Object.assign(state,{viewBundle:views,expressionBundle:expressions,translations,tableBundle:tables,rowRules})
   async function load(){
    let name=route.views.at(-1)
@@ -56,12 +57,17 @@ function Content({match,locale,query}){
    }
    if(!abort.signal.aborted)setContent({state,name})
   }
-  load().catch(e=>{if(!abort.signal.aborted)setError(e.message)})
+  load().catch(e=>{
+    if(!abort.signal.aborted) {
+      setError(e.message)
+      toast.error(e.message || 'Failed to load financial page.')
+    }
+  })
   return()=>abort.abort()
  },[navigate,locale])
  if(!match)return <div className="alert alert-warning">The legacy template for this Financial page is unavailable in the source checkout.</div>
  if(error)return <div className="alert alert-danger" role="alert">{error}</div>
  if(!content)return <p role="status">Loading....</p>
  const {state,name}=content
- return <div className="industrial-unit-page dtic-page financial-page">{state.error&&<div className="alert alert-danger" role="alert">{state.error}</div>}{(state.busy||state.saving)&&<p role="status">Loading....</p>}<IndustrialView name={name} state={state}/></div>
+ return <div className="industrial-unit-page dtic-page financial-page">{(state.busy||state.saving)&&<p role="status">Loading....</p>}<IndustrialView name={name} state={state}/></div>
 }

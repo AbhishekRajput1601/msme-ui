@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import { backendUrl } from '../public/publicRoutes'
+import { toast } from '../../utils/toast'
 
 const actions = new Set(['/website/presignup', '/website/presignupauth', '/website/signup', '/website/resetpassword', '/website/login-through-mobile', '/website/login-through-mobileauth'])
 const messages = (doc, selector) => [...new Set([...doc.querySelectorAll(selector)].filter(node => !node.hidden && node.style.display !== 'none').map(node => node.textContent.trim()).filter(Boolean))]
@@ -49,6 +50,12 @@ export default function BackendAccountForm({ entry, fallbackAction, title }) {
     setForm(next)
     setValues(Object.fromEntries((next.fields || []).map(field => [field.name, field.value])))
     setCaptchaVersion(version => version + 1)
+    if (next.errors?.length) {
+      next.errors.forEach(err => toast.error(err))
+    }
+    if (next.success?.length) {
+      next.success.forEach(msg => toast.success(msg))
+    }
   }
   useEffect(() => {
     const controller = new AbortController()
@@ -60,7 +67,12 @@ export default function BackendAccountForm({ entry, fallbackAction, title }) {
         return parseAccountForm(await response.text(), response.url, fallbackAction)
       })
       .then(next => { if (!controller.signal.aborted) update(next) })
-      .catch(err => { if (!controller.signal.aborted) setError(err.message) })
+      .catch(err => {
+        if (!controller.signal.aborted) {
+          setError(err.message)
+          toast.error(err.message)
+        }
+      })
       .finally(() => { if (!controller.signal.aborted) setBusy(false) })
     return () => { controller.abort(); request.current?.abort() }
   }, [entry, fallbackAction, locale, attempt])
@@ -83,16 +95,17 @@ export default function BackendAccountForm({ entry, fallbackAction, title }) {
       const next = parseAccountForm(await response.text(), response.url, form.action)
       if (!controller.signal.aborted) { update(next); notice.current?.focus() }
     } catch (err) {
-      if (!controller.signal.aborted) setError(err.message || 'The request could not be completed.')
+      if (!controller.signal.aborted) {
+        const msg = err.message || 'The request could not be completed.'
+        setError(msg)
+        toast.error(msg)
+      }
     } finally { if (!controller.signal.aborted) setBusy(false) }
   }
 
   return <section className="container account-form-page" aria-busy={busy}>
     <h1>{title}</h1>
     <div ref={notice} tabIndex={-1}>
-      {error && <p role="alert" className="alert alert-danger">{error}</p>}
-      {form?.errors?.map(message => <p key={message} role="alert" className="alert alert-danger">{message}</p>)}
-      {form?.success?.map(message => <p key={message} role="status" className="alert alert-success">{message}</p>)}
     </div>
     {busy && <p role="status">Loading…</p>}
     {!form && !busy && <button type="button" onClick={() => setAttempt(value => value + 1)}>Retry</button>}

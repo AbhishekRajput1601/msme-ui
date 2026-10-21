@@ -13,6 +13,7 @@ import { landReferenceLink } from './landReferenceLinks'
 import views from './generated/views'
 import { expressions } from './generated/expressions'
 import tables from './generated/tables.json'
+import toast from '../../../../utils/toast'
 import './generated/reference.css'
 import './land-reference.css'
 
@@ -95,14 +96,18 @@ function ReferenceContent({ name }) {
             state.appealDate=filter('date',new Date(),'dd/MM/yyyy')
           }
         }
-      } catch (error) { if (!abort.signal.aborted) state.error=error.message }
+      } catch (error) {
+        if (!abort.signal.aborted) {
+          state.error = error.message
+          toast.error(error.message || 'Operation failed.')
+        }
+      }
       finally { if (!abort.signal.aborted) { state.busy=false; render() } }
     }
     load()
     return () => abort.abort()
   },[name,params.applicantId,params.landId,params.paymentId,params.mode,params.id,params.decisionId,state])
   return <div className="land-reference-page" data-view={name}>
-    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
     {(state.busy || state.saving) && <div role="status">Loading....</div>}
     <IndustrialView name={name} state={state} />
   </div>

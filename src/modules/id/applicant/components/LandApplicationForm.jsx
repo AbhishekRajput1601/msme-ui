@@ -2,6 +2,7 @@ import { useState } from 'react'
 import fields from '../landFormFields.json'
 import { amountTotal, isUndeveloped, normalizeApplication, withCalculatedFields } from '../landApplicationModel'
 import { quoteUndevelopedLand } from '../services/landApplicationService'
+import toast from '../../../../utils/toast'
 
 const labels = {
   time: 'Time to implement the project (years)', waterReq: 'Water requirement',
@@ -50,7 +51,11 @@ export default function LandApplicationForm({ initialData, onSave, readOnly = fa
     try {
       const rates = await quoteUndevelopedLand(data.vacantLandBean, data.totalPlotArea)
       setData(current => ({ ...current, ...rates }))
-    } catch (err) { setError(err.message) }
+      toast.success('Undeveloped land charges calculated successfully.')
+    } catch (err) {
+      setError(err.message)
+      toast.error(err.message || 'Failed to calculate land charges.')
+    }
     finally { setBusy(false) }
   }
   const submit = async event => {
@@ -58,7 +63,12 @@ export default function LandApplicationForm({ initialData, onSave, readOnly = fa
     if (busy || readOnly) return
     setBusy(true); setError('')
     try { await onSave(calculated) }
-    catch (err) { setError(err.message); change('captchaText', ''); setCaptchaVersion(version => version + 1) }
+    catch (err) {
+      setError(err.message)
+      toast.error(err.message || 'Failed to save application.')
+      change('captchaText', '')
+      setCaptchaVersion(version => version + 1)
+    }
     finally { setBusy(false) }
   }
   const scalarFields = list => <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
@@ -75,7 +85,6 @@ export default function LandApplicationForm({ initialData, onSave, readOnly = fa
     {!readOnly && <button type="button" className="btn btn-default" disabled={busy} onClick={() => add(name)}>Add row</button>}
   </fieldset>
   return <form onSubmit={submit} aria-busy={busy} className="land-application-form">
-    {error && <div className="alert alert-danger" role="alert">{error}</div>}
     {isUndeveloped(data) && <fieldset className="border rounded p-4 mb-5"><legend>Undeveloped land area and charges</legend>
       <p>Available area: {data.vacantLandBean.totalPlotAreaun} square metres</p>
       <label htmlFor="requested-area">Requested area (square metres)</label>

@@ -1,4 +1,6 @@
 // Ported from angular/applicant/msme/controller.js. Regenerate with compile-applicant-services.py.
+import toast from '../../../utils/toast'
+
 export function installAwardActions(state, { request, loading, navigation, params, later, format }) {
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,k));
 const identity = value => value;
@@ -14,7 +16,7 @@ state.addMsmeApplicationAwardDetails = function(isValid) {
 					var responsePromise = request.post('addMsmeApplicationAwardDetails', state.awardFormData);
 					responsePromise.success(function(data, status, headers, config) {
 						state.responseObject = data;
-						alert("Data saved successfully. Please upload the required documents!");
+						toast.success("Data saved successfully. Please upload the required documents!");
 						loading.finish('sample-1');
 						if(state.responseObject.successMessage != null) {
 							navigation.location.href = '#uploadMsmeAwardDocs'+'/'+params.id+'/'+state.responseObject.id;
@@ -113,7 +115,7 @@ state.draftMsmeApplicationAwardDetails = function() {
 					var responsePromise = request.post('addMsmeApplicationAwardDetails', state.awardFormData);
 					responsePromise.success(function(data, status, headers, config) {
 						state.responseObject1 = data;
-						alert("Data saved as draft successfully.");
+						toast.success("Data saved as draft successfully.");
 						state.responseObject1.successMessage="Data saved as draft successfully";
 						if(state.responseObject1.successMessage != null) {
 							navigation.location.href = '#editMsmeAward/'+state.awardFormData.awardId+'/'+state.responseObject1.id;
@@ -474,7 +476,7 @@ state.uploadMSMEAwardDocuments = function() {
 							  responsePromise.success(function(data, status, headers, config) {
 									state.responseObject1 = data;
 						            if(null!=state.responseObject1.errorMsgList && state.responseObject1.errorMsgList.length>0) {
-										alert("File validation Error!");
+										toast.error("File validation Error!");
 										loading.finish('sample-1');
 									} else if(state.responseObject1.successMessage != null) {
 										request.get('getMessage/fa.applicant.detailsSubmit').then(function (response) {

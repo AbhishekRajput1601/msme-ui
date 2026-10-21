@@ -1,5 +1,6 @@
 import { dticRequest } from '../../dtic/dticService'
 import { jsonData } from '../../../api/responseData'
+import { toast } from '../../../utils/toast'
 
 const special = /[@$-/:-?{-~!"^_`\[\]]/
 export function passwordStrength(password = '') {
@@ -89,27 +90,40 @@ export function createDepartmentProfileState({ notify, navigate, locale, signal,
     if (!valid || state.disabled || !state.loaded) return
     const body = new FormData()
     for (const key of updateFields) if (state.signupData[key] != null && state.signupData[key] !== '') body.append(key, state.signupData[key])
-    return save('updateDepartmentUser', body, () => { state.disabled = true; alert(locale === 'hi' ? 'उपयोगकर्ता का प्रोफ़ाइल सफलतापूर्वक अपडेट किया गया।' : "User's Profile Updated successfully.") })
+    return save('updateDepartmentUser', body, () => {
+      state.disabled = true
+      toast.success(locale === 'hi' ? 'उपयोगकर्ता का प्रोफ़ाइल सफलतापूर्वक अपडेट किया गया।' : "User's Profile Updated successfully.")
+    })
   }
   state.changePasswordFunction1 = () => {
     if (state.isOtpButtonDisabled) return
-    return save('dochangepasswordgenerateotp', { ...state.changePasswordData }, result => { state.otpGenerated = true; state.isOtpButtonDisabled = true; alert(result.successMessage) })
+    return save('dochangepasswordgenerateotp', { ...state.changePasswordData }, result => {
+      state.otpGenerated = true
+      state.isOtpButtonDisabled = true
+      toast.info(result.successMessage || 'OTP generated successfully.')
+    })
   }
   state.changePasswordFunction = valid => {
     if (!valid || passwordStrength(state.changePasswordData.password).weak || !state.changePasswordData.otp || !state.otpGenerated) return
     return save('dochangepassword', { ...state.changePasswordData }, () => {
-      state.changePasswordData = {}; alert('Your password changed successfully'); onExpiry(false); navigate(dashboard)
-    }, error => alert(error.response || error.request ? 'An error occurred. Please try again.' : 'Incorrect OTP. Please try again.'))
+      state.changePasswordData = {}
+      toast.success('Your password changed successfully')
+      onExpiry(false)
+      navigate(dashboard)
+    }, error => toast.error(error.response || error.request ? 'An error occurred. Please try again.' : 'Incorrect OTP. Please try again.'))
   }
   state.hidePassword = () => { state.showCurrentPassword = state.showNewPassword = state.showConfirmPassword = false }
   for (const name of ['Current','New','Confirm']) state['toggle' + name + 'Password'] = () => { state['show' + name + 'Password'] = !state['show' + name + 'Password'] }
   state.verifyUserPasswordExpiry = async () => {
     const result = await call('get', 'verifyUserPasswordExpiry')
     const message = result.successMessage || ''
-    if (message.includes('Your password has expired')) { onExpiry(true); alert('Your password has expired. Please Update your Password') }
+    if (message.includes('Your password has expired')) {
+      onExpiry(true)
+      toast.warning('Your password has expired. Please Update your Password')
+    }
     else if (message.includes('Your password will expire')) { if (!confirm(message)) navigate(dashboard) }
     else if (message.includes('Your password is still valid')) onExpiry(false)
-    else if (message) alert(message)
+    else if (message) toast.info(message)
   }
   state.convertFieldValue = (value, attrs) => /\bdigits-only\b/.test(attrs.className || '') ? String(value).replace(/\D/g, '') : value
   return state

@@ -105,7 +105,6 @@ function UnitContent({ route, id, establishmentType, locale }) {
 
   return (
     <>
-      {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
       {state.saving && <div className="industrial-saving" role="status">Loading....</div>}
       {isQuery ? (
         <div className="panel panel-info">

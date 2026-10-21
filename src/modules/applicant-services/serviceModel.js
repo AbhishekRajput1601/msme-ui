@@ -2,6 +2,7 @@ import { createRequests, getUnitData, saveUnitData } from '../industrial-unit/in
 import { backendPath, filter, writePath } from '../industrial-unit/viewHelpers'
 import { installAwardActions } from './generated/actions'
 import { applicantServiceLink } from './serviceLinks'
+import toast from '../../utils/toast'
 
 // Keyboard rules from angular/common.js, scoped to these reference forms.
 export function referenceKeyDown(event) {
@@ -60,7 +61,12 @@ export function createServiceState({ params, navigate, notify, signal, locale })
   async function perform(action) {
     state.error=''; state.busy=true; notify()
     try { await action() }
-    catch (error) { if (!signal.aborted) state.error=error.message }
+    catch (error) {
+      if (!signal.aborted) {
+        state.error=error.message
+        toast.error(error.message || 'Operation failed.')
+      }
+    }
     finally { state.busy=false; state.saving=false; if (!signal.aborted) notify() }
   }
   state.loadBanks = () => perform(async () => {
@@ -76,7 +82,12 @@ export function createServiceState({ params, navigate, notify, signal, locale })
   state.addBank = () => {
     if (state.saving) return
     const error = validateBank(state.BankDetailsBean)
-    if (error) { state.error=error; notify(); return }
+    if (error) {
+      state.error=error
+      toast.warning(error)
+      notify()
+      return
+    }
     state.saving=true
     return perform(async () => {
       const bean=state.BankDetailsBean, data=new FormData()
@@ -85,7 +96,7 @@ export function createServiceState({ params, navigate, notify, signal, locale })
       const response=await saveUnitData('saveBankDetails',data,signal)
       // This legacy service returns rejected duplicates in successMessage too.
       if (!/Data Saved Successfylly|Data Saved Successfully/i.test(response.successMessage || '')) throw new Error(response.successMessage || 'The server did not confirm that the bank details were saved.')
-      window.alert(response.successMessage)
+      toast.success(response.successMessage || 'Bank details saved successfully.')
       navigate('/applicant/bank-details')
     })
   }
@@ -94,6 +105,7 @@ export function createServiceState({ params, navigate, notify, signal, locale })
   state.updateBank = () => perform(async () => {
     const response=await saveUnitData('updateBank',state.editBankData,signal)
     if (!/Data Updated Successfully/i.test(response.successMessage || '')) throw new Error(response.successMessage || 'The server did not confirm the update.')
+    toast.success(response.successMessage || 'Bank details updated successfully.')
     state.showEditForm=false
     await state.fetchBankList()
   })

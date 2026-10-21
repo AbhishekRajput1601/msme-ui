@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchLandPage } from '../services/landApplicationService'
 import { landReferenceLink, landDownloadLink } from './landReferenceLinks'
+import toast from '../../../../utils/toast'
 import './land-reference.css'
 
 const tags = new Set('div section p span strong b em i u br hr ul ol li h1 h2 h3 h4 h5 h6 a img table thead tbody tfoot tr th td label form input textarea select option button small fieldset legend'.split(' '))
@@ -33,7 +34,12 @@ export default function ResolvedLandPage({ path, identity, amountField, back }) 
         }
       }
       if(!abort.signal.aborted)setResult({region})
-    }).catch(error=>{if(!abort.signal.aborted)setResult({error:error.message})})
+    }).catch(error=>{
+      if(!abort.signal.aborted) {
+        setResult({error:error.message})
+        toast.error(error.message || 'Failed to load page.')
+      }
+    })
     return()=>abort.abort()
   },[path,identity?.[0],identity?.[1],amountField])
   const render=(node,key)=>{
@@ -87,10 +93,16 @@ export default function ResolvedLandPage({ path, identity, amountField, back }) 
       const action=node.getAttribute('onclick') || ''
       if(action.includes('validateCaptcha'))props.onClick=()=>{
         const match=document.querySelector('#captcha-input')?.value===captcha
-        setVerified(match);setCaptchaResult(match?'CAPTCHA is correct!':'CAPTCHA is incorrect. Please Enter again.')
+        setVerified(match)
+        setCaptchaResult(match?'CAPTCHA is correct!':'CAPTCHA is incorrect. Please Enter again.')
+        if (match) toast.success('CAPTCHA is correct!')
+        else toast.error('CAPTCHA is incorrect. Please enter again.')
       }
       if(action.includes('displayCaptcha'))props.onClick=()=>{setCaptcha(String(Math.floor(Math.random()*1000000)).padStart(6,'0'));setVerified(false);setCaptchaResult('')}
-      if(node.getAttribute('data-ng-click')==='submitForm1()')props.onClick=()=>navigate(back || '/applicant/land-allotment')
+      if(node.getAttribute('data-ng-click')==='submitForm1()')props.onClick=()=>{
+        toast.success('Submitted successfully.')
+        navigate(back || '/applicant/land-allotment')
+      }
     }
     return React.createElement(tag,props,['input','img','br','hr'].includes(tag)?undefined:children)
   }

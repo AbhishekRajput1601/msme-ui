@@ -12,6 +12,7 @@ import {
   fetchApplicationDetail,
   fetchProgressHistory,
 } from './secretaryService'
+import toast from '../../utils/toast'
 import './secretary.css'
 
 export default function SecretaryProgressPage() {
@@ -19,7 +20,6 @@ export default function SecretaryProgressPage() {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [applicantInfo, setApplicantInfo] = useState({})
   const [historyList, setHistoryList] = useState([])
 
@@ -76,7 +76,7 @@ export default function SecretaryProgressPage() {
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
-          setError(err.message || 'Failed to load progress details.')
+          toast.error(err.message || 'Failed to load progress details.')
         }
       })
       .finally(() => {
@@ -131,12 +131,6 @@ export default function SecretaryProgressPage() {
         </div>
 
         <div className="panel-body">
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          )}
-
           {/* Print instruction bar */}
           <div className="row" style={{ marginBottom: '15px' }}>
             <div className="col-md-6 text-left">

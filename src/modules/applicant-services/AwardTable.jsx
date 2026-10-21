@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getUnitData } from '../industrial-unit/industrialUnitService'
 import IndustrialView from '../industrial-unit/IndustrialView'
 import { applicantServiceLink } from './serviceLinks'
+import toast from '../../utils/toast'
 
 // Ordered exactly as applicantAwardList.html's fnCreatedRow branches.
 export function awardAction(row) {
@@ -28,12 +29,16 @@ export default function AwardTable({ node, state }) {
     getUnitData('fetchawards',params,abort.signal).then(data => {
       if (!Array.isArray(data.aaData)) throw new Error('The server returned an invalid award list.')
       if (!abort.signal.aborted) setResult({data:data.aaData,count:Number(data.iTotalDisplayRecords || 0),total:Number(data.iTotalRecords || 0)})
-    }).catch(error => { if (!abort.signal.aborted) setResult({data:[],error:error.message}) })
+    }).catch(error => {
+      if (!abort.signal.aborted) {
+        setResult({data:[],error:error.message})
+        toast.error(error.message || 'Failed to fetch awards.')
+      }
+    })
     return () => abort.abort()
   },[start,length,search])
   const count=result.count || 0, pages=Math.ceil(count/length), page=Math.floor(start/length)
   return <div>
-    {result.error && <div className="alert alert-danger" role="alert">{result.error}</div>}
     <div className="service-table-controls"><label>Show <select value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10,25,50,100].map(n => <option key={n}>{n}</option>)}</select> entries</label><label>Search: <input value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} /></label></div>
     {result.loading && <div role="status">Processing...</div>}
     <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={!!result.loading}>

@@ -18,6 +18,7 @@ import {
   submitSecretaryBatch,
   downloadCoveringLetter,
 } from './secretaryService'
+import { toast } from '../../utils/toast'
 import './secretary.css'
 
 export default function SecretaryBatchesPage() {
@@ -43,7 +44,9 @@ export default function SecretaryBatchesPage() {
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
-          setResponseObject({ errorMessage: err.message || 'Failed to load batches.', successMessage: null })
+          const msg = err.message || 'Failed to load batches.'
+          setResponseObject({ errorMessage: msg, successMessage: null })
+          toast.error(msg)
         }
       })
       .finally(() => {
@@ -75,7 +78,9 @@ export default function SecretaryBatchesPage() {
       }
       setActiveBatch(detail || b)
     } catch (err) {
-      setResponseObject({ errorMessage: err.message || 'Failed to load batch details.', successMessage: null })
+      const msg = err.message || 'Failed to load batch details.'
+      setResponseObject({ errorMessage: msg, successMessage: null })
+      toast.error(msg)
     } finally {
       setLoading(false)
     }
@@ -89,11 +94,7 @@ export default function SecretaryBatchesPage() {
     try {
       await downloadCoveringLetter(b.batchId, b.batchCode)
     } catch {
-      setResponseObject({
-        errorMessage: 'Covering letter is not available for this batch.',
-        successMessage: null,
-      })
-      setTimeout(() => setResponseObject({ successMessage: null, errorMessage: null }), 5000)
+      toast.warning('Covering letter is not available for this batch.')
     }
   }
 
@@ -146,7 +147,7 @@ export default function SecretaryBatchesPage() {
   const submitBatch = async () => {
     const apps = (activeBatch && activeBatch.applications) || []
     if (apps.length === 0) {
-      alert('This batch has no applications.')
+      toast.warning('This batch has no applications.')
       return
     }
 
@@ -154,11 +155,11 @@ export default function SecretaryBatchesPage() {
     for (let i = 0; i < apps.length; i++) {
       const a = apps[i]
       if (!a.remark) {
-        alert('Every application must have a remark before forwarding the batch.')
+        toast.warning('Every application must have a remark before forwarding the batch.')
         return
       }
       if (a.remark === 'Incomplete' && (!a.remarkText || !a.remarkText.trim())) {
-        alert(`Remark Note is mandatory when the remark is "Incomplete" (application ${a.applicationNo}).`)
+        toast.warning(`Remark Note is mandatory when the remark is "Incomplete" (application ${a.applicationNo}).`)
         return
       }
       actions.push({
@@ -174,17 +175,21 @@ export default function SecretaryBatchesPage() {
 
     try {
       const res = await submitSecretaryBatch(activeBatch.batchId, actions)
-      setResponseObject({
-        successMessage: res?.successMessage || 'Batch forwarded to LDM successfully.',
-        errorMessage: res?.errorMessage || null,
-      })
-      if (!res?.errorMessage) {
+      if (res?.errorMessage) {
+        toast.error(res.errorMessage)
+        setResponseObject({ successMessage: null, errorMessage: res.errorMessage })
+      } else {
+        const msg = res?.successMessage || 'Batch forwarded to LDM successfully.'
+        toast.success(msg)
+        setResponseObject({ successMessage: msg, errorMessage: null })
         setActiveBatch(null)
         loadData()
       }
     } catch (err) {
+      const msg = err.message || 'Something went wrong while submitting batch.'
+      toast.error(msg)
       setResponseObject({
-        errorMessage: err.message || 'Something went wrong while submitting batch.',
+        errorMessage: msg,
         successMessage: null,
       })
     } finally {
@@ -201,17 +206,6 @@ export default function SecretaryBatchesPage() {
               Secretary Verification &nbsp;&raquo;&nbsp; Batch-wise Processing
             </div>
             <div className="panel-body">
-              {responseObject.successMessage && (
-                <div className="alert alert-success" role="alert">
-                  {responseObject.successMessage}
-                </div>
-              )}
-              {responseObject.errorMessage && (
-                <div className="alert alert-danger" role="alert">
-                  {responseObject.errorMessage}
-                </div>
-              )}
-
               {/* ─── 1. Batch List View ─────────────────────────────────────── */}
               {!activeBatch && (
                 <div className="table-responsive">

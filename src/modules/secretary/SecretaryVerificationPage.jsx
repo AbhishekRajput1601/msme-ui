@@ -15,6 +15,7 @@ import {
   queryApplications,
   fetchVerificationHistory,
 } from './secretaryService'
+import { toast } from '../../utils/toast'
 import './secretary.css'
 
 export default function SecretaryVerificationPage() {
@@ -54,7 +55,9 @@ export default function SecretaryVerificationPage() {
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
-          setResponseObject({ errorMessage: err.message || 'Failed to load applications.', successMessage: null })
+          const msg = err.message || 'Failed to load applications.'
+          setResponseObject({ errorMessage: msg, successMessage: null })
+          toast.error(msg)
         }
       })
       .finally(() => {
@@ -155,7 +158,7 @@ export default function SecretaryVerificationPage() {
   const submitVerify = async () => {
     const selected = getSelected()
     if (selected.length === 0) {
-      alert('Please select at least one application.')
+      toast.warning('Please select at least one application.')
       return
     }
     if (!window.confirm(`Verify ${selected.length} selected application(s)?`)) {
@@ -168,16 +171,21 @@ export default function SecretaryVerificationPage() {
     try {
       const res = await verifyApplications(selected)
       if (res && res.errorMessage) {
+        toast.error(res.errorMessage)
         setResponseObject({ errorMessage: res.errorMessage, successMessage: null })
       } else {
+        const msg = res?.successMessage || 'Applications verified successfully.'
+        toast.success(msg)
         setResponseObject({
-          successMessage: res?.successMessage || 'Applications verified successfully.',
+          successMessage: msg,
           errorMessage: null,
         })
         loadData(searchText.trim())
       }
     } catch (err) {
-      setResponseObject({ errorMessage: err.message || 'Something went wrong. Please try again.', successMessage: null })
+      const msg = err.message || 'Something went wrong. Please try again.'
+      toast.error(msg)
+      setResponseObject({ errorMessage: msg, successMessage: null })
     } finally {
       setSubmitting(false)
     }
@@ -187,7 +195,7 @@ export default function SecretaryVerificationPage() {
   const submitQuery = async () => {
     const selected = getSelected()
     if (selected.length === 0) {
-      alert('Please select at least one application.')
+      toast.warning('Please select at least one application.')
       return
     }
     if (!window.confirm(`Raise query on ${selected.length} selected application(s)? They will be sent back to DTIC.`)) {
@@ -200,16 +208,21 @@ export default function SecretaryVerificationPage() {
     try {
       const res = await queryApplications(selected)
       if (res && res.errorMessage) {
+        toast.error(res.errorMessage)
         setResponseObject({ errorMessage: res.errorMessage, successMessage: null })
       } else {
+        const msg = res?.successMessage || 'Query raised. Applications sent back to DTIC.'
+        toast.success(msg)
         setResponseObject({
-          successMessage: res?.successMessage || 'Query raised. Applications sent back to DTIC.',
+          successMessage: msg,
           errorMessage: null,
         })
         loadData(searchText.trim())
       }
     } catch (err) {
-      setResponseObject({ errorMessage: err.message || 'Something went wrong. Please try again.', successMessage: null })
+      const msg = err.message || 'Something went wrong. Please try again.'
+      toast.error(msg)
+      setResponseObject({ errorMessage: msg, successMessage: null })
     } finally {
       setSubmitting(false)
     }
@@ -228,17 +241,6 @@ export default function SecretaryVerificationPage() {
               Secretary Verification &nbsp;&raquo;&nbsp; Status: Meeting Agenda Generated (mapped district)
             </div>
             <div className="panel-body">
-              {responseObject.successMessage && (
-                <div className="alert alert-success" role="alert">
-                  {responseObject.successMessage}
-                </div>
-              )}
-              {responseObject.errorMessage && (
-                <div className="alert alert-danger" role="alert">
-                  {responseObject.errorMessage}
-                </div>
-              )}
-
               {/* Search filter row */}
               <div className="row" style={{ marginBottom: '15px' }}>
                 <div className="col-md-6">

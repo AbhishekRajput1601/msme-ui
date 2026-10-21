@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import Input from '../../../../components/forms/Input'
 import Button from '../../../../components/ui/Button'
-import Alert from '../../../../components/ui/Alert'
+import toast from '../../../../utils/toast'
 
 // Validation schema matching discovery doc rules
 const applicantDetailSchema = z.object({
@@ -63,7 +63,6 @@ const applicantDetailSchema = z.object({
 })
 
 export default function ApplicationDetailForm({ initialData = {}, onSave, isReadOnly = false }) {
-  const [successMessage, setSuccessMessage] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const {
@@ -89,14 +88,14 @@ export default function ApplicationDetailForm({ initialData = {}, onSave, isRead
 
   const onSubmit = async (values) => {
     setIsSubmitting(true)
-    setSuccessMessage(null)
     try {
       if (!onSave) throw new Error('Saving is currently unavailable.')
       await onSave(values)
-      setSuccessMessage('Project details updated successfully.')
+      toast.success('Project details updated successfully.')
       reset(values)
     } catch (err) {
       console.error('Update failed:', err)
+      toast.error(err.message || 'Failed to update project details.')
     } finally {
       setIsSubmitting(false)
     }
@@ -104,9 +103,6 @@ export default function ApplicationDetailForm({ initialData = {}, onSave, isRead
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {successMessage && (
-        <Alert variant="success" message={successMessage} dismissible onDismiss={() => setSuccessMessage(null)} />
-      )}
 
       {/* Enterprise & Activity */}
       <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-xs">

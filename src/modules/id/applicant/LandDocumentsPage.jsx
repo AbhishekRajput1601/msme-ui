@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { fetchApplicationDetail, fetchDocumentsList, getDownloadDocumentUrl } from './services/idApplicantService'
 import { fetchLandPage, saveLandDocuments } from './services/landApplicationService'
 import { isUndeveloped } from './landApplicationModel'
+import toast from '../../../utils/toast'
 import './land-documents.css'
 
 const categories = [
@@ -39,7 +40,12 @@ export default function LandDocumentsPage({ correction = false }) {
       const declarationText = container ? [...container.querySelectorAll(':scope > span')].map(span => span.textContent.trim()).filter(Boolean) : []
       if (!correction && (!declarationText.length || declarationText.some(text => /\{\{|Declaration Detail/.test(text)))) throw new Error('The server did not return the application declaration. Please reload.')
       if (active) setResult({ application, documents, undeveloped: isUndeveloped(application), update: correction || /updateIDDocuments/.test(submission), declarationText })
-    }).catch(err => { if (active) setResult({ error: err.message }) })
+    }).catch(err => {
+      if (active) {
+        setResult({ error: err.message })
+        toast.error(err.message || 'Failed to load document requirements.')
+      }
+    })
     return () => { active = false; controller.abort() }
   }, [applicantId, parcelToken, attempt, correction])
   const submit = async event => {
@@ -48,9 +54,13 @@ export default function LandDocumentsPage({ correction = false }) {
     setBusy(true); setError('')
     try {
       const response = await saveLandDocuments({ applicantId, files, declaration, update: result.update, undeveloped: result.undeveloped, correction })
+      toast.success(response.successMessage || 'Documents saved successfully!')
       setSaved({ message: response.successMessage, parcelToken: response.value || parcelToken })
       setFiles({})
-    } catch (err) { setError(err.message) }
+    } catch (err) {
+      setError(err.message)
+      toast.error(err.message || 'Failed to save documents.')
+    }
     finally { setBusy(false) }
   }
   return <section className="panel panel-info land-documents-page"><div className="panel-heading">Land application documents</div><div className="panel-body">
@@ -58,7 +68,6 @@ export default function LandDocumentsPage({ correction = false }) {
     {result.loading ? <p role="status">Loading document requirements…</p> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
       {result.documents.length > 0 && <div className="land-documents-existing"><h2>Uploaded documents</h2><ul>{result.documents.map((doc, index) => <li key={index}>{doc.documentTypeShort ? <a href={getDownloadDocumentUrl(doc.documentTypeShort, applicantId)} target="_blank" rel="noreferrer">{doc.documentType}</a> : doc.documentType}</li>)}</ul></div>}
       {saved ? <div role="status" className="alert alert-success"><p>{saved.message}</p><p>{correction ? 'The corrected documents have been saved. Continue to your query reply.' : 'Documents have been saved. Payment and any required eSign steps remain.'}</p><Link className="btn btn-primary" to={`/applicant/land-allotment/${correction ? 'query' : 'payment'}/${applicantId}/${encodeURIComponent(saved.parcelToken)}`}>{correction ? 'Continue to query reply' : 'Review payment'}</Link></div> : <form key={attempt} onSubmit={submit} aria-busy={busy}>
-        {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <div className="land-documents-help" id="land-upload-help"><strong>Upload guidelines</strong><p>PDF or JPEG, smaller than {result.undeveloped ? '10' : '2'} MB per document. Photographs: JPEG, smaller than 2 MB.</p><p>{result.update ? 'Choose only the files you want to replace.' : 'Fields marked with * are required.'}</p></div>
         <div className="land-documents-grid">{(result.undeveloped ? [['doc1', 'Latest financial closure report', true], ...categories.map(([name, label, required]) => [name, label, required || ['doc10', 'doc11'].includes(name)]), ['doc12', 'Proof of establishment of unit (if applicable)']] : categories).map(([name, label, required]) => <div className={`land-document-field${files[name] ? ' has-file' : ''}`} key={name}>
           <label htmlFor={`land-${name}`}>{label}{required && !result.update && <span className="land-document-required"> *</span>}</label>

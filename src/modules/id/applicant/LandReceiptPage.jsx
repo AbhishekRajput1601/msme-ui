@@ -4,6 +4,7 @@ import { fetchLandPage } from './services/landApplicationService'
 import { contentNodes } from '../../public/legacyWebsite'
 import { WebsiteContent } from '../../public/WebsiteContent'
 import { resolveLegacyHashRoute } from '../../../routes/roleRoutes'
+import toast from '../../../utils/toast'
 
 export default function LandReceiptPage({ statusLookup = false, application = false }) {
   const { crn, locChallanId, applicantId, parcelToken } = useParams()
@@ -34,7 +35,12 @@ export default function LandReceiptPage({ statusLookup = false, application = fa
       if (panel.textContent.includes('{{')) throw new Error('The server returned incomplete receipt details.')
       const nodes = contentNodes(panel, `${window.location.origin}/backend/applicant/${path}`)
       if (!controller.signal.aborted) setResult({ fields, links, nodes })
-    }).catch(error => { if (!controller.signal.aborted) setResult({ error: error.message }) })
+    }).catch(error => {
+      if (!controller.signal.aborted) {
+        setResult({ error: error.message })
+        toast.error(error.message || 'Failed to load payment details.')
+      }
+    })
     return () => controller.abort()
   }, [crn, locChallanId, applicantId, parcelToken, application, statusLookup, attempt])
   return <section className="panel panel-info"><div className="panel-heading">{statusLookup ? 'Check treasury payment status' : 'Land payment receipt and status'}</div><div className="panel-body">

@@ -1,6 +1,7 @@
 import { installActions } from '../generated/DTICController'
 import { createInfrastructureRequests } from '../infrastructure/infrastructureModel'
 import { filter } from '../../industrial-unit/viewHelpers'
+import toast from '../../../utils/toast'
 
 export function exportOxTable(fileName, tableId) {
   const table = document.querySelector(tableId)
@@ -55,14 +56,17 @@ export function createOxState({ number, locale, signal, notify, transport }) {
       state.responseObject = response.data
       state.saved = number !== 1 && !!response.data?.successMessage
       loading.finish()
-      if (response.data?.successMessage) setTimeout(() => { if (!signal.aborted) { state.responseObject.successMessage = null; notify() } }, 10000)
+      if (response.data?.successMessage) {
+        toast.success(response.data.successMessage)
+        setTimeout(() => { if (!signal.aborted) { state.responseObject.successMessage = null; notify() } }, 10000)
+      }
     })
   }
   // Blur normalizes quantities to numbers; validation accepts numbers and text.
   for (const [action, key, label] of [['checkSupplyQty', 'supplyQty', 'Supply'], ['checkReceivedQty', 'receivedQty', 'Received']]) {
     state[action] = row => {
       if (row[key] != null && Number(String(row[key]).split('.')[0]) > 99) {
-        window.alert(`${label} Qty (KL) should be less than 100`)
+        toast.warning(`${label} Qty (KL) should be less than 100`)
         row[key] = null
       }
     }

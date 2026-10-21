@@ -8,6 +8,7 @@ import { readPath } from '../../../industrial-unit/viewHelpers'
 import configs from './generated/tables.json'
 import { rowRules } from './generated/rows'
 import { landReferenceLink, landDownloadLink } from './landReferenceLinks'
+import toast from '../../../../utils/toast'
 
 // Data is escaped before entering the original concatenation rules. The output
 // is parsed as inert markup and rendered through an allowlist, never innerHTML.
@@ -62,13 +63,17 @@ export default function LandReferenceTable({ name, node, state }) {
       const data = jsonData(response.data)
       if (!Array.isArray(data.aaData)) throw new Error('The server returned an invalid application list.')
       if (!abort.signal.aborted) setResult({ data: data.aaData, count: Number(data.iTotalDisplayRecords || 0), total: Number(data.iTotalRecords || 0) })
-    }).catch(error => { if (!abort.signal.aborted) setResult({ data: [], error: error.message }) })
+    }).catch(error => {
+      if (!abort.signal.aborted) {
+        setResult({ data: [], error: error.message })
+        toast.error(error.message || 'Failed to load records.')
+      }
+    })
     return () => abort.abort()
   }, [name, config, start, length, search, sort])
   const headers = node.children.find(child => child.tag === 'thead')?.children.find(child => child.tag === 'tr')?.children || []
   const count = result.count || 0, page = Math.floor(start / length), pages = Math.ceil(count / length)
   return <div className="land-datatable">
-    {result.error && <div className="alert alert-danger" role="alert">{result.error}</div>}
     <div className="land-table-controls">
       <div className="land-control-group">
         <label>

@@ -14,6 +14,8 @@ import { expressions } from './generated/expressions'
 import tables from './generated/tables.json'
 import DticTable from './DticTable'
 import DticAgenda from './DticAgenda'
+import DticDashboard from './DticDashboard'
+import toast from '../../utils/toast'
 import './generated/reference.css'
 import './dtic-page.css'
 import './dtic-msme-form.css'
@@ -32,6 +34,7 @@ export function matchDticRoute(pathname) {
 export default function DticPage() {
   const location = useLocation(), { locale } = useTranslation()
   const match = matchDticRoute(location.pathname)
+  if (match?.route.path === 'dashboard') return <DticDashboard />
   if (match?.route.controller === 'DTICMSMEReports') return <ReportsPage key={location.pathname+locale} match={match} locale={locale} />
   if (match?.route.controller === 'OXController') return <OxPage key={location.pathname+locale} match={match} locale={locale} />
   if (match?.route.controller === 'DTICIDController') return <InfrastructurePage key={location.pathname+locale} match={match} locale={locale} />
@@ -66,7 +69,12 @@ function DticContent({ match, locale }) {
       }
       if (!abort.signal.aborted) setContent({ state,name })
     }
-    initialize().catch(error => { if (!abort.signal.aborted) setError(error.message) })
+    initialize().catch(error => {
+      if (!abort.signal.aborted) {
+        setError(error.message)
+        toast.error(error.message || 'Failed to load DTIC page.')
+      }
+    })
     return () => abort.abort()
   }, [navigate,locale,match])
   if (!match) return <div className="alert alert-danger">This DTIC page has not yet been migrated.</div>
@@ -74,7 +82,6 @@ function DticContent({ match, locale }) {
   if (!content) return <p role="status">Loading....</p>
   const { state,name } = content
   return <div className={`dtic-page${name === 'dtic/msmeapplicationlist' ? ' dtic-msme-list' : ''}${name === 'dtic/viewmsmeform' ? ' dtic-msme-form' : ''}`}>
-    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
     {(state.busy || state.saving) && <p role="status">Loading....</p>}
     <IndustrialView name={name} state={state} />
     {state.agendaOpen && <DticAgenda state={state} />}

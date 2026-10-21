@@ -6,6 +6,7 @@ import { escapeRow } from '../id/applicant/reference/LandReferenceTable'
 import { dticRequest, dticLink } from './dticService'
 import { rowRules } from './generated/rows'
 import tables from './generated/tables.json'
+import toast from '../../utils/toast'
 
 export function dticCells(name, row, index, rules = rowRules, tableConfig = tables) {
   const result = {}
@@ -71,24 +72,24 @@ export function Cell({ markup, state, row, eligible }) {
     const translation = node.getAttribute('th:text')?.match(/^#\{(.+)\}$/)?.[1]
     const translated = state.translations[state.locale]?.[translation]
     const children = translated ? (typeof translated === 'string' ? translated.replace(/\bEnrolment\b/g, 'Enrollment') : translated) : [...node.childNodes].map(render)
-    const props = { key, className: node.className || undefined, title: node.getAttribute('title') || undefined }
+    const props = { className: node.className || undefined, title: node.getAttribute('title') || undefined }
     if (tag === 'input') {
       const id = row.applicationId || row.applicantId || row.requestId || ''
-      return <input {...props} type="checkbox" aria-label={`Select ${id}`}
+      return <input key={key} {...props} type="checkbox" aria-label={`Select ${id}`}
         disabled={node.classList.contains('elig-gated') ? !eligible : node.hasAttribute('disabled')}
         checked={Boolean(state.IdList?.includes(id))} onChange={e => state.selectApplication?.(id, e.target.checked)} />
     }
     if (tag === 'a') {
       const href = node.getAttribute('href') || ''
-      if (href.startsWith('#')) return <Link {...props} to={(state.resolveLink || dticLink)(href)}>{children}</Link>
-      if (node.classList.contains('accept-link')) return <button {...props} className="dtic-action-link" disabled={state.saving}
+      if (href.startsWith('#')) return <Link key={key} {...props} to={(state.resolveLink || dticLink)(href)}>{children}</Link>
+      if (node.classList.contains('accept-link')) return <button key={key} {...props} className="dtic-action-link" disabled={state.saving}
         onClick={() => state.acceptApplication(row.applicationId)}>{children}</button>
       const action = href.match(/^javascript:(\w+)\(['"]([^'"]+)['"]\)/)
-      if (action) return <button {...props} className="dtic-action-link" onClick={() => state.downloadAction(action[1], action[2])}>{children}</button>
-      if (/^(\/[^/]|https?:\/\/)/i.test(href)) return <a {...props} href={href} target={node.getAttribute('target') || undefined} rel="noopener noreferrer">{children}</a>
-      return <span {...props}>{children}</span>
+      if (action) return <button key={key} {...props} className="dtic-action-link" onClick={() => state.downloadAction(action[1], action[2])}>{children}</button>
+      if (/^(\/[^/]|https?:\/\/)/i.test(href)) return <a key={key} {...props} href={href} target={node.getAttribute('target') || undefined} rel="noopener noreferrer">{children}</a>
+      return <span key={key} {...props}>{children}</span>
     }
-    return React.createElement(tag, props, tag === 'br' ? undefined : children)
+    return React.createElement(tag, { ...props, key }, tag === 'br' ? undefined : children)
   }
   return [...doc.body.childNodes].map(render)
 }
@@ -110,7 +111,12 @@ export default function DticTable({ name, node, state }) {
       const gated = state.tableRequest ? [] : data.aaData.filter(row => Number(row.currentStatusId) === 19).map(row => row.applicationId)
       const eligible = gated.length ? await dticRequest('get', 'eligibleCompleteIds', { applicationIds: gated.join(',') }, abort.signal).catch(() => []) : []
       if (!abort.signal.aborted) setResult({ rows: data.aaData, eligible, count: Number(data.iTotalDisplayRecords || 0), total: Number(data.iTotalRecords || 0) })
-    }).catch(error => { if (!abort.signal.aborted) setResult({ rows: [], eligible: [], error: error.message }) })
+    }).catch(error => {
+      if (!abort.signal.aborted) {
+        setResult({ rows: [], eligible: [], error: error.message })
+        toast.error(error.message || 'Failed to load records.')
+      }
+    })
     return () => abort.abort()
   }, [config, start, length, search, state.listVersion])
   const headers = node.children.find(n => n.tag === 'thead')?.children.find(n => n.tag === 'tr')?.children || []
@@ -119,7 +125,6 @@ export default function DticTable({ name, node, state }) {
   const fullNumbers = config.pagingType === 'full_numbers'
   const pageNumbers = Array.from({ length: Math.min(5, pages) }, (_, i) => Math.max(0, Math.min(page - 2, pages - 5)) + i)
   return <div className="dtic-datatable">
-    {result.error && <div className="alert alert-danger" role="alert">{result.error}</div>}
     <div className="dtic-table-controls">
       <label>Show <select value={length} onChange={e => { setLength(+e.target.value); setStart(0) }}>{[10, 25, 50, 100].map(n => <option key={n}>{n}</option>)}</select> entries</label>
       <div className="dtic-table-actions">

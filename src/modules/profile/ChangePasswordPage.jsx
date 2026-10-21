@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useAuth } from '../../hooks/useAuth'
 import ProfileNavTabs from './components/ProfileNavTabs'
+import { toast } from '../../utils/toast'
 import {
   generateChangePasswordOtp,
   submitChangePassword,
@@ -81,21 +82,19 @@ export default function ChangePasswordPage({ mode }) {
 
   const handleGenerateOtp = async (e) => {
     e.preventDefault()
-    setMessage(null)
-    setErrorMessage(null)
 
     if (!isFirstChange && !currentPassword) {
-      setErrorMessage(hindi ? 'कृपया वर्तमान पासवर्ड दर्ज करें।' : 'Please enter current password.')
+      toast.warning(hindi ? 'कृपया वर्तमान पासवर्ड दर्ज करें।' : 'Please enter current password.')
       return
     }
 
     if (!password) {
-      setErrorMessage(hindi ? 'कृपया नया पासवर्ड दर्ज करें।' : 'Please enter new password.')
+      toast.warning(hindi ? 'कृपया नया पासवर्ड दर्ज करें।' : 'Please enter new password.')
       return
     }
 
     if (!isValidPassword) {
-      setErrorMessage(
+      toast.warning(
         hindi
           ? 'पासवर्ड न्यूनतम मानकों को पूरा नहीं करता है।'
           : 'Password does not meet the minimum security standards.'
@@ -104,12 +103,12 @@ export default function ChangePasswordPage({ mode }) {
     }
 
     if (password !== confirmPassword) {
-      setErrorMessage(hindi ? 'नया पासवर्ड और पुष्टि पासवर्ड मेल नहीं खाते।' : 'New password and confirm password do not match.')
+      toast.warning(hindi ? 'नया पासवर्ड और पुष्टि पासवर्ड मेल नहीं खाते।' : 'New password and confirm password do not match.')
       return
     }
 
     if (!isFirstChange && currentPassword === password) {
-      setErrorMessage(
+      toast.warning(
         hindi
           ? 'नया पासवर्ड वर्तमान पासवर्ड के समान नहीं हो सकता।'
           : 'New password cannot be the same as your current password.'
@@ -122,10 +121,10 @@ export default function ChangePasswordPage({ mode }) {
       setSubmitting(true)
       try {
         const res = await submitFirstPasswordChange({ password, confirmPassword })
-        setMessage(res.successMessage || (hindi ? 'पासवर्ड सफलतापूर्वक बदल दिया गया है।' : 'Password changed successfully.'))
+        toast.success(res.successMessage || (hindi ? 'पासवर्ड सफलतापूर्वक बदल दिया गया है।' : 'Password changed successfully.'))
         setTimeout(() => navigate('/applicant/dashboard'), 2000)
       } catch (err) {
-        setErrorMessage(err.message || 'Failed to change password.')
+        toast.error(err.message || 'Failed to change password.')
       } finally {
         setSubmitting(false)
       }
@@ -137,15 +136,15 @@ export default function ChangePasswordPage({ mode }) {
     try {
       const res = await generateChangePasswordOtp({ currentPassword, password, confirmPassword })
       setOtpGenerated(true)
-      setOtpMessage(
-        res.successMessage ||
+      const msg = res.successMessage ||
         (hindi
           ? 'आपके पंजीकृत मोबाइल नंबर पर ओटीपी भेजा गया है।'
           : 'OTP has been sent to your registered mobile number.')
-      )
+      setOtpMessage(msg)
+      toast.info(msg)
       setResendCountdown(60)
     } catch (err) {
-      setErrorMessage(err.message || (hindi ? 'ओटीपी उत्पन्न करने में त्रुटि।' : 'Failed to generate OTP.'))
+      toast.error(err.message || (hindi ? 'ओटीपी उत्पन्न करने में त्रुटि।' : 'Failed to generate OTP.'))
     } finally {
       setLoading(false)
     }
@@ -153,11 +152,9 @@ export default function ChangePasswordPage({ mode }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setMessage(null)
-    setErrorMessage(null)
 
     if (!otp || otp.length < 4) {
-      setErrorMessage(hindi ? 'कृपया 6-अंकीय ओटीपी दर्ज करें।' : 'Please enter the 6-digit OTP.')
+      toast.warning(hindi ? 'कृपया 6-अंकीय ओटीपी दर्ज करें।' : 'Please enter the 6-digit OTP.')
       return
     }
 
@@ -169,7 +166,7 @@ export default function ChangePasswordPage({ mode }) {
         confirmPassword,
         otp,
       })
-      setMessage(
+      toast.success(
         res.successMessage ||
         (hindi
           ? 'पासवर्ड सफलतापूर्वक बदल दिया गया है! कृपया नए पासवर्ड के साथ पुनः लॉगिन करें।'
@@ -190,7 +187,7 @@ export default function ChangePasswordPage({ mode }) {
         }
       }, 2500)
     } catch (err) {
-      setErrorMessage(err.message || (hindi ? 'पासवर्ड बदलने में त्रुटि।' : 'Failed to change password.'))
+      toast.error(err.message || (hindi ? 'पासवर्ड बदलने में त्रुटि।' : 'Failed to change password.'))
     } finally {
       setSubmitting(false)
     }
@@ -214,28 +211,6 @@ export default function ChangePasswordPage({ mode }) {
           <p>{hindi ? 'मध्य प्रदेश शासन — सूक्ष्म, लघु एवं मध्यम उद्यम विभाग' : 'Government of Madhya Pradesh — Department of MSME'}</p>
         </div>
       </div>
-
-      {/* Notifications */}
-      {message && (
-        <div className="alert alert-success" role="alert">
-          <i className="fa fa-check-circle" /> {message}
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="alert alert-danger" role="alert">
-          <i className="fa fa-exclamation-triangle" /> {errorMessage}
-        </div>
-      )}
-
-      {otpMessage && otpGenerated && (
-        <div className="alert alert-info" role="alert">
-          <i className="fa fa-mobile-phone fa-lg" /> <strong>{otpMessage}</strong>
-          <span style={{ display: 'block', fontSize: '12px', marginTop: '4px' }}>
-            Please enter the 6-digit OTP code below to finalize your password update.
-          </span>
-        </div>
-      )}
 
       {/* Main Government Form Panel matching changepassword.html */}
       <div className="panel panel-primary">

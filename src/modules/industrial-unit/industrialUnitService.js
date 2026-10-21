@@ -1,5 +1,6 @@
 import http from '../../api/httpClient'
 import { businessError } from './viewHelpers'
+import toast from '../../utils/toast'
 
 function getRolePrefix() {
   if (typeof window !== 'undefined') {
@@ -32,7 +33,14 @@ export async function saveUnitData(endpoint, data, signal) {
 // Data-loading actions share a small request boundary, without Angular services.
 export function createRequests(state, notify, signal) {
   function task(promise) {
-    promise.catch(error => { if (!signal.aborted) { state.error = error.message; state.busy = false; notify() } })
+    promise.catch(error => {
+      if (!signal.aborted) {
+        state.error = error.message
+        state.busy = false
+        toast.error(error.message || 'Request failed.')
+        notify()
+      }
+    })
     const next = fn => task(promise.then(async result => { if (signal.aborted) return result; const output = await fn(result); notify(); return output }))
     return {
       success: fn => next(result => { fn(result.data); return result }),

@@ -9,6 +9,7 @@ import {
 } from './services/idApplicantService'
 import nodes from './reference/generated/application-detail/view.json'
 import { expressions } from './reference/generated/application-detail/expressions'
+import toast from '../../../utils/toast'
 import './application-detail.css'
 
 export default function ApplicationDetailPage() {
@@ -26,7 +27,12 @@ function ApplicationDetailContent({ id }) {
       .then(([application, documents, profileDocuments]) => {
         if (active) setData({ application, documents, profileDocuments })
       })
-      .catch(error => { if (active) setError(error.message || 'Failed to load application details.') })
+      .catch(error => {
+        if (active) {
+          setError(error.message || 'Failed to load application details.')
+          toast.error(error.message || 'Failed to load application details.')
+        }
+      })
     return () => { active = false }
   }, [id])
   const state = useMemo(() => data && ({
