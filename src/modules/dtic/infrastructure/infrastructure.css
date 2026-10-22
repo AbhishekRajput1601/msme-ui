@@ -233,6 +233,63 @@
   background: #f8fafc;
 }
 
+/* Land Allotment: prioritize area details over short plot identifiers. */
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/dticVacantLandList"] #dynamic-table > :is(thead, tbody) > tr > :is(th, td):nth-child(2) {
+  width: 300px;
+  min-width: 300px;
+  white-space: normal;
+}
+
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/dticVacantLandList"] #dynamic-table > :is(thead, tbody) > tr > :is(th, td):nth-child(3) {
+  width: 90px;
+  min-width: 70px;
+  max-width: 90px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Land Allotment > Application List: leave room for the action links. */
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] table:has(> thead) > thead > tr > th:last-child,
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] table:has(> thead) > tbody > tr > td:last-child {
+  width: 420px;
+  min-width: 420px;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] td:last-child > .action-buttons {
+  display: inline !important;
+  margin: 0;
+  white-space: normal;
+}
+
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] td:last-child > .action-buttons > :is(a, button) {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 4px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] td:last-child > .action-buttons > :is(a, button)::before {
+  content: "|";
+  display: inline-block;
+  padding: 0 7px;
+  color: #526274;
+}
+
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] td:last-child > .action-buttons:first-child > :is(a, button):first-child::before {
+  content: none;
+}
+
+.legacy-portal #page-wrapper .dtic-infrastructure[data-dtic-view="dtic/idPendingApplicantList"] td:last-child > .action-buttons > :is(a, button):hover {
+  background: #eef5fb;
+}
+
 @media (max-width:767px) {
   .legacy-portal .dtic-infrastructure [class*="col-md-"] {
     width: 100%;

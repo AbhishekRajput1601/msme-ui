@@ -43,6 +43,7 @@ export default function DticPage() {
 }
 
 function DticContent({ match, locale }) {
+  const location = useLocation()
   const navigate = useNavigate(), [,render] = useReducer(n => n+1,0)
   const [content,setContent] = useState(null), [error,setError] = useState('')
   useEffect(() => {
@@ -83,7 +84,9 @@ function DticContent({ match, locale }) {
   if (!content) return <Spinner />
   const { state,name } = content
   return <div className={`dtic-page${name === 'dtic/msmeapplicationlist' ? ' dtic-msme-list' : ''}${name === 'dtic/viewmsmeform' ? ' dtic-msme-form' : ''}`}>
-    {(state.busy || state.saving) && <Spinner />}
+    {name === 'dtic/msmeapplicationlist' && location.state?.msmeSavedMessage && <div className="alert alert-success" role="status">{location.state.msmeSavedMessage}</div>}
+    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
+    {((state.busy && !state.error) || state.saving) && <Spinner />}
     <IndustrialView name={name} state={state} />
     {state.agendaOpen && <DticAgenda state={state} />}
   </div>

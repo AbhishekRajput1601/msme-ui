@@ -4,6 +4,7 @@ import IndustrialView from '../industrial-unit/IndustrialView'
 import { readPath } from '../industrial-unit/viewHelpers'
 import { escapeRow } from '../id/applicant/reference/LandReferenceTable'
 import { dticRequest, dticLink } from './dticService'
+import { dticTableParams } from './dticTableParams'
 import { rowRules } from './generated/rows'
 import tables from './generated/tables.json'
 import toast from '../../utils/toast'
@@ -100,12 +101,12 @@ export default function DticTable({ name, node, state }) {
   const isMsme = name === 'dtic/msmeapplicationlist'
   const [start, setStart] = useState(0), [length, setLength] = useState(10), [search, setSearch] = useState('')
   const [result, setResult] = useState({ loading: true, rows: [], eligible: [] })
+  const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     const abort = new AbortController()
     setResult(previous => ({ ...previous, loading: true, error: '' }))
-    const params = { sEcho: 1, iDisplayStart: start, iDisplayLength: length, sSearch: search, iColumns: config.columns.length, iSortingCols: 0 }
+    const params = dticTableParams(config, { start, length, search })
     Object.assign(params, state.tableParams?.() || {})
-    config.columns.forEach((column, i) => Object.assign(params, { ['mDataProp_' + i]: column || '', ['bSortable_' + i]: false, ['bSearchable_' + i]: true }))
     const request = state.tableRequest || dticRequest
     request('get', state.tableEndpoint?.() || config.endpoint, params, abort.signal).then(async data => {
       if (!Array.isArray(data.aaData)) throw new Error('The server returned an invalid application list.')
@@ -119,7 +120,7 @@ export default function DticTable({ name, node, state }) {
       }
     })
     return () => abort.abort()
-  }, [config, start, length, search, state.listVersion])
+  }, [config, start, length, search, state.listVersion, attempt])
   const headers = node.children.find(n => n.tag === 'thead')?.children.find(n => n.tag === 'tr')?.children || []
   const count = result.count || 0
   const page = Math.floor(start / length), pages = Math.ceil(count / length)
@@ -141,7 +142,7 @@ export default function DticTable({ name, node, state }) {
       <tbody>{result.rows.map((row, index) => {
         const cells = dticCells(name, row, start + index, state.rowRules || rowRules, state.tableBundle || tables)
         return <tr key={row.applicationId || row.applicantId || row.requestId || index}>{config.columns.map((column, i) => <td key={i}>{i in cells ? <Cell markup={cells[i]} state={state} row={row} eligible={result.eligible?.includes(row.applicationId)} /> : String(readPath(row, column) ?? '')}</td>)}</tr>
-      })}{!result.loading && !result.rows.length && <tr><td className="dataTables_empty" colSpan={headers.length || config?.columns?.length || 1} style={{ textAlign: 'center', verticalAlign: 'middle', padding: '24px 12px' }}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}</tbody>
+      })}{!result.loading && result.error && <tr><td colSpan={headers.length || config?.columns?.length || 1}><div className="alert alert-danger" role="alert">{result.error} <button type="button" className="btn btn-default" onClick={() => setAttempt(n => n + 1)}>Retry</button></div></td></tr>}{!result.loading && !result.error && !result.rows.length && <tr><td className="dataTables_empty" colSpan={headers.length || config?.columns?.length || 1} style={{ textAlign: 'center', verticalAlign: 'middle', padding: '24px 12px' }}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}</tbody>
     </table></div>
     <div className="dtic-table-controls dtic-table-footer">
       <div className="dataTables_info" role="status" aria-live="polite">Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries{result.total > count ? ` (filtered from ${result.total} total entries)` : ''}</div>

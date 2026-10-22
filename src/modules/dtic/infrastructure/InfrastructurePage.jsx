@@ -7,7 +7,8 @@ import { dticDocument, dticLink } from '../dticService'
 import { createInfrastructureState } from './infrastructureModel'
 import InfrastructureMap from './InfrastructureMap'
 import { configureLandRecords, isLandRecord } from './landRecords'
-import views from './generated/views.json'
+import sourceViews from './generated/views.json'
+import { formatApplicationActions } from './applicationListView'
 import { expressions } from './generated/expressions'
 import tables from './generated/tables.json'
 import { rowRules } from './generated/rows'
@@ -17,6 +18,7 @@ import Spinner from '../../../components/loaders/Spinner'
 import './generated/reference.css'
 import './infrastructure.css'
 
+const views = { ...sourceViews, 'dtic/idPendingApplicantList': formatApplicationActions(sourceViews['dtic/idPendingApplicantList']) }
 const serverViews = new Set(['dtic/tenderDetails', 'dtic/id/viewLOCDetails', 'dtic/id/locPaymentDetails'])
 function walk(nodes, fn) { for (const node of nodes || []) { fn(node); walk(node.children, fn) } }
 function templateScore(name, doc) {

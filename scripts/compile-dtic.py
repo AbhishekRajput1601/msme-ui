@@ -281,7 +281,7 @@ for controller in sorted(EXTRA_CONTROLLERS):
     for a,b in [('$scope','state'),('$rootScope','state'),('$window','navigation'),('$http','request'),('$loading','loading'),('$routeParams','params'),('$filter','format'),('$timeout','later'),('angular.forEach','each'),('angular.identity','identity'),('angular.toJson','JSON.stringify'),('angular.fromJson','JSON.parse')]:body=body.replace(a,b)
     body=re.sub(r'(?<!\w)\$\(','dom(',body)
     refresh_functions=['fetchDTICBudgetByFY','fetchDTICDemandByFY','fetchInspectionOffices','fetchInternalAuditList','fetchExternalAuditListForDTIC','fetchFactualDetailListForDTIC','fetchProformaClauseListForDTIC','fetchApplicants','fetchYuvaUdhamiApplicants','fetchResubmittedApplicants','fetchResubmittedYuvaudhamiApplicants','fetchInProcessApplicants','fetchInProcessYuvaudhamiApplicants','fetchTotalApplications','fetchApplicationsByStatus','fetchLetters','fetchSupplyNameList','fetchSupplierNameList','fetchEnrolment']
-    refresh_functions += ['fetchMSMEApplications', 'fetchMicroLevelApplicants', 'fetchSmallLevelApplicants', 'fetchMediumLevelApplicants']
+    refresh_functions += ['fetchAllApplicationsList', 'fetchApplicationsListByStatus', 'fetchMSMEApplications', 'fetchMicroLevelApplicants', 'fetchSmallLevelApplicants', 'fetchMediumLevelApplicants']
     declarations='\n'.join('const '+name+' = () => { state.listVersion++; loading.finish(); };' for name in refresh_functions if re.search(r'\b'+name+r'\(',body))
     if controller == 'DTICMSMEController': declarations += '\nconst $sce = { trustAsHtml: value => value?.message || value };\n'
     declarations+='\nlet lastObjectId="", lastSchemeId="", lastSchemeTypeId="";\n'

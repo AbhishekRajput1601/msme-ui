@@ -2,6 +2,8 @@
 export function installActions(state, { request, loading, navigation, params, format, later, dom }) {
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,Array.isArray(items) ? Number(k) : k));
 const identity = value => value;
+const fetchAllApplicationsList = () => { state.listVersion++; loading.finish(); };
+const fetchApplicationsListByStatus = () => { state.listVersion++; loading.finish(); };
 const fetchApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchYuvaUdhamiApplicants = () => { state.listVersion++; loading.finish(); };
 const fetchResubmittedApplicants = () => { state.listVersion++; loading.finish(); };

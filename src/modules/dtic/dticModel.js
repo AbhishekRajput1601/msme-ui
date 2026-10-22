@@ -20,6 +20,12 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
   // Angular created the model through ng-model; React needs it before field initializers run.
   if (controller === 'DTICMSMEController') {
     state.msmeDetailData = { activityDetailsList: [{}], udyogAadhaar: 'no' }
+    // The legacy handler lives in the audit controller, but the MSME form uses it.
+    state.previousRegistrationValueRequired = false
+    state.onPreviousRegistrationNameChange = () => {
+      const name = state.msmeDetailData.previousRegistrationName
+      state.previousRegistrationValueRequired = Boolean(name && name !== 'NONE')
+    }
   } else if (controller === 'DTICBudgetPlanningController') {
     state.budgetData = { planningSchemeAmountBeans: [{}] }
     state.budgetList = []
@@ -95,6 +101,49 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
       }
     }
     finally { state.saving = false; if (!signal.aborted) notify() }
+  }
+  if (controller === 'DTICMSMEController') {
+    state.addMSMEDetailFunction = (form, valid, files) => {
+      if (!valid) {
+        state.error = 'The MSME record has not been saved. Complete all required fields and correct the highlighted values.'
+        notify()
+        return
+      }
+      return perform(async () => {
+        const message = await dticRequest('get', 'getMessage/common.confirmToSave', undefined, signal)
+        if (!navigation.confirm(message?.value || 'Save MSME details?')) return
+        const data = state.msmeDetailData
+        const reservedEmployment = ['msmeMpScEmptGen', 'msmeMpStEmptGen', 'msmeMpObcEmptGen']
+          .reduce((sum, key) => sum + Number(data[key] || 0), 0)
+        if (reservedEmployment > Number(data.totalEmployments)) {
+          throw new Error('Employment given to MP SC, ST and OBC candidates cannot exceed total employment. The record has not been saved.')
+        }
+        const saved = await dticRequest('post', 'addmsmedetail', data, signal)
+        if (!saved?.successMessage || !/^[1-9]\d*$/.test(String(saved.id))) {
+          throw new Error('The server did not confirm a saved MSME record. Check the applications list before submitting again.')
+        }
+        state.responseObject = saved
+        // Preserve the saved identity if an upload fails and the form stays open.
+        state.msmeDetailData.msmeDetailId = saved.id
+        const persisted = await dticRequest('get', 'fetchmsmedetailbyid', { msmeDetailId: saved.id }, signal)
+        if (String(persisted?.msmeDetailId) !== String(saved.id)) {
+          throw new Error(`The server reported MSME record ${saved.id} saved, but it could not be verified. Check the applications list before submitting again.`)
+        }
+        if (files?.employmentGivenUpload) {
+          const body = new FormData()
+          body.append('employmentGivenUpload', files.employmentGivenUpload)
+          body.append('msmeDetailId', saved.id)
+          try {
+            const uploaded = await dticRequest('post', 'uploadMsmeDetailDocument', body, signal)
+            if (!uploaded?.successMessage) throw new Error('The server did not confirm the document upload.')
+          } catch (error) {
+            throw new Error(`MSME record ${saved.id} was saved, but its document upload failed: ${error.message} Open the existing record to retry the upload; do not add it again.`)
+          }
+        }
+        toast.success(`MSME record ${saved.id} saved successfully. Search by registration number if it is not on the first page.`)
+        navigate(dticLink('viewapplicationlist'), { state: { msmeSavedMessage: `MSME record ${saved.id} saved successfully.` } })
+      })
+    }
   }
   state.IdList ||= []
   state.downloadDocument = id => navigation.open(`downloaddocument/${encodeURIComponent(id)}`)

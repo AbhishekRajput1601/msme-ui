@@ -1,7 +1,9 @@
 .applicant-dashboard {
   --dashboard-blue: #337ab7;
   --dashboard-blue-dark: #23527c;
-  max-width: 1280px;
+  width: 100%;
+  min-width: 0;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 6px 0 32px;
   color: #243746;
@@ -182,3 +184,67 @@
   .applicant-dashboard .applicant-service:hover,
   .applicant-dashboard .applicant-service__link:hover .applicant-service__arrow { transform: none; }
 }
+
+/* Applicant workspace overview and live application preview. */
+@media (min-width: 768px) {
+  .legacy-portal #page-wrapper:has(> .applicant-dashboard) { padding-left: 32px; padding-right: 32px; }
+}
+.applicant-dashboard .applicant-dashboard__header { padding: 12px 0 24px; border: 0; border-bottom: 1px solid #cdd8e6; border-radius: 0; background: none; margin-bottom: 24px; }
+.applicant-dashboard__eyebrow { font-size: 10px; letter-spacing: .12em; }
+.applicant-dashboard h1 { color: #223c93; font-size: clamp(26px, 2.6vw, 32px); letter-spacing: -.03em; }
+.applicant-dashboard .applicant-dashboard__header p { font-size: 14px; }
+.applicant-overview { display: grid; grid-template-columns: 1.2fr 1fr 1fr; border: 1px solid #cdd8e6; border-radius: 12px; overflow: hidden; background: #fff; margin-bottom: 28px; box-shadow: 0 8px 26px #223c9314; }
+.applicant-overview__intro { padding: 28px; background: linear-gradient(130deg, #286090, #223c93); color: #fff; border-top: 3px solid #f07e01; }
+.applicant-overview__intro .applicant-dashboard__eyebrow { color: #dbe8ff; }
+.applicant-overview__intro h2 { font-size: 23px; line-height: 1.3; letter-spacing: -.025em; font-weight: 650; margin: 16px 0 12px; }
+.applicant-overview__intro p { color: #e1eaff; font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+.applicant-overview__intro a { display: inline-flex; gap: 20px; align-items: center; font-size: 13px; color: #fff; text-decoration: none; border-bottom: 1px solid #ffffff70; padding-bottom: 6px; }
+.applicant-overview__intro a:hover { border-bottom-color: #fff; }
+.applicant-overview__metric { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 18px; padding: 28px; min-width: 0; background: linear-gradient(150deg, #f4f7fc, #dbe7f8); color: #263747; text-decoration: none; border-left: 1px solid #cdd8e6; }
+.applicant-overview__metric--assistance { background: linear-gradient(150deg, #fffaf3, #f8dfbc); }
+.applicant-overview__metric > span { font-size: 14px; line-height: 1.6; }
+.applicant-overview__metric strong { color: #223c93; font-size: clamp(25px, 3vw, 44px); line-height: 1.25; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; max-width: 100%; }
+.applicant-overview__metric--assistance strong { color: #a85900; }
+.applicant-overview__metric small { font-size: 12px; color: #23527c; }
+.applicant-overview__metric:hover small { text-decoration: underline; text-underline-offset: 4px; }
+.applicant-records { background: #fff; border: 1px solid #cdd8e6; border-top: 3px solid #337ab7; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px #223c930a; }
+.applicant-records__heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px; background: linear-gradient(#e1ecfa, #fff); }
+.applicant-records__heading h2 { font-size: 21px; font-weight: 650; margin: 8px 0 0; line-height: 1.4; }
+.applicant-records__heading button { background: #223c93; color: #fff; border: 1px solid #223c93; border-radius: 6px; padding: 10px 16px; font-size: 12px; }
+.applicant-records__heading button:disabled { opacity: .65; cursor: wait; }
+.applicant-records__tabs { display: flex; gap: 20px; padding: 0 24px; border-bottom: 1px solid #d5e0ed; }
+.applicant-records__tabs button { border: 0; border-bottom: 3px solid transparent; background: transparent; padding: 13px 4px; color: #526274; font-size: 13px; text-align: left; }
+.applicant-records__tabs button[aria-pressed=true] { border-bottom-color: #f07e01; color: #223c93; font-weight: 650; }
+.applicant-records__scroll { overflow-x: auto; }
+.applicant-records table { width: 100%; min-width: 550px; border-collapse: collapse; text-align: left; }
+.applicant-records th { font-size: 11px; color: #526274; background: #f3f6fb; font-weight: 600; }
+.applicant-records th, .applicant-records td { padding: 16px 24px; border-bottom: 1px solid #e1e7ef; }
+.applicant-records td { font-size: 13px; overflow-wrap: anywhere; max-width: 320px; }
+.applicant-records tbody tr:hover { background: #f5f8fd; }
+.applicant-records__status { display: inline-block; border: 1px solid #cbdcf1; background: #e5effc; color: #23527c; font-size: 11px; padding: 5px 9px; border-radius: 5px; }
+.applicant-records__message { padding: 36px 24px; margin: 0; color: #526274; font-size: 14px; }
+.applicant-records__message[role=alert] { background: #fff7ed; color: #8a4b10; }
+.applicant-records__footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 18px 24px; color: #526274; font-size: 11px; }
+.applicant-records__footer a { color: #23527c; font-size: 12px; font-weight: 600; text-decoration: none; }
+.applicant-records__footer a:hover { text-decoration: underline; }
+.applicant-dashboard .applicant-dashboard__section-title { font-size: 21px; margin-top: 30px; }
+.applicant-dashboard__grid { gap: 24px; }
+.applicant-dashboard .applicant-service { border: 1px solid #cdd8e6; border-top: 3px solid #337ab7; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px #223c9310; background: linear-gradient(150deg, #f4f7fc, #dbe7f8); }
+.applicant-dashboard__cell:nth-child(even) .applicant-service { border-top-color: #f07e01; background: linear-gradient(150deg, #fffaf3, #f8dfbc); }
+.applicant-dashboard .applicant-service:hover { transform: none; box-shadow: 0 8px 24px #223c9320; }
+.applicant-dashboard .applicant-service h3 { font-size: 16px; }
+.applicant-dashboard .applicant-service__description { font-size: 13px; margin-bottom: 8px; }
+.applicant-service__icon { background: #dce8fa; color: #223c93; }
+.applicant-dashboard__cell:nth-child(even) .applicant-service__icon { background: #f6d6a9; color: #8c4900; }
+.applicant-dashboard .applicant-service__link { padding: 9px 14px; background: #223c93; color: #fff; border: 1px solid #223c93; border-radius: 7px; font-size: 13px; }
+.applicant-dashboard .applicant-service__link--secondary { background: #ffffffa6; color: #23527c; border-color: #90bddc; }
+.applicant-dashboard .applicant-service__link:hover { background: #23527c; color: #fff; border-color: #23527c; }
+.applicant-dashboard a:focus-visible, .applicant-dashboard button:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }
+@media (prefers-reduced-motion: no-preference) {
+  .applicant-overview, .applicant-records { animation: applicant-overview-enter 350ms ease-out both; }
+  .applicant-records { animation-delay: 60ms; }
+  .applicant-records tbody tr, .applicant-records__heading button { transition: background-color 180ms ease; }
+}
+@keyframes applicant-overview-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 1050px) { .applicant-overview { grid-template-columns: 1fr 1fr; } .applicant-overview__intro { grid-column: 1 / -1; } .applicant-overview__metric { border-top: 1px solid #cdd8e6; } }
+@media (max-width: 600px) { .applicant-overview { grid-template-columns: 1fr; } .applicant-overview__intro, .applicant-overview__metric { padding: 22px; } .applicant-overview__metric { border-left: 0; } .applicant-records__heading { padding: 20px 16px; align-items: flex-start; } .applicant-records__heading h2 { font-size: 18px; } .applicant-records__tabs { padding: 0 16px; gap: 14px; } .applicant-records__footer { padding: 18px 16px; } }

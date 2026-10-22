@@ -39,6 +39,13 @@ function validation(form, root, submitted = true) {
   return state
 }
 
+export function isBackControl(node) {
+  return ['a', 'button'].includes(node.tag) && Boolean(
+    node.children?.some(c => c.translation === 'application.page.back' || c.text?.includes('Back')) ||
+    node.children?.some(c => c.children?.some(cc => cc.translation === 'application.page.back' || cc.text?.includes('Back')))
+  )
+}
+
 function ViewNode({ node, scope: s, root, repeated = false }) {
   const formRef = useRef(null)
   const initializedRef = useRef(null)
@@ -118,9 +125,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
   if (attrs.src?.startsWith('../')) attrs.src = '/legacy/' + attrs.src.slice(3)
   if (attrs.src?.startsWith('/mpmsme/image/')) attrs.src = '/image/' + attrs.src.slice('/mpmsme/image/'.length)
   if (attrs.src?.startsWith('/mpmsme/img/')) attrs.src = '/img/' + attrs.src.slice('/mpmsme/img/'.length)
-  const isBack =
-    node.children?.some(c => c.translation === 'application.page.back' || (Array.isArray(c.text) && c.text.includes('Back'))) ||
-    node.children?.some(c => c.children?.some(cc => cc.translation === 'application.page.back' || (Array.isArray(cc.text) && cc.text.includes('Back'))))
+  const isBack = isBackControl(node)
 
   if (isBack) {
     attrs.onClick = e => {

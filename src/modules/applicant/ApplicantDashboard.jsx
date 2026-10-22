@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
+import ApplicantOverview from './ApplicantOverview'
 import './applicant-dashboard.css'
 
 export default function ApplicantDashboard() {
@@ -14,6 +15,7 @@ export default function ApplicantDashboard() {
         <h1>{hindi ? 'आवेदक डैशबोर्ड' : 'Applicant Dashboard'}</h1>
         <p>{hindi ? 'अपने आवेदन प्रबंधित करें और अपने उद्योग के लिए सही सेवा चुनें।' : 'Manage your applications and find the right services for your business.'}</p>
       </header>
+      <ApplicantOverview hindi={hindi} />
       <h2 className="applicant-dashboard__section-title">{hindi ? 'आपकी सेवाएं' : 'Your Services'}</h2>
 
       {/* Quick Action Tiles */}

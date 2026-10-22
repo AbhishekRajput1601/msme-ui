@@ -44,6 +44,8 @@
 .dtic-dash-stat strong { font-size: clamp(26px, 3.8vw, 50px); color: #223c93; line-height: 1.25; font-weight: 700; letter-spacing: -.045em; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 .dtic-dash-stat small { font-size: 11px; color: var(--dash-muted); }
 .dtic-dash-stat > a { margin-top: 22px; }
+.dtic-dash-stat:nth-child(n + 4) { border-top: 1px solid var(--dash-line); }
+@media (min-width: 1001px) { .dtic-dash-stat:nth-child(4) { border-left: 0; } }
 .dtic-dash-columns { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: start; }
 .dtic-dash-work, .dtic-dash-decisions { min-width: 0; background: #fff; border: 1px solid var(--dash-line); border-radius: 12px; padding: 24px; }
 .dtic-dash-section-heading { padding-bottom: 22px; }
