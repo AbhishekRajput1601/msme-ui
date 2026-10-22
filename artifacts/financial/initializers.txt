@@ -1,6 +1,0 @@
-$scope.started = false;
-$scope.sectorofinductryList = [];
-$scope.faMsmeDetailData = {};
-$scope.warning = null;
-$scope.timedout = null;
-$scope.IdList = [];

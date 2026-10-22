@@ -1,7 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView viewCollectorRate(@PathVariable Long collectorRateId, HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/viewCollectorRate");
-		return modelAndView;
-	}
-
-	

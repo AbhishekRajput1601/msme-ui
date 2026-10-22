@@ -1,7 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView addSupplyNameForm(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/addSupplyNameForm");
-		return modelAndView;
-	}
-
-	

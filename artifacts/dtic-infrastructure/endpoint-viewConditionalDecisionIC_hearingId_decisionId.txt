@@ -1,8 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView viewConditionalDecisionIC(@PathVariable Long hearingId, @PathVariable Long decisionId,
-			HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/id/viewICConditionalDecision");
-		return modelAndView;
-	}
-
-	

@@ -1,7 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView viewIndustrialAreaCreateForm(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/createIndustrialArea");
-		return modelAndView;
-	}
-
-	

@@ -1,8 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView viewViewCase(@PathVariable String userId, HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/mergeApplication");
-		return modelAndView;
-	}
-
-	
-	

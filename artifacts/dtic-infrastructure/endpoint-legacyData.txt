@@ -1,7 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView legacyData(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/dticlegacyData");
-		return modelAndView;
-	}
-
-	

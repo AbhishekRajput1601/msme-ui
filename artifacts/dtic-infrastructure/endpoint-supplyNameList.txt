@@ -1,7 +1,0 @@
-, method = RequestMethod.GET)
-	public ModelAndView supplyNameList(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("dtic/supplyNameList");
-		return modelAndView;
-	}
-
-	
