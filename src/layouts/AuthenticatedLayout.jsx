@@ -37,6 +37,8 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const location = useLocation()
   const isApplicant = location.pathname.startsWith('/applicant')
   const isFinancial = roles.includes('ROLE_FA') && location.pathname.startsWith('/department/fa')
+  const isLdm = (roles.includes('ROLE_LDM') || roles.includes('LDM')) && location.pathname.startsWith('/department/ldm')
+  const isCollector = (roles.includes('ROLE_COLLECTOR') || roles.includes('COLLECTOR')) && location.pathname.startsWith('/department/collector')
   const isDtic = roles.includes('ROLE_DTIC') && location.pathname.startsWith('/department')
   const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
   const dashboard = getDefaultRouteForRoles(roles)
@@ -52,6 +54,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const formattedRole = useMemo(() => {
     if (!primaryRole) return 'Applicant Role'
     const clean = primaryRole.replace(/^ROLE_/, '')
+    if (clean === 'LDM') return 'Lead District Manager'
     const titleCase = clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase()
     return titleCase.toLowerCase().includes('role') ? titleCase : `${titleCase} Role`
   }, [primaryRole])
@@ -90,7 +93,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
     }
   }, [isUserMenuOpen])
 
-  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${isSecretary ? ' secretary-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${isSecretary ? ' secretary-portal' : ''}${isLdm ? ' ldm-portal' : ''}${isCollector ? ' collector-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
     <header className="postLoginHeader portal-header-legacy-theme">
       {/* Main Header Bar */}
       <div className="portal-header-main-bar">
@@ -165,6 +168,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
                     <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
                   </Link>
                 </>}
+                {isLdm && <Link to="/department/ldm/change-password" onClick={() => setIsUserMenuOpen(false)}>Change Password</Link>}
                 {isSecretary && (
                   <Link to="/department/secretary/change-password" onClick={() => setIsUserMenuOpen(false)}>
                     <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}

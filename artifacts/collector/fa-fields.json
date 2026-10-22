@@ -1,0 +1,251 @@
+{
+  "collector/dashboard": {
+    "fields": [
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "placeholder": "Search by application no / unit name",
+        "data-ng-model": "searchText"
+      }
+    ],
+    "events": [
+      "downloadCollectorSignedDoc(app.applicationId)",
+      "loadProcessed()",
+      "viewProgress(app)"
+    ],
+    "inlineScripts": 1
+  },
+  "collector/detail": {
+    "fields": [],
+    "events": [
+      "loadDetail()",
+      "viewProgress({applicationId: (detail.applicationId||applicationNo)})"
+    ],
+    "inlineScripts": 1
+  },
+  "collector/esignApproval": {
+    "fields": [
+      {
+        "type": "radio",
+        "data-ng-model": "signOption",
+        "value": "eSign"
+      },
+      {
+        "type": "radio",
+        "data-ng-model": "signOption",
+        "value": "DSC"
+      },
+      {
+        "class": [
+          "form-control",
+          "number-only"
+        ],
+        "maxlength": "4",
+        "type": "text",
+        "data-ng-model": "aadhaarLast4Digits"
+      },
+      {
+        "type": "hidden",
+        "name": "msg",
+        "value": "",
+        "id": "msg"
+      }
+    ],
+    "events": [
+      "downloadSigned(signedAppNo)",
+      "dscSign()",
+      "eSignApprove()",
+      "initEsignApproval()"
+    ],
+    "inlineScripts": 1
+  },
+  "collector/approved": {
+    "fields": [
+      {
+        "type": "text",
+        "class": [
+          "form-control"
+        ],
+        "placeholder": "Search by application no / unit name",
+        "data-ng-model": "searchText"
+      }
+    ],
+    "events": [
+      "downloadSigned(app.applicationId)",
+      "loadApproved()",
+      "viewProgress(app)"
+    ],
+    "inlineScripts": 1
+  },
+  "collector/batches": {
+    "fields": [
+      {
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "data-ng-model": "a.remark",
+        "data-ng-change": "onRemarkChange(a)"
+      },
+      {
+        "type": "text",
+        "maxlength": "1000",
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "style": "width:100%",
+        "data-ng-model": "a.remarkText",
+        "placeholder": "Optional note"
+      },
+      {
+        "type": "number",
+        "min": "0",
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "style": "height:22px; padding:2px 4px; font-size:12px",
+        "data-ng-model": "asst.sanctionedAmount"
+      },
+      {
+        "type": "number",
+        "min": "0",
+        "class": [
+          "form-control",
+          "input-sm"
+        ],
+        "data-ng-model": "a.sanctionedAmount",
+        "placeholder": "Amount"
+      }
+    ],
+    "events": [
+      "approveBatch()",
+      "closeAssistanceRemark()",
+      "closeBatch()",
+      "downloadCoveringLetter(b)",
+      "loadBatches()",
+      "onRemarkChange(a)",
+      "openBatch(b)",
+      "showAssistanceRemark(asst)",
+      "submitBatch()",
+      "viewProgress({applicationId: a.applicationNo})"
+    ],
+    "inlineScripts": 1
+  },
+  "collector/batchSign": {
+    "fields": [
+      {
+        "type": "checkbox",
+        "data-ng-model": "approveConfirmed"
+      }
+    ],
+    "events": [
+      "approveBatchWithoutSign()",
+      "closeAssistanceRemark()",
+      "downloadBatchSigned()",
+      "initBatchSign()",
+      "printBatchPdf()",
+      "showAssistanceRemark(asst)"
+    ],
+    "inlineScripts": 1
+  },
+  "applicant/fa/viewFADetailUnitNew2": {
+    "fields": [],
+    "events": [
+      "downloadFaDocuments(faData.faIndustrialUnitBean.employmentGivenUploadId)",
+      "downloadFaDocuments(faData.faIndustrialUnitBean.gstSellDocUploadId)",
+      "downloadFaDocuments(faData.faIndustrialUnitBean.permissionDocUploadId)",
+      "downloadFaDocuments(faData.faIndustrialUnitBean.schemeDocUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.applicationFeeChallanId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.applicationFormAnnexure18Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.balanceSheetProfitLossStatementsId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.bankDoc1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.bankDoc2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.bankStatementNpaCertificateId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.billsAndPaymentProofsFileId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.billsInstallationProofMachineryId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.buildingPlanCompletionCertificateId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateAnnexure8Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateCostConfirmationId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateCurrentInvestmentId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateInvestmentConfirmationId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateInvestmentId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateInvestmentVerificationId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateMachineryExpenditureId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateMachineryInfrastructureFileId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caCertificateTotalInvestmentId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caLoanAcceptanceDocUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.caProofOfOwnershipUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.cafirstSellBillDateUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.customsClearanceDocumentsId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.employmentListSalaryProofId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.employmentProductionCertificateId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditExpUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditSellExpUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditSellSavingUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.energyAuditUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.engineerCertificateSiteVerificationId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.equipmentInvoicesPaymentProofId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.exportInvoicesId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.fssaiLicenceCopyFileId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.infrastructureUtilitiesBillsId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.instrumentsSoftwareInstallationBillsId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.landBuildingDocumentsId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.landBuildingProofId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.landOwnershipLeaseProofId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.machineryEquipmentInvoicesId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.mandiSamitiDoc1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.mandiSamitiDoc2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.morthRegistrationConsentId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pharmaExpUploadId1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pharmaExpUploadId2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pharmaExpUploadId3Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.plantMachineExpenseUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.pollutionControlBoardConsentId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.powerConnectionProofId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.powerLabourRegistrationCertificateId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.powerloomExpAfterUploadId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.productManufacturingProofMachineryBillsId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.profileImageId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.profileImageId1)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.profileImageId2)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.projectReportId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.projectReportProductionProofFileId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.projectReportWasteToValueId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload3Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload4Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload5Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload6Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload7Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload8Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertUpload9Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.qualityCertificateFileId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.researchProposalReportCopyId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.revivalPlanDicInspectionReportId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.rndRegistrationDsirBodyId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.textileUnitRegistrationAckId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.transportInvoicePaymentProofId)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.wasteMgmtEstbCompUpload1Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.wasteMgmtEstbCompUpload2Id)",
+      "downloadFaDocuments(faData.faRequiredAssistanceBean.wasteMgmtEstbCompUpload3Id)",
+      "goBackToBatch()",
+      "loadIndustryDetails()",
+      "loadUserIndustrialDetailsByApplicationId();"
+    ],
+    "inlineScripts": 1
+  },
+  "applicant/fa/faHistory": {
+    "fields": [],
+    "events": [
+      "faDisbursementUnitView(bean.status)",
+      "goBackToBatch()",
+      "loadFAApplicantDetail();loadHistory()"
+    ],
+    "inlineScripts": 1
+  }
+}

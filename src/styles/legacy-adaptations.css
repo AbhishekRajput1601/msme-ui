@@ -713,6 +713,12 @@
   min-height: 0;
   top: 0;
   float: none;
+  flex-shrink: 0;
+}
+
+.legacy-portal #side-menu .portal-menu-item > span {
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .legacy-portal .portal-menu-icon svg {

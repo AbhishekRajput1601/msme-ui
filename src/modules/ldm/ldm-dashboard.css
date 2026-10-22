@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Lead District Manager (LDM) Dashboard
+   Matches Secretary role & DTIC executive theme, architecture, and CSS.
+   ========================================================================== */
+
+.ldm-dashboard {
+  --dash-primary: var(--color-indigo-600, #337ab7);
+  --dash-primary-dark: var(--color-indigo-800, #23527c);
+  --dash-soft: var(--color-indigo-50, #eef5fb);
+  --dash-accent: #f07e01;
+  --dash-ink: #1e2d40;
+  --dash-muted: #526274;
+  --dash-line: #cdd8e6;
+  color: var(--dash-ink);
+  width: 100%;
+  min-width: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 12px 8px 36px;
+}
+
+@media (min-width: 768px) {
+  .legacy-portal #page-wrapper:has(> .ldm-dashboard) {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+.ldm-dashboard * {
+  box-sizing: border-box;
+}
+
+.ldm-dashboard .huge {
+  font-size: clamp(26px, 3.4vw, 46px);
+  color: #223c93;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -.045em;
+  font-variant-numeric: tabular-nums;
+}
+

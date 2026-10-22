@@ -44,6 +44,9 @@ import AdminDashboard from '../modules/admin/AdminDashboard'
 import DepartmentDashboard from '../modules/department/DepartmentDashboard'
 import DticPage from '../modules/dtic/DticPage'
 import FinancialPage from '../modules/financial/FinancialPage'
+import LdmPage from '../modules/ldm/LdmPage'
+import { LdmDashboard } from '../modules/ldm'
+import { CollectorPage, CollectorDashboard } from '../modules/collector'
 import dticRoutes from '../modules/dtic/dticRoutes'
 
 // Pilot Module: Industrial Land Allotment (ID)
@@ -267,6 +270,22 @@ export default function AppRoutes() {
         <Route path="secretary/change-password" element={<ProtectedRoute allowedRoles={['ROLE_SECRETARY']}><ChangePasswordPage /></ProtectedRoute>} />
         <Route path="secretary" element={<Navigate to="/department/secretary/dashboard" replace />} />
 
+        <Route path="ldm/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_LDM']}><LdmDashboard /></ProtectedRoute>} />
+        <Route path="ldm" element={<Navigate to="/department/ldm/dashboard" replace />} />
+        <Route path="ldm/fa/*" element={<ProtectedRoute allowedRoles={['ROLE_LDM']}><LdmPage /></ProtectedRoute>} />
+        <Route path="ldm/*" element={<ProtectedRoute allowedRoles={['ROLE_LDM']}><LdmPage /></ProtectedRoute>} />
+
+        {/* ─── Collector Workflow Routes ─── */}
+        <Route path="collector/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorDashboard /></ProtectedRoute>} />
+        <Route path="collector/processed" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/batches" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/batchSign/:batchId" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/approved" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/detail/:applicationNo" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/esignApproval" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/fa/*" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector/*" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
+        <Route path="collector" element={<Navigate to="/department/collector/dashboard" replace />} />
         <Route path=":roleSubpath/dashboard" element={<DepartmentDashboard />} />
         <Route path="fa/fa/*" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />
         <Route path=":roleSubpath/fa/*" element={<IndustrialUnitPage />} />

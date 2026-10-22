@@ -1,0 +1,81 @@
+{
+  "java_endpoints": {
+    "/batches": [
+      "collector/batches"
+    ],
+    "/fetchBatches": [],
+    "/batchDetail/{batchId}": [],
+    "/submitBatch/{batchId}": [],
+    "/signatures/{applicationNo}": [],
+    "/downloadCoveringLetter/{batchId}": [],
+    "/dticEligible/{applicationNo}": [],
+    "/applicantAssistances/{applicationNo}": [],
+    "/batchSign": [
+      "collector/batchSign"
+    ],
+    "/batchViewData/{batchId}": [],
+    "/saveBatchAmounts/{batchId}": [],
+    "/applyCollectorDecisions/{batchId}": [],
+    "/saveSanctionedAmounts": [],
+    "/batchApprovalSheetHtml/{batchId}": [],
+    "/approveBatchWithoutSign/{batchId}": [],
+    "/downloadBatchSignedDocument/{batchId}": [],
+    "/downloadCollectorSignedDoc/{applicationNo}": [],
+    "/home": [
+      "collector/collectorhome"
+    ],
+    "/dashboard": [
+      "collector/dashboard"
+    ],
+    "/esignApproval": [
+      "collector/esignApproval"
+    ],
+    "/acceptanceLetterHtml/{applicationNo}": [],
+    "/approvalSheetHtml/{applicationNo}": [],
+    "/generateApprovalPDF": [],
+    "/signApprovalPDF": [],
+    "/downloadSignedDocument/{applicationNo}": [],
+    "/application/{applicationNo}": [
+      "collector/detail"
+    ],
+    "/fetchApplications": [],
+    "/approved": [
+      "collector/approved"
+    ],
+    "/fetchApproved": [],
+    "/fetchProcessed": [],
+    "/detailData/{applicationNo}": [],
+    "/fa/viewfaapplicantdetailunitnew": [
+      "applicant/fa/viewFADetailUnitNew2"
+    ],
+    "/fetchUserIndustrialDetailsByApplicationId": [],
+    "/downloadFaDocumentByDocumentId/{documentId}/{applicationNo}": [],
+    "/downloadDoc/{documentId}/{applicationNo}": [],
+    "/history/{applicationNo}": [],
+    "/progressHistory/{applicationNo}": [],
+    "/viewFaHistory/{applicationId}/{establishmentType}": [
+      "applicant/fa/faHistory"
+    ],
+    "/fa/fetchHistory": [],
+    "/approve": [],
+    "/reject": [],
+    "/pending": [],
+    "/query": []
+  },
+  "pages_collector": [
+    "approved.html",
+    "batches.html",
+    "batchSign.html",
+    "collectorhome.html",
+    "dashboard.html",
+    "detail.html",
+    "esignApproval.html"
+  ],
+  "pages_all_collector": [
+    "pages\\collector",
+    "pages\\collector\\collectorhome.html",
+    "pages\\dtic\\createCollectorRate.html",
+    "pages\\dtic\\viewCollectorRate.html"
+  ],
+  "controller_length": 796
+}

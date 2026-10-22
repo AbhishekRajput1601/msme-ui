@@ -605,6 +605,116 @@ export const SECRETARY = {
   FETCH_MSME_DETAIL_SELECTION: '/secretary/fetchMsmeDetailSelectionByApplicationId',
 }
 
+// ─── Lead District Manager (LDM) Module ──────────────────────────────────────
+
+export const LDM = {
+  /** [A] Fetch applications for LDM verification */
+  FETCH_APPLICATIONS: '/ldm/fetchApplications',
+
+  /** [A] Verify selected applications */
+  VERIFY: '/ldm/verify',
+
+  /** [A] Raise query on selected applications */
+  QUERY: '/ldm/query',
+
+  /** [A] Get verification history for an application */
+  HISTORY: '/ldm/history/{applicationNo}',
+
+  /** [A] Get full applicant detail data */
+  DETAIL_DATA: '/ldm/detailData/{applicationNo}',
+
+  /** [A] Get GM DTIC eligible amount and remark */
+  DTIC_ELIGIBLE: '/ldm/dticEligible/{applicationNo}',
+
+  /** [A] Get assistances and eligible amounts for applicant */
+  APPLICANT_ASSISTANCES: '/ldm/applicantAssistances/{applicationNo}',
+
+  /** [A] Fetch batch list for LDM */
+  FETCH_BATCHES: '/ldm/fetchBatches',
+
+  /** [A] Get enriched batch detail with applications */
+  BATCH_DETAIL: '/ldm/batchDetail/{batchId}',
+
+  /** [A] Forward/submit LDM batch to Collector */
+  SUBMIT_BATCH: '/ldm/submitBatch/{batchId}',
+
+  /** [D] Download covering letter for batch */
+  DOWNLOAD_COVERING_LETTER: '/ldm/downloadCoveringLetter/{batchId}',
+
+  /** [D] Download uploaded document */
+  DOWNLOAD_DOC: '/ldm/downloadDoc/{documentId}/{applicationNo}',
+}
+
+// ─── Collector Module ─────────────────────────────────────────────────────────
+
+export const COLLECTOR = {
+  /** [A] Fetch applications processed by Collector */
+  FETCH_PROCESSED: '/collector/fetchProcessed',
+
+  /** [A] Fetch applications pending Collector action */
+  FETCH_APPLICATIONS: '/collector/fetchApplications',
+
+  /** [A] Fetch approved applications */
+  FETCH_APPROVED: '/collector/fetchApproved',
+
+  /** [A] Fetch batches for Collector */
+  FETCH_BATCHES: '/collector/fetchBatches',
+
+  /** [A] Get batch detail */
+  BATCH_DETAIL: '/collector/batchDetail/{batchId}',
+
+  /** [A] Get batch view data for signing */
+  BATCH_VIEW_DATA: '/collector/batchViewData/{batchId}',
+
+  /** [A] Get batch approval sheet HTML */
+  BATCH_APPROVAL_SHEET_HTML: '/collector/batchApprovalSheetHtml/{batchId}',
+
+  /** [A] Save sanctioned amounts */
+  SAVE_SANCTIONED_AMOUNTS: '/collector/saveSanctionedAmounts',
+
+  /** [A] Save batch amounts */
+  SAVE_BATCH_AMOUNTS: '/collector/saveBatchAmounts/{batchId}',
+
+  /** [A] Apply Collector decisions */
+  APPLY_COLLECTOR_DECISIONS: '/collector/applyCollectorDecisions/{batchId}',
+
+  /** [A] Approve batch without digital signature */
+  APPROVE_BATCH_WITHOUT_SIGN: '/collector/approveBatchWithoutSign/{batchId}',
+
+  /** [A] Get full applicant detail */
+  DETAIL_DATA: '/collector/detailData/{applicationNo}',
+
+  /** [A] Get history for an application */
+  HISTORY: '/collector/history/{applicationNo}',
+
+  /** [A] Get GM DTIC eligible amount */
+  DTIC_ELIGIBLE: '/collector/dticEligible/{applicationNo}',
+
+  /** [A] Get applicant assistances */
+  APPLICANT_ASSISTANCES: '/collector/applicantAssistances/{applicationNo}',
+
+  /** [A] Get signatures for application */
+  SIGNATURES: '/collector/signatures/{applicationNo}',
+
+  /** [A] Approval sheet HTML for application */
+  APPROVAL_SHEET_HTML: '/collector/approvalSheetHtml/{applicationNo}',
+
+  /** [D] Download covering letter */
+  DOWNLOAD_COVERING_LETTER: '/collector/downloadCoveringLetter/{batchId}',
+
+  /** [D] Download batch signed document */
+  DOWNLOAD_BATCH_SIGNED: '/collector/downloadBatchSignedDocument/{batchId}',
+
+  /** [D] Download collector signed doc */
+  DOWNLOAD_COLLECTOR_SIGNED_DOC: '/collector/downloadCollectorSignedDoc/{applicationNo}',
+
+  /** [D] Download signed document */
+  DOWNLOAD_SIGNED_DOC: '/collector/downloadSignedDocument/{applicationNo}',
+
+  /** [D] Download uploaded document */
+  DOWNLOAD_DOC: '/collector/downloadDoc/{documentId}/{applicationNo}',
+}
+
 // ─── Helper ───────────────────────────────────────────────────────────────────
 
 /**

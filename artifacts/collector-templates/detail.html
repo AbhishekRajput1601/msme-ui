@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:src="@{/angular/language.js}"></script>
+</head>
+<div id="page-wrapper" data-ng-init="loadDetail()">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					Applicant Full Details &nbsp;&raquo;&nbsp; {{detail.applicationId || applicationNo}}
+					<span class="pull-right">
+						<button class="btn btn-primary btn-xs" data-ng-click="viewProgress({applicationId: (detail.applicationId||applicationNo)})"><i class="fa fa-list"></i> Progress Details</button>
+						<a class="btn btn-default btn-xs" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Back</a>
+					</span>
+				</div>
+				<div class="panel-body">
+
+					<!-- ===== Basic & Personal Information ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Basic &amp; Personal Information</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Application No.</th><td width="30%">{{detail.applicationId || applicationNo}}</td>
+								<th width="20%">Applicant Name</th><td width="30%">{{detail.fullName || (detail.firstName ? (detail.firstName + ' ' + (detail.middleName||'') + ' ' + (detail.lastName||'')) : ((detail.poaFirstName||'') + ' ' + (detail.poaLastName||''))) || detail.indOrgName}}</td>
+							</tr>
+							<tr>
+								<th>Father / POA Name</th><td>{{detail.poaFatherName || detail.poaFirstName}}</td>
+								<th>Gender</th><td>{{detail.gender}}</td>
+							</tr>
+							<tr>
+								<th>Date of Birth</th><td>{{detail.dob}}</td>
+								<th>Category</th><td>{{detail.categoryId}}</td>
+							</tr>
+							<tr>
+								<th>Aadhaar No.</th><td>{{detail.aadhaarNumber}}</td>
+								<th>PAN</th><td>{{detail.panNo}}</td>
+							</tr>
+							<tr>
+								<th>TAN</th><td>{{detail.tanNo}}</td>
+								<th>Submitted On</th><td>{{detail.submittedOn}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Contact Details ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Contact Details</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Mobile</th><td width="30%">{{detail.mobileNumber || detail.presentAddMobileNo}}</td>
+								<th width="20%">Email</th><td width="30%">{{detail.emailId}}</td>
+							</tr>
+							<tr>
+								<th>Alternate Mobile</th><td>{{detail.permanentAddMobileNo}}</td>
+								<th>Telephone</th><td>{{detail.telephoneNumber || detail.presentAddTelephoneNo}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Present Address ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Present Address</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Address</th><td colspan="3">{{detail.address1}} {{detail.address2}} {{detail.address3}}</td>
+							</tr>
+							<tr>
+								<th>State</th><td>{{detail.state}}</td>
+								<th>District</th><td>{{detail.district}}</td>
+							</tr>
+							<tr>
+								<th>Tehsil</th><td>{{detail.tehsil}}</td>
+								<th>Block</th><td>{{detail.block}}</td>
+							</tr>
+							<tr>
+								<th>PIN Code</th><td colspan="3">{{detail.pinCode}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Permanent Address ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Permanent Address</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Address</th><td colspan="3">{{detail.permanentAddress1}} {{detail.permanentAddress2}} {{detail.permanentAddress3}}</td>
+							</tr>
+							<tr>
+								<th>State</th><td>{{detail.permanentState}}</td>
+								<th>District</th><td>{{detail.permanentDistrict}}</td>
+							</tr>
+							<tr>
+								<th>Tehsil</th><td>{{detail.permanentTehsil}}</td>
+								<th>Block</th><td>{{detail.permanentBlock}}</td>
+							</tr>
+							<tr>
+								<th>PIN Code</th><td colspan="3">{{detail.permanentPinCode}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Enterprise / Firm Details ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Enterprise / Firm Details</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Unit / Organisation Name</th><td width="30%">{{detail.indOrgName || detail.firmEntityName2}}</td>
+								<th width="20%">Establishment Type</th><td width="30%">{{detail.establishmentType}}</td>
+							</tr>
+							<tr>
+								<th>Constitution</th><td>{{detail.firmConstitution}}</td>
+								<th>Firm Category</th><td>{{detail.firmCategory}}</td>
+							</tr>
+							<tr>
+								<th>Status of Premises</th><td>{{detail.statusOfPremises}}</td>
+								<th>Sector</th><td>{{detail.firmSector || detail.firmSector2}}</td>
+							</tr>
+							<tr>
+								<th>Industry</th><td>{{detail.firmIndustry || detail.firmIndustry2}}</td>
+								<th>Firm PAN</th><td>{{detail.firmPan2}}</td>
+							</tr>
+							<tr>
+								<th>CIN</th><td>{{detail.firmCin2 || detail.cin}}</td>
+								<th>Udyam Registration No.</th><td>{{detail.udyamRegNo}}</td>
+							</tr>
+							<tr>
+								<th>Udyam Registration Date</th><td>{{detail.udyamRegDate}}</td>
+								<th>GST No.</th><td>{{detail.gstNo}}</td>
+							</tr>
+							<tr>
+								<th>Factory Act Licence</th><td>{{detail.factoryActLicNo}}</td>
+								<th>Industrial Area</th><td>{{detail.industrialAreaName}}</td>
+							</tr>
+							<tr>
+								<th>Website</th><td colspan="3">{{detail.websiteUrl}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Bank Details ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Bank Details</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Bank Name</th><td width="30%">{{detail.bankName || detail.otherBankName}}</td>
+								<th width="20%">Account Holder</th><td width="30%">{{detail.bankAccountName}}</td>
+							</tr>
+							<tr>
+								<th>Account No.</th><td>{{detail.accountNumber}}</td>
+								<th>IFSC</th><td>{{detail.ifsc}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Scheme Details ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Scheme Details</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Scheme Year</th><td width="30%">{{detail.schemeYear || detail.faIndustrialUnitBean.schemeYear}}</td>
+								<th width="20%">Unit Name</th><td width="30%">{{detail.unitName}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Unit / Business Details ===== -->
+					<div class="form-group divheadertxt" align="center" data-ng-if="detail.faIndustrialUnitBean"><b>Unit / Business Details</b></div>
+					<table class="table table-bordered" data-ng-if="detail.faIndustrialUnitBean">
+						<tbody>
+							<tr>
+								<th width="20%">Unit Type</th><td width="30%">{{detail.faIndustrialUnitBean.unitType}}</td>
+								<th width="20%">Unit Start Date</th><td width="30%">{{detail.faIndustrialUnitBean.unitStartDate}}</td>
+							</tr>
+							<tr>
+								<th>Total Project Cost</th><td>{{detail.faIndustrialUnitBean.totalProjectCost}}</td>
+								<th>Electrical Load</th><td>{{detail.faIndustrialUnitBean.unitElectCompLoad}}</td>
+							</tr>
+							<tr>
+								<th>Expansion</th><td>{{detail.faIndustrialUnitBean.expansion}}</td>
+								<th>Diversification</th><td>{{detail.faIndustrialUnitBean.diversification}}</td>
+							</tr>
+							<tr>
+								<th>Technical Upgradation</th><td colspan="3">{{detail.faIndustrialUnitBean.technicalUp}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Employment Details ===== -->
+					<div class="form-group divheadertxt" align="center" data-ng-if="detail.faIndustrialUnitBean"><b>Employment Generated</b></div>
+					<table class="table table-bordered" data-ng-if="detail.faIndustrialUnitBean">
+						<tbody>
+							<tr>
+								<th width="20%">Total</th><td width="13%">{{detail.faIndustrialUnitBean.unitTotalEmptGen}}</td>
+								<th width="10%">MP</th><td width="13%">{{detail.faIndustrialUnitBean.unitMpEmptGen}}</td>
+								<th width="7%">SC</th><td width="10%">{{detail.faIndustrialUnitBean.unitMpScEmptGen}}</td>
+							</tr>
+							<tr>
+								<th>ST</th><td>{{detail.faIndustrialUnitBean.unitMpStEmptGen}}</td>
+								<th>OBC</th><td>{{detail.faIndustrialUnitBean.unitMpObcEmptGen}}</td>
+								<th></th><td></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Financial / Capital Investment (Plant, Machinery, Building) ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Financial / Capital Investment Details</b></div>
+					<table class="table table-bordered table-striped">
+						<thead><tr><th width="8%">S.No.</th><th>Investment Head</th><th width="30%">Amount (Rs.)</th></tr></thead>
+						<tbody>
+							<tr data-ng-repeat="ci in (detail.faIndustrialUnitBean.capitalInvestmentBeans || [])">
+								<td>{{$index + 1}}</td>
+								<td>{{ci.investmentName}}</td>
+								<td>{{ci.amount}}</td>
+							</tr>
+							<tr data-ng-if="!detail.faIndustrialUnitBean.capitalInvestmentBeans || detail.faIndustrialUnitBean.capitalInvestmentBeans.length == 0">
+								<td colspan="3" class="text-center">No capital investment records.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Land / Building Details ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Land / Building Details</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Industrial Area</th><td width="30%">{{detail.industrialAreaName}}</td>
+								<th width="20%">Plot No(s)</th><td width="30%">{{detail.plotNos}}</td>
+							</tr>
+							<tr>
+								<th>Area (Sq. Mtr.)</th><td colspan="3">{{detail.areaInSqm}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Assistance-wise Eligible Amount (applicant_assistance) - all records for this application ===== -->
+						<div class="form-group divheadertxt" align="center"><b>Assistance-wise Eligible Amount</b></div>
+						<table class="table table-bordered">
+							<thead>
+								<tr><th width="40%">Assistance Type</th><th width="30%">Eligible Amount (Rs.)</th><th width="30%">Sanctioned Amount (Rs.)</th></tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="asst in assistanceList">
+									<td>{{asst.assistanceType || '-'}}</td>
+									<td>{{asst.eligibleAmount != null ? asst.eligibleAmount : '-'}}</td>
+									<td>{{asst.sanctionedAmount != null ? asst.sanctionedAmount : '-'}}</td>
+								</tr>
+								<tr data-ng-if="!assistanceList.length">
+									<td colspan="3" class="text-center">No assistance records found</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- ===== Financial Assistance (DTIC) - eligible amount + GM remark entered by GM-DTIC ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Financial Assistance (DTIC)</b></div>
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th width="20%">Eligible Amount (Rs.)</th><td width="30%">{{dticInfo.eligibleAmount || '-'}}</td>
+								<th width="20%">GM DTIC Remark</th><td width="30%">{{dticInfo.gmRemark || '-'}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Uploaded Documents ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Uploaded Documents</b></div>
+					<table class="table table-bordered table-striped">
+						<thead><tr><th width="8%">S.No.</th><th>Document</th><th width="20%">Action</th></tr></thead>
+						<tbody>
+							<tr data-ng-repeat="doc in documentList()">
+								<td>{{$index + 1}}</td>
+								<td>{{doc.label}}</td>
+								<td>
+									<a class="btn btn-info btn-xs" target="_blank" data-ng-href="downloadDoc/{{doc.id}}/{{detail.applicationId || applicationNo}}">
+										<i class="fa fa-download"></i> Download
+									</a>
+								</td>
+							</tr>
+							<tr data-ng-if="documentList().length == 0">
+								<td colspan="3" class="text-center">No documents uploaded.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- ===== Verification Remarks & History (Secretary / LDM / Collector) ===== -->
+					<div class="form-group divheadertxt" align="center"><b>Verification Remarks &amp; History</b></div>
+					<table class="table table-bordered table-striped">
+						<thead><tr><th>Role</th><th>Action</th><th>Remark</th><th>By</th><th>Date</th></tr></thead>
+						<tbody>
+							<tr data-ng-repeat="h in detailHistory">
+								<td>{{h.roleName}}</td><td>{{h.actionStatus}}</td><td>{{h.remarks}}</td><td>{{h.verifiedBy}}</td><td>{{h.verifiedDate}}</td>
+							</tr>
+							<tr data-ng-if="detailHistory.length == 0"><td colspan="5" class="text-center">No verification remarks yet.</td></tr>
+						</tbody>
+					</table>
+
+					<div class="text-center">
+						<a class="btn btn-default" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Back</a>
+						<button class="btn btn-primary" data-ng-click="viewProgress({applicationId: (detail.applicationId||applicationNo)})"><i class="fa fa-list"></i> Progress Details</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

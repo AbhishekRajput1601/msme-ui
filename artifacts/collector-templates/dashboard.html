@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:src="@{/angular/language.js}"></script>
+</head>
+<div id="page-wrapper" data-ng-init="loadProcessed()">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">Collector Dashboard &nbsp;&raquo;&nbsp; Processed Applications (mapped district)</div>
+				<div class="panel-body">
+
+					<div data-ng-if="responseObject.successMessage != null" class="alert alert-success">
+						{{responseObject.successMessage}}
+					</div>
+					<div data-ng-if="responseObject.errorMessage != null" class="alert alert-danger">
+						{{responseObject.errorMessage}}
+					</div>
+
+					<div class="row" style="margin-bottom:10px">
+						<div class="col-md-6">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Search by application no / unit name" data-ng-model="searchText"/>
+								<span class="input-group-btn">
+									<button class="btn btn-default" data-ng-click="loadProcessed()">Search</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th width="5%">S.No.</th>
+								<th>Application No.</th>
+								<th>Unit / Institution</th>
+								<th>Application Date</th>
+								<th>Status</th>
+								<th width="34%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="app in applications">
+								<td>{{$index + 1}}</td>
+								<td>{{app.applicationId}}</td>
+								<td>{{app.unitOrInstName}}</td>
+								<td>{{app.applicationDate}}</td>
+								<td><span class="label label-info">{{app.status}}</span></td>
+								<td>
+									<div class="hidden-sm hidden-xs action-buttons">
+										<a class="blue" href="#fa/viewfaapplicantdetailunitnew/{{app.applicationId}}">View/Print</a>
+										|
+										<a class="blue" href="javascript:void(0)" data-ng-click="viewProgress(app)">Progress Details</a>
+										|
+										<a class="blue" href="javascript:void(0)" data-ng-click="downloadCollectorSignedDoc(app.applicationId)">Download Collector Signed Doc</a>
+									</div>
+								</td>
+							</tr>
+							<tr data-ng-if="applications.length == 0">
+								<td colspan="6" class="text-center">No applications processed by the Collector yet.</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

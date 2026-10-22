@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:src="@{/angular/language.js}"></script>
+</head>
+<div id="page-wrapper" data-ng-init="initEsignApproval()">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					Collector Approval &nbsp;&raquo;&nbsp; Digital Signature
+					<a class="btn btn-default btn-xs pull-right" href="#dashboard">Back</a>
+				</div>
+				<div class="panel-body">
+
+					<div class="alert alert-warning">
+						You are about to <b>approve</b> {{(esignApps || []).length}} application(s)
+						(<span>{{appNoList()}}</span>). A valid <b>digital signature</b> is mandatory;
+						the application(s) will be approved only after the signature is verified.
+					</div>
+
+					<!-- Document(s) to be signed: existing FA acceptance/sanction letter(s) -->
+					<div class="panel panel-default">
+						<div class="panel-heading">Document to be signed</div>
+						<div class="panel-body" style="max-height:360px;overflow-y:auto">
+							<div class="esignHtml" data-ng-bind-html="esignLetterHtml"></div>
+							<div data-ng-if="!esignReady" class="text-center text-muted">Loading letter(s)...</div>
+						</div>
+					</div>
+
+					<!-- choose signing method -->
+					<div class="well" data-ng-show="esignReady && !signedDone">
+						<form name="signOptionForm" novalidate>
+							<label style="margin-right:20px"><input type="radio" data-ng-model="signOption" value="eSign"/> Aadhaar Based e-Sign</label>
+							<label><input type="radio" data-ng-model="signOption" value="DSC"/> Signature via DSC</label>
+						</form>
+					</div>
+
+					<!-- Option 1: Aadhaar eSign -->
+					<div class="row" data-ng-show="esignReady && signOption === 'eSign' && !signedDone">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Last 4 digits of Aadhaar <span class="aestrick">&#42;</span></label>
+								<input class="form-control number-only" maxlength="4" type="text" data-ng-model="aadhaarLast4Digits"/>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<button type="button" class="btn btn-success" data-ng-click="eSignApprove()">
+								<i class="fa fa-pencil-square-o"></i> eSign &amp; Approve
+							</button>
+						</div>
+					</div>
+
+					<!-- Option 2: DSC -->
+					<div class="row" data-ng-show="esignReady && signOption === 'DSC' && !signedDone">
+						<div class="col-md-12">
+							<p>Click here to <b><a th:href="@{/DigitalSignSetup.msi}" target="_blank">download Digital Signature setup</a></b>
+								and <b><a th:href="@{/Digital_Signature_Setup.pptx}" target="_blank">User Manual</a></b>.
+								(DSC signing needs the local signer utility running on port 8060.)</p>
+							<button type="button" class="btn btn-success" data-ng-click="dscSign()">
+								<i class="fa fa-pencil-square-o"></i> Digital Sign (DSC) &amp; Approve
+							</button>
+						</div>
+					</div>
+
+					<div style="margin-top:12px" data-ng-show="esignReady && !signedDone">
+						<a class="btn btn-default" href="#dashboard">Cancel</a>
+					</div>
+
+					<!-- shown ONLY after signing completes -->
+					<div style="margin-top:12px" data-ng-show="signedDone">
+						<div class="alert alert-success">Document digitally signed &amp; approved successfully.</div>
+						<button type="button" class="btn btn-info" data-ng-click="downloadSigned(signedAppNo)">
+							<i class="fa fa-download"></i> Download Signed PDF
+						</button>
+						<a class="btn btn-default" href="#dashboard">Back to Dashboard</a>
+					</div>
+
+					<!-- Hidden form auto-submitted to the CDAC ASP eSign gateway -->
+					<form id="ICGForm" name="ICGForm" method="post" action="">
+						<input type="hidden" name="msg" value="" id="msg"/>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

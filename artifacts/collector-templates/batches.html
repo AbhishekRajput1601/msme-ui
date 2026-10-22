@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:src="@{/angular/language.js}"></script>
+</head>
+<div id="page-wrapper" data-ng-init="loadBatches()">
+
+	<!-- Card layout styling lives in css/appcard.css, linked from collectorhome.html
+	     (a <link> in the shell page, not in this ng-view partial). -->
+	<div class="row"><div class="col-md-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">{{batchHeading}} &nbsp;&raquo;&nbsp; Batch-wise Processing</div>
+			<div class="panel-body appcard-wrap">
+
+				<div data-ng-if="responseObject.successMessage != null" class="alert alert-success">{{responseObject.successMessage}}</div>
+				<div data-ng-if="responseObject.errorMessage != null" class="alert alert-danger">{{responseObject.errorMessage}}</div>
+
+				<!-- ===== batch list ===== -->
+				<table class="table table-striped table-bordered table-hover" data-ng-if="!activeBatch">
+					<thead><tr>
+						<th>Batch</th><th>Applications</th><th>Covering Letter</th><th>Received</th><th>Status</th><th>Action</th>
+					</tr></thead>
+					<tbody>
+						<tr data-ng-repeat="b in batches">
+							<td><b>{{b.batchCode}}</b></td>
+							<td>{{b.totalApplications}}</td>
+							<td>{{b.coveringLetterNo}}</td>
+							<td>{{b.secretaryReceivedDate || b.ldmReceivedDate || b.collectorReceivedDate}}</td>
+							<td><span class="label label-info">{{b.batchStatus}}</span></td>
+							<td>
+								<button class="btn btn-primary btn-xs" data-ng-click="openBatch(b)"><i class="fa fa-folder-open"></i> Open Batch</button>
+								<button class="btn btn-info btn-xs" data-ng-click="downloadCoveringLetter(b)"><i class="fa fa-download"></i> Additional Document</button>
+							</td>
+						</tr>
+						<tr data-ng-if="batches.length == 0"><td colspan="6" class="text-center">No batches pending at your stage.</td></tr>
+					</tbody>
+				</table>
+
+				<!-- ===== batch detail ===== -->
+				<div data-ng-if="activeBatch">
+					<div class="appcard-bar">
+						<h4>
+							{{activeBatch.batchCode}}
+							<span class="appcard-count">{{activeBatch.totalApplications}} application(s)</span>
+						</h4>
+						<a class="btn btn-default btn-sm" data-ng-click="closeBatch()"><i class="fa fa-arrow-left"></i> Back to batch list</a>
+					</div>
+					<!-- <p data-ng-if="activeBatch.coveringLetterNo">Covering Letter: <b>{{activeBatch.coveringLetterNo}}</b> ({{activeBatch.coveringLetterDate}})</p>
+ -->
+					<!-- One card per application. Same outer ng-repeat, same bindings;
+					     only the presentation changed from one wide row to a card.
+					     Consecutive applications alternate their accent colour
+					     (blue / teal) so one card is never mistaken for the next. -->
+					<div class="appcard" data-ng-repeat="a in activeBatch.applications"
+						data-ng-class="{'appcard-alt': $index % 2 == 1}">
+
+						<div class="appcard-head">{{$index + 1}}. Application No. : {{a.applicationNo}}</div>
+
+						<!-- Application information : label / value pairs, two pairs per row -->
+						<table class="appcard-info">
+							<colgroup><col style="width:17%"/><col style="width:33%"/><col style="width:17%"/><col style="width:33%"/></colgroup>
+							<tbody>
+								<tr>
+									<th>Unit / Institution:</th>
+									<td>{{a.unitOrInstName}}</td>
+									<th>Application Date:</th>
+									<td>{{a.applicationDate}}</td>
+								</tr>
+								<tr>
+									<th>DTIC Comment:</th>
+									<td>{{a.gmRemark || '-'}}</td>
+									<th>Secretary Comment:</th>
+									<td>{{a.secretaryRemark || '-'}}</td>
+								</tr>
+								<tr>
+									<th>LDM Comment:</th>
+									<td>{{a.ldmRemark || '-'}}</td>
+									<th>Chairman Decision <span style="color:red">&#42;</span>:</th>
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+										<select class="form-control input-sm" data-ng-model="a.remark" data-ng-change="onRemarkChange(a)">
+											<option data-ng-repeat="o in remarkOptions" value="{{o}}">{{o}}</option>
+										</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>Application Remark:</th>
+									<td colspan="3"><input type="text" maxlength="1000" class="form-control input-sm" style="width:100%" data-ng-model="a.remarkText" placeholder="Optional note"/></td>
+								</tr>
+								<!-- Same Action links as the DTIC module (same hrefs, same behaviour) -->
+								<tr>
+									<th>Action:</th>
+									<td colspan="3">
+										<div class="hidden-sm hidden-xs action-buttons">
+											<a class="blue appcard-btn" href="#fa/viewfaapplicantdetailunitnew/{{a.applicationNo}}">View/Print</a>
+											<a class="blue appcard-btn" href="javascript:void(0)" data-ng-click="viewProgress({applicationId: a.applicationNo})">Progress Details</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- ---- Financial Assistance details for THIS application ----
+						     Split in two: assistances that carry figures (with a sub-total),
+						     and assistances that carry only a comment. ---- -->
+						<div class="appcard-sec">Financial Assistance Details &ndash; Amounts</div>
+						<div class="appcard-scroll">
+							<table class="appcard-assist">
+								<colgroup><col style="width:7%"/><col style="width:32%"/><col style="width:17%"/><col style="width:18%"/><col style="width:26%"/></colgroup>
+								<thead><tr>
+									<th class="appcard-cno">S.No.</th>
+									<th>Financial Assistance / Assistance Type</th>
+									<th class="appcard-num">Proposed Eligible Amount (Rs.)</th>
+									<th>Approved Eligible Amount (Rs.) <span style="color:red">*</span></th>
+									<th>Remark / Note</th>
+								</tr></thead>
+								<tbody>
+									<tr data-ng-repeat="asst in a.amountAssist">
+										<td class="appcard-cno">{{$index + 1}}</td>
+										<td>
+											<!-- With a comment: highlighted + clickable to read it. Without: plain text. -->
+											<a data-ng-if="hasAssistanceRemark(asst)" href="javascript:void(0)"
+												style="color:#0277bd; font-weight:600; text-decoration:underline"
+												title="Click to view comment"
+												data-ng-click="showAssistanceRemark(asst)">{{asst.assistanceType || '-'}}</a>
+											<span data-ng-if="!hasAssistanceRemark(asst)">{{asst.assistanceType || '-'}}</span>
+										</td>
+										<td class="appcard-num">{{asst.eligibleAmount != null ? asst.eligibleAmount : '-'}}</td>
+										<td>
+											<input type="number" min="0" class="form-control input-sm" style="height:22px; padding:2px 4px; font-size:12px" data-ng-model="asst.sanctionedAmount"/>
+										</td>
+										<td>
+											<span class="appcard-note" data-ng-if="hasAssistanceRemark(asst)">{{asst.remark}}</span>
+											<span data-ng-if="!hasAssistanceRemark(asst)">-</span>
+										</td>
+									</tr>
+									<!-- Sub-total of both amount columns. -->
+									<tr class="appcard-total" data-ng-if="a.amountAssist.length">
+										<td class="appcard-cno"></td>
+										<td class="appcard-total-label">Sub Total</td>
+										<td class="appcard-num">{{subtotalProposed(a)}}</td>
+										<td class="appcard-num">{{subtotalApproved(a)}}</td>
+										<td></td>
+									</tr>
+									<tr data-ng-if="!a.amountAssist.length && a.assistanceList.length">
+										<td colspan="5" style="text-align:center">No assistance with an amount for this application.</td>
+									</tr>
+									<!-- Application carrying no assistance rows: the single app-level entry. -->
+									<tr data-ng-if="!a.assistanceList.length">
+										<td class="appcard-cno">1</td>
+										<td>{{a.assistanceType || '-'}}</td>
+										<td class="appcard-num">{{a.eligibleAmount != null ? a.eligibleAmount : '-'}}</td>
+										<td>
+											<input type="number" min="0" class="form-control input-sm" data-ng-model="a.sanctionedAmount" placeholder="Amount"/>
+										</td>
+										<td>-</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!-- Assistances with no amount: comment only. -->
+						<div class="appcard-sec" data-ng-if="a.commentAssist.length">Financial Assistance Details &ndash; Comments Only</div>
+						<div class="appcard-scroll" data-ng-if="a.commentAssist.length">
+							<table class="appcard-assist appcard-comments">
+								<colgroup><col style="width:7%"/><col style="width:32%"/><col style="width:61%"/></colgroup>
+								<thead><tr>
+									<th class="appcard-cno">S.No.</th>
+									<th>Financial Assistance / Assistance Type</th>
+									<th>Comment</th>
+								</tr></thead>
+								<tbody>
+									<tr data-ng-repeat="asst in a.commentAssist">
+										<td class="appcard-cno">{{$index + 1}}</td>
+										<td>
+											<a href="javascript:void(0)"
+												style="color:#0277bd; font-weight:600; text-decoration:underline"
+												title="Click to view comment"
+												data-ng-click="showAssistanceRemark(asst)">{{asst.assistanceType || '-'}}</a>
+										</td>
+										<td><span class="appcard-note">{{asst.remark}}</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="text-center" data-ng-if="!isCollector">
+						<button class="btn btn-success" data-ng-click="submitBatch()">{{forwardLabel}}</button>
+					</div>
+					<div class="text-center" data-ng-if="isCollector">
+						<!-- Status (Approved/Rejected/Queried) is managed via the per-application Action dropdown.
+						     This button only opens the Batch PDF preview, where the Collector confirms
+						     and submits. Digital signature is no longer part of this flow. -->
+						<button class="btn btn-success" data-ng-click="approveBatch()"><i class="fa fa-file-text-o"></i> Preview Batch PDF &amp; Approve</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div></div>
+
+	<!-- Assistance comment popup.
+	     Deliberately a plain overlay rather than a Bootstrap/ui-bootstrap modal:
+	     ui-bootstrap targets Bootstrap 3 markup (.in) while this build ships
+	     Bootstrap 5 (.show), which renders such popups off-screen. This depends
+	     on no Bootstrap version at all. -->
+	<div data-ng-if="assistRemarkOpen"
+		style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:20000"
+		data-ng-click="closeAssistanceRemark()"></div>
+	<div data-ng-if="assistRemarkOpen"
+		style="position:fixed; top:18%; left:50%; transform:translateX(-50%); width:480px; max-width:92%; background:#fff; border-radius:6px; box-shadow:0 6px 24px rgba(0,0,0,.35); z-index:20001">
+		<div style="background:#0277bd; color:#fff; padding:12px 16px; border-radius:6px 6px 0 0; font-weight:700">{{assistRemarkTitle}}</div>
+		<div style="padding:16px; white-space:pre-wrap; word-break:break-word; max-height:50vh; overflow:auto">{{assistRemarkText}}</div>
+		<div style="padding:10px 16px; text-align:right; border-top:1px solid #eee">
+			<button type="button" class="btn btn-danger btn-sm" data-ng-click="closeAssistanceRemark()">Close</button>
+		</div>
+	</div>
+</div>
+</html>

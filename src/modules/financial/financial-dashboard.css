@@ -1,4 +1,4 @@
-.fa-dashboard { width: 100%; max-width: 1100px; margin: 0 auto; color: #243653; flex-shrink: 0; }
+div.fa-dashboard { width: 100%; max-width: 1100px; margin: 0 auto; color: #243653; flex-shrink: 0; }
 .fa-dashboard-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 8px 0 28px; }
 .fa-dashboard-heading h1 { margin: 0; font-size: 23px; line-height: 1.4; font-weight: 650; }
 .fa-dashboard-heading button { flex-shrink: 0; padding: 9px 14px; border: 1px solid #cbd8e9; border-radius: 6px; background: #fff; color: #294c85; font-size: 12px; cursor: pointer; }
@@ -17,7 +17,7 @@
 @media (max-width: 900px) { .fa-dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .fa-dashboard-grid { grid-template-columns: 1fr; } .fa-dashboard-heading { align-items: flex-start; flex-direction: column; } .fa-dashboard-heading h1 { font-size: 20px; } }
 /* Match the DTIC dashboard's portal blue and orange palette. */
-.fa-dashboard {
+div.fa-dashboard {
   --fa-primary: var(--color-indigo-600, #337ab7);
   --fa-primary-dark: var(--color-indigo-800, #23527c);
   --fa-accent: #f07e01;

@@ -1,0 +1,30 @@
+{
+  "sourceFunctions": [
+    "assistanceAmountText",
+    "closeAssistanceRemark",
+    "closeBatch",
+    "documentList",
+    "getSelected",
+    "hasAssistanceRemark",
+    "isProcessed",
+    "loadApplications",
+    "loadBatches",
+    "loadDetail",
+    "openBatch",
+    "openRemarks",
+    "pendingCount",
+    "showAssistanceRemark",
+    "submitBatch",
+    "submitQuery",
+    "submitVerify",
+    "viewDetail",
+    "viewHistory",
+    "viewProgress"
+  ],
+  "manual": [
+    "downloadCoveringLetter",
+    "openRemarks",
+    "viewHistory"
+  ],
+  "missing": []
+}

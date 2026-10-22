@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-ng-app="mpindustry">
+
+<head>
+	<script th:src="@{/js/jquery.2.1.1.min.js}"></script>
+	<title data-ng-if="$root.title==null" th:text="${headerDisplay.departmentName}">Department of Micro, Small &amp; Medium Enterprises</title>
+	<title data-ng-if="$root.title!=null" data-ng-bind="$root.title" th:text="${headerDisplay.departmentName}">Department of Micro, Small &amp; Medium Enterprises</title>
+
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/plugins/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/sb-admin-2.css}" rel="stylesheet"/>
+	<link rel="shortcut icon" th:href="@{/pages/website/images/favicon.png}"/>
+	<link th:href="@{/font-awesome-4.1.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+	<link th:href="@{/css/plugins/timeline.css}" rel="stylesheet"/>
+	<link th:href="@{/css/angular-loading.css}" rel="stylesheet"/>
+	<link th:href="@{/css/mbdatepicker.css}" rel="stylesheet"/>
+	<link th:href="@{/css/jquery.datetimepicker.css}" rel="stylesheet"/>
+	<!-- Collector batch screens: application-card layout (batches + batchSign) -->
+	<link th:href="@{/css/appcard.css}" rel="stylesheet"/>
+</head>
+
+<script>
+$(function(){
+	function redirectPage() {
+		var isSSO = $('#isSSO').val();
+		var rUrl = $('#rUrl').val();
+		var redirectUrl = $('#redirectUrl').val();
+		if (null != isSSO && isSSO == 'yes') {
+			window.open(rUrl + '#/dashboard', "_blank");
+			window.location.href = redirectUrl;
+		}
+	}
+	redirectPage();
+});
+</script>
+
+<body>
+
+<div dw-loading="sample-1" dw-loading-options="{text: 'Loading....'}">
+
+	<div id="wrapper">
+
+		<nav role="navigation" th:class="${'navbar navbar-default navbar-static-top postLoginHeader ' + themeColor}">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="mplogo">
+					<a href="#dashboard"><img th:src="@{/image/indus_logo.png}"/></a>
+				</div>
+				<div class="navbar-brand" style="font-size: 25px; font-weight:bold; color: #fff;padding-left: 23px;line-height: 23px; text-align:center">
+					<div th:text="#{application.page.title2}">Govt. of Madhya Pradesh,</div>
+					<div th:text="#{application.page.title1}">Department of Micro, Small &amp; Medium Enterprises</div>
+					<div th:text="#{application.page.title3}" style="text-align:center;font-size: 15px">(Directorate of Industries, M.P.)</div>
+				</div>
+			</div>
+
+			<div class="navbar-right" style="padding: 17px;">
+				<input type="hidden" id="language" th:value="${language}"/>
+				<input type="hidden" id="isSSO" th:value="${isSSO}"/>
+				<input type="hidden" id="rUrl" th:value="${rUrl}"/>
+				<input type="hidden" id="redirectUrl" th:value="${redirectUrl}"/>
+			</div>
+
+			<ul class="nav navbar-top-links navbar-right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-bs-toggle="dropdown">
+						<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#changepassword"><i class="fa fa-gear fa-fw"></i><span th:text="#{application.page.changepassword}">Change Password</span></a></li>
+						<li class="divider"></li>
+						<li><a href="" onClick="window.location='logout'"><i class="fa fa-sign-out fa-fw"></i><span th:text="#{application.page.logout}"> Logout</span></a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<div class="loginas"><span style="font-weight:bold" th:text="#{application.page.loggedInUserName}">Logged In User</span>: <span th:text="${loggedInUserName}">LoggedInUserName</span>, <span style="font-weight:bold" th:text="#{application.page.role}">System Role</span>: <span th:text="${roleName}">roleName</span></div>
+
+			<div id="sideNav" class="navbar-default sidebar" role="navigation">
+				<a href="javascript:void(0)" id="sidebarToggle" title="Hide Navigation" onclick="toggleNav(true)"></a>
+				<div id="sideNavDiv" class="sidebar-nav navbar-collapse">
+					<ul class="nav" id="side-menu">
+						<li>
+							<a href="#dashboard"><i class="fa fa-dashboard fa-fw"></i> <span th:text="#{application.selfemployment.dashboard}">Dashboard</span></a>
+						</li>
+						<li>
+							<a href="#batches"><i class="fa fa-folder fa-fw"></i> <span>Batches</span></a>
+						</li>
+						<li>
+							<a href="#approved"><i class="fa fa-download fa-fw"></i> <span>Approved / Signed Docs</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="formstyle1"><div data-ng-view=""></div></div>
+
+	</div>
+
+	<footer>
+		<div id="footer" th:class="${themeColor}">
+			<p><span th:text="#{website.copyright}"></span> &copy; <span th:text="#{website.copyright.year}"></span>. <span th:text="${headerDisplay.governmentName}"></span>. <span th:text="${headerDisplay.departmentName}"></span>. <span th:text="#{website.all.rights.reserved}"></span></p>
+		</div>
+	</footer>
+
+	<script th:src="@{/js/jquery.2.1.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/plugins/metisMenu/metisMenu.min.js}"></script>
+	<script th:src="@{/js/jQuery.print.js}"></script>
+	<script th:src="@{/js/sb-admin-2.js}"></script>
+	<script th:src="@{/angular/moment.min.js}"></script>
+	<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/js/jquery.dataTables.bootstrap.min.js}"></script>
+
+	<script th:src="@{/angular/angular.min.js}"></script>
+	<script th:src="@{/angular/angular-idle.min.js}"></script>
+	<script th:src="@{/angular/ui-bootstrap-tpls-2.5.0.min.js}"></script>
+	<script th:src="@{/angular/angular-route.min.js}"></script>
+	<script th:src="@{/angular/mbdatepicker.js}"></script>
+
+	<script th:src="@{/angular/collector/CollectorRouting.js}"></script>
+	<script th:src="@{/angular/collector/CollectorController.js}"></script>
+	<script th:src="@{/angular/common/FaViewController.js}"></script>
+
+	<script th:src="@{/angular/spin.js}"></script>
+	<script th:src="@{/angular/angular-loading.js}"></script>
+	<script th:src="@{/angular/angular-input-date.js}"></script>
+	<script th:src="@{/angular/common/CommonController.js}"></script>
+	<script th:src="@{/angular/jquery.datetimepicker.full.js}"></script>
+
+	<script>moment().format();</script>
+
+</div>
+</body>
+</html>

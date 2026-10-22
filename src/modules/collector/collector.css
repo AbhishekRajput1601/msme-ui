@@ -1,0 +1,316 @@
+/* ==========================================================================
+   Collector Module Styles: Navigation, Legacy Scope & Application Cards
+   ========================================================================== */
+
+.legacy-portal.collector-portal #sideNav {
+  background-color: #2b509a !important;
+  background: #2b509a !important;
+}
+
+.collector-navigation .nav { display: block; padding: 0; margin: 0; }
+.collector-navigation li { list-style: none; border-bottom: 1px solid #ffffff30; }
+.collector-navigation a { display: block; padding: 14px 18px; color: inherit; text-decoration: none; }
+.collector-navigation a:hover, .collector-navigation a.active { background: #ffffff20; }
+.legacy-portal .collector-navigation .portal-menu-item > i.fa { width: 1.28571429em; max-width: 1.28571429em; flex: none; margin: 3px 0 0; color: inherit; }
+
+.collector-page { font-family: Arial, sans-serif; font-size: 14px; }
+.collector-page #collector-page-content { margin: 0; padding: 0; min-width: 0; }
+.collector-page .panel-heading, .collector-page .divheadertxt { background: var(--portal-primary, #337ab7); color: white; }
+.collector-page .panel-heading { padding: 10px 15px; }
+.collector-page .panel-body { padding: 15px; overflow-x: auto; }
+.collector-page .table { width: 100%; margin-bottom: 20px; }
+.collector-page .table th, .collector-page .table td { padding: 8px; vertical-align: top; }
+.collector-page .input-group { display: flex; flex-wrap: nowrap; }
+.collector-page .input-group .form-control { min-width: 0; }
+.collector-page .btn { white-space: nowrap; }
+.collector-page .huge { font-size: 40px; }
+.collector-page .form-control.input-sm { min-width: 110px; }
+.collector-page .action-buttons { display: block !important; }
+.collector-page .text-center > .btn + .btn { margin-left: 12px; }
+
+.legacy-portal #page-wrapper .collector-detail-page :is(th, .divheadertxt, .new-divheadtext) {
+  background: #f3f4f6 !important;
+  color: #333 !important;
+  border-color: #ddd !important;
+  box-shadow: none !important;
+}
+.legacy-portal #page-wrapper .collector-detail-page :is(th, .divheadertxt, .new-divheadtext) :is(span, label, b, strong) {
+  color: #333 !important;
+}
+
+@media print {
+  .collector-page .btn, .collector-page .action-buttons { display: none !important; }
+  .collector-page .panel-body { overflow: visible; }
+  .collector-page .panel-heading { color: #000; background: white; }
+}
+
+/* ===========================================================================
+   Card layout for the Collector batch screens (from css/appcard.css)
+   =========================================================================== */
+
+:root {
+  --appcard-accent: #0277bd;
+  --appcard-accent-alt: #00838f;
+  --appcard-line: #d9e2e8;
+  --appcard-label: #f2f6f8;
+  --appcard-ink: #24323a;
+  --appcard-muted: #6b7a84;
+}
+
+.appcard-wrap {
+  background: #fbfcfd;
+}
+
+.appcard-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--appcard-line);
+}
+
+.appcard-bar h4 {
+  margin: 0;
+  font-weight: 700;
+  color: var(--appcard-ink);
+}
+
+.appcard-count {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 10px;
+  border-radius: 11px;
+  background: var(--appcard-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.appcard {
+  margin: 0 0 18px;
+  background: #fff;
+  border: 1px solid var(--appcard-line);
+  border-left: 4px solid var(--appcard-accent);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+  overflow: hidden;
+}
+
+.appcard-alt {
+  border-left-color: var(--appcard-accent-alt);
+}
+
+.appcard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 14px;
+  background: var(--appcard-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.appcard-alt > .appcard-head {
+  background: var(--appcard-accent-alt);
+}
+
+.appcard-head-action {
+  flex: 0 0 auto;
+}
+
+.appcard-info {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.appcard-info > tbody > tr > th,
+.appcard-info > tbody > tr > td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--appcard-line);
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+.appcard-info > tbody > tr:last-child > th,
+.appcard-info > tbody > tr:last-child > td {
+  border-bottom: 0;
+}
+
+.appcard-info > tbody > tr > th {
+  background: var(--appcard-label);
+  color: var(--appcard-muted);
+  font-weight: 600;
+  text-align: left;
+  white-space: normal;
+}
+
+.appcard-info > tbody > tr > td {
+  color: var(--appcard-ink);
+}
+
+.appcard-btn + .appcard-btn {
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px solid var(--appcard-line);
+}
+
+.appcard-sec {
+  padding: 8px 14px;
+  background: #eef4f7;
+  border-top: 1px solid var(--appcard-line);
+  border-bottom: 1px solid var(--appcard-line);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--appcard-ink);
+}
+
+.appcard-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.appcard-assist {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.appcard-assist > thead > tr > th {
+  padding: 8px 10px;
+  background: #e3edf2;
+  border: 1px solid var(--appcard-line);
+  color: var(--appcard-ink);
+  font-weight: 700;
+  text-align: left;
+  vertical-align: bottom;
+  line-height: 1.35;
+}
+
+.appcard-assist > tbody > tr > td {
+  padding: 6px 10px;
+  border: 1px solid var(--appcard-line);
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+.appcard-assist > tbody > tr:nth-child(even) > td {
+  background: #fafcfd;
+}
+
+.appcard-cno {
+  text-align: center !important;
+  white-space: nowrap;
+}
+
+.appcard-num {
+  text-align: right !important;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.appcard-assist input.form-control {
+  display: inline-block;
+  width: 100%;
+  max-width: 150px;
+  text-align: right;
+}
+
+.appcard-total > td {
+  background: #eef4f7 !important;
+  border-top: 2px solid var(--appcard-accent) !important;
+  font-weight: 700;
+}
+
+.appcard-total-label {
+  text-align: right !important;
+  font-weight: 700;
+}
+
+.appcard-note {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--appcard-ink);
+}
+
+.appcard-comments {
+  min-width: 520px;
+}
+
+.appcard-pdf {
+  padding: 14px;
+  max-height: 70vh;
+  overflow: auto;
+  background: #fff;
+}
+
+.appcard-confirm {
+  border-left-color: #2e7d32;
+}
+
+.appcard-confirm > .appcard-head {
+  background: #2e7d32;
+}
+
+.appcard-done {
+  border-left-color: #2e7d32;
+}
+
+.appcard-done > .appcard-head {
+  background: #2e7d32;
+}
+
+.appcard-confirm-body {
+  padding: 14px;
+}
+
+.appcard-confirm-note {
+  margin: 0 0 12px;
+  color: var(--appcard-ink);
+  font-size: 13px;
+}
+
+.appcard-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.appcard-check input[type="checkbox"] {
+  margin: 3px 0 0;
+  flex: 0 0 auto;
+}
+
+.appcard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .appcard-info {
+    table-layout: auto;
+  }
+  .appcard-info > tbody > tr > th,
+  .appcard-info > tbody > tr > td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .appcard-head {
+    font-size: 13px;
+  }
+}
+

@@ -12,6 +12,10 @@ import { useTranslation } from '../hooks/useTranslation'
 import DticSidebar from '../modules/dtic/DticSidebar'
 import FinancialSidebar from '../modules/financial/FinancialSidebar'
 import SecretarySidebar from '../modules/secretary/SecretarySidebar'
+import LdmSidebar from '../modules/ldm/LdmSidebar'
+import CollectorSidebar from '../modules/collector/CollectorSidebar'
+import { CollectorWorkflowProvider } from '../modules/collector/CollectorPage'
+import { LdmWorkflowProvider } from '../modules/ldm/LdmPage'
 
 export default function DepartmentLayout() {
   const { roles } = useAuth()
@@ -100,10 +104,14 @@ export default function DepartmentLayout() {
   const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
 
   return (
-    <AuthenticatedLayout
+    <CollectorWorkflowProvider><LdmWorkflowProvider><AuthenticatedLayout
       sidebarItems={sidebarItems}
       renderSidebar={
-        roles.some(role => role === 'ROLE_DTIC' || role === 'DTIC')
+        (roles.some(role => role === 'ROLE_COLLECTOR' || role === 'COLLECTOR') || location.pathname.startsWith('/department/collector')) && location.pathname.startsWith('/department/collector')
+          ? onNavigate => <CollectorSidebar onNavigate={onNavigate} />
+          : (roles.some(role => role === 'ROLE_LDM' || role === 'LDM') || location.pathname.startsWith('/department/ldm')) && location.pathname.startsWith('/department/ldm')
+          ? onNavigate => <LdmSidebar onNavigate={onNavigate} />
+          : roles.some(role => role === 'ROLE_DTIC' || role === 'DTIC')
           ? onNavigate => <DticSidebar onNavigate={onNavigate} />
           : roles.some(role => role === 'ROLE_FA' || role === 'FA')
           ? onNavigate => <FinancialSidebar onNavigate={onNavigate} />
@@ -118,6 +126,6 @@ export default function DepartmentLayout() {
           {officerRoleName}
         </span>
       }
-    />
+    /></LdmWorkflowProvider></CollectorWorkflowProvider>
   )
 }
