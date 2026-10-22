@@ -4,6 +4,7 @@ import {useTranslation} from '../../hooks/useTranslation'
 import IndustrialView from '../industrial-unit/IndustrialView'
 import DticTable from '../dtic/DticTable'
 import FinancialDashboard from './FinancialDashboard'
+import FinancialPowerBi from './FinancialPowerBi'
 import ReferenceDateInput from '../applicant-services/ReferenceDateInput'
 import DepartmentProfilePage from '../profile/department/DepartmentProfilePage'
 import FinancialReportTable,{exportReport} from './FinancialReportTable'
@@ -34,6 +35,7 @@ export default function FinancialPage(){
  if(/\/(?:changepassword|change-password|firstPasswordChange|first-password-change)$/.test(pathname))return <DepartmentProfilePage password request={financialRequest} dashboard="/department/fa/dashboard"/>
  if(/\/success$/.test(pathname))return <div className="alert alert-success">Success</div>
  if(/\/fa\/?$|\/fa\/dashboard$/i.test(pathname))return <FinancialDashboard/>
+ if(/\/powerBiDashbord\/?$/i.test(pathname))return <FinancialPowerBi/>
  return <Content key={pathname+search+locale} query={search} match={matchFinancialRoute(pathname)} locale={locale}/>
 }
 function Content({match,locale,query}){
