@@ -90,7 +90,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
     }
   }, [isUserMenuOpen])
 
-  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${isSecretary ? ' secretary-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
     <header className="postLoginHeader portal-header-legacy-theme">
       {/* Main Header Bar */}
       <div className="portal-header-main-bar">

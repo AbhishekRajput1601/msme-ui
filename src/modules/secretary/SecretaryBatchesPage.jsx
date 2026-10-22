@@ -257,16 +257,17 @@ export default function SecretaryBatchesPage() {
                                 type="button"
                                 className="btn btn-primary btn-xs"
                                 onClick={() => openBatch(b)}
-                                style={{ marginRight: '6px' }}
+                                style={{ marginRight: '6px', color: '#ffffff' }}
                               >
-                                <i className="fa fa-folder-open" /> Open Batch
+                                <i className="fa fa-folder-open" style={{ color: '#ffffff', marginRight: '3px' }} /> Open Batch
                               </button>
                               <button
                                 type="button"
                                 className="btn btn-info btn-xs"
                                 onClick={() => handleDownloadCoveringLetter(b)}
+                                style={{ color: '#ffffff' }}
                               >
-                                <i className="fa fa-download" /> Additional Document
+                                <i className="fa fa-download" style={{ color: '#ffffff', marginRight: '3px' }} /> Additional Document
                               </button>
                             </td>
                           </tr>

@@ -1,21 +1,15 @@
 /**
  * SecretarySidebar.jsx
  * ─────────────────────────────────────────────────────────────────────────────
- * Secretary Sidebar navigation component matching legacy AngularJS implementation
- * and exact layout, icons, and colors from the provided screenshot.
+ * Secretary Sidebar navigation component matching the simple legacy layout:
+ * clean blue background, edge-to-edge list items, thin dividers, and exact icons.
  */
 
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './secretary.css'
 
 export default function SecretarySidebar({ onNavigate }) {
-  const { pathname } = useLocation()
-
-  const isDashboardActive = pathname === '/department/secretary/dashboard' || pathname === '/department/secretary'
-  const isVerificationActive = pathname === '/department/secretary/verification' || pathname.startsWith('/department/secretary/detail')
-  const isBatchesActive = pathname === '/department/secretary/batches'
-
   const handleLinkClick = () => {
     if (typeof onNavigate === 'function') {
       onNavigate()
@@ -28,8 +22,7 @@ export default function SecretarySidebar({ onNavigate }) {
         <li>
           <Link
             to="/department/secretary/dashboard"
-            className={`secretary-menu-link ${isDashboardActive ? 'active' : ''}`}
-            aria-current={isDashboardActive ? 'page' : undefined}
+            className="secretary-menu-link"
             onClick={handleLinkClick}
           >
             <i className="fa fa-dashboard fa-fw" aria-hidden="true" />
@@ -39,19 +32,17 @@ export default function SecretarySidebar({ onNavigate }) {
         <li>
           <Link
             to="/department/secretary/verification"
-            className={`secretary-menu-link ${isVerificationActive ? 'active' : ''}`}
-            aria-current={isVerificationActive ? 'page' : undefined}
+            className="secretary-menu-link"
             onClick={handleLinkClick}
           >
-            <i className="fa fa-check-square-o fa-fw" aria-hidden="true" />
+            <i className="fa fa-check-square fa-fw" aria-hidden="true" />
             <span>Verification</span>
           </Link>
         </li>
         <li>
           <Link
             to="/department/secretary/batches"
-            className={`secretary-menu-link ${isBatchesActive ? 'active' : ''}`}
-            aria-current={isBatchesActive ? 'page' : undefined}
+            className="secretary-menu-link"
             onClick={handleLinkClick}
           >
             <i className="fa fa-folder fa-fw" aria-hidden="true" />
@@ -62,3 +53,5 @@ export default function SecretarySidebar({ onNavigate }) {
     </nav>
   )
 }
+
+

@@ -350,9 +350,9 @@ export default function SecretaryVerificationPage() {
                                 className="btn btn-primary btn-xs"
                                 onClick={() => viewDetail(app)}
                                 title="View full applicant details"
-                                style={{ marginBottom: '4px' }}
+                                style={{ marginBottom: '4px', color: '#ffffff' }}
                               >
-                                <i className="fa fa-eye" /> View
+                                <i className="fa fa-eye" style={{ color: '#ffffff', marginRight: '3px' }} /> View
                               </button>
                               <br />
                               <button
