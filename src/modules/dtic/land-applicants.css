@@ -1,0 +1,10 @@
+.dtic-land-applicants { background: #fff; border: 1px solid #cdd8e6; border-radius: 10px; padding: 24px; }
+.dtic-land-applicants header, .dtic-land-applicants footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin: 20px 0; }
+.dtic-land-applicants h1 { font-size: 24px; color: #223c93; margin: 0 0 8px; }
+.dtic-land-applicants p { color: #526274; }
+.dtic-land-applicants input { margin: 0 0 18px 10px; padding: 8px 12px; border: 1px solid #cdd8e6; border-radius: 5px; max-width: 100%; }
+.dtic-land-applicants__scroll { overflow-x: auto; }
+.dtic-land-applicants table { min-width: 680px; }
+.dtic-land-applicants a.dtic-land-applicants__button { display: inline-block; padding: 8px 12px; border-radius: 6px; color: #fff; background: #337ab7; text-decoration: none; white-space: nowrap; }
+.dtic-land-applicants a.dtic-land-applicants__button:hover { background: #286090; }
+.dtic-land-applicants a:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }

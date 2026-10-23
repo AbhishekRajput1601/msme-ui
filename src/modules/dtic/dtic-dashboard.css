@@ -31,7 +31,7 @@
 .dtic-dash-status time { margin-left: auto; }
 .dtic-dash-dot { width: 6px; height: 6px; background: var(--dash-primary); border-radius: 50%; flex-shrink: 0; }
 .dtic-dash-dot.is-error { background: var(--dash-accent); }
-.dtic-dash-overview { display: grid; grid-template-columns: 1.15fr 1fr 1fr; background: #fff; border: 1px solid var(--dash-line); border-radius: 12px; overflow: hidden; margin-bottom: 28px; box-shadow: 0 4px 18px #223c9306; }
+.dtic-dash-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); gap: 20px; margin-bottom: 28px; }
 .dtic-dash-total { position: relative; padding: 28px; background: linear-gradient(120deg, var(--dash-soft), #fff); border-top: 3px solid var(--dash-accent); }
 .dtic-dash-overview-icon { display: grid; place-items: center; width: 38px; height: 38px; color: var(--dash-primary); background: #fff; border: 1px solid #d4e3ef; border-radius: 9px; margin-bottom: 18px; }
 .dtic-dash-total h2 { font-size: 21px; letter-spacing: -.025em; line-height: 1.3; margin: 0 0 10px; font-weight: 700; }
@@ -39,11 +39,14 @@
 .dtic-dash-overview a { display: inline-flex; gap: 12px; align-items: center; color: var(--dash-primary-dark); font-size: 12px; font-weight: 600; text-decoration: none; width: fit-content; }
 .dtic-dash-overview a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .dtic-dash-overview a .dtic-dash-icon { width: 16px; height: 16px; }
-.dtic-dash-stat { display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 28px 32px; border-left: 1px solid var(--dash-line); min-width: 0; }
+.dtic-dash-stat { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 18px 20px; border: 1px solid var(--dash-line); border-radius: 10px; min-width: 0; box-shadow: 0 4px 14px #223c9312; }
 .dtic-dash-stat > span { font-size: 13px; color: var(--dash-muted); }
-.dtic-dash-stat strong { font-size: clamp(26px, 3.8vw, 50px); color: #223c93; line-height: 1.25; font-weight: 700; letter-spacing: -.045em; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.dtic-dash-stat strong { font-size: 30px; color: #223c93; line-height: 1.25; font-weight: 700; letter-spacing: -.045em; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 .dtic-dash-stat small { font-size: 11px; color: var(--dash-muted); }
-.dtic-dash-stat > a { margin-top: 22px; }
+.dtic-dash-stat > a { margin-top: 10px; }
+.dtic-dash-overview a.dtic-dash-card-link { display: flex; align-items: stretch; gap: 6px; width: auto; text-decoration: none; font-weight: inherit; }
+.dtic-dash-card-link:hover { border-color: var(--dash-primary); }
+.dtic-dash-card-link .dtic-dash-card-action { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--dash-primary-dark); }
 .dtic-dash-stat:nth-child(n + 4) { border-top: 1px solid var(--dash-line); }
 @media (min-width: 1001px) { .dtic-dash-stat:nth-child(4) { border-left: 0; } }
 .dtic-dash-columns { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: start; }
@@ -79,7 +82,7 @@
 
 /* Theme accents and restrained interaction effects. */
 .dtic-dash-heading h1 { color: #223c93; }
-.dtic-dash-overview { box-shadow: 0 8px 26px #223c931c; }
+
 .dtic-dash-total { background: radial-gradient(ellipse at top right, #b4d1ef 0, transparent 65%), linear-gradient(125deg, #dce9f8, #edf3fc); }
 .dtic-dash-overview-icon { background: #223c93; color: #fff; border-color: #223c93; box-shadow: 0 5px 12px #223c9326; }
 .dtic-dash-stat { background: linear-gradient(150deg, #f4f7fc 15%, #dbe7f8); }
@@ -122,6 +125,6 @@
   .dtic-dashboard a:hover .dtic-dash-icon, .dtic-dashboard .dtic-dash-queue:hover .dtic-dash-queue-icon, .dtic-dashboard .dtic-dash-decisions td a:hover { transform: none; }
 }
 @keyframes dtic-dash-enter { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
-@media (max-width: 1200px) { .dtic-dash-columns { gap: 18px; } .dtic-dash-work, .dtic-dash-decisions { padding: 20px; } .dtic-dash-stat { padding: 24px; } .dtic-dash-queue-icon { display: none; } }
-@media (max-width: 1000px) { .dtic-dash-columns { grid-template-columns: 1fr; } .dtic-dash-overview { grid-template-columns: 1fr 1fr; } .dtic-dash-total { grid-column: 1 / -1; } .dtic-dash-overview-icon { float: right; margin-left: 16px; } .dtic-dash-total > p:not(.dtic-dash-eyebrow) { max-width: none; } .dtic-dash-stat { border-top: 1px solid var(--dash-line); } .dtic-dash-stat:nth-child(2) { border-left: 0; } .dtic-dash-queue-icon { display: grid; } }
-@media (max-width: 560px) { .dtic-dashboard { padding: 8px 0 24px; } .dtic-dash-heading { align-items: flex-start; flex-direction: column; gap: 16px; } .dtic-dash-status time { margin-left: 14px; } .dtic-dash-total { padding: 22px; } .dtic-dash-stat { padding: 22px 16px; } .dtic-dash-stat > span { font-size: 12px; } .dtic-dash-stat strong { font-size: 26px; } .dtic-dash-stat > a { font-size: 11px; gap: 5px; } .dtic-dash-work, .dtic-dash-decisions { padding: 20px 16px; } .dtic-dash-queue-icon { display: none; } .dtic-dash-queue strong { font-size: 17px; } .dtic-dash-decisions th, .dtic-dash-decisions td { padding: 20px 6px; } .dtic-dash-decisions td a { font-size: 15px; } }
+@media (max-width: 1200px) { .dtic-dash-columns { gap: 18px; } .dtic-dash-work, .dtic-dash-decisions { padding: 20px; } .dtic-dash-queue-icon { display: none; } }
+@media (max-width: 1000px) { .dtic-dash-columns { grid-template-columns: 1fr; } .dtic-dash-total { grid-column: 1 / -1; } .dtic-dash-overview-icon { float: right; margin-left: 16px; } .dtic-dash-total > p:not(.dtic-dash-eyebrow) { max-width: none; } .dtic-dash-stat { border-top: 1px solid var(--dash-line); } .dtic-dash-queue-icon { display: grid; } }
+@media (max-width: 560px) { .dtic-dashboard { padding: 8px 0 24px; } .dtic-dash-heading { align-items: flex-start; flex-direction: column; gap: 16px; } .dtic-dash-status time { margin-left: 14px; } .dtic-dash-total { padding: 22px; } .dtic-dash-overview { grid-template-columns: minmax(0, 320px); gap: 16px; } .dtic-dash-stat { padding: 16px; } .dtic-dash-stat > span { font-size: 12px; } .dtic-dash-stat strong { font-size: 26px; } .dtic-dash-stat > a { font-size: 11px; gap: 5px; } .dtic-dash-work, .dtic-dash-decisions { padding: 20px 16px; } .dtic-dash-queue-icon { display: none; } .dtic-dash-queue strong { font-size: 17px; } .dtic-dash-decisions th, .dtic-dash-decisions td { padding: 20px 6px; } .dtic-dash-decisions td a { font-size: 15px; } }

@@ -8,7 +8,9 @@ import { dticTableParams } from './dticTableParams'
 import { rowRules } from './generated/rows'
 import tables from './generated/tables.json'
 import toast from '../../utils/toast'
+import './dtic-refresh.css'
 import Spinner from '../../components/loaders/Spinner'
+import { filterFaApplications } from './faStatusModel'
 
 export function dticCells(name, row, index, rules = rowRules, tableConfig = tables) {
   const result = {}
@@ -96,7 +98,7 @@ export function Cell({ markup, state, row, eligible }) {
   return [...doc.body.childNodes].map(render)
 }
 
-export default function DticTable({ name, node, state }) {
+export default function DticTable({ name, node, state, records }) {
   const config = (state.tableBundle || tables)[name]
   const isMsme = name === 'dtic/msmeapplicationlist'
   const [start, setStart] = useState(0), [length, setLength] = useState(10), [search, setSearch] = useState('')
@@ -108,7 +110,10 @@ export default function DticTable({ name, node, state }) {
     const params = dticTableParams(config, { start, length, search })
     Object.assign(params, state.tableParams?.() || {})
     const request = state.tableRequest || dticRequest
-    request('get', state.tableEndpoint?.() || config.endpoint, params, abort.signal).then(async data => {
+    const filtered = records ? filterFaApplications(records, 'all', search) : null
+    const response = filtered ? Promise.resolve({ aaData: filtered.slice(start, start + length), iTotalDisplayRecords: filtered.length, iTotalRecords: records.length })
+      : request('get', state.tableEndpoint?.() || config.endpoint, params, abort.signal)
+    response.then(async data => {
       if (!Array.isArray(data.aaData)) throw new Error('The server returned an invalid application list.')
       const gated = state.tableRequest ? [] : data.aaData.filter(row => Number(row.currentStatusId) === 19).map(row => row.applicationId)
       const eligible = gated.length ? await dticRequest('get', 'eligibleCompleteIds', { applicationIds: gated.join(',') }, abort.signal).catch(() => []) : []
@@ -120,7 +125,7 @@ export default function DticTable({ name, node, state }) {
       }
     })
     return () => abort.abort()
-  }, [config, start, length, search, state.listVersion, attempt])
+  }, [config, start, length, search, state.listVersion, attempt, records])
   const headers = node.children.find(n => n.tag === 'thead')?.children.find(n => n.tag === 'tr')?.children || []
   const count = result.count || 0
   const page = Math.floor(start / length), pages = Math.ceil(count / length)
@@ -141,7 +146,7 @@ export default function DticTable({ name, node, state }) {
       <thead><tr>{headers.map((n, i) => <th key={i}><IndustrialView nodes={n.children} state={state} /></th>)}</tr></thead>
       <tbody>{result.rows.map((row, index) => {
         const cells = dticCells(name, row, start + index, state.rowRules || rowRules, state.tableBundle || tables)
-        return <tr key={row.applicationId || row.applicantId || row.requestId || index}>{config.columns.map((column, i) => <td key={i}>{i in cells ? <Cell markup={cells[i]} state={state} row={row} eligible={result.eligible?.includes(row.applicationId)} /> : String(readPath(row, column) ?? '')}</td>)}</tr>
+        return <tr key={row.applicationId || row.applicantId || row.requestId || row.vacantLandId || index}>{config.columns.map((column, i) => <td key={i}>{i in cells ? <Cell markup={cells[i]} state={state} row={row} eligible={result.eligible?.includes(row.applicationId)} /> : String(readPath(row, column) ?? '')}</td>)}</tr>
       })}{!result.loading && result.error && <tr><td colSpan={headers.length || config?.columns?.length || 1}><div className="alert alert-danger" role="alert">{result.error} <button type="button" className="btn btn-default" onClick={() => setAttempt(n => n + 1)}>Retry</button></div></td></tr>}{!result.loading && !result.error && !result.rows.length && <tr><td className="dataTables_empty" colSpan={headers.length || config?.columns?.length || 1} style={{ textAlign: 'center', verticalAlign: 'middle', padding: '24px 12px' }}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}</tbody>
     </table></div>
     <div className="dtic-table-controls dtic-table-footer">
@@ -150,13 +155,13 @@ export default function DticTable({ name, node, state }) {
         <ul className="pagination">
           {fullNumbers && <li className={!start || result.loading ? 'disabled' : ''}><button type="button" disabled={!start || result.loading} onClick={() => setStart(0)}>First</button></li>}
           <li className={`paginate_button previous ${!start || result.loading ? 'disabled' : ''}`}>
-            <button type="button" disabled={!start || result.loading} onClick={() => setStart(Math.max(0, start - length))} aria-label="Previous page">Previous</button>
+            <button type="button" className="dtic-pagination-button" disabled={!start || result.loading} onClick={() => setStart(Math.max(0, start - length))} aria-label="Previous page">Previous</button>
           </li>
           {fullNumbers ? pageNumbers.map(number => <li key={number} className={`paginate_button ${page === number ? 'active' : ''}`}><button type="button" aria-current={page === number ? 'page' : undefined} disabled={result.loading} onClick={() => setStart(number * length)}>{number + 1}</button></li>) : count > 0 && <li className="paginate_button active">
             <span>{Math.floor(start / length) + 1}</span>
           </li>}
           <li className={`paginate_button next ${start + length >= count || result.loading ? 'disabled' : ''}`}>
-            <button type="button" disabled={start + length >= count || result.loading} onClick={() => setStart(start + length)} aria-label="Next page">Next</button>
+            <button type="button" className="dtic-pagination-button" disabled={start + length >= count || result.loading} onClick={() => setStart(start + length)} aria-label="Next page">Next</button>
           </li>
           {fullNumbers && <li className={start + length >= count || result.loading ? 'disabled' : ''}><button type="button" disabled={start + length >= count || result.loading} onClick={() => setStart(Math.max(0, (pages - 1) * length))}>Last</button></li>}
         </ul>

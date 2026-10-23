@@ -1,0 +1,12 @@
+.fa-status-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; }
+.fa-status-heading h2 { margin: 0 0 6px; font-size: 20px; color: #223c93; }
+.fa-status-heading p { margin: 0; color: #526274; }
+.fa-status-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.fa-status-grid .fa-status-card { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 18px; border: 1px solid #cdd8e6; border-radius: 10px; background: #f1f6fc; color: #23527c; text-align: left; cursor: pointer; }
+.fa-status-card span { font-size: 13px; font-weight: 600; }
+.fa-status-card strong { font-size: 28px; line-height: 1.2; }
+.fa-status-card small { font-size: 12px; }
+.fa-status-grid .fa-status-card:hover { background: #e4eefb; border-color: #337ab7; }
+.fa-status-grid .fa-status-card[aria-pressed=true] { background: #337ab7; border-color: #337ab7; color: #fff; }
+.fa-status-card:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }
+@media (max-width: 480px) { .fa-status-grid { grid-template-columns: 1fr; } }

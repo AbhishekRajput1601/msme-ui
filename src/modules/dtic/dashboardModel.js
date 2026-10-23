@@ -1,26 +1,12 @@
 import landTables from './infrastructure/generated/tables.json'
-import { dticTableParams } from './dticTableParams'
+import { loadFaStatusApplications } from './faStatusModel'
+import { landWithApplicants } from './landApplicantsModel'
 
 // Sum the application totals shown against every plot, including subsequent pages.
 export async function loadLandDashboardCounts(request, signal) {
   const config = landTables['dtic/dticVacantLandList']
-  let plots = null, applications = 0, start = 0
-  do {
-    const data = await request('get', config.endpoint, {
-      ...dticTableParams(config, { start, length: 100 }), industrialArea: '',
-    }, signal)
-    const total = dashboardListCount(data)
-    if (plots !== null && total !== plots) throw new Error('Land records changed. Refresh counts.')
-    plots = total
-    for (const row of data.aaData) {
-      const count = dashboardCount(row.totalApplicationReceived)
-      if (count === null) throw new Error('Land application totals are unavailable.')
-      applications += count
-    }
-    start += data.aaData.length
-    if (start > plots || !Number.isSafeInteger(applications)) throw new Error('Invalid land totals.')
-  } while (start < plots)
-  return [['landPlots', plots], ['landApplications', applications]]
+  const rows = await loadFaStatusApplications(request, config, signal, { idField: 'vacantLandId', params: { industrialArea: '' } })
+  return [['landPlots', rows.length], ['landWithApplicants', landWithApplicants(rows).length]]
 }
 
 // Missing or malformed counts must never be presented as zero.

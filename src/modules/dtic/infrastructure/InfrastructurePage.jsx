@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import http from '../../../api/httpClient'
 import IndustrialView from '../../industrial-unit/IndustrialView'
 import DticTable from '../DticTable'
+import FaStatusApplications from '../FaStatusApplications'
 import { dticDocument, dticLink } from '../dticService'
 import { createInfrastructureState } from './infrastructureModel'
 import InfrastructureMap from './InfrastructureMap'
@@ -66,7 +67,7 @@ function ServerDetails({ doc, state }) {
   return render(doc.querySelector('#page-wrapper') || doc.body, 'server-detail')
 }
 
-export default function InfrastructurePage({ match, locale }) {
+export default function InfrastructurePage({ match, locale, statusOverview = false }) {
   const navigate = useNavigate(), [, render] = useReducer(n => n + 1, 0)
   const [content, setContent] = useState(null), [error,setError] = useState('')
   const { route,params } = match
@@ -98,7 +99,9 @@ export default function InfrastructurePage({ match, locale }) {
         prepare(attrs,node,scope)
         if (state.serverValues?.[attrs.id] != null) { attrs.value = state.serverValues[attrs.id]; attrs.readOnly = true }
       }
-      state.renderTable = tables[name] ? node => <DticTable name={name} node={node} state={state} /> : undefined
+      state.renderTable = tables[name] ? node => statusOverview && name === 'dtic/dticVacantLandList'
+        ? <FaStatusApplications name={name} node={node} state={state} />
+        : <DticTable name={name} node={node} state={state} /> : undefined
       state.renderNode = node => {
         const id = node.attrs?.id?.[0]
         if (id === 'map') return <InfrastructureMap state={state} />
@@ -114,7 +117,7 @@ export default function InfrastructurePage({ match, locale }) {
       }
     })
     return () => abort.abort()
-  }, [route, locale, navigate])
+  }, [route, locale, navigate, statusOverview])
   if (error) return <div className="alert alert-danger" role="alert">{error}</div>
   if (!content) return <Spinner />
   const { name,state,doc } = content

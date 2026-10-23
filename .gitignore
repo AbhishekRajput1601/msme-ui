@@ -10,8 +10,12 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-artifacts/ui-check/browser-profile/
 *.local
+
+# Migration tooling output and working files (not needed to build or run the app)
+artifacts/
+docs/
+scripts/
 
 # Editor directories and files
 .vscode/*

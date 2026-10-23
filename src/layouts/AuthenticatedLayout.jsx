@@ -38,7 +38,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const isApplicant = location.pathname.startsWith('/applicant')
   const isFinancial = roles.includes('ROLE_FA') && location.pathname.startsWith('/department/fa')
   const isLdm = (roles.includes('ROLE_LDM') || roles.includes('LDM')) && location.pathname.startsWith('/department/ldm')
-  const isCollector = (roles.includes('ROLE_COLLECTOR') || roles.includes('COLLECTOR')) && location.pathname.startsWith('/department/collector')
+  const isCollector = (roles.includes('ROLE_COLLECTOR') || roles.includes('COLLECTOR')) || location.pathname.startsWith('/department/collector')
   const isDtic = roles.includes('ROLE_DTIC') && location.pathname.startsWith('/department')
   const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
   const dashboard = getDefaultRouteForRoles(roles)
@@ -169,6 +169,11 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
                   </Link>
                 </>}
                 {isLdm && <Link to="/department/ldm/change-password" onClick={() => setIsUserMenuOpen(false)}>Change Password</Link>}
+                {isCollector && (
+                  <Link to="/department/collector/change-password" onClick={() => setIsUserMenuOpen(false)}>
+                    <i className="fa fa-key fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
+                  </Link>
+                )}
                 {isSecretary && (
                   <Link to="/department/secretary/change-password" onClick={() => setIsUserMenuOpen(false)}>
                     <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { dticLink, dticRequest } from './dticService'
-import { dashboardListCount, decisions, workQueues, loadLandDashboardCounts } from './dashboardModel'
+import { dashboardListCount, loadLandDashboardCounts } from './dashboardModel'
 import tables from './generated/tables.json'
 import routes from './dticRoutes'
 import { dticTableParams } from './dticTableParams'
 import Spinner from '../../components/loaders/Spinner'
 import './dtic-dashboard.css'
+import './dtic-refresh.css'
 
 const format = value => (value === null || value === undefined) ? 'Unavailable' : value.toLocaleString('en-IN')
 
@@ -32,11 +33,7 @@ export default function DticDashboard() {
     const controller = new AbortController()
     setResult({ loading: true, counts: {} })
     const metrics = [
-      ['totalApplicationsReceived', 'viewtotalapplications'],
-      ['totalMSMEApplications', 'viewapplicationlist'],
       ['financialAssistanceUnits', 'dticfapendingapplicantsunit'],
-      ...workQueues.map(queue => [queue.key, queue.path]),
-      ...decisions.flatMap(decision => [[decision.accepted, decision.acceptedPath], [decision.rejected, decision.rejectedPath]]),
     ]
     async function loadCounts() {
       const outcomes = await Promise.allSettled([...metrics.map(async ([key, path]) => {
@@ -58,10 +55,6 @@ export default function DticDashboard() {
   }, [attempt])
 
   const resolveCount = key => result.counts[key] ?? null
-  const total = resolveCount('totalApplicationsReceived')
-  const msmeCount = resolveCount('totalMSMEApplications')
-  const queueCount = queue => resolveCount(queue.key)
-  const largestQueue = Math.max(0, ...workQueues.map(queue => queueCount(queue) ?? 0))
   const loading = result.loading
   const value = (number, pending) => pending ? <Spinner size="xs" inline /> : format(number)
 
@@ -71,7 +64,7 @@ export default function DticDashboard() {
         <div>
           <p className="dtic-dash-eyebrow">DISTRICT TRADE & INDUSTRIES CENTRE</p>
           <h1>DTIC dashboard</h1>
-          <p>Your district’s applications, review queues and decisions.</p>
+          <p>Your district’s financial assistance and land allotment applications.</p>
         </div>
         <button
           type="button"
@@ -100,141 +93,30 @@ export default function DticDashboard() {
       </div>
 
       <section className="dtic-dash-overview" aria-label="Application overview">
-        <div className="dtic-dash-total">
-          <span className="dtic-dash-overview-icon">
-            <DashboardIcon kind="building" />
-          </span>
-          <p className="dtic-dash-eyebrow">DISTRICT OVERVIEW</p>
-          <h2>Applications at a glance</h2>
-          <p>Self employment, MSME, financial assistance and land allotment records for your district.</p>
-        </div>
-        <div className="dtic-dash-stat">
-          <span>Self employment applications</span>
-          <strong>{value(total, loading)}</strong>
-          <small>Self employment</small>
-          <Link to={dticLink('viewtotalapplications')}>
-            View applications <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
-        <div className="dtic-dash-stat dtic-dash-msme">
-          <span>MSME register</span>
-          <strong>{value(msmeCount, loading)}</strong>
-          <small>District MSME register</small>
-          <Link to={dticLink('viewapplicationlist')}>
-            Open register <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
-        <div className="dtic-dash-stat dtic-dash-msme">
+        <Link className="dtic-dash-stat dtic-dash-msme dtic-dash-card-link" to={dticLink('dticfapendingapplicantsunit') + '?view=statuses'}>
           <span>Financial Assistance — MSME Units</span>
           <strong>{value(resolveCount('financialAssistanceUnits'), loading)}</strong>
           <small>Applications in the MSME Units list</small>
-          <Link to={dticLink('dticfapendingapplicantsunit')}>
+          <span className="dtic-dash-card-action">
             Review MSME Units <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
-        <div className="dtic-dash-stat">
+          </span>
+        </Link>
+        <Link className="dtic-dash-stat dtic-dash-card-link" to={dticLink('dticLandAllotment') + '?view=statuses'}>
           <span>Land Allotment — Plots / Sheds</span>
           <strong>{value(resolveCount('landPlots'), loading)}</strong>
           <small>Records in the land allotment list</small>
-          <Link to={dticLink('dticLandAllotment')}>
+          <span className="dtic-dash-card-action">
             Open land allotment <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
-        <div className="dtic-dash-stat">
-          <span>Land Allotment — Applications</span>
-          <strong>{value(resolveCount('landApplications'), loading)}</strong>
-          <small>Applications received across listed plots / sheds. Open a plot's Application List from Land Allotment.</small>
-        </div>
+          </span>
+        </Link>
+        <Link className="dtic-dash-stat dtic-dash-card-link" to={dticLink('dticLandAllotment') + '?view=applicants'}>
+          <span>Land with applicants</span>
+          <strong>{value(resolveCount('landWithApplicants'), loading)}</strong>
+          <small>Plots and sheds with at least one application</small>
+          <span className="dtic-dash-card-action">View land and applicants <DashboardIcon kind="arrow" /></span>
+        </Link>
       </section>
 
-      <div className="dtic-dash-columns">
-        <section className="dtic-dash-work" aria-labelledby="dtic-work-title">
-          <div className="dtic-dash-section-heading">
-            <p className="dtic-dash-eyebrow">SELF EMPLOYMENT WORK QUEUES</p>
-            <h2 id="dtic-work-title">Where attention is needed</h2>
-            <p>Open a queue to review its applications.</p>
-          </div>
-          <div className="dtic-dash-queues">
-            {workQueues.map(queue => {
-              const number = queueCount(queue)
-              return (
-                <Link
-                  key={queue.key}
-                  to={dticLink(queue.path)}
-                  className={`dtic-dash-queue tone-${queue.tone}`}
-                >
-                  <span className="dtic-dash-queue-icon">
-                    <DashboardIcon kind={queue.tone === 'teal' ? 'refresh' : 'document'} />
-                  </span>
-                  <span className="dtic-dash-queue-body">
-                    <span className="dtic-dash-queue-label">{queue.label}</span>
-                    <small>{queue.detail}</small>
-                    <span className="dtic-dash-track" aria-hidden="true">
-                      <span
-                        style={{
-                          width: `${number !== null && largestQueue ? (number / largestQueue) * 100 : 0}%`,
-                        }}
-                      />
-                    </span>
-                  </span>
-                  <strong>{value(number, loading)}</strong>
-                  <DashboardIcon kind="arrow" />
-                </Link>
-              )
-            })}
-          </div>
-          <p className="dtic-dash-note">Bar lengths compare queue sizes; they do not represent completion rates.</p>
-        </section>
-
-        <section className="dtic-dash-decisions" aria-labelledby="dtic-decisions-title">
-          <div className="dtic-dash-section-heading">
-            <p className="dtic-dash-eyebrow">SELF EMPLOYMENT DECISIONS</p>
-            <h2 id="dtic-decisions-title">Across the approval process</h2>
-            <p>Accepted and rejected applications by authority.</p>
-          </div>
-          <div className="dtic-dash-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Authority</th>
-                  <th scope="col">Accepted</th>
-                  <th scope="col">Rejected</th>
-                </tr>
-              </thead>
-              <tbody>
-                {decisions.map(decision => {
-                  const acceptedVal = resolveCount(decision.accepted)
-                  const rejectedVal = resolveCount(decision.rejected)
-                  return (
-                    <tr key={decision.authority}>
-                      <th scope="row">{decision.authority}</th>
-                      <td>
-                        <Link
-                          className="dtic-dash-accepted"
-                          aria-label={`Accepted by ${decision.authority}: ${loading ? 'Loading' : format(acceptedVal)}`}
-                          to={dticLink(decision.acceptedPath)}
-                        >
-                          {value(acceptedVal, loading)}
-                        </Link>
-                      </td>
-                      <td>
-                        <Link
-                          className="dtic-dash-rejected"
-                          aria-label={`Rejected by ${decision.authority}: ${loading ? 'Loading' : format(rejectedVal)}`}
-                          to={dticLink(decision.rejectedPath)}
-                        >
-                          {value(rejectedVal, loading)}
-                        </Link>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-          <p className="dtic-dash-note">Select a count to view the corresponding records.</p>
-        </section>
-      </div>
     </div>
   )
 }

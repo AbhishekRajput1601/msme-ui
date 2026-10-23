@@ -5,13 +5,15 @@ import { financialDashboardItems, loadFinancialCount } from './financialDashboar
 import Spinner from '../../components/loaders/Spinner'
 import './financial-dashboard.css'
 
+const dashboardItems = financialDashboardItems.filter(item => item.kind !== 'report')
+
 export default function FinancialDashboard() {
   const [counts, setCounts] = useState({})
   const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     const abort = new AbortController()
     setCounts({})
-    financialDashboardItems.forEach(item => {
+    dashboardItems.forEach(item => {
       loadFinancialCount(item, financialRequest, abort.signal).then(count => {
         if (!abort.signal.aborted) setCounts(previous => ({ ...previous, [item.path]: { count } }))
       }).catch(() => {
@@ -20,18 +22,16 @@ export default function FinancialDashboard() {
     })
     return () => abort.abort()
   }, [attempt])
-  const loading = financialDashboardItems.some(item => !counts[item.path])
-  const failed = Object.values(counts).some(result => result.error)
+  const loading = dashboardItems.some(item => !counts[item.path])
   return <div className="fa-dashboard">
     <header className="fa-dashboard-heading">
       <h1>Financial assistance dashboard</h1>
       <button type="button" disabled={loading} onClick={() => setAttempt(value => value + 1)}>{loading ? 'Loading...' : 'Refresh counts'}</button>
     </header>
-    {failed && <p role="status" className="fa-dashboard-error">Some counts could not be loaded. Refresh to try again.</p>}
-    {['Financial Assistance', 'Report'].map((group, index) => <section key={group} className="fa-dashboard-section" aria-labelledby={`fa-group-${index}`}>
-      <h2 id={`fa-group-${index}`}>{group}</h2>
+    <section className="fa-dashboard-section" aria-labelledby="fa-assistance-title">
+      <h2 id="fa-assistance-title">Financial Assistance</h2>
       <div className="fa-dashboard-grid">
-        {financialDashboardItems.slice(index === 0 ? 0 : 3, index === 0 ? 3 : 7).map(item => {
+        {dashboardItems.map(item => {
           const result = counts[item.path]
           return <Link className="fa-dashboard-count" to={financialLink(item.path)} key={item.path}>
             <h3>{item.label}</h3>
@@ -40,6 +40,6 @@ export default function FinancialDashboard() {
           </Link>
         })}
       </div>
-    </section>)}
+    </section>
   </div>
 }

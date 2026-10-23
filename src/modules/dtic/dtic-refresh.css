@@ -1,0 +1,60 @@
+.dtic-dashboard button.dtic-dash-refresh,
+.fa-status-heading button.dtic-refresh,
+.dtic-land-applicants button.dtic-refresh {
+  background: #3b82b8;
+  color: #fff;
+  border: 1px solid #3b82b8;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px #337ab71a;
+  cursor: pointer;
+}
+.dtic-dashboard button.dtic-dash-refresh:hover:not(:disabled),
+.fa-status-heading button.dtic-refresh:hover:not(:disabled),
+.dtic-land-applicants button.dtic-refresh:hover:not(:disabled) {
+  background: #337ab7;
+  border-color: #337ab7;
+  color: #fff;
+  box-shadow: 0 3px 8px #337ab726;
+}
+.dtic-refresh:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }
+.dtic-refresh:disabled { opacity: .65; cursor: wait; }
+
+.dtic-land-applicants button.dtic-pagination-button,
+.legacy-portal .dtic-table-footer .pagination > li > button.dtic-pagination-button {
+  background: #3b82b8;
+  color: #fff;
+  border: 1px solid #3b82b8;
+  border-radius: 8px;
+  padding: 9px 18px;
+  height: auto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: 0 2px 5px #337ab71a;
+  cursor: pointer;
+}
+.dtic-land-applicants button.dtic-pagination-button:hover:not(:disabled),
+.legacy-portal .dtic-table-footer .pagination > li > button.dtic-pagination-button:hover:not(:disabled) {
+  background: #337ab7;
+  border-color: #337ab7;
+  color: #fff;
+}
+.dtic-land-applicants button.dtic-pagination-button:disabled,
+.legacy-portal .dtic-table-footer .pagination > li > button.dtic-pagination-button:disabled {
+  background-color: #3b82b8 !important;
+  border-color: #3b82b8 !important;
+  color: #fff !important;
+  opacity: .5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.dtic-land-applicants button.dtic-pagination-button:focus-visible,
+.legacy-portal .dtic-table-footer .pagination > li > button.dtic-pagination-button:focus-visible {
+  outline: 3px solid #f07e01;
+  outline-offset: 3px;
+}

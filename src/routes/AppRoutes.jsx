@@ -85,7 +85,7 @@ import Spinner from '../components/loaders/Spinner'
 function AccountRedirect({ page }) {
   const { roles, loading } = useAuth()
   if (loading) return <Spinner fullScreen />
-  return <Navigate to={`${roles.includes('ROLE_DTIC') ? '/department/dtic' : roles.includes('ROLE_FA') ? '/department/fa' : '/applicant'}/${page}`} replace />
+  return <Navigate to={`${roles.includes('ROLE_DTIC') ? '/department/dtic' : roles.includes('ROLE_FA') ? '/department/fa' : roles.includes('ROLE_COLLECTOR') ? '/department/collector' : roles.includes('ROLE_SECRETARY') ? '/department/secretary' : '/applicant'}/${page}`} replace />
 }
 
 // List of all department officer roles supported
@@ -277,6 +277,7 @@ export default function AppRoutes() {
 
         {/* ─── Collector Workflow Routes ─── */}
         <Route path="collector/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorDashboard /></ProtectedRoute>} />
+        <Route path="collector/change-password" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><ChangePasswordPage /></ProtectedRoute>} />
         <Route path="collector/processed" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
         <Route path="collector/batches" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />
         <Route path="collector/batchSign/:batchId" element={<ProtectedRoute allowedRoles={['ROLE_COLLECTOR']}><CollectorPage /></ProtectedRoute>} />

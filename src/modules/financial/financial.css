@@ -27,3 +27,24 @@
 @media print { .financial-page .btn,.financial-page .dtic-table-controls {display:none} .financial-page .panel-body,.financial-page .table-responsive {overflow:visible} }
 .legacy-portal .financial-page input[type=radio],.legacy-portal .financial-page input[type=checkbox] {display:inline-block !important; width:auto !important; height:auto !important; min-height:0; margin:0 5px 0 0; vertical-align:middle; box-shadow:none;}
 .legacy-portal .financial-page label:has(>input[type=radio]),.legacy-portal .financial-page label:has(>input[type=checkbox]) {display:inline-block; margin-right:10px;}
+.financial-page button.fa-process-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 130px;
+  margin: 12px 0;
+  padding: 11px 24px;
+  border: 1px solid #3b82b8;
+  border-radius: 8px;
+  background: #3b82b8;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: 0 3px 8px #337ab726;
+  cursor: pointer;
+}
+.financial-page button.fa-process-button:hover:not(:disabled) { background: #337ab7; border-color: #337ab7; }
+.financial-page button.fa-process-button:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }
+.financial-page button.fa-process-button:disabled { opacity: .6; cursor: wait; }

@@ -54,6 +54,11 @@ function Content({match,locale,query}){
    else if(tables[name])state.renderTable=node=><DticTable name={name} node={node} state={state}/>
    state.renderNode=node=>{
     const id=node.attrs?.id?.[0]
+    if(name.replace(/^fa\//,'')==='faDisbursementUnit_new1' && node.tag==='a'){
+     const href=node.attrs?.href?.[0]
+     if(href==='/fa/faDisbursementUnit_new2.html')return null
+     if(href==='#faDisbursementUnit_new2/')return <button type="button" className="fa-process-button" disabled={state.busy||state.saving} onClick={()=>state.process()}>{translations[locale]?.['application.fa.page.process']||'Process'} <span aria-hidden="true">→</span></button>
+    }
     if(reports[name]&&['paggingPanel','dataTables-example_paginate'].includes(id))return null
     if(reports[name]&&id==='exportRecordInExcel')return <button type="button" className="btn btn-success" onClick={()=>exportReport(state)}>Export to Excel</button>
     return undefined

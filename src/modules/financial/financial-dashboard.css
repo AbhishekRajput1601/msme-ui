@@ -1,18 +1,18 @@
 div.fa-dashboard { width: 100%; max-width: 1100px; margin: 0 auto; color: #243653; flex-shrink: 0; }
-.fa-dashboard-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 8px 0 28px; }
+.fa-dashboard-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 8px 0 28px; padding: 20px 22px; border-left: 4px solid #f07e01; border-radius: 10px; background: linear-gradient(110deg, #e5effb, #f6f9fe); }
 .fa-dashboard-heading h1 { margin: 0; font-size: 23px; line-height: 1.4; font-weight: 650; }
 .fa-dashboard-heading button { flex-shrink: 0; padding: 9px 14px; border: 1px solid #cbd8e9; border-radius: 6px; background: #fff; color: #294c85; font-size: 12px; cursor: pointer; }
 .fa-dashboard-heading button:disabled { opacity: .6; cursor: wait; }
 .fa-dashboard-section { margin-bottom: 26px; }
-.fa-dashboard-section h2 { margin: 0 0 14px; font-size: 16px; font-weight: 650; }
+.fa-dashboard-section h2 { color: #23527c; margin: 0 0 14px; font-size: 16px; font-weight: 650; }
 .fa-dashboard-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .fa-dashboard .fa-dashboard-count { display: flex; flex-direction: column; padding: 20px; border: 1px solid #dbe3ef; border-top: 3px solid #337ab7; border-radius: 8px; background: #fff; text-decoration: none; color: #243653; box-shadow: 0 3px 12px #24365308; }
-.fa-dashboard-section:last-child .fa-dashboard-count { border-top-color: #238794; }
+.fa-dashboard .fa-dashboard-count:nth-child(even) { border-top-color: #f07e01; }
 .fa-dashboard-count h3 { margin: 0 0 18px; font-size: 14px; line-height: 1.5; font-weight: 600; }
 .fa-dashboard-count > strong { display: block; margin-top: auto; font-size: 26px; line-height: 1.4; font-variant-numeric: tabular-nums; color: #294c85; }
 .fa-dashboard-count > span { display: flex; justify-content: space-between; margin-top: 8px; color: #65758b; font-size: 12px; }
 .fa-dashboard .fa-dashboard-count:hover { background: #f5f9ff; border-color: #91add6; }
-.fa-dashboard a:focus-visible, .fa-dashboard button:focus-visible { outline: 3px solid #238794; outline-offset: 3px; }
+.fa-dashboard a:focus-visible, .fa-dashboard button:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }
 .fa-dashboard-error { padding: 12px; border-radius: 6px; background: #fff4df; color: #805600; font-size: 13px; }
 @media (max-width: 900px) { .fa-dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .fa-dashboard-grid { grid-template-columns: 1fr; } .fa-dashboard-heading { align-items: flex-start; flex-direction: column; } .fa-dashboard-heading h1 { font-size: 20px; } }
@@ -25,14 +25,14 @@ div.fa-dashboard {
   color: #1e2d40;
 }
 .fa-dashboard-heading h1 { color: #223c93; }
-.fa-dashboard-heading button { color: #fff; background: linear-gradient(120deg, #286090, #1b3078); border-color: var(--fa-primary); box-shadow: 0 3px 9px #223c931c; }
+.fa-dashboard-heading button { color: #fff; background: #3b82b8; border-color: var(--fa-primary); box-shadow: 0 3px 9px #223c931c; }
 .fa-dashboard-heading button:hover:not(:disabled) { background: var(--fa-primary-dark); box-shadow: 0 5px 14px #223c932b; }
 .fa-dashboard .fa-dashboard-count { color: #1e2d40; border-color: var(--fa-line); border-top-color: var(--fa-primary); background: linear-gradient(150deg, #f4f7fc 15%, #dbe7f8); box-shadow: 0 5px 18px #223c9314; }
 .fa-dashboard-count > strong { color: #223c93; }
 .fa-dashboard-count > span { color: #526274; }
-.fa-dashboard-section:last-child .fa-dashboard-count { border-top-color: var(--fa-accent); background: linear-gradient(150deg, #fffaf3 15%, #f8dfbc); }
-.fa-dashboard-section:last-child .fa-dashboard-count > strong { color: #a85900; }
+.fa-dashboard .fa-dashboard-count:nth-child(even) { border-top-color: var(--fa-accent); background: linear-gradient(150deg, #fffaf3 15%, #f8dfbc); }
+.fa-dashboard .fa-dashboard-count:nth-child(even) > strong { color: #a85900; }
 .fa-dashboard .fa-dashboard-count:hover { background: #e5eefb; border-color: var(--fa-primary); box-shadow: 0 9px 24px #223c9312; }
-.fa-dashboard-section:last-child .fa-dashboard-count:hover { background: #f8e4ca; border-color: var(--fa-accent); }
+.fa-dashboard .fa-dashboard-count:nth-child(even):hover { background: #f8e4ca; border-color: var(--fa-accent); }
 .fa-dashboard a:focus-visible, .fa-dashboard button:focus-visible { outline-color: var(--fa-accent); }
 .fa-dashboard-error { background: #fff4e7; color: #a85900; }

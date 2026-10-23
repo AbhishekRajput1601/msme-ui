@@ -15,6 +15,8 @@ import tables from './generated/tables.json'
 import DticTable from './DticTable'
 import DticAgenda from './DticAgenda'
 import DticDashboard from './DticDashboard'
+import FaStatusApplications from './FaStatusApplications'
+import LandApplicantsPage from './LandApplicantsPage'
 import toast from '../../utils/toast'
 import Spinner from '../../components/loaders/Spinner'
 import './generated/reference.css'
@@ -34,15 +36,17 @@ export function matchDticRoute(pathname) {
 
 export default function DticPage() {
   const location = useLocation(), { locale } = useTranslation()
+  const statusOverview = new URLSearchParams(location.search).get('view') === 'statuses'
   const match = matchDticRoute(location.pathname)
   if (match?.route.path === 'dashboard') return <DticDashboard />
+  if (match?.route.path === 'dticLandAllotment' && new URLSearchParams(location.search).get('view') === 'applicants') return <LandApplicantsPage />
   if (match?.route.controller === 'DTICMSMEReports') return <ReportsPage key={location.pathname+locale} match={match} locale={locale} />
   if (match?.route.controller === 'OXController') return <OxPage key={location.pathname+locale} match={match} locale={locale} />
-  if (match?.route.controller === 'DTICIDController') return <InfrastructurePage key={location.pathname+locale} match={match} locale={locale} />
-  return <DticContent key={location.pathname+locale} match={matchDticRoute(location.pathname)} locale={locale} />
+  if (match?.route.controller === 'DTICIDController') return <InfrastructurePage key={location.pathname+locale+statusOverview} match={match} locale={locale} statusOverview={statusOverview} />
+  return <DticContent key={location.pathname+locale+statusOverview} match={matchDticRoute(location.pathname)} locale={locale} statusOverview={statusOverview} />
 }
 
-function DticContent({ match, locale }) {
+function DticContent({ match, locale, statusOverview }) {
   const location = useLocation()
   const navigate = useNavigate(), [,render] = useReducer(n => n+1,0)
   const [content,setContent] = useState(null), [error,setError] = useState('')
@@ -63,7 +67,9 @@ function DticContent({ match, locale }) {
           // If fetch fails or no sanction data exists yet, remain on the primary view
         }
       }
-      state.renderTable = tables[name] ? node => <DticTable name={name} node={node} state={state} /> : undefined
+      state.renderTable = tables[name] ? node => statusOverview && name === 'dtic/fapendingapplicantsunit'
+        ? <FaStatusApplications name={name} node={node} state={state} />
+        : <DticTable name={name} node={node} state={state} /> : undefined
       state.renderNode = node => {
         const id = node.attrs?.id?.[0]
         if (['historyModal','assistRemarkModal','eligibleModal'].includes(id)) return null
@@ -78,7 +84,7 @@ function DticContent({ match, locale }) {
       }
     })
     return () => abort.abort()
-  }, [navigate,locale,match])
+  }, [navigate,locale,match,statusOverview])
   if (!match) return <div className="alert alert-danger">This DTIC page has not yet been migrated.</div>
   if (error) return <div className="alert alert-danger" role="alert">{error}</div>
   if (!content) return <Spinner />
