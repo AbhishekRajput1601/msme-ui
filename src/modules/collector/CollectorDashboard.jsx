@@ -7,23 +7,15 @@
  * consolidated batch reviews, and processed application statistics.
  */
 
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchProcessed, fetchBatches, fetchApproved } from './collectorService'
+import { fetchProcessed, fetchBatches } from './collectorService'
 import Spinner from '../../components/loaders/Spinner'
 import toast from '../../utils/toast'
 import '../secretary/secretary-dashboard.css'
 import './collector-dashboard.css'
 
 const format = (value) => (value === null || value === undefined ? '0' : Number(value).toLocaleString('en-IN'))
-
-const formatCurrency = (amount) => {
-  if (amount == null || isNaN(amount) || amount === 0) return '₹ 0'
-  const num = Number(amount)
-  if (num >= 10000000) return `₹ ${(num / 10000000).toFixed(2)} Cr`
-  if (num >= 100000) return `₹ ${(num / 100000).toFixed(2)} Lakh`
-  return `₹ ${num.toLocaleString('en-IN')}`
-}
 
 function DashboardIcon({ kind = 'document' }) {
   const paths = {
@@ -50,7 +42,6 @@ export default function CollectorDashboard() {
   const [updated, setUpdated] = useState(null)
   const [processedApplications, setProcessedApplications] = useState([])
   const [batches, setBatches] = useState([])
-  const [approvedApplications, setApprovedApplications] = useState([])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -60,16 +51,13 @@ export default function CollectorDashboard() {
     Promise.allSettled([
       fetchProcessed('', controller.signal),
       fetchBatches('', controller.signal),
-      fetchApproved('', controller.signal),
     ])
-      .then(([procRes, batchesRes, appRes]) => {
+      .then(([procRes, batchesRes]) => {
         if (!controller.signal.aborted) {
           const procList = procRes.status === 'fulfilled' && Array.isArray(procRes.value) ? procRes.value : []
           const batchList = batchesRes.status === 'fulfilled' && Array.isArray(batchesRes.value) ? batchesRes.value : []
-          const approvedList = appRes.status === 'fulfilled' && Array.isArray(appRes.value) ? appRes.value : []
           setProcessedApplications(procList)
           setBatches(batchList)
-          setApprovedApplications(approvedList)
           setUpdated(new Date())
           if (procRes.status === 'rejected' && batchesRes.status === 'rejected') {
             setError(true)
@@ -94,49 +82,6 @@ export default function CollectorDashboard() {
   // Calculated Metrics
   const batchesCount = batches.length
   const processedCount = processedApplications.length
-  const approvedCount = approvedApplications.length
-
-  const totalSubsidyAmount = useMemo(() => {
-    return [...processedApplications, ...approvedApplications].reduce((sum, app) => {
-      const val = Number(app.sanctionedAmount || app.eligibleAmount || app.claimedAmount || 0)
-      return sum + (isNaN(val) ? 0 : val)
-    }, 0)
-  }, [processedApplications, approvedApplications])
-
-  // District Breakdown aggregation
-  const districtData = useMemo(() => {
-    const map = {}
-    processedApplications.forEach((app) => {
-      const dist = app.districtName || app.district || 'District Center'
-      if (!map[dist]) {
-        map[dist] = { district: dist, count: 0, amount: 0 }
-      }
-      map[dist].count += 1
-      const amt = Number(app.sanctionedAmount || app.eligibleAmount || 0)
-      if (!isNaN(amt)) map[dist].amount += amt
-    })
-    const arr = Object.values(map)
-    arr.sort((a, b) => b.count - a.count)
-    return arr.length > 0
-      ? arr.slice(0, 5)
-      : [
-          { district: 'Bhopal', count: 4, amount: 2500000 },
-          { district: 'Indore', count: 3, amount: 3800000 },
-          { district: 'Gwalior', count: 2, amount: 1200000 },
-          { district: 'Jabalpur', count: 2, amount: 1750000 },
-          { district: 'Ujjain', count: 1, amount: 900000 },
-        ]
-  }, [processedApplications])
-
-  const distinctDistrictsCount = Object.keys(
-    processedApplications.reduce((acc, a) => {
-      const d = a.districtName || a.district
-      if (d) acc[d] = true
-      return acc
-    }, {}),
-  ).length || districtData.length
-
-  const largestQueue = Math.max(1, batchesCount, processedCount, approvedCount)
 
   const valueDisplay = (number) => (loading ? <Spinner size="xs" inline /> : format(number))
 
@@ -200,145 +145,16 @@ export default function CollectorDashboard() {
         </div>
 
         {/* Stat 2: Processed Applications */}
-        <div className="sec-dash-stat">
+        <Link className="sec-dash-stat collector-processed-card" to="/department/collector/processed">
           <span>Processed Applications</span>
           <strong>{valueDisplay(processedCount)}</strong>
           <small>In mapped district</small>
-          <Link to="/department/collector/processed">
+          <span className="collector-processed-action">
             Open Processed Applications <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
+          </span>
+        </Link>
 
-        {/* Stat 3: Approved / Signed Documents */}
-        <div className="sec-dash-stat">
-          <span>Approved / Signed Docs</span>
-          <strong>{valueDisplay(approvedCount)}</strong>
-          <small>Finalized applications with signed documents</small>
-          <Link to="/department/collector/approved">
-            Inspect Approved <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
       </section>
-
-      {/* ─── Two-Column Work Queues & Decisions Breakdown ─────────────── */}
-      <div className="sec-dash-columns">
-        {/* Left Column: Work Queues */}
-        <section className="sec-dash-work" aria-labelledby="col-work-title">
-          <div className="sec-dash-section-heading">
-            <p className="sec-dash-eyebrow">FINANCIAL ASSISTANCE QUEUES</p>
-            <h2 id="col-work-title">Where attention is needed</h2>
-            <p>Open a queue to review batches, inspect processed applications, or download signed approval orders.</p>
-          </div>
-
-          <div className="sec-dash-queues">
-            {/* Queue 1: Batches for Approval */}
-            <Link to="/department/collector/batches" className="sec-dash-queue tone-amber">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="folder" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Batch Approval Queue</span>
-                <small>Consolidated unit batches awaiting Collector review and sanction</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (batchesCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(batchesCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-
-            {/* Queue 2: Processed Applications (mapped district) */}
-            <Link to="/department/collector/processed" className="sec-dash-queue tone-teal">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="check" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Processed Applications (mapped district)</span>
-                <small>Applications processed by the District Collector</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (processedCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(processedCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-
-            {/* Queue 3: Approved / Signed Docs */}
-            <Link to="/department/collector/approved" className="sec-dash-queue tone-teal">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="document" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Approved &amp; Signed Documents</span>
-                <small>Sanctioned applications with generated and signed approval documents</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (approvedCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(approvedCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-          </div>
-
-          <p className="sec-dash-note">Bar lengths represent relative queue volume for quick workload comparison.</p>
-        </section>
-
-        {/* Right Column: District Summary */}
-        <section className="sec-dash-decisions" aria-labelledby="col-district-title">
-          <div className="sec-dash-section-heading">
-            <p className="sec-dash-eyebrow">DISTRICT &amp; REGIONAL DISTRIBUTION</p>
-            <h2 id="col-district-title">District-wise Proposals</h2>
-            <p>Summary of industrial applications and proposed subsidy across key centres.</p>
-          </div>
-
-          <div className="sec-dash-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Industrial District</th>
-                  <th scope="col">Applications</th>
-                  <th scope="col">Proposed / Sanctioned</th>
-                </tr>
-              </thead>
-              <tbody>
-                {districtData.map((d) => (
-                  <tr key={d.district}>
-                    <th scope="row">{d.district}</th>
-                    <td>
-                      <Link
-                        className="sec-dash-pill"
-                        to="/department/collector/processed"
-                        aria-label={`${d.district} applications`}
-                      >
-                        {loading ? '…' : d.count}
-                      </Link>
-                    </td>
-                    <td>
-                      <span className="sec-dash-pill amber">
-                        {loading ? '…' : formatCurrency(d.amount)}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <p className="sec-dash-note">Click on an application count to filter records in the processed view.</p>
-        </section>
-      </div>
 
       {/* ─── Recent Processed Applications Preview ─────────────────────── */}
       <section className="sec-dash-recent" aria-labelledby="col-recent-title">

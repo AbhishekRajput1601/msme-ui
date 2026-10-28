@@ -90,65 +90,13 @@ export default function SecretaryDashboard() {
     () => applications.filter((a) => a.currentStatusId == null || Number(a.currentStatusId) === 20),
     [applications],
   )
-  const verifiedApps = useMemo(
-    () => applications.filter((a) => Number(a.currentStatusId) === 21),
-    [applications],
-  )
-  const queriedApps = useMemo(
-    () => applications.filter((a) => Number(a.currentStatusId) === 5),
-    [applications],
-  )
-
   const pendingCount = pendingApps.length || applications.length
   const batchesCount = batches.length
-  const verifiedCount = verifiedApps.length
-  const queriedCount = queriedApps.length
-
-  const totalSubsidyAmount = useMemo(() => {
-    return applications.reduce((sum, app) => {
-      const val = Number(app.eligibleAmount || app.claimedAmount || app.sanctionAmount || 0)
-      return sum + (isNaN(val) ? 0 : val)
-    }, 0)
-  }, [applications])
-
-  // District Breakdown aggregation
-  const districtData = useMemo(() => {
-    const map = {}
-    applications.forEach((app) => {
-      const dist = app.districtName || 'Headquarters / State'
-      if (!map[dist]) {
-        map[dist] = { district: dist, count: 0, amount: 0 }
-      }
-      map[dist].count += 1
-      const amt = Number(app.eligibleAmount || app.claimedAmount || app.sanctionAmount || 0)
-      if (!isNaN(amt)) map[dist].amount += amt
-    })
-    const arr = Object.values(map)
-    arr.sort((a, b) => b.count - a.count)
-    return arr.length > 0
-      ? arr.slice(0, 5)
-      : [
-          { district: 'Bhopal', count: 4, amount: 2500000 },
-          { district: 'Indore', count: 3, amount: 3800000 },
-          { district: 'Gwalior', count: 2, amount: 1200000 },
-          { district: 'Jabalpur', count: 2, amount: 1750000 },
-          { district: 'Ujjain', count: 1, amount: 900000 },
-        ]
-  }, [applications])
-
-  const distinctDistrictsCount = Object.keys(
-    applications.reduce((acc, a) => {
-      if (a.districtName) acc[a.districtName] = true
-      return acc
-    }, {}),
-  ).length || districtData.length
-
-  const largestQueue = Math.max(1, pendingCount, batchesCount, queriedCount)
 
   const valueDisplay = (number) => (loading ? <Spinner size="xs" inline /> : format(number))
 
   return (
-    <div className="secretary-dashboard">
+    <div className="secretary-dashboard secretary-role-dashboard">
       {/* ─── Top Heading Section ────────────────────────────────────────── */}
       <header className="sec-dash-heading">
         <div>
@@ -216,136 +164,7 @@ export default function SecretaryDashboard() {
           </Link>
         </div>
 
-        {/* Stat 3: Total Subsidy Claimed */}
-        <div className="sec-dash-stat">
-          <span>Total Proposed Subsidy</span>
-          <strong>{loading ? <Spinner size="xs" inline /> : formatCurrency(totalSubsidyAmount)}</strong>
-          <small>Across {distinctDistrictsCount} Industrial Districts</small>
-          <Link to="/department/secretary/verification">
-            Inspect Applications <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
       </section>
-
-      {/* ─── Two-Column Work Queues & Decisions Breakdown ─────────────── */}
-      <div className="sec-dash-columns">
-        {/* Left Column: Work Queues */}
-        <section className="sec-dash-work" aria-labelledby="sec-work-title">
-          <div className="sec-dash-section-heading">
-            <p className="sec-dash-eyebrow">FINANCIAL ASSISTANCE QUEUES</p>
-            <h2 id="sec-work-title">Where attention is needed</h2>
-            <p>Open a queue to inspect records, submit remarks, or forward to Lead District Managers.</p>
-          </div>
-
-          <div className="sec-dash-queues">
-            {/* Queue 1: Pending Verification */}
-            <Link to="/department/secretary/verification" className="sec-dash-queue tone-teal">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="check" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Verification Queue</span>
-                <small>Applications awaiting Secretary approval (Agenda Generated)</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (pendingCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(pendingCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-
-            {/* Queue 2: Batches for LDM */}
-            <Link to="/department/secretary/batches" className="sec-dash-queue tone-amber">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="folder" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Batch Submission Queue</span>
-                <small>Consolidated unit batches to forward to LDM</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (batchesCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(batchesCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-
-            {/* Queue 3: Queried to DTIC */}
-            <Link to="/department/secretary/verification" className="sec-dash-queue tone-teal">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="refresh" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Queried / Returned Queue</span>
-                <small>Applications returned to GM-DTIC with Secretary queries</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (queriedCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(queriedCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-          </div>
-
-          <p className="sec-dash-note">Bar lengths represent relative queue volume for quick workload comparison.</p>
-        </section>
-
-        {/* Right Column: District Summary */}
-        <section className="sec-dash-decisions" aria-labelledby="sec-district-title">
-          <div className="sec-dash-section-heading">
-            <p className="sec-dash-eyebrow">DISTRICT & REGIONAL DISTRIBUTION</p>
-            <h2 id="sec-district-title">District-wise Proposals</h2>
-            <p>Summary of industrial applications and proposed subsidy across key centres.</p>
-          </div>
-
-          <div className="sec-dash-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Industrial District</th>
-                  <th scope="col">Applications</th>
-                  <th scope="col">Proposed Subsidy</th>
-                </tr>
-              </thead>
-              <tbody>
-                {districtData.map((d) => (
-                  <tr key={d.district}>
-                    <th scope="row">{d.district}</th>
-                    <td>
-                      <Link
-                        className="sec-dash-pill"
-                        to="/department/secretary/verification"
-                        aria-label={`${d.district} applications`}
-                      >
-                        {loading ? '…' : d.count}
-                      </Link>
-                    </td>
-                    <td>
-                      <span className="sec-dash-pill amber">
-                        {loading ? '…' : formatCurrency(d.amount)}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <p className="sec-dash-note">Click on an application count to filter records in the verification view.</p>
-        </section>
-      </div>
 
       {/* ─── Recent Applications Awaiting Review ──────────────────────── */}
       <section className="sec-dash-recent" aria-labelledby="sec-recent-title">

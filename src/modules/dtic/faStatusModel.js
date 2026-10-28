@@ -14,6 +14,20 @@ export function groupApplicationsByStatus(rows) {
   return [...groups.values()].sort((a, b) => a.label.localeCompare(b.label))
 }
 
+export const applicationDistrictKey = row => row.districtId != null
+  ? `id:${row.districtId}`
+  : `label:${String(row.districtName || 'District unavailable').trim()}`
+
+export function groupApplicationsByDistrict(rows) {
+  const groups = new Map()
+  for (const row of rows) {
+    const key = applicationDistrictKey(row)
+    if (!groups.has(key)) groups.set(key, { key, label: String(row.districtName || (row.districtId != null ? `District ${row.districtId}` : 'District unavailable')), count: 0 })
+    groups.get(key).count += 1
+  }
+  return [...groups.values()].sort((a, b) => a.label.localeCompare(b.label))
+}
+
 export async function loadFaStatusApplications(request, config, signal, { idField = 'applicationId', params = {} } = {}) {
   const rows = new Map()
   const pageSize = 100
@@ -44,6 +58,6 @@ export async function loadFaStatusApplications(request, config, signal, { idFiel
 export function filterFaApplications(rows, status, search = '') {
   const query = search.trim().toLowerCase()
   return rows.filter(row => (status === 'all' || applicationStatusKey(row) === status)
-    && (!query || [row.applicationId, row.applicationDate, row.unitOrInstName, row.status, row.plotNumber, row.industrialAreaName, row.districtName, row.tehsilName, row.plotShed, row.purposeName, row.category]
+    && (!query || [row.applicationId, row.applicationDate, row.unitOrInstName, row.id, row.createdDate, row.applicantName, row.status, row.plotNumber, row.industrialAreaName, row.districtName, row.tehsilName, row.plotShed, row.purposeName, row.category]
       .some(value => String(value ?? '').toLowerCase().includes(query))))
 }

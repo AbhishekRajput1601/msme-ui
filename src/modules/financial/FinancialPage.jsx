@@ -3,6 +3,7 @@ import {useLocation,useNavigate} from 'react-router-dom'
 import {useTranslation} from '../../hooks/useTranslation'
 import IndustrialView from '../industrial-unit/IndustrialView'
 import DticTable from '../dtic/DticTable'
+import FaStatusApplications from '../dtic/FaStatusApplications'
 import FinancialDashboard from './FinancialDashboard'
 import FinancialPowerBi from './FinancialPowerBi'
 import ReferenceDateInput from '../applicant-services/ReferenceDateInput'
@@ -51,9 +52,15 @@ function Content({match,locale,query}){
    let name=route.views.at(-1)
    if(route.views.length>1){const data=await financialRequest('get','fetchFAMSMEDetailUnitForSanction',{applicationId:params.applicationId},abort.signal);if(/institution/i.test(params.establishmentType||'') ? !!data?.applicationId : data?.meetingDate!=null)name=route.views[0]}
    if(reports[name]){state.reportName=name;state.reportConfig=reports[route.path==='detailList'?'detailList':name];state.renderTable=node=><FinancialReportTable name={name} node={node} state={state}/>}
-   else if(tables[name])state.renderTable=node=><DticTable name={name} node={node} state={state}/>
+   else if(tables[name])state.renderTable=node=>route.path==='dticfapendingapplicantsunit' && params.view==='statuses'
+    ? <FaStatusApplications name={name} node={node} state={state} request={financialRequest}/>
+    : route.path==='infradevelopmetList'
+    ? <FaStatusApplications name={name} node={node} state={state} request={financialRequest} groupBy="district"/>
+    : <DticTable name={name} node={node} state={state}/>
    state.renderNode=node=>{
     const id=node.attrs?.id?.[0]
+    if(route.path==='dticfapendingapplicantsunit' && params.view==='statuses' && !params.status
+      && node.tag==='button' && node.children?.some(child=>['application.page.generate','application.page.updateCommitteeStatus'].includes(child.translation))) return null
     if(name.replace(/^fa\//,'')==='faDisbursementUnit_new1' && node.tag==='a'){
      const href=node.attrs?.href?.[0]
      if(href==='/fa/faDisbursementUnit_new2.html')return null

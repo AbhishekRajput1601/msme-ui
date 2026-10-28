@@ -6,6 +6,7 @@ import Modal from '../../components/modals/Modal'
 import Spinner from '../../components/loaders/Spinner'
 import { useTranslation } from '../../hooks/useTranslation'
 import CollectorDashboard from './CollectorDashboard'
+import CollectorProcessedApplications from './CollectorProcessedApplications'
 import { createCollectorState } from './collectorModel'
 import routes from './generated/routes.json'
 import views from './generated/views.json'
@@ -74,7 +75,9 @@ function Content({ match, locale }) {
     <div className={`industrial-unit-page collector-page${isDetail ? ' collector-detail-page' : ''}`}>
       {state.busy && <Spinner />}
       {state.error && <div role="alert" className="alert alert-danger">{state.error}</div>}
-      <IndustrialView name={match.route.views[0]} state={state} />
+      {match.route.path === 'processed'
+        ? <CollectorProcessedApplications state={state} />
+        : <IndustrialView name={match.route.views[0]} state={state} />}
       <Modal isOpen={!!state.remarkApp} onClose={close} title={`Remarks - ${state.remarkApp?.applicationId}`} showCloseButton={false}
         footer={<><button className="btn btn-success" onClick={close}>Save</button> <button className="btn btn-default" onClick={close}>Close</button></>}>
         <textarea aria-label="Enter remark" className="form-control" rows={4} maxLength={2000} placeholder="Enter remark" value={state.remarkApp?.remark || ''} onChange={e => { state.remarkApp.remark = e.target.value; state.notify() }} />

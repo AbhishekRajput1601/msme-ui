@@ -39,3 +39,106 @@
   font-variant-numeric: tabular-nums;
 }
 
+.ldm-dashboard .sec-dash-overview {
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 18px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.ldm-dashboard .sec-dash-total,
+.ldm-dashboard .sec-dash-stat {
+  padding: 28px;
+  border: 1px solid #dce4ef;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(30, 45, 64, .05);
+}
+
+.ldm-dashboard .sec-dash-total {
+  background: linear-gradient(135deg, #20396b, #305b91);
+}
+
+.ldm-dashboard .sec-dash-total h2,
+.ldm-dashboard .sec-dash-total .sec-dash-eyebrow {
+  color: #fff;
+}
+
+.ldm-dashboard .sec-dash-total > p:not(.sec-dash-eyebrow) {
+  color: #dce8f7;
+  max-width: 340px;
+  margin-bottom: 0;
+}
+
+.ldm-dashboard .sec-dash-overview-icon {
+  background: #ffffff18;
+  border-color: #ffffff40;
+  box-shadow: none;
+}
+
+.ldm-dashboard .sec-dash-stat {
+  background: #fff;
+  border-top: 4px solid #365f9f;
+}
+
+.ldm-dashboard .sec-dash-stat.sec-dash-amber {
+  background: #fffcf7;
+  border-top: 4px solid #c17b22;
+}
+
+.ldm-dashboard .sec-dash-stat > span {
+  color: #33455f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ldm-dashboard .sec-dash-stat > a {
+  border-top: 1px solid #e5eaf1;
+  padding-top: 16px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.ldm-dashboard .sec-dash-recent {
+  border: 1px solid #dce4ef;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(30, 45, 64, .04);
+}
+
+.ldm-dashboard .sec-dash-recent-header {
+  padding: 24px;
+}
+
+.ldm-dashboard .sec-dash-table-wrap tbody tr:hover {
+  background: #f6f9fd;
+}
+
+@media (max-width: 1100px) {
+  .ldm-dashboard .sec-dash-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ldm-dashboard .sec-dash-total {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .ldm-dashboard .sec-dash-overview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ldm-dashboard .sec-dash-heading,
+  .ldm-dashboard .sec-dash-recent-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .ldm-dashboard .sec-dash-status time {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+

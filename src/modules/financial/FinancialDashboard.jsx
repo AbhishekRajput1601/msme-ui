@@ -3,43 +3,72 @@ import { Link } from 'react-router-dom'
 import { financialLink, financialRequest } from './financialService'
 import { financialDashboardItems, loadFinancialCount } from './financialDashboardModel'
 import Spinner from '../../components/loaders/Spinner'
+import '../dtic/dtic-dashboard.css'
+import '../dtic/dtic-refresh.css'
 import './financial-dashboard.css'
 
 const dashboardItems = financialDashboardItems.filter(item => item.kind !== 'report')
+const cardDetails = {
+  dticfapendingapplicantsunit: { label: 'Financial Assistance — MSME Units', detail: 'Applications in the Industrial Unit list', action: 'Review MSME Units' },
+  faDisbursementUnit_new: { label: 'Disbursement Calculator', detail: 'Records available for disbursement processing', action: 'Open disbursement calculator' },
+  infradevelopmetList: { label: 'Infrastructure Development Permission', detail: 'Applications for infrastructure development', action: 'Review applications' },
+}
+
+function ArrowIcon() {
+  return <svg className="dtic-dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+}
 
 export default function FinancialDashboard() {
-  const [counts, setCounts] = useState({})
+  const [result, setResult] = useState({ loading: true, counts: {} })
   const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     const abort = new AbortController()
-    setCounts({})
-    dashboardItems.forEach(item => {
-      loadFinancialCount(item, financialRequest, abort.signal).then(count => {
-        if (!abort.signal.aborted) setCounts(previous => ({ ...previous, [item.path]: { count } }))
-      }).catch(() => {
-        if (!abort.signal.aborted) setCounts(previous => ({ ...previous, [item.path]: { error: true } }))
+    async function load() {
+      const outcomes = await Promise.allSettled(dashboardItems.map(async item => [
+        item.path, await loadFinancialCount(item, financialRequest, abort.signal),
+      ]))
+      if (!abort.signal.aborted) setResult({
+        loading: false,
+        counts: Object.fromEntries(outcomes.filter(outcome => outcome.status === 'fulfilled').map(outcome => outcome.value)),
+        error: outcomes.some(outcome => outcome.status === 'rejected'),
+        updated: outcomes.some(outcome => outcome.status === 'fulfilled') ? new Date() : null,
       })
-    })
+    }
+    load()
     return () => abort.abort()
   }, [attempt])
-  const loading = dashboardItems.some(item => !counts[item.path])
-  return <div className="fa-dashboard">
-    <header className="fa-dashboard-heading">
-      <h1>Financial assistance dashboard</h1>
-      <button type="button" disabled={loading} onClick={() => setAttempt(value => value + 1)}>{loading ? 'Loading...' : 'Refresh counts'}</button>
-    </header>
-    <section className="fa-dashboard-section" aria-labelledby="fa-assistance-title">
-      <h2 id="fa-assistance-title">Financial Assistance</h2>
-      <div className="fa-dashboard-grid">
-        {dashboardItems.map(item => {
-          const result = counts[item.path]
-          return <Link className="fa-dashboard-count" to={financialLink(item.path)} key={item.path}>
-            <h3>{item.label}</h3>
-            <strong>{!result ? <Spinner size="xs" inline /> : result.error ? 'Unavailable' : result.count.toLocaleString('en-IN')}</strong>
-            <span>{item.unit}<span aria-hidden="true">&rarr;</span></span>
-          </Link>
-        })}
+
+  function refresh() {
+    setResult({ loading: true, counts: {} })
+    setAttempt(value => value + 1)
+  }
+
+  return <div className="dtic-dashboard financial-role-dashboard">
+    <header className="dtic-dash-heading">
+      <div>
+        <p className="dtic-dash-eyebrow">DEPARTMENT OF MSME · FINANCIAL ASSISTANCE</p>
+        <h1>Financial Assistance dashboard</h1>
+        <p>Review industrial applications, process disbursements, and track infrastructure permissions.</p>
       </div>
+      <button type="button" className="dtic-dash-refresh" disabled={result.loading} onClick={refresh}>{result.loading ? 'Refreshing…' : '↻ Refresh counts'}</button>
+    </header>
+    <div className="dtic-dash-status" role="status">
+      <span className={`dtic-dash-dot${result.error ? ' is-error' : ''}`} />
+      {result.loading ? <><Spinner size="xs" inline /> Loading application counts…</> : result.error ? 'Some counts could not be loaded. Refresh to try again.' : 'Counts loaded from the linked application lists.'}
+      {result.updated && !result.loading && <time dateTime={result.updated.toISOString()}>Fetched at {result.updated.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</time>}
+    </div>
+    <section className="dtic-dash-overview" aria-label="Financial Assistance application overview">
+      {dashboardItems.map((item, index) => {
+        const card = cardDetails[item.path]
+        const count = result.counts[item.path]
+        const target = financialLink(item.path) + (item.path === 'dticfapendingapplicantsunit' ? '?view=statuses' : '')
+        return <Link className={`dtic-dash-stat dtic-dash-card-link${index === 0 ? ' dtic-dash-msme' : ''}`} to={target} key={item.path}>
+          <span>{card.label}</span>
+          <strong>{result.loading ? <Spinner size="xs" inline /> : count == null ? 'Unavailable' : count.toLocaleString('en-IN')}</strong>
+          <small>{card.detail}</small>
+          <span className="dtic-dash-card-action">{card.action}<ArrowIcon /></span>
+        </Link>
+      })}
     </section>
   </div>
 }

@@ -17,14 +17,6 @@ import './ldm-dashboard.css'
 
 const format = (value) => (value === null || value === undefined ? '0' : Number(value).toLocaleString('en-IN'))
 
-const formatCurrency = (amount) => {
-  if (amount == null || isNaN(amount) || amount === 0) return '₹ 0'
-  const num = Number(amount)
-  if (num >= 10000000) return `₹ ${(num / 10000000).toFixed(2)} Cr`
-  if (num >= 100000) return `₹ ${(num / 100000).toFixed(2)} Lakh`
-  return `₹ ${num.toLocaleString('en-IN')}`
-}
-
 function DashboardIcon({ kind = 'document' }) {
   const paths = {
     document: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M14 2v6h6M8 13h8M8 17h5',
@@ -67,7 +59,7 @@ export default function LdmDashboard() {
           setApplications(appsList)
           setBatches(batchList)
           setUpdated(new Date())
-          if (appsRes.status === 'rejected' && batchesRes.status === 'rejected') {
+          if (appsRes.status === 'rejected' || batchesRes.status === 'rejected') {
             setError(true)
           }
         }
@@ -93,63 +85,10 @@ export default function LdmDashboard() {
     () => applications.filter((a) => a.currentStatusId == null || Number(a.currentStatusId) === 21),
     [applications],
   )
-  const verifiedApps = useMemo(
-    () => applications.filter((a) => Number(a.currentStatusId) === 22),
-    [applications],
-  )
-  const queriedApps = useMemo(
-    () => applications.filter((a) => Number(a.currentStatusId) === 5 || Number(a.currentStatusId) === 23),
-    [applications],
-  )
-
   const pendingCount = pendingApps.length || applications.length
   const batchesCount = batches.length
-  const verifiedCount = verifiedApps.length
-  const queriedCount = queriedApps.length
 
-  const totalSubsidyAmount = useMemo(() => {
-    return applications.reduce((sum, app) => {
-      const val = Number(app.eligibleAmount || app.claimedAmount || app.sanctionAmount || 0)
-      return sum + (isNaN(val) ? 0 : val)
-    }, 0)
-  }, [applications])
-
-  // District Breakdown aggregation
-  const districtData = useMemo(() => {
-    const map = {}
-    applications.forEach((app) => {
-      const dist = app.districtName || app.district || 'District Center'
-      if (!map[dist]) {
-        map[dist] = { district: dist, count: 0, amount: 0 }
-      }
-      map[dist].count += 1
-      const amt = Number(app.eligibleAmount || app.claimedAmount || app.sanctionAmount || 0)
-      if (!isNaN(amt)) map[dist].amount += amt
-    })
-    const arr = Object.values(map)
-    arr.sort((a, b) => b.count - a.count)
-    return arr.length > 0
-      ? arr.slice(0, 5)
-      : [
-          { district: 'Bhopal', count: 4, amount: 2500000 },
-          { district: 'Indore', count: 3, amount: 3800000 },
-          { district: 'Gwalior', count: 2, amount: 1200000 },
-          { district: 'Jabalpur', count: 2, amount: 1750000 },
-          { district: 'Ujjain', count: 1, amount: 900000 },
-        ]
-  }, [applications])
-
-  const distinctDistrictsCount = Object.keys(
-    applications.reduce((acc, a) => {
-      const d = a.districtName || a.district
-      if (d) acc[d] = true
-      return acc
-    }, {}),
-  ).length || districtData.length
-
-  const largestQueue = Math.max(1, pendingCount, batchesCount, queriedCount)
-
-  const valueDisplay = (number) => (loading ? <Spinner size="xs" inline /> : format(number))
+  const valueDisplay = (number) => (loading ? <Spinner size="xs" inline /> : error ? 'Unavailable' : format(number))
 
   return (
     <div className="ldm-dashboard secretary-dashboard ldm-page">
@@ -158,7 +97,7 @@ export default function LdmDashboard() {
         <div>
           <p className="sec-dash-eyebrow">LEAD DISTRICT MANAGER (LDM) • DISTRICT LEVEL APPROVAL COMMITTEE</p>
           <h1>Lead District Manager dashboard</h1>
-          <p>District-level review of Financial Assistance applications, banking verification, and Collector batch recommendations.</p>
+          <p>Review applications in your mapped districts and submit batch recommendations to the Collector.</p>
         </div>
         <button
           type="button"
@@ -179,7 +118,7 @@ export default function LdmDashboard() {
         ) : error ? (
           'Some counts could not be verified from the server. Refresh to try again.'
         ) : (
-          'Application queue counts verified against Department of MSME records.'
+          'Workload loaded from Department of MSME records.'
         )}
         {updated && !loading && (
           <time dateTime={updated.toISOString()}>
@@ -196,15 +135,15 @@ export default function LdmDashboard() {
             <DashboardIcon kind="shield" />
           </span>
           <p className="sec-dash-eyebrow">DISTRICT LEVEL OVERVIEW</p>
-          <h2>Workflow at a glance</h2>
-          <p>Secretary-verified applications, DLAC recommendations, and Collector forward batches for your district.</p>
+          <h2>Your review desk</h2>
+          <p>Review Secretary-verified applications, record your recommendation, and move batches to the Collector.</p>
         </div>
 
         {/* Stat 1: Pending Verification */}
         <div className="sec-dash-stat">
           <span>Pending Verification</span>
           <strong className="huge">{valueDisplay(pendingCount)}</strong>
-          <small>Applications in status 21 (Secretary Verified)</small>
+          <small>Secretary-verified applications awaiting your review</small>
           <Link to="/department/ldm/verification" aria-label="Go to Verification">
             Go to Verification <DashboardIcon kind="arrow" />
           </Link>
@@ -212,144 +151,15 @@ export default function LdmDashboard() {
 
         {/* Stat 2: Active Batches for Collector */}
         <div className="sec-dash-stat sec-dash-amber">
-          <span>Batches for Collector</span>
+          <span>Batches Pending LDM Review</span>
           <strong>{valueDisplay(batchesCount)}</strong>
-          <small>Batches awaiting LDM recommendation / submission</small>
+          <small>Record Agree / Disagree before submission to the Collector</small>
           <Link to="/department/ldm/batches">
             Review Batches <DashboardIcon kind="arrow" />
           </Link>
         </div>
 
-        {/* Stat 3: Total Subsidy Claimed */}
-        <div className="sec-dash-stat">
-          <span>Total Proposed Subsidy</span>
-          <strong>{loading ? <Spinner size="xs" inline /> : formatCurrency(totalSubsidyAmount)}</strong>
-          <small>Across {distinctDistrictsCount} Industrial Proposals</small>
-          <Link to="/department/ldm/verification">
-            Inspect Applications <DashboardIcon kind="arrow" />
-          </Link>
-        </div>
       </section>
-
-      {/* ─── Two-Column Work Queues & Decisions Breakdown ─────────────── */}
-      <div className="sec-dash-columns">
-        {/* Left Column: Work Queues */}
-        <section className="sec-dash-work" aria-labelledby="ldm-work-title">
-          <div className="sec-dash-section-heading">
-            <p className="sec-dash-eyebrow">FINANCIAL ASSISTANCE QUEUES</p>
-            <h2 id="ldm-work-title">Where attention is needed</h2>
-            <p>Open a queue to inspect records, submit remarks, or forward batches to District Collector.</p>
-          </div>
-
-          <div className="sec-dash-queues">
-            {/* Queue 1: Pending Verification */}
-            <Link to="/department/ldm/verification" className="sec-dash-queue tone-teal">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="check" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Verification Queue</span>
-                <small>Applications awaiting LDM approval (Secretary Verified)</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (pendingCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(pendingCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-
-            {/* Queue 2: Batches for Collector */}
-            <Link to="/department/ldm/batches" className="sec-dash-queue tone-amber">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="folder" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Batch Submission Queue</span>
-                <small>Consolidated unit batches to forward to Collector</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (batchesCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(batchesCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-
-            {/* Queue 3: Queried / Disagreed */}
-            <Link to="/department/ldm/verification" className="sec-dash-queue tone-teal">
-              <span className="sec-dash-queue-icon">
-                <DashboardIcon kind="refresh" />
-              </span>
-              <span className="sec-dash-queue-body">
-                <span className="sec-dash-queue-label">Queried / Returned Queue</span>
-                <small>Applications with queries or DLAC disagreement notes</small>
-                <span className="sec-dash-track" aria-hidden="true">
-                  <span
-                    style={{
-                      width: `${largestQueue ? (queriedCount / largestQueue) * 100 : 0}%`,
-                    }}
-                  />
-                </span>
-              </span>
-              <strong>{valueDisplay(queriedCount)}</strong>
-              <DashboardIcon kind="arrow" />
-            </Link>
-          </div>
-
-          <p className="sec-dash-note">Bar lengths represent relative queue volume for quick workload comparison.</p>
-        </section>
-
-        {/* Right Column: District Summary */}
-        <section className="sec-dash-decisions" aria-labelledby="ldm-district-title">
-          <div className="sec-dash-section-heading">
-            <p className="sec-dash-eyebrow">DISTRICT & REGIONAL DISTRIBUTION</p>
-            <h2 id="ldm-district-title">District-wise Proposals</h2>
-            <p>Summary of industrial applications and proposed subsidy across key centres.</p>
-          </div>
-
-          <div className="sec-dash-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Industrial District</th>
-                  <th scope="col">Applications</th>
-                  <th scope="col">Proposed Subsidy</th>
-                </tr>
-              </thead>
-              <tbody>
-                {districtData.map((d) => (
-                  <tr key={d.district}>
-                    <th scope="row">{d.district}</th>
-                    <td>
-                      <Link
-                        className="sec-dash-pill"
-                        to="/department/ldm/verification"
-                        aria-label={`${d.district} applications`}
-                      >
-                        {loading ? '…' : d.count}
-                      </Link>
-                    </td>
-                    <td>
-                      <span className="sec-dash-pill amber">
-                        {loading ? '…' : formatCurrency(d.amount)}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <p className="sec-dash-note">Click on an application count to filter records in the verification view.</p>
-        </section>
-      </div>
 
       {/* ─── Recent Applications Awaiting Review ──────────────────────── */}
       <section className="sec-dash-recent" aria-labelledby="ldm-recent-title">
@@ -369,9 +179,8 @@ export default function LdmDashboard() {
               <tr>
                 <th scope="col">Application No</th>
                 <th scope="col">Unit / Enterprise Name</th>
-                <th scope="col">District</th>
+                <th scope="col">District ID</th>
                 <th scope="col">Status</th>
-                <th scope="col">Eligible Amount</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -391,16 +200,11 @@ export default function LdmDashboard() {
                         </Link>
                       </th>
                       <td>{unitName}</td>
-                      <td>{app.districtName || app.district || 'Bhopal'}</td>
+                      <td>{app.districtId ?? '—'}</td>
                       <td>
                         <span className="sec-dash-badge-status pending">
                           {app.status || 'Secretary Verified'}
                         </span>
-                      </td>
-                      <td>
-                        <strong>
-                          {formatCurrency(app.eligibleAmount || app.claimedAmount || app.sanctionAmount)}
-                        </strong>
                       </td>
                       <td>
                         <Link
@@ -416,8 +220,8 @@ export default function LdmDashboard() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', padding: '28px', color: '#6c757d' }}>
-                    {loading ? <Spinner size="sm" /> : 'No pending applications currently in the verification queue.'}
+                  <td colSpan={5} style={{ textAlign: 'center', padding: '28px', color: '#6c757d' }}>
+                    {loading ? <Spinner size="sm" /> : error ? 'Unable to load the workload. Refresh to try again.' : 'You are all caught up. No applications are awaiting verification.'}
                   </td>
                 </tr>
               )}
