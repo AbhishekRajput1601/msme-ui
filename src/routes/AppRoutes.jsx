@@ -41,6 +41,7 @@ import NotFoundPage from '../modules/common/NotFoundPage'
 import ApplicantDashboard from '../modules/applicant/ApplicantDashboard'
 import ApplicantServicesPage from '../modules/applicant-services/ApplicantServicesPage'
 import AdminDashboard from '../modules/admin/AdminDashboard'
+import { AdminPage, adminRoutes } from '../modules/admin'
 import DepartmentDashboard from '../modules/department/DepartmentDashboard'
 import DticPage from '../modules/dtic/DticPage'
 import FinancialPage from '../modules/financial/FinancialPage'
@@ -227,13 +228,18 @@ export default function AppRoutes() {
         }
       >
         <Route index element={<Navigate to="/admin/dashboard" replace />} />
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="users" element={<AdminDashboard />} />
-        <Route path="masters" element={<AdminDashboard />} />
-        <Route path="audit-logs" element={<AdminDashboard />} />
-        <Route path="reports" element={<AdminDashboard />} />
-        <Route path="settings" element={<AdminDashboard />} />
+        {adminRoutes.map(route => (
+          <Route key={route.path} path={route.path} element={route.path === 'dashboard' ? <AdminDashboard /> : <AdminPage />} />
+        ))}
+        <Route path="change-password" element={<AdminPage />} />
+        <Route path="first-password-change" element={<AdminPage />} />
+        <Route path="users" element={<AdminPage />} />
+        <Route path="masters" element={<AdminPage />} />
+        <Route path="audit-logs" element={<AdminPage />} />
+        <Route path="reports" element={<AdminPage />} />
+        <Route path="settings" element={<AdminPage />} />
         <Route path="fa/*" element={<IndustrialUnitPage />} />
+        <Route path="*" element={<AdminPage />} />
       </Route>
 
       {/* ─── 4. Protected Department Officer Routes ─────────────────────── */}

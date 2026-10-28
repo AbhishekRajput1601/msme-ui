@@ -1,0 +1,314 @@
+[
+  {
+    "path": "dashboard",
+    "views": [
+      "admuser/dashboard"
+    ]
+  },
+  {
+    "path": "dashboardFacilityWise",
+    "views": [
+      "admuser/dashboardFacilityWise"
+    ]
+  },
+  {
+    "path": "dashboardDistrictWise",
+    "views": [
+      "admuser/dashboardDistrictWise"
+    ]
+  },
+  {
+    "path": "dashboardDistrictFacilityType",
+    "views": [
+      "admuser/dashboardDistrictFacilityTypeWise"
+    ]
+  },
+  {
+    "path": "dashboardDistrictOxgSource",
+    "views": [
+      "admuser/dashboardFacilityWise"
+    ]
+  },
+  {
+    "path": "addOfficer",
+    "views": [
+      "admuser/addOfficer"
+    ]
+  },
+  {
+    "path": "hoList",
+    "views": [
+      "admuser/hoList"
+    ]
+  },
+  {
+    "path": "officerList",
+    "views": [
+      "admuser/officerList"
+    ]
+  },
+  {
+    "path": "zonalList",
+    "views": [
+      "admuser/zonalList"
+    ]
+  },
+  {
+    "path": "dticList",
+    "views": [
+      "admuser/dticList"
+    ]
+  },
+  {
+    "path": "applicantList",
+    "views": [
+      "admuser/applicantList"
+    ]
+  },
+  {
+    "path": "viewHo/:userId",
+    "views": [
+      "admuser/viewHo"
+    ]
+  },
+  {
+    "path": "viewOfficer/:userId",
+    "views": [
+      "admuser/viewOfficer"
+    ]
+  },
+  {
+    "path": "viewZonal/:userId",
+    "views": [
+      "admuser/viewZonal"
+    ]
+  },
+  {
+    "path": "viewDtic/:userId",
+    "views": [
+      "admuser/viewDtic"
+    ]
+  },
+  {
+    "path": "viewApplicant/:userId",
+    "views": [
+      "admuser/viewApplicant"
+    ]
+  },
+  {
+    "path": "resetPassword/:userType/:userId",
+    "views": [
+      "admuser/resetPassword"
+    ]
+  },
+  {
+    "path": "officeList",
+    "views": [
+      "admuser/officeList"
+    ]
+  },
+  {
+    "path": "viewOffice/:officeId",
+    "views": [
+      "admuser/viewOffice"
+    ]
+  },
+  {
+    "path": "addOffice",
+    "views": [
+      "admuser/addOffice"
+    ]
+  },
+  {
+    "path": "externalOfficerList",
+    "views": [
+      "admuser/externalOfficerList"
+    ]
+  },
+  {
+    "path": "supplyNameList",
+    "views": [
+      "admuser/supplyNameListAdm"
+    ]
+  },
+  {
+    "path": "viewSupplyNameAdmin/:id",
+    "views": [
+      "admuser/viewSupplyNameAdmin"
+    ]
+  },
+  {
+    "path": "editSupplyNameAdmin/:id",
+    "views": [
+      "admuser/editSupplyNameAdmin"
+    ]
+  },
+  {
+    "path": "viewSupplierNameAdmin/:id",
+    "views": [
+      "admuser/viewSupplierAdmin"
+    ]
+  },
+  {
+    "path": "editSupplierNameAdmin/:id",
+    "views": [
+      "admuser/editSupplierAdmin"
+    ]
+  },
+  {
+    "path": "supplierNameListAdmin",
+    "views": [
+      "admuser/supplierNameListAdmin"
+    ]
+  },
+  {
+    "path": "ox1FormAdmin",
+    "views": [
+      "admuser/ox1FormAdmin"
+    ]
+  },
+  {
+    "path": "ox2FormAdmin",
+    "views": [
+      "admuser/ox2FormAdmin"
+    ]
+  },
+  {
+    "path": "ox3FormAdmin",
+    "views": [
+      "admuser/ox3FormAdmin"
+    ]
+  },
+  {
+    "path": "ox4FormAdmin",
+    "views": [
+      "admuser/ox4FormAdmin"
+    ]
+  },
+  {
+    "path": "editOx1FormAdmin",
+    "views": [
+      "admuser/editOx1FormAdmin"
+    ]
+  },
+  {
+    "path": "editOx2FormAdmin",
+    "views": [
+      "admuser/editOx2FormAdmin"
+    ]
+  },
+  {
+    "path": "editOx3FormAdmin",
+    "views": [
+      "admuser/editOx3FormAdmin"
+    ]
+  },
+  {
+    "path": "editOx4FormAdmin",
+    "views": [
+      "admuser/editOx4FormAdmin"
+    ]
+  },
+  {
+    "path": "report1",
+    "views": [
+      "report1"
+    ]
+  },
+  {
+    "path": "report2",
+    "views": [
+      "report2"
+    ]
+  },
+  {
+    "path": "tankerList",
+    "views": [
+      "admuser/tankerList"
+    ]
+  },
+  {
+    "path": "addTankerForm",
+    "views": [
+      "admuser/addTankerForm"
+    ]
+  },
+  {
+    "path": "editTankerForm/:id",
+    "views": [
+      "admuser/editTankerForm"
+    ]
+  },
+  {
+    "path": "tankerDetailsEntryFormAdmin",
+    "views": [
+      "admuser/tankerDetailsEntryFormAdmin"
+    ]
+  },
+  {
+    "path": "supplySourceList",
+    "views": [
+      "admuser/supplySourceList"
+    ]
+  },
+  {
+    "path": "tankerSupplierList",
+    "views": [
+      "admuser/tankerSupplierList"
+    ]
+  },
+  {
+    "path": "addSupplySourceForm",
+    "views": [
+      "admuser/addSupplySourceForm"
+    ]
+  },
+  {
+    "path": "editSupplySourceForm/:id",
+    "views": [
+      "admuser/editSupplySourceForm"
+    ]
+  },
+  {
+    "path": "addTankerSupplierForm",
+    "views": [
+      "admuser/addTankerSupplier"
+    ]
+  },
+  {
+    "path": "userList",
+    "views": [
+      "admuser/userList"
+    ]
+  },
+  {
+    "path": "addUser",
+    "views": [
+      "admuser/addUser"
+    ]
+  },
+  {
+    "path": "viewUser/:userId",
+    "views": [
+      "admuser/viewUser"
+    ]
+  },
+  {
+    "path": "changepassword",
+    "views": [
+      "section/changepassword"
+    ]
+  },
+  {
+    "path": "firstPasswordChange",
+    "views": [
+      "section/firstPasswordChange"
+    ]
+  },
+  {
+    "path": "success",
+    "views": [
+      "success"
+    ]
+  }
+]

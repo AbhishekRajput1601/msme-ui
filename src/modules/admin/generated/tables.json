@@ -1,0 +1,165 @@
+{
+  "admuser/hoList": {
+    "endpoint": "fetchAllHo",
+    "columns": [
+      "index",
+      "userId",
+      "fullName",
+      "roleName",
+      null,
+      null,
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/officerList": {
+    "endpoint": "fetchOfficer",
+    "columns": [
+      "index",
+      "userId",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/zonalList": {
+    "endpoint": "fetchAllZonal",
+    "columns": [
+      "index",
+      "userId",
+      "fullName",
+      "officeDistrict",
+      null,
+      "emailId",
+      null,
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/dticList": {
+    "endpoint": "fetchAllDtic",
+    "columns": [
+      "index",
+      "userId",
+      "fullName",
+      "officeLocation",
+      "designation",
+      null,
+      null,
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/applicantList": {
+    "endpoint": "fetchAllApplicant",
+    "columns": [
+      "index",
+      "userId",
+      "fullName",
+      "emailId",
+      "mobileNumber",
+      "aadhaarNumber",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/officeList": {
+    "endpoint": "fetchOffice",
+    "columns": [
+      "index",
+      null,
+      "fullAddress",
+      "officeTypeName",
+      "districtName",
+      "pincode",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/externalOfficerList": {
+    "endpoint": "fetchExternalOfficer",
+    "columns": [
+      null,
+      "userId",
+      "fullName",
+      "roleName",
+      "designation",
+      "emailId",
+      "mobileNumber",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/supplyNameListAdm": {
+    "endpoint": "fetchSupplyNameListAdmin",
+    "columns": [
+      "index",
+      "id",
+      "supplyName",
+      "supplyTypeName",
+      null,
+      "districtName",
+      null,
+      null,
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/supplierNameListAdmin": {
+    "endpoint": "fetchSupplierListAdmin",
+    "columns": [
+      "index",
+      "supplierName",
+      "supplierTypeName",
+      null,
+      "districtName",
+      null,
+      null,
+      "external",
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/tankerList": {
+    "endpoint": "fetchTankerList",
+    "columns": [
+      "index",
+      "tankerNo",
+      "supplierName",
+      null,
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/supplySourceList": {
+    "endpoint": "fetchSupplySourceList",
+    "columns": [
+      "index",
+      "name",
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  },
+  "admuser/tankerSupplierList": {
+    "endpoint": "fetchTankerSupplierList",
+    "columns": [
+      "index",
+      "supplierName",
+      "supplierTypeName",
+      null,
+      null,
+      null,
+      "status",
+      null
+    ],
+    "pagingType": "full_numbers"
+  }
+}

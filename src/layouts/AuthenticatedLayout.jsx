@@ -41,6 +41,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
   const isCollector = (roles.includes('ROLE_COLLECTOR') || roles.includes('COLLECTOR')) || location.pathname.startsWith('/department/collector')
   const isDtic = roles.includes('ROLE_DTIC') && location.pathname.startsWith('/department')
   const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
+  const isAdmin = roles.includes('ROLE_ADMIN') || location.pathname.startsWith('/admin')
   const dashboard = getDefaultRouteForRoles(roles)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
@@ -93,7 +94,7 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
     }
   }, [isUserMenuOpen])
 
-  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${isSecretary ? ' secretary-portal' : ''}${isLdm ? ' ldm-portal' : ''}${isCollector ? ' collector-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+  return <div className={`legacy-portal${location.pathname.startsWith('/applicant/') ? ' applicant-portal' : ''}${location.pathname.startsWith('/department/dtic/') ? ' dtic-portal' : ''}${isSecretary ? ' secretary-portal' : ''}${isLdm ? ' ldm-portal' : ''}${isCollector ? ' collector-portal' : ''}${isAdmin ? ' admin-portal' : ''}${sidebarHidden ? ' sidebar-hidden' : ''}${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
     <header className="postLoginHeader portal-header-legacy-theme">
       {/* Main Header Bar */}
       <div className="portal-header-main-bar">
@@ -176,6 +177,11 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
                 )}
                 {isSecretary && (
                   <Link to="/department/secretary/change-password" onClick={() => setIsUserMenuOpen(false)}>
+                    <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
+                  </Link>
+                )}
+                {isAdmin && (
+                  <Link to="/admin/change-password" onClick={() => setIsUserMenuOpen(false)}>
                     <i className="fa fa-gear fa-fw" /> {locale === 'hi' ? 'पासवर्ड बदलें' : 'Change Password'}
                   </Link>
                 )}

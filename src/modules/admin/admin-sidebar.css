@@ -1,0 +1,43 @@
+/* Keep the admin navigation colors together so legacy rules cannot mix themes. */
+.legacy-portal .admin-sidebar {
+  background-color: #314dab;
+}
+
+.legacy-portal .admin-sidebar #side-menu a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background-color: #314dab;
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.legacy-portal .admin-sidebar #side-menu .nav-second-level,
+.legacy-portal .admin-sidebar #side-menu .nav-third-level,
+.legacy-portal .admin-sidebar #side-menu .nav-second-level a {
+  background-color: #223c93;
+}
+
+.legacy-portal .admin-sidebar #side-menu .nav-second-level > li > a {
+  padding-left: 35px;
+}
+
+.legacy-portal .admin-sidebar #side-menu .nav-third-level > li > a {
+  padding-left: 50px;
+}
+
+/* Override the shared submenu's important orange background and white text. */
+.legacy-portal .admin-sidebar #side-menu a:hover,
+.legacy-portal .admin-sidebar #side-menu a:focus-visible,
+.legacy-portal .admin-sidebar #side-menu a.active {
+  background-color: #182d70 !important;
+  color: #fff !important;
+  box-shadow: inset 3px 0 #f07e01;
+}
+
+.legacy-portal .admin-sidebar #side-menu a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
