@@ -41,7 +41,7 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
     faData: { schemeYear: '2025', faIndustrialUnitBean: { activityDetailsList: [{}], capitalInvestmentBeans: [], unitProductDetailsBeans: [{}], unitExpansionDetailsBeans: [] }, faRequiredAssistanceBean: { selectedOptions: {}, caExpInvDetailsBean: [{}], pharmaExpInvDetailsBeans: [{}] } },
     fileData: {}, cerfdata: { CertificationDetails: {} }, UnitAddressDetailsBean: {}, bankList1: [], unitList: [], sectorofinductryList: {}, assistanceList: [],
     applicationId: params.applicationId, establishmentType: 'Unit', step: 1, maxStep: 1, schemeYear: '2025',
-    disabled: true, finalSubmit: false, saveAsDraft: true, saveAndNext: false, formOpen: true, declarationAccepted: true,
+    disabled: true, finalSubmit: false, saveAsDraft: true, saveAndNext: false, formOpen: false, declarationAccepted: false,
     initialized: new Set(), locale, notify, busy: false, saving: false, error: '',
   }
   const navigation = {
@@ -234,9 +234,12 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
       try { body = infrastructureUpload(state) }
       catch (error) { toast.warning(error.message); return }
       return save(async () => {
-        const response = await post('saveInfrstructureDevelopment', {})
-        if (!response.id) throw new Error('The server did not return an application ID.')
-        body.append('id', response.id)
+        if (!state.infrastructureId) {
+          const response = await post('saveInfrstructureDevelopment', {})
+          if (!response.id) throw new Error('The server did not return an application ID.')
+          state.infrastructureId = response.id
+        }
+        body.append('id', state.infrastructureId)
         const result = await post('uploadInfrastructureDocument', body)
         state.responseObject = result
         state.isDisabled = true

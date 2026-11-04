@@ -9,7 +9,7 @@
  *  • Auth state in memory only.
  */
 
-import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import authService, { UNAUTHENTICATED_SESSION } from '../services/authService'
 import { onSessionExpired } from '../api/httpClient'
 
@@ -21,13 +21,17 @@ export function AuthProvider({ children }) {
   const [roles, setRoles] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const requestVersion = useRef(0)
+  const initialCheck = useRef(null)
 
   // Verify active session on initial mount
   const checkAuth = useCallback(async () => {
+    const version = ++requestVersion.current
     setLoading(true)
     setError(null)
     try {
       const session = await authService.fetchCurrentUser()
+      if (version !== requestVersion.current) return session
       if (session && session.authenticated) {
         setCurrentUser(session)
         setAuthenticated(true)
@@ -39,17 +43,19 @@ export function AuthProvider({ children }) {
       }
       return session
     } catch (err) {
+      if (version !== requestVersion.current) return UNAUTHENTICATED_SESSION
+      setError(err.message)
       setCurrentUser(null)
       setAuthenticated(false)
       setRoles([])
       return UNAUTHENTICATED_SESSION
     } finally {
-      setLoading(false)
+      if (version === requestVersion.current) setLoading(false)
     }
   }, [])
 
   useEffect(() => {
-    checkAuth()
+    initialCheck.current ??= checkAuth()
 
     // Listen to session expiry events dispatched by httpClient interceptors
     const unsubscribe = onSessionExpired((detail) => {
@@ -66,6 +72,7 @@ export function AuthProvider({ children }) {
 
   // Login handler
   const login = useCallback(async (credentials) => {
+    ++requestVersion.current
     setLoading(true)
     setError(null)
     try {
@@ -89,14 +96,15 @@ export function AuthProvider({ children }) {
 
   // Logout handler
   const logout = useCallback(async () => {
+    ++requestVersion.current
     setLoading(true)
     try {
       await authService.logout()
-    } finally {
       setCurrentUser(null)
       setAuthenticated(false)
       setRoles([])
       setError(null)
+    } finally {
       setLoading(false)
     }
   }, [])

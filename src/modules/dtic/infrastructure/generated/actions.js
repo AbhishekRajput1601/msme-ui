@@ -479,12 +479,12 @@ state.loadVacantLandFormDetail = function() {
 
 				responseIndusAreas.success(function(data, status,
 					headers, config) {
-					state.industrialAreaList = data;
+					state.industrialAreaList = data || [];
+					// This depends on the list above.  Calling it outside this
+					// callback raced the API response and blocked the form setup.
+					state.fetchCategoryOfIndustry();
 					loading.finish('sample-1');
 				});
-
-				
-				state.fetchCategoryOfIndustry();
 
 				var districtId;
 				var dticId;

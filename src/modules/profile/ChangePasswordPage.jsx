@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useAuth } from '../../hooks/useAuth'
+import { getDefaultRouteForRoles } from '../../routes/roleRoutes'
 import ProfileNavTabs from './components/ProfileNavTabs'
 import { toast } from '../../utils/toast'
 import {
@@ -15,7 +16,7 @@ export default function ChangePasswordPage({ mode }) {
   const hindi = locale === 'hi'
   const navigate = useNavigate()
   const location = useLocation()
-  const { logout } = useAuth()
+  const { logout, checkAuth, roles } = useAuth()
 
   const isFirstChange = mode === 'first' || location.pathname.includes('first-password-change')
 
@@ -122,7 +123,8 @@ export default function ChangePasswordPage({ mode }) {
       try {
         const res = await submitFirstPasswordChange({ password, confirmPassword })
         toast.success(res.successMessage || (hindi ? 'पासवर्ड सफलतापूर्वक बदल दिया गया है।' : 'Password changed successfully.'))
-        setTimeout(() => navigate('/applicant/dashboard'), 2000)
+        await checkAuth()
+        navigate(getDefaultRouteForRoles(roles), { replace: true })
       } catch (err) {
         toast.error(err.message || 'Failed to change password.')
       } finally {

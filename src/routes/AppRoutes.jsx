@@ -82,11 +82,13 @@ import {
 } from '../modules/secretary'
 import { useAuth } from '../hooks/useAuth'
 import Spinner from '../components/loaders/Spinner'
+import { getDefaultRouteForRoles } from './roleRoutes'
 
 function AccountRedirect({ page }) {
   const { roles, loading } = useAuth()
   if (loading) return <Spinner fullScreen />
-  return <Navigate to={`${roles.includes('ROLE_DTIC') ? '/department/dtic' : roles.includes('ROLE_FA') ? '/department/fa' : roles.includes('ROLE_COLLECTOR') ? '/department/collector' : roles.includes('ROLE_SECRETARY') ? '/department/secretary' : '/applicant'}/${page}`} replace />
+  const base = getDefaultRouteForRoles(roles).replace(/\/dashboard$/, '')
+  return <Navigate to={`${base}/${page}`} replace />
 }
 
 // List of all department officer roles supported
@@ -153,7 +155,7 @@ export default function AppRoutes() {
       <Route path="/industry-profile" element={<Navigate to="/applicant/industry-profile" replace />} />
       <Route path="/updateindustryprofileapplicant" element={<Navigate to="/applicant/industry-profile" replace />} />
       <Route path="/change-password" element={<AccountRedirect page="change-password" />} />
-      <Route path="/first-password-change" element={<Navigate to="/applicant/first-password-change" replace />} />
+      <Route path="/first-password-change" element={<AccountRedirect page="first-password-change" />} />
 
       {/* ─── 2. Protected Citizen / Applicant Routes ────────────────────── */}
       <Route
@@ -231,8 +233,8 @@ export default function AppRoutes() {
         {adminRoutes.map(route => (
           <Route key={route.path} path={route.path} element={route.path === 'dashboard' ? <AdminDashboard /> : <AdminPage />} />
         ))}
-        <Route path="change-password" element={<AdminPage />} />
-        <Route path="first-password-change" element={<AdminPage />} />
+        <Route path="change-password" element={<ChangePasswordPage />} />
+        <Route path="first-password-change" element={<ChangePasswordPage mode="first" />} />
         <Route path="users" element={<AdminPage />} />
         <Route path="masters" element={<AdminPage />} />
         <Route path="audit-logs" element={<AdminPage />} />
@@ -253,6 +255,12 @@ export default function AppRoutes() {
       >
         <Route index element={<Navigate to="/department/dashboard" replace />} />
         <Route path="dashboard" element={<DepartmentDashboard />} />
+        {['dtic', 'fa', 'secretary', 'ldm', 'collector'].map(role => (
+          <Route key={role + '-first-password'} path={`${role}/first-password-change`} element={<ProtectedRoute allowedRoles={['ROLE_' + role.toUpperCase()]}><ChangePasswordPage mode="first" /></ProtectedRoute>} />
+        ))}
+        {['dtic', 'fa'].map(role => (
+          <Route key={role + '-password'} path={`${role}/change-password`} element={<ProtectedRoute allowedRoles={['ROLE_' + role.toUpperCase()]}><ChangePasswordPage /></ProtectedRoute>} />
+        ))}
         <Route path="land-scrutiny" element={<DepartmentDashboard />} />
         <Route path="inspections" element={<DepartmentDashboard />} />
         <Route path="fa-approvals" element={<DepartmentDashboard />} />
@@ -260,7 +268,7 @@ export default function AppRoutes() {
         <Route path="mis-reports" element={<DepartmentDashboard />} />
         <Route path="dtic" element={<Navigate to="/department/dtic/dashboard" replace />} />
         {['profile', 'updateprofile'].map(path => <Route key={path} path={`dtic/${path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DepartmentProfilePage /></ProtectedRoute>} />)}
-        {['change-password', 'changepassword'].map(path => <Route key={path} path={`dtic/${path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DepartmentProfilePage password /></ProtectedRoute>} />)}
+        {['changepassword'].map(path => <Route key={path} path={`dtic/${path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DepartmentProfilePage password /></ProtectedRoute>} />)}
         {dticRoutes.map(route => <Route key={route.path} path={`dtic/${route.path}`} element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />)}
         <Route path="dtic/*" element={<ProtectedRoute allowedRoles={['ROLE_DTIC']}><DticPage /></ProtectedRoute>} />
         <Route path="fa/dashboard" element={<ProtectedRoute allowedRoles={['ROLE_FA']}><FinancialPage /></ProtectedRoute>} />

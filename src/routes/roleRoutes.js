@@ -196,6 +196,20 @@ export function getDefaultRouteForRoles(roles = []) {
   return getDashboardForRole(roles[0])
 }
 
+export function getPasswordChangeRoute(user) {
+  const base = getDefaultRouteForRoles(user.roles).replace(/\/dashboard$/, '')
+  return `${base}/${user.firstPasswordChangeRequired ? 'first-password-change' : 'change-password'}`
+}
+
+export function getLoginDestination(user, from) {
+  if (user.firstPasswordChangeRequired || user.passwordChangeRequired) return getPasswordChangeRoute(user)
+  const dashboard = getDefaultRouteForRoles(user.roles)
+  const base = dashboard.replace(/\/dashboard$/, '')
+  // Never restore another role's page or an external URL after signing in.
+  if (from?.pathname?.startsWith(base + '/')) return from.pathname + (from.search || '') + (from.hash || '')
+  return dashboard
+}
+
 /**
  * Derives a default role identifier from a legacy Spring Security redirect path.
  * E.g. '/applicant/home' -> 'ROLE_APPLICANT', '/dtic/home' -> 'ROLE_DTIC'
@@ -294,8 +308,11 @@ export const LEGACY_PATH_MAP = Object.freeze({
   '/fa/home': '/department/fa',
   '/fa/home2': '/department/fa',
   '/collector/home': '/department/collector',
+  '/collector/home2': '/department/collector',
   '/ldm/home': '/department/ldm',
+  '/ldm/home2': '/department/ldm',
   '/secretary/home': '/department/secretary',
+  '/secretary/home2': '/department/secretary',
 })
 
 /**
@@ -347,6 +364,8 @@ export function resolveLegacyHashRoute(pathname, hash = '') {
   cleanPath = cleanPath.replace(/\/+$/, '')
 
   const baseReactPath = LEGACY_PATH_MAP[cleanPath] || '/applicant'
+  if (/^#\/?(?:firstPasswordChange|first-password-change)$/.test(hash)) return baseReactPath + '/first-password-change'
+  if (/^#\/?(?:changepassword|change-password)$/.test(hash)) return baseReactPath + '/change-password'
   if (baseReactPath === '/department/fa') return baseReactPath + '/' + (hash.replace(/^#\/?/, '') || 'dashboard')
   if (baseReactPath === '/department/secretary') return baseReactPath + '/' + (hash.replace(/^#\/?/, '') || 'dashboard')
   if (baseReactPath === '/admin') return baseReactPath + '/' + (hash.replace(/^#\/?/, '') || 'dashboard')

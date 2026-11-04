@@ -17,7 +17,7 @@
  *    via credentials: 'include' (withCredentials: true in httpClient.js).
  */
 
-import { get, postForm } from '../api/httpClient'
+import httpClient, { get, postForm } from '../api/httpClient'
 import { AUTH } from '../api/endpoints'
 
 /**
@@ -53,104 +53,9 @@ async function sha256Hex(message) {
  * @returns {string} Captcha image URL
  */
 export function getCaptchaUrl() {
-  return `${AUTH.CAPTCHA}?_t=${Date.now()}`
-}
-
-/**
- * Maps a Spring Security redirect path to the equivalent ROLE_ string.
- * Covers every role in MPIndustryAuthenticationSuccessHandler.
- */
-const REDIRECT_PATH_TO_ROLE = {
-  '/applicant':          'ROLE_APPLICANT',
-  '/adminSection':       'ROLE_ADMIN',
-  '/dtic':               'ROLE_DTIC',
-  '/dtfc':               'ROLE_DTFC',
-  '/bank':               'ROLE_BANK',
-  '/zonal':              'ROLE_ZONAL',
-  '/section':            'ROLE_SECTION',
-  '/legalSection':       'ROLE_LEGAL',
-  '/legalOIC':           'ROLE_LEGAL_OIC',
-  '/budgetPlanning':     'ROLE_BUDGET_PLANNING',
-  '/cmcsHo':             'ROLE_CM_CS_HO',
-  '/cmcs':               'ROLE_CM_CS',
-  '/employee':           'ROLE_EMPLOYEE',
-  '/msefc':              'ROLE_MSEFC',
-  '/textile':            'ROLE_TEXTILE',
-  '/idSection':          'ROLE_ID',
-  '/mbfc':               'ROLE_MBFC',
-  '/msme':               'ROLE_MSME',
-  '/grievanceApplicant': 'ROLE_GRIEVANCE_APPLICANT',
-  '/committeMember':     'ROLE_MSME_AWARD_COMMITEE_MEMBER',
-  '/zonaloperator':      'ROLE_ZONAL_OPERATOR',
-  '/startupCenter':      'ROLE_STARTUP_CENTER',
-  '/fa':                 'ROLE_FA',
-  '/collector':          'ROLE_COLLECTOR',
-  '/ldm':                'ROLE_LDM',
-  '/secretary':          'ROLE_SECRETARY',
-  '/coordinationSection':  'ROLE_COORDINATION',
-  '/coordinationOfficer':  'ROLE_COORDINATION_OFFICER',
-  '/coordinationDD':       'ROLE_COORDINATION_DD',
-  '/coordinationJD':       'ROLE_COORDINATION_JD',
-  '/icOffice':             'ROLE_IC_OFFICE',
-  '/account':              'ROLE_ACCOUNT',
-  '/auditSection':         'ROLE_AUDIT',
-  '/auditOfficer':         'ROLE_AUDIT_OFFICER',
-}
-
-/**
- * Infers Spring Security roles from the Axios response to the login POST.
- *
- * Axios follows the Spring Security redirect automatically. The final URL
- * (available in response.request.responseURL) is the legacy role-specific
- * home page — e.g. /idSection/home, /dtic/home, /applicant/home — from
- * which we can derive the user's role.
- *
- * Falls back to loginType ('APPLICANT' → ROLE_APPLICANT) if the URL is
- * not available or doesn't match a known path.
- *
- * @param {Object|null} response - Axios response from postForm(AUTH.LOGIN_PROCESSING)
- * @param {string} loginType     - 'APPLICANT' | 'DEPARTMENT'
- * @returns {string[]} Array with a single ROLE_ string
- */
-function inferRolesFromLoginResponse(response, loginType) {
-  // Try to read the final redirected URL from the Axios response
-  const finalUrl =
-    response?.request?.responseURL ||   // XMLHttpRequest (browser)
-    response?.config?.url ||            // fallback
-    ''
-
-  if (finalUrl) {
-    // Extract just the pathname from the full URL
-    let pathname = finalUrl
-    try {
-      pathname = new URL(finalUrl).pathname
-    } catch { /* finalUrl might already be a path */ }
-
-    // Strip /mpmsme context prefix if present
-    if (pathname.startsWith('/mpmsme')) {
-      pathname = pathname.substring('/mpmsme'.length)
-    }
-
-    // Match against known role-prefixed paths (longest prefix first)
-    const sortedPaths = Object.keys(REDIRECT_PATH_TO_ROLE).sort(
-      (a, b) => b.length - a.length,
-    )
-    for (const prefix of sortedPaths) {
-      if (pathname.startsWith(prefix)) {
-        return [REDIRECT_PATH_TO_ROLE[prefix]]
-      }
-    }
-  }
-
-  // Fallback: derive from the loginType parameter the user chose on the form
-  if (loginType === 'DEPARTMENT') {
-    // Cannot determine exact department role without the backend endpoint;
-    // return a safe generic department role — the user can still navigate
-    // and the backend enforces real authorization on every API call.
-    return ['ROLE_DTIC']
-  }
-
-  return ['ROLE_APPLICANT']
+  // Images do not inherit Axios's baseURL. Use the login request's context
+  // so path-scoped session cookies accompany both captcha and login requests.
+  return httpClient.getUri({ url: AUTH.CAPTCHA, params: { _t: Date.now() } })
 }
 
 /**
@@ -201,37 +106,15 @@ export async function login({
   // Submit credentials to Spring Security login processing URL.
   // Spring Security will redirect to /{role}/home on success, or to
   // /website/login?error on failure (the interceptor converts the latter to a throw).
-  const loginResponse = await postForm(AUTH.LOGIN_PROCESSING, formData)
-
-  // Fetch verified user session if GET /api/session/current-user is available.
-  // If the endpoint returns 404 or is not yet deployed, fetchCurrentUser()
-  // gracefully returns UNAUTHENTICATED_SESSION instead of throwing.
+  await postForm(AUTH.LOGIN_PROCESSING, formData, {
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+    skipSessionRedirect: true,
+  })
   const user = await fetchCurrentUser()
-  if (user && user.authenticated) {
-    return user
+  if (!user.authenticated || !user.roles.length) {
+    throw new Error('Login could not be verified. Please reload and try again.')
   }
-
-  // ── Synthesized session fallback ──────────────────────────────────────────
-  // The Spring Security POST above succeeded (no throw / no redirect-to-error),
-  // meaning credentials were accepted. Derive a role so ProtectedRoute can grant
-  // access to the correct area of the app.
-  console.warn(
-    '[authService] /api/session/current-user is unavailable. ' +
-    'Synthesizing session from accepted Spring Security login.',
-  )
-
-  // Infer role from the final URL Axios followed after the Spring Security redirect
-  // (e.g. /idSection/home → ROLE_ID, /dtic/home → ROLE_DTIC, /applicant/home → ROLE_APPLICANT).
-  const inferredRoles = inferRolesFromLoginResponse(loginResponse, loginType)
-
-  return {
-    authenticated: true,
-    username: username.trim(),
-    displayName: username.trim(),
-    roles: inferredRoles,
-    locale: language,
-    firstPasswordChangeRequired: false,
-  }
+  return user
 }
 
 /**
@@ -241,13 +124,17 @@ export async function login({
  * @returns {Promise<void>}
  */
 export async function logout() {
-  try {
-    await get(AUTH.LOGOUT)
-  } catch (err) {
-    // Spring Security might redirect on logout or respond with 302/200;
-    // failure to reach endpoint still means client should clear local state.
-    console.warn('Logout request completed with non-2xx status:', err.message)
-  }
+  await httpClient.post(AUTH.LOGOUT, null, {
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+    skipSessionRedirect: true,
+  })
+}
+
+// A bootstrap request establishes the session before the captcha image loads.
+export async function prepareLogin() {
+  const data = await get('/website/auth-bootstrap', {}, { skipSessionRedirect: true })
+  if (!data?.csrfPreventionSalt) throw new Error('Unable to initialize login. Please retry.')
+  return data
 }
 
 /**
@@ -266,25 +153,26 @@ export async function logout() {
  *   firstPasswordChangeRequired: boolean
  * }>}
  */
-export async function fetchCurrentUser() {
+export async function fetchCurrentUser({ timeout = 60_000 } = {}) {
   try {
-    const data = await get(AUTH.CURRENT_USER)
+    const data = await get(AUTH.CURRENT_USER, {}, { skipSessionRedirect: true, timeout })
 
-    if (data && typeof data === 'object') {
+    if (data && typeof data === 'object' && typeof data.authenticated === 'boolean') {
       return {
         authenticated: data.authenticated === true,
         username: data.username || null,
         displayName: data.displayName || data.username || null,
-        roles: Array.isArray(data.roles) ? data.roles : [],
+        roles: Array.isArray(data.roles) ? data.roles.filter(role => typeof role === 'string') : [],
         locale: data.locale || 'en_US',
         firstPasswordChangeRequired: Boolean(data.firstPasswordChangeRequired),
+        passwordChangeRequired: Boolean(data.passwordChangeRequired),
       }
     }
 
-    return UNAUTHENTICATED_SESSION
+    throw new Error('The backend did not return a valid session response.')
   } catch (error) {
-    // 401, 404 (endpoint not yet deployed), or network error: return clean unauthenticated state
-    return UNAUTHENTICATED_SESSION
+    if (error?.response?.status === 401) return UNAUTHENTICATED_SESSION
+    throw error
   }
 }
 

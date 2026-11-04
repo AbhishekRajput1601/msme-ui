@@ -19,12 +19,13 @@ export default defineConfig({
       '/backend': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/backend/, ''),
+        rewrite: path => path.replace(/^\/backend/, '/mpmsme'),
+        cookiePathRewrite: '/',
         configure: proxy => proxy.on('proxyRes', (response, request) => {
           const location = response.headers.location
           if (!location) return
           const target = new URL(location, `http://localhost:8080${request.url}`)
-          if (target.origin === 'http://localhost:8080') response.headers.location = `/backend${target.pathname}${target.search}${target.hash}`
+          if (target.origin === 'http://localhost:8080') response.headers.location = `/backend${target.pathname.replace(/^\/mpmsme(?=\/|$)/, '')}${target.search}${target.hash}`
         }),
       },
       // These migrated page URLs must reach React, including old bookmarks.
@@ -60,7 +61,7 @@ export default defineConfig({
           }
           return null
         },
-        rewrite: (path) => path.replace(/^\/mpmsme/, ''),
+        cookiePathRewrite: '/',
         headers: {
           'X-Forwarded-Host': 'localhost:5173',
           'X-Forwarded-Proto': 'http',
@@ -79,12 +80,19 @@ export default defineConfig({
       '^/(js|angular|css|images|img)/': {
         target: 'http://localhost:8080',
         changeOrigin: true,
+        rewrite: path => `/mpmsme${path}`,
+        bypass: (req) => {
+          const url = req.url || ''
+          if (url.includes('diary-calendar') || url.includes('emblem') || url.includes('minister') || url.includes('tree-logo') || url.includes('hero-slider')) return url
+          return null
+        },
       },
-      // Backend routes running directly on context root (port 8080)
       '^/(website|pages|j_spring_security_check|logout|applicant|idSection|zonal|dtic|idLanding|enterCompliance|addAppeal|uploadQueryDoc|fetchApplicationNoticeList)': {
         target: 'http://localhost:8080',
         changeOrigin: true,
         autoRewrite: true,
+        rewrite: path => `/mpmsme${path}`,
+        cookiePathRewrite: '/',
         // Crucial: If browser navigates directly to a page route (e.g. /applicant/dashboard, /applicant/home)
         // with Accept: text/html, DO NOT proxy it to Tomcat (which serves the old AngularJS page).
         // Let Vite serve index.html so React Router renders the new React application!

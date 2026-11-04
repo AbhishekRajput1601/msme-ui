@@ -110,6 +110,7 @@ const applicationSaveFields = new Set(`
 export function applicationSavePayload(data) {
   const validated = validateApplication(data)
   const payload = Object.fromEntries(Object.entries(validated).filter(([key]) => applicationSaveFields.has(key)))
+  if (validated.applicationFee != null) payload.applicationFees = String(validated.applicationFee)
   for (const [field, value] of Object.entries(addressIds(validated))) {
     if (value !== '' && value != null) {
       if (!/^\d+$/.test(String(value))) throw new Error(`Select a valid ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} before saving.`)

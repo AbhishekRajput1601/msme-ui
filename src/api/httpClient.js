@@ -258,6 +258,8 @@ httpClient.interceptors.response.use(
       return response
     }
 
+    if (response.config?.skipSessionRedirect) return response
+
     // A 200 OK can still carry an HTML login page when the session has expired
     // and Spring Security performs an internal forward instead of a 302.
     if (isLoginHtmlResponse(response)) {
@@ -272,6 +274,15 @@ httpClient.interceptors.response.use(
   },
   (error) => {
     const status = error?.response?.status
+
+    if (error.config?.url?.includes('j_spring_security_check') && status === 401) {
+      const reason = error.response?.data?.error
+      error.message = reason === 'captcha'
+        ? 'Captcha did not match. Enter the newly displayed code.'
+        : 'Login failed. Please check your credentials and account status.'
+      return Promise.reject(error)
+    }
+    if (error.config?.skipSessionRedirect) return Promise.reject(error)
 
     if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
       toast.error('Network connection issue. Please check your internet connection.')
@@ -290,7 +301,6 @@ httpClient.interceptors.response.use(
     if (status === 403) {
       // 403 = authenticated but not authorised
       toast.error('Access denied – you do not have permission to access this resource')
-      notifySessionExpired('Forbidden – insufficient permissions', 403)
       return Promise.reject(
         new Error('Forbidden – you do not have permission to access this resource'),
       )

@@ -22,6 +22,7 @@ import React from 'react'
 import { Navigate, useLocation, Outlet } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import Spinner from '../components/loaders/Spinner'
+import { getPasswordChangeRoute } from './roleRoutes'
 
 export default function ProtectedRoute({
   allowedRoles = [],
@@ -29,7 +30,7 @@ export default function ProtectedRoute({
   unauthorizedPath = '/unauthorized',
   children,
 }) {
-  const { authenticated, roles, loading, hasAnyRole } = useAuth()
+  const { authenticated, currentUser, roles, loading, hasAnyRole } = useAuth()
   const location = useLocation()
 
   // Normalize allowedRoles to array
@@ -80,6 +81,11 @@ export default function ProtectedRoute({
         </div>
       </div>
     )
+  }
+
+  if (currentUser?.firstPasswordChangeRequired || currentUser?.passwordChangeRequired) {
+    const target = getPasswordChangeRoute(currentUser)
+    if (location.pathname !== target) return <Navigate to={target} replace />
   }
 
   // 4. Authorized: render children or nested Outlet

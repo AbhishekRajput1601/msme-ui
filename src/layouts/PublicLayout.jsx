@@ -6,6 +6,7 @@ import { getDefaultRouteForRoles } from '../routes/roleRoutes'
 import { ASSETS, backendLink, useLegacyWebsite } from '../modules/public/legacyWebsite'
 import { WebsiteMenuItem } from '../modules/public/WebsiteContent'
 import indiaEmblem from '../assets/branding/emblem-india.png'
+import mpDiaryCalendar from '../assets/branding/mp-diary-calendar-2026.png'
 
 export default function PublicLayout() {
   const { authenticated, roles } = useAuth()
@@ -17,7 +18,7 @@ export default function PublicLayout() {
   const hindi = locale === 'hi'
   const menu = website.menu || []
   const pathname = useLocation().pathname
-  const isAuthPage = ['/login', '/forgot-password', '/forgot-username', '/website/viewforgotpassword', '/website/viewforgotusername'].includes(pathname)
+  const isAuthPage = ['/login', '/signup', '/forgot-password', '/forgot-username', '/website/viewsignup', '/website/viewforgotpassword', '/website/viewforgotusername'].includes(pathname)
 
   return (
     <div className={`legacy-public${isAuthPage ? ' login-layout' : ''}${contrast ? ' high-contrast' : ''}`} style={{ '--font-scale': fontSize }}>
@@ -35,7 +36,7 @@ export default function PublicLayout() {
           DIARY/CALENDAR 2026
         </span>
         <span className="side-diary-tab__card">
-          <img src="/img/mp-diary-calendar-2026.png" alt="Diary/Calendar 2026" />
+          <img src={mpDiaryCalendar} alt="Diary/Calendar 2026" onError={(e) => { if (e.currentTarget.src !== '/img/mp-diary-calendar-2026.png') { e.currentTarget.src = '/img/mp-diary-calendar-2026.png' } }} />
         </span>
       </a>
 

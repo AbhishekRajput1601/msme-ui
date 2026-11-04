@@ -33,6 +33,7 @@ function PageContent({ name }) {
   state.renderTable=node => <AwardTable node={node} state={state} />
   state.renderDate=attrs => <ReferenceDateInput attrs={attrs} onError={error => { state.error=error.message; toast.warning(error.message); render() }} />
   return <div className="applicant-services-page" data-view={name} onKeyDownCapture={referenceKeyDown}>
+    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
     {state.busy && <Spinner />}
     <IndustrialView name={name} state={state} />
   </div>

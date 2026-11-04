@@ -1,0 +1,491 @@
+/* Sign Up Styles following the 3-step MPMSME / Angular flow:
+   Step 1: Mobile Number + Captcha
+   Step 2: Readonly Mobile + Change Mobile + OTP + Captcha
+   Step 3: Profile Details + Password + Captcha
+*/
+
+.legacy-public .legacy-signup-page {
+  width: 100%;
+  max-width: 520px;
+  margin: 16px auto 24px;
+  transition: max-width 0.25s ease-in-out;
+}
+
+.legacy-public .legacy-signup-page.signup-step-3-page {
+  max-width: 620px;
+}
+
+.legacy-public .legacy-signup-page .inner-content {
+  padding: 0;
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+.legacy-public .legacy-signup-page .panel {
+  margin: 0;
+  background-color: #ffffff;
+  border: 1px solid #d5e3eb;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(34, 73, 110, 0.16);
+}
+
+.legacy-public .legacy-signup-page .panel-body {
+  padding: 18px 22px 22px;
+}
+
+.legacy-public .legacy-signup-page .legacy-login-box {
+  width: 100%;
+}
+
+/* Notice at top */
+.legacy-public .legacy-signup-page .login-notice {
+  font-size: calc(12px * var(--font-scale, 1));
+  line-height: 1.5;
+  margin: 0 0 12px;
+  color: #a03822;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Tab navigation matching Login box */
+.legacy-public .legacy-signup-page .nav-tabs {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+  border-bottom: 2px solid #1680b3;
+}
+
+.legacy-public .legacy-signup-page .nav-tabs li {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.legacy-public .legacy-signup-page .nav-tabs li button,
+.legacy-public .legacy-signup-page .nav-tabs li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  text-align: center;
+  border: 0;
+  color: #1680b3;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 0;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.legacy-public .legacy-signup-page .nav-tabs li button.active,
+.legacy-public .legacy-signup-page .nav-tabs li a.active {
+  background: #ff8b39 !important;
+  color: #ffffff !important;
+  border-bottom: 2px solid #ff8b39;
+}
+
+.legacy-public .legacy-signup-page .nav-tabs.signup-user-only-tabs {
+  border-bottom: 2px solid #ff8b39;
+}
+
+.legacy-public .legacy-signup-page .nav-tabs.signup-user-only-tabs li button {
+  background: #ff8b39 !important;
+  color: #ffffff !important;
+  border-radius: 4px 4px 0 0;
+  cursor: default;
+}
+
+.legacy-public .legacy-signup-page .nav-tabs li button:not(.active):hover,
+.legacy-public .legacy-signup-page .nav-tabs li a:not(.active):hover {
+  background: rgba(22, 128, 179, 0.06);
+  color: #0f4c81;
+}
+
+/* Step Progress Indicator */
+.legacy-public .signup-steps-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 4px 16px;
+  padding: 0 8px;
+  position: relative;
+}
+
+.legacy-public .signup-steps-bar::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 36px;
+  right: 36px;
+  height: 2px;
+  background-color: #e2e8f0;
+  z-index: 1;
+}
+
+.legacy-public .signup-step-item {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.legacy-public .signup-step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #cbd5e1;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.legacy-public .signup-step-item.active .signup-step-circle {
+  background-color: #ff8b39;
+  border-color: #ff8b39;
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 139, 57, 0.2);
+}
+
+.legacy-public .signup-step-item.completed .signup-step-circle {
+  background-color: #1680b3;
+  border-color: #1680b3;
+  color: #ffffff;
+}
+
+.legacy-public .signup-step-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.legacy-public .signup-step-item.active .signup-step-label {
+  color: #ea6a12;
+}
+
+.legacy-public .signup-step-item.completed .signup-step-label {
+  color: #1680b3;
+}
+
+/* Log body */
+.legacy-public .legacy-signup-page .log-body {
+  padding: 10px 4px 4px;
+}
+
+.legacy-public .legacy-signup-page .log-main {
+  padding-bottom: 0;
+}
+
+/* Radio line */
+.legacy-public .legacy-signup-page .login-through {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #333333;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.legacy-public .legacy-signup-page .login-through strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.legacy-public .legacy-signup-page .login-through label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Form error banner */
+.legacy-public .legacy-signup-page .signup-alert-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background-color: #fff4f4;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 9px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.legacy-public .legacy-signup-page .signup-alert-error i {
+  margin-top: 2px;
+  color: #d9534f;
+  flex-shrink: 0;
+}
+
+/* Form groups */
+.legacy-public .legacy-signup-page .form-group {
+  margin: 0 0 14px;
+}
+
+/* Form control inputs - matching the image */
+.legacy-public .legacy-signup-page .form-control {
+  width: 100%;
+  height: 40px;
+  padding: 8px 14px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #b9cfdd;
+  border-radius: 4px;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.legacy-public .legacy-signup-page .form-control:focus {
+  border-color: #1680b3;
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(22, 128, 179, 0.18);
+}
+
+.legacy-public .legacy-signup-page .form-control::placeholder {
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* Readonly mobile field styling matching Image 2 */
+.legacy-public .legacy-signup-page .signup-mobile-readonly {
+  background-color: #eef5f8 !important;
+  color: #1e293b !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: not-allowed;
+  border-color: #cbd5e1;
+}
+
+/* "Change Mobile Number" link */
+.legacy-public .legacy-signup-page .change-mobile-btn {
+  display: inline-block;
+  margin-top: 4px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #1b6ca8;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.legacy-public .legacy-signup-page .change-mobile-btn:hover {
+  color: #0f4c81;
+  text-decoration: underline;
+}
+
+/* Captcha section matching the uploaded screenshot */
+.legacy-public .legacy-signup-page .signup-captcha-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 16px;
+}
+
+.legacy-public .legacy-signup-page .signup-captcha-image-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 2px 8px;
+  background: #ffffff;
+  border: 1px solid #d5e3eb;
+  border-radius: 4px;
+}
+
+.legacy-public .legacy-signup-page .signup-captcha-image-wrap img {
+  display: block;
+  max-width: 140px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.legacy-public .legacy-signup-page .signup-captcha-refresh-btn {
+  background: transparent;
+  border: 0;
+  padding: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #f58220;
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.legacy-public .legacy-signup-page .signup-captcha-refresh-btn:hover {
+  transform: rotate(45deg);
+}
+
+.legacy-public .legacy-signup-page .signup-captcha-refresh-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Single Full-Width Action Button matching Image 1 & 2 */
+.legacy-public .legacy-signup-page .signup-submit-btn {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #ff8b39;
+  border: 1px solid #ff8b39;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  text-decoration: none;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.legacy-public .legacy-signup-page .signup-submit-btn:hover:not(:disabled) {
+  background-color: #ea6a12;
+  border-color: #ea6a12;
+}
+
+.legacy-public .legacy-signup-page .signup-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background-color: #fca058;
+  border-color: #fca058;
+}
+
+/* Step 3 Grid Layouts */
+.legacy-public .legacy-signup-page .signup-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.legacy-public .legacy-signup-page .signup-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.legacy-public .legacy-signup-page .signup-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+.legacy-public .legacy-signup-page .required-mark {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/* Password field with toggle */
+.legacy-public .legacy-signup-page .login-password {
+  position: relative;
+}
+
+.legacy-public .legacy-signup-page .login-password .form-control {
+  padding-right: 76px;
+}
+
+.legacy-public .legacy-signup-page .signup-pwd-toggle {
+  position: absolute;
+  right: 3px;
+  bottom: 4px;
+  height: 32px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: #1680b3;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.legacy-public .legacy-signup-page .signup-pwd-toggle:hover {
+  color: #0f4c81;
+}
+
+/* Single line text links at bottom matching Image 1 */
+.legacy-public .legacy-signup-page .signup-footer-login {
+  text-align: center;
+  font-size: 13px;
+  color: #334155;
+  margin: 12px 0 0;
+}
+
+.legacy-public .legacy-signup-page .signup-footer-login a {
+  color: #1b6ca8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legacy-public .legacy-signup-page .signup-footer-login a:hover {
+  color: #0f4c81;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .legacy-public .legacy-signup-page {
+    margin: 8px auto 16px;
+    padding: 0 10px;
+  }
+
+  .legacy-public .legacy-signup-page .panel-body {
+    padding: 14px 14px 16px;
+  }
+
+  .legacy-public .legacy-signup-page .signup-grid-3,
+  .legacy-public .legacy-signup-page .signup-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .legacy-public .legacy-signup-page .nav-tabs li button,
+  .legacy-public .legacy-signup-page .nav-tabs li a {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .legacy-public .legacy-signup-page .login-notice {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .legacy-public .signup-steps-bar {
+    margin: 10px 0 14px;
+  }
+
+  .legacy-public .signup-step-label {
+    font-size: 10px;
+  }
+}

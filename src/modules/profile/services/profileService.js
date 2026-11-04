@@ -1,5 +1,6 @@
-import { get, post, upload } from '../../../api/httpClient'
+import { get, post } from '../../../api/httpClient'
 import { jsonData } from '../../../api/responseData'
+import { profileDates, profileMultipart } from '../profileModel'
 
 /**
  * Service to manage User Profile, Industrial Profile, and Password changes.
@@ -8,43 +9,26 @@ import { jsonData } from '../../../api/responseData'
 // ── User Profile ─────────────────────────────────────────────────────────────
 
 export async function fetchUserProfile(signal) {
-  try {
-    const res = await get('/fetchUserDetails', { userId: '' }, { signal })
-    return jsonData(res)
-  } catch (err) {
-    // If the endpoint is unauthenticated or mock, fallback to session info
-    try {
-      const session = jsonData(await get('/api/session/current-user', {}, { signal }))
-      return {
-        userId: session.username || 'APPLICANT',
-        roleName: session.roles?.[0] || 'ROLE_APPLICANT',
-        firstName: session.displayName?.split(' ')[0] || '',
-        lastName: session.displayName?.split(' ').slice(1).join(' ') || '',
-        emailId: session.email || '',
-        mobileNumber: session.mobileNumber || '',
-        stateId: '20',
-        genderId: '1',
-        categoryId: '1',
-      }
-    } catch {
-      throw err
-    }
+  return profileData(await get('/applicant/fetchUserDetails', { userId: '' }, { signal }))
+}
+
+function profileData(value) {
+  const data = jsonData(value)
+  if (Array.isArray(data) || !data.userId) throw new Error('The server returned an incomplete profile. Please reload before editing.')
+  return profileDates(data)
+}
+
+function savedProfile(value) {
+  const data = jsonData(value)
+  if (typeof data.successMessage !== 'string' || !data.successMessage.trim()) {
+    throw new Error('The server did not confirm that the profile was saved. Please reload and check before retrying.')
   }
+  return data
 }
 
 export async function updateUserProfile(formData) {
-  // If formData is plain object, convert to FormData
-  let body = formData
-  if (!(formData instanceof FormData)) {
-    body = new FormData()
-    Object.entries(formData).forEach(([key, val]) => {
-      if (val !== undefined && val !== null) {
-        body.append(key, val)
-      }
-    })
-  }
-  const res = await post('/updateUser', body)
-  const data = jsonData(res)
+  const res = await post('/applicant/updateUser', profileMultipart(formData))
+  const data = savedProfile(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)
   }
@@ -54,31 +38,12 @@ export async function updateUserProfile(formData) {
 // ── Industrial Profile ───────────────────────────────────────────────────────
 
 export async function fetchIndustrialProfile(signal) {
-  try {
-    const res = await get('/applicant/fetchUserIndustrialDetails1', { userId: '' }, { signal })
-    return jsonData(res)
-  } catch {
-    try {
-      const res = await get('/fetchUserIndustrialDetails', { userId: '' }, { signal })
-      return jsonData(res)
-    } catch (err) {
-      throw err
-    }
-  }
+  return profileData(await get('/applicant/fetchUserIndustrialDetails', { userId: '' }, { signal }))
 }
 
 export async function updateIndustrialProfile(formData) {
-  let body = formData
-  if (!(formData instanceof FormData)) {
-    body = new FormData()
-    Object.entries(formData).forEach(([key, val]) => {
-      if (val !== undefined && val !== null) {
-        body.append(key, val)
-      }
-    })
-  }
-  const res = await post('/updateUserIndustrialProfile', body)
-  const data = jsonData(res)
+  const res = await post('/applicant/updateUserIndustrialProfile', profileMultipart(formData))
+  const data = savedProfile(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)
   }
@@ -88,10 +53,10 @@ export async function updateIndustrialProfile(formData) {
 export async function updateIndustrialPartners(userId, partnersList) {
   const payload = {
     userId,
-    industrialPartnerslist: partnersList,
+    industrialPartnerslist: profileDates(partnersList, true),
   }
-  const res = await post('/updateUserIndustrialProfilePartners', payload)
-  const data = jsonData(res)
+  const res = await post('/applicant/updateUserIndustrialProfilePartners', payload)
+  const data = savedProfile(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)
   }
@@ -101,10 +66,10 @@ export async function updateIndustrialPartners(userId, partnersList) {
 export async function updateIndustrialRegNocs(userId, regNocList) {
   const payload = {
     userId,
-    regNocList,
+    regNocList: profileDates(regNocList, true),
   }
-  const res = await post('/updateUserIndustrialRegNocList', payload)
-  const data = jsonData(res)
+  const res = await post('/applicant/updateUserIndustrialRegNocList', payload)
+  const data = savedProfile(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)
   }
@@ -119,7 +84,7 @@ export async function generateChangePasswordOtp({ currentPassword, password, con
     password,
     confirmPassword,
   }
-  const res = await post('/dochangepasswordgenerateotp', payload)
+  const res = await post('/api/session/password/otp', payload)
   const data = jsonData(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)
@@ -134,7 +99,7 @@ export async function submitChangePassword({ currentPassword, password, confirmP
     confirmPassword,
     otp,
   }
-  const res = await post('/dochangepassword', payload)
+  const res = await post('/api/session/password/change', payload)
   const data = jsonData(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)
@@ -147,7 +112,7 @@ export async function submitFirstPasswordChange({ password, confirmPassword }) {
     password,
     confirmPassword,
   }
-  const res = await post('/dofirstpasswordchange', payload)
+  const res = await post('/api/session/password/first', payload)
   const data = jsonData(res)
   if (data?.errorMessage) {
     throw new Error(data.errorMessage)

@@ -27,7 +27,12 @@ function validation(form, root, submitted = true) {
   const previous = root[form.name || 'form']
   const state = { ...previous, $submitted: submitted || root[form.name || 'form']?.$submitted || false, $valid: true, $invalid: false, $error: {} }
   for (const el of form.elements) {
-    if (el.disabled || !el.willValidate) continue
+    // Legacy templates keep conditional controls in the DOM through ng-show.
+    // React hides those sections with display:none, but native validity still
+    // marks their required inputs invalid. Hidden controls must not prevent the
+    // visible part of a form (such as Vacant Land / Shed) from submitting.
+    const hiddenByConditionalSection = el.type !== 'hidden' && el.offsetParent === null
+    if (el.disabled || !el.willValidate || hiddenByConditionalSection) continue
     const error = { required: el.validity.valueMissing, pattern: el.validity.patternMismatch, min: el.validity.rangeUnderflow, max: el.validity.rangeOverflow, number: el.validity.badInput, email: el.validity.typeMismatch, maxlength: el.validity.tooLong, minlength: el.validity.tooShort }
     state[el.name] = { $error: error, $invalid: !el.validity.valid, $valid: el.validity.valid, $touched: root.trackTouched ? !!previous?.[el.name]?.$touched : true }
     if (!el.validity.valid) state.$valid = false

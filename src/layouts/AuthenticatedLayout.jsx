@@ -289,6 +289,6 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
       </main>
     </div>
     <ConfirmDialog isOpen={showLogoutConfirm} title="Confirm Logout" message="Are you sure you want to end your current MPMSME session?" confirmText="Logout" cancelText="Stay Logged In" variant="danger" isLoading={isLoggingOut} onConfirm={handleLogoutConfirm} onClose={() => setShowLogoutConfirm(false)} />
-    <SessionTimeoutModal isOpen={isWarning} countdownSeconds={countdown} onStayLoggedIn={stayLoggedIn} onLogoutNow={logoutNow} />
+    <SessionTimeoutModal show={isWarning} countdown={countdown} onStayLoggedIn={stayLoggedIn} onLogout={logoutNow} />
   </div>
 }

@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useAuth } from '../../hooks/useAuth'
 import ProfileNavTabs from './components/ProfileNavTabs'
+import ProfileUpload from './components/ProfileUpload'
+import ProfileLocationSelect from './components/ProfileLocationSelect'
+import { profileUploadError } from './profileModel'
 import {
   fetchIndustrialProfile,
   updateIndustrialProfile,
@@ -25,7 +28,8 @@ export default function IndustrialProfilePage() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const [message, setMessage] = useState(null)
+  const editSnapshot = useRef(null)
+  const [reload, setReload] = useState(0)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const [formData, setFormData] = useState({
@@ -66,9 +70,9 @@ export default function IndustrialProfilePage() {
     address2: '',
     address3: '',
     stateId: '20',
-    districtId: 'Bhopal',
-    tehsilId: 'Huzur',
-    blockId: 'Phanda',
+    districtId: '',
+    tehsilId: '',
+    blockId: '',
     pinCode: '',
     unitInIndustrialArea: 'No',
     industrialArea: '',
@@ -83,9 +87,9 @@ export default function IndustrialProfilePage() {
     permanentAddress2: '',
     permanentAddress3: '',
     permanentStateId: '20',
-    permanentDistrictId: 'Bhopal',
-    permanentTehsilId: 'Huzur',
-    permanentBlockId: 'Phanda',
+    permanentDistrictId: '',
+    permanentTehsilId: '',
+    permanentBlockId: '',
     permanentPinCode: '',
     permanentAddMobileNo: '',
     permanentAddTelephoneNo: '',
@@ -138,6 +142,8 @@ export default function IndustrialProfilePage() {
   useEffect(() => {
     let active = true
     setLoading(true)
+    setErrorMessage(null)
+    setIsEditing(false)
     fetchIndustrialProfile()
       .then((data) => {
         if (!active) return
@@ -145,7 +151,7 @@ export default function IndustrialProfilePage() {
           setFormData((prev) => ({
             ...prev,
             ...data,
-            userId: data.userId || currentUser?.username || 'APPLICANT',
+            userId: data.userId,
             roleName: data.roleName || 'ROLE_APPLICANT',
             firmConstitution: data.firmConstitution || 'Proprietorship',
             firmSector: data.firmSector || 'Manufacturing',
@@ -157,14 +163,14 @@ export default function IndustrialProfilePage() {
             permanentAddress2: data.permanentAddress2 || '',
             permanentAddress3: data.permanentAddress3 || '',
             permanentStateId: data.permanentStateId || '20',
-            permanentDistrictId: data.permanentDistrictId || 'Bhopal',
-            permanentTehsilId: data.permanentTehsilId || 'Huzur',
-            permanentBlockId: data.permanentBlockId || 'Phanda',
+            permanentDistrictId: data.permanentDistrictId || '',
+            permanentTehsilId: data.permanentTehsilId || '',
+            permanentBlockId: data.permanentBlockId || '',
             permanentPinCode: data.permanentPinCode || '',
             permanentAddMobileNo: data.permanentAddMobileNo || '',
             permanentAddTelephoneNo: data.permanentAddTelephoneNo || '',
           }))
-          if (Array.isArray(data.industrialPartnerslist) && data.industrialPartnerslist.length > 0) {
+          if (Array.isArray(data.industrialPartnerslist)) {
             setPartnersList(data.industrialPartnerslist)
           }
           if (Array.isArray(data.regNocList)) {
@@ -186,7 +192,21 @@ export default function IndustrialProfilePage() {
     return () => {
       active = false
     }
-  }, [currentUser])
+  }, [currentUser, reload])
+
+  const startEdit = () => {
+    editSnapshot.current = structuredClone({ formData, partnersList, regNocList })
+    setIsEditing(true)
+  }
+  const cancelEdit = () => {
+    if (editSnapshot.current) {
+      setFormData(editSnapshot.current.formData)
+      setPartnersList(editSnapshot.current.partnersList)
+      setRegNocList(editSnapshot.current.regNocList)
+    }
+    setFiles(prev => Object.fromEntries(Object.keys(prev).map(key => [key, null])))
+    setIsEditing(false)
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -215,6 +235,18 @@ export default function IndustrialProfilePage() {
 
     setFormData((prev) => {
       const next = { ...prev, [name]: type === 'checkbox' ? checked : value }
+      const prefix = name.startsWith('permanent') ? 'permanent' : ''
+      const field = suffix => prefix ? prefix + suffix[0].toUpperCase() + suffix.slice(1) : suffix
+      if (name === field('stateId')) next[field('districtId')] = ''
+      if (name === field('stateId') || name === field('districtId')) {
+        next[field('tehsilId')] = ''
+        next[field('blockId')] = ''
+      }
+      if (prev.sameAsAbovecheck && !prefix) {
+        for (const key of ['address1', 'address2', 'address3', 'city', 'stateId', 'districtId', 'tehsilId', 'blockId', 'pinCode']) {
+          next['permanent' + key[0].toUpperCase() + key.slice(1)] = next[key] ?? ''
+        }
+      }
       if (prev.sameAsAbovecheck && (name.startsWith('address') || name === 'pinCode')) {
         if (name === 'address1') next.permanentAddress1 = value
         if (name === 'address2') next.permanentAddress2 = value
@@ -227,13 +259,12 @@ export default function IndustrialProfilePage() {
 
   const handleFileChange = (e) => {
     const { name, files: selectedFiles } = e.target
+    setFiles(prev => ({ ...prev, [name]: null }))
     if (selectedFiles && selectedFiles[0]) {
       const file = selectedFiles[0]
-      // 5MB limit for PCB uploads, 2MB for Udyam, 500KB default
-      const isLargeDoc = name.includes('pcb') || name.includes('UploadId')
-      const maxLimit = isLargeDoc ? 5 * 1024 * 1024 : 2 * 1024 * 1024
-      if (file.size > maxLimit) {
-        toast.warning(hindi ? `फ़ाइल का आकार ${isLargeDoc ? '5MB' : '2MB'} से अधिक नहीं होना चाहिए।` : `File size should not exceed ${isLargeDoc ? '5MB' : '2MB'}.`)
+      const uploadError = profileUploadError(name, file, true)
+      if (uploadError) {
+        toast.warning(uploadError)
         e.target.value = ''
         return
       }
@@ -301,6 +332,7 @@ export default function IndustrialProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (submitting || loading || errorMessage || !isEditing) return
 
     if (!formData.indOrgName) {
       toast.warning(hindi ? 'कृपया उद्योग / इकाई का नाम दर्ज करें।' : 'Please enter enterprise / unit name.')
@@ -366,7 +398,7 @@ export default function IndustrialProfilePage() {
     try {
       const dataPayload = new FormData()
       Object.entries(formData).forEach(([k, v]) => {
-        if (v !== undefined && v !== null) {
+        if (v !== undefined && v !== null && typeof v !== 'object') {
           dataPayload.append(k, v)
         }
       })
@@ -384,12 +416,14 @@ export default function IndustrialProfilePage() {
       }
 
       // Update NOCs
-      if (formData.userId && regNocList.length > 0) {
+      if (formData.userId) {
         await updateIndustrialRegNocs(formData.userId, regNocList)
       }
 
       toast.success(res.successMessage || (hindi ? 'औद्योगिक प्रोफ़ाइल सफलतापूर्वक अपडेट की गई।' : 'Industrial profile updated successfully.'))
       setIsEditing(false)
+      setFiles(prev => Object.fromEntries(Object.keys(prev).map(key => [key, null])))
+      setReload(value => value + 1)
     } catch (err) {
       toast.error(err.message || (hindi ? 'औद्योगिक प्रोफ़ाइल अपडेट करने में त्रुटि।' : 'Failed to update industrial profile.'))
     } finally {
@@ -413,7 +447,8 @@ export default function IndustrialProfilePage() {
           {!isEditing ? (
             <button
               type="button"
-              onClick={() => setIsEditing(true)}
+              onClick={startEdit}
+              disabled={loading || !!errorMessage}
               className="btn btn-warning"
             >
               <i className="fa fa-pencil" /> {hindi ? 'प्रोफ़ाइल संपादित करें' : 'Edit Industrial Profile'}
@@ -421,7 +456,8 @@ export default function IndustrialProfilePage() {
           ) : (
             <button
               type="button"
-              onClick={() => setIsEditing(false)}
+              onClick={cancelEdit}
+              disabled={submitting}
               className="btn btn-default"
             >
               <i className="fa fa-times" /> {hindi ? 'रद्द करें' : 'Cancel Edit'}
@@ -431,16 +467,16 @@ export default function IndustrialProfilePage() {
       </div>
 
 
-      {loading && <Spinner />}
-      {false ? (
+      {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage} <button type="button" className="btn btn-default" onClick={() => setReload(value => value + 1)}>Retry</button></div>}
+      {loading ? (
         <div className="panel panel-default">
           <div className="panel-body text-center py-5">
             <i className="fa fa-spinner fa-spin fa-2x text-primary" />
             <p className="mt-2 text-muted">{hindi ? 'औद्योगिक प्रोफ़ाइल लोड हो रही है...' : 'Loading industrial profile...'}</p>
           </div>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
+      ) : errorMessage ? null : (
+        <form key={String(isEditing)} onSubmit={handleSubmit}>
           {/* Main Government Form Panel */}
           <div className="panel panel-primary">
             <div className="panel-heading">
@@ -553,7 +589,7 @@ export default function IndustrialProfilePage() {
               </div>
 
               {/* Udyam & Tax Registration Box */}
-              <div style={{ backgroundColor: '#fdfbf7', border: '1px solid #ebd3be', padding: '15px', margin: '15px 0', borderRadius: '4px' }}>
+              <div style={{ backgroundColor: '#fdfbf7', border: '1px solid #ebd3be', padding: '15px 15px 22px', margin: '15px 0', borderRadius: '4px', display: 'flow-root', clear: 'both' }}>
                 <div className="checkbox" style={{ marginTop: 0, marginBottom: '12px' }}>
                   <label style={{ fontWeight: 'bold', color: '#8a3b14' }}>
                     <input
@@ -602,10 +638,7 @@ export default function IndustrialProfilePage() {
                     <div className="col-md-4 col-sm-12">
                       <div className="form-group">
                         <label>Upload Udyam Certificate (PDF/JPEG &lt;500KB)</label>
-                        <input
-                          type="file"
-                          name="udyamUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.udyamUploadId} type="file" name="udyamUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -620,7 +653,7 @@ export default function IndustrialProfilePage() {
                   </div>
                 )}
 
-                <div className="row" style={{ paddingTop: '10px', borderTop: '1px dashed #dcdcdc' }}>
+                <div className="row" style={{ paddingTop: '10px', borderTop: '1px dashed #dcdcdc', display: 'flex', flexWrap: 'wrap' }}>
                   <div className="col-md-4 col-sm-6">
                     <div className="form-group">
                       <label>
@@ -637,10 +670,7 @@ export default function IndustrialProfilePage() {
                         placeholder="ABCDE1234F"
                       />
                       <div style={{ marginTop: '5px' }}>
-                        <input
-                          type="file"
-                          name="panUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.panUploadId} type="file" name="panUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -668,10 +698,7 @@ export default function IndustrialProfilePage() {
                         placeholder="BLRP00000A"
                       />
                       <div style={{ marginTop: '5px' }}>
-                        <input
-                          type="file"
-                          name="tanUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.tanUploadId} type="file" name="tanUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -699,10 +726,7 @@ export default function IndustrialProfilePage() {
                         placeholder="23AAAAA0000A1Z5"
                       />
                       <div style={{ marginTop: '5px' }}>
-                        <input
-                          type="file"
-                          name="gstUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.gstUploadId} type="file" name="gstUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -881,10 +905,7 @@ export default function IndustrialProfilePage() {
                         <label style={{ fontSize: '11px' }}>
                           {hindi ? 'जाति प्रमाण पत्र (SC/ST/OBC)' : 'Caste Certificates (SC/ST/OBC Partners)'}
                         </label>
-                        <input
-                          type="file"
-                          name="categoryUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.categoryUploadId} type="file" name="categoryUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -901,10 +922,7 @@ export default function IndustrialProfilePage() {
                         <label style={{ fontSize: '11px' }}>
                           {hindi ? 'पहचान प्रमाण (POI Docs)' : 'Proof of Identity (All Partners)'}
                         </label>
-                        <input
-                          type="file"
-                          name="proofOfIdentityUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.proofOfIdentityUploadId} type="file" name="proofOfIdentityUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -922,10 +940,7 @@ export default function IndustrialProfilePage() {
                           <label style={{ fontSize: '11px' }}>
                             {hindi ? 'साझेदारी विलेख (Deed Document)' : 'Partnership / LLP Deed Upload'}
                           </label>
-                          <input
-                            type="file"
-                            name="deedUpload"
-                            className="form-control"
+                          <ProfileUpload documentId={formData.deedUploadId} type="file" name="deedUpload" className="form-control profile-file-input"
                             accept=".pdf,.jpg,.jpeg"
                             onChange={handleFileChange}
                             disabled={!isEditing}
@@ -990,10 +1005,7 @@ export default function IndustrialProfilePage() {
                       </div>
                       <div style={{ marginTop: '10px' }}>
                         <label style={{ fontSize: '11px', color: '#666' }}>Upload License (PDF &lt;2MB)</label>
-                        <input
-                          type="file"
-                          name="factoryUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.factoryUploadId} type="file" name="factoryUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -1051,10 +1063,7 @@ export default function IndustrialProfilePage() {
                       </div>
                       <div style={{ marginTop: '10px' }}>
                         <label style={{ fontSize: '11px', color: '#666' }}>Upload CTE Consent (PDF &le;5MB)</label>
-                        <input
-                          type="file"
-                          name="pcbEstUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.pcbEstUploadId} type="file" name="pcbEstUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -1112,10 +1121,7 @@ export default function IndustrialProfilePage() {
                       </div>
                       <div style={{ marginTop: '10px' }}>
                         <label style={{ fontSize: '11px', color: '#666' }}>Upload CTO Consent (PDF &le;5MB)</label>
-                        <input
-                          type="file"
-                          name="pcbOperateUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.pcbOperateUploadId} type="file" name="pcbOperateUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -1160,10 +1166,7 @@ export default function IndustrialProfilePage() {
                       </div>
                       <div style={{ marginTop: '5px' }}>
                         <label style={{ fontSize: '10px', color: '#666' }}>Upload CIN (PDF &lt;2MB)</label>
-                        <input
-                          type="file"
-                          name="cinUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.cinUploadId} type="file" name="cinUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -1176,10 +1179,7 @@ export default function IndustrialProfilePage() {
                       </div>
                       <div style={{ marginTop: '5px' }}>
                         <label style={{ fontSize: '10px', color: '#666' }}>Upload AoA</label>
-                        <input
-                          type="file"
-                          name="aoaUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.aoaUploadId} type="file" name="aoaUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -1192,10 +1192,7 @@ export default function IndustrialProfilePage() {
                       </div>
                       <div style={{ marginTop: '5px' }}>
                         <label style={{ fontSize: '10px', color: '#666' }}>Upload MoA</label>
-                        <input
-                          type="file"
-                          name="moaUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.moaUploadId} type="file" name="moaUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -1266,15 +1263,15 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-2 col-sm-4">
                   <div className="form-group">
                     <label>State</label>
-                    <input type="text" className="form-control" value="Madhya Pradesh" disabled />
+                    <ProfileLocationSelect data={formData} name="stateId" className="form-control" value={formData.stateId || ''} onChange={handleChange} disabled={!isEditing} />
                   </div>
                 </div>
 
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>District</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="districtId"
                       className="form-control"
                       value={formData.districtId || ''}
@@ -1287,8 +1284,8 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>Tehsil</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="tehsilId"
                       className="form-control"
                       value={formData.tehsilId || ''}
@@ -1301,8 +1298,8 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-2 col-sm-6">
                   <div className="form-group">
                     <label>Block</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="blockId"
                       className="form-control"
                       value={formData.blockId || ''}
@@ -1369,10 +1366,7 @@ export default function IndustrialProfilePage() {
                     <label style={{ fontSize: '11px', color: '#666' }}>
                       {hindi ? 'इकाई पते का प्रमाण / पट्टा विलेख (PDF ≤500KB)' : 'Upload Proof of Address / Lease Deed / Rent Agreement (PDF ≤500KB)'}
                     </label>
-                    <input
-                      type="file"
-                      name="proofOfAddressUpload"
-                      className="form-control"
+                    <ProfileUpload documentId={formData.proofOfAddressUploadId} type="file" name="proofOfAddressUpload" className="form-control profile-file-input"
                       accept=".pdf,.jpg,.jpeg"
                       onChange={handleFileChange}
                       disabled={!isEditing}
@@ -1536,8 +1530,8 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-2 col-sm-4">
                   <div className="form-group">
                     <label>State</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="permanentStateId"
                       className="form-control"
                       value={formData.permanentStateId || 'Madhya Pradesh'}
@@ -1550,8 +1544,8 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>District</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="permanentDistrictId"
                       className="form-control"
                       value={formData.permanentDistrictId || ''}
@@ -1564,8 +1558,8 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>Tehsil</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="permanentTehsilId"
                       className="form-control"
                       value={formData.permanentTehsilId || ''}
@@ -1578,8 +1572,8 @@ export default function IndustrialProfilePage() {
                 <div className="col-md-2 col-sm-6">
                   <div className="form-group">
                     <label>Block</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="permanentBlockId"
                       className="form-control"
                       value={formData.permanentBlockId || ''}
@@ -1832,11 +1826,11 @@ export default function IndustrialProfilePage() {
                     <label htmlFor="cancelled-cheque-upload" style={{ fontSize: '11px', color: '#666' }}>
                       Cancelled Cheque / Bank Passbook (PDF/JPEG &lt;500KB) <span className="required-star">*</span>
                     </label>
-                    <input
+                    <ProfileUpload documentId={formData.cancelledChequeUploadId}
                       type="file"
                       id="cancelled-cheque-upload"
                       name="cancelledChequeUpload"
-                      className="profile-document-upload"
+                      className="form-control profile-file-input profile-document-upload"
                       accept=".pdf,.jpg,.jpeg"
                       onChange={handleFileChange}
                       disabled={!isEditing}
@@ -1850,12 +1844,17 @@ export default function IndustrialProfilePage() {
                 </div>
               </div>
 
+              <div className="form-group">
+                <label htmlFor="specimen-signature-upload">Specimen signature (PDF/JPEG, maximum 500 KB)</label>
+                <ProfileUpload id="specimen-signature-upload" name="specimenSignUpload" documentId={formData.specimenSignUploadId} className="form-control profile-file-input" accept=".pdf,.jpg,.jpeg" disabled={!isEditing} onChange={handleFileChange} />
+              </div>
               {/* Form Action Controls */}
               {isEditing && (
                 <div className="text-right" style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #e5e5e5' }}>
                   <button
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={cancelEdit}
+                    disabled={submitting}
                     className="btn btn-default"
                     style={{ marginRight: '10px' }}
                   >

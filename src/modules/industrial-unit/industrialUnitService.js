@@ -5,6 +5,7 @@ import toast from '../../utils/toast'
 function getRolePrefix() {
   if (typeof window !== 'undefined') {
     const path = window.location.pathname
+    if (path.startsWith('/applicant/')) return '/applicant'
     if (path.includes('/secretary')) return '/secretary'
     if (path.includes('/dtic')) return '/dtic'
     if (path.includes('/fa')) return '/fa'

@@ -929,87 +929,87 @@ button.portal-lang-capsule:hover,
   color: #ffffff !important;
 }
 
-/* Standard Government Form File Upload Inputs */
-.legacy-portal :is(.profile-page-container, .industrial-unit-page, .infrastructure-page) form .btn + .btn {
-  margin-inline-start: 10px !important;
+/* ==========================================================================
+   PROFILE FORM FILE UPLOAD CONTROLS (Government Modernised Theme)
+   Fixes squashed, clipped, and unstyled file input buttons across profiles.
+   ========================================================================== */
+
+/* Grid Row Float Containment to prevent card borders slicing through controls */
+.legacy-portal .profile-page-container .row,
+.profile-page-container .row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  margin-right: -15px !important;
+  margin-left: -15px !important;
 }
 
-.legacy-portal .profile-page-container input.profile-document-upload[type="file"] {
+.legacy-portal .profile-page-container .row::before,
+.legacy-portal .profile-page-container .row::after,
+.profile-page-container .row::before,
+.profile-page-container .row::after {
+  display: none !important;
+}
+
+.legacy-portal .profile-page-container .row > [class*="col-"],
+.profile-page-container .row > [class*="col-"] {
+  float: none !important;
+}
+
+/* Shared upload controls for both Applicant profiles. */
+.legacy-portal .profile-page-container input[type="file"].profile-file-input {
   display: block !important;
-  width: 300px !important;
+  width: 100% !important;
+  min-width: 0 !important;
   max-width: 100% !important;
   height: auto !important;
-  min-height: 32px !important;
-  padding: 0 !important;
-  border: 1px solid #b8c9d8 !important;
-  border-radius: 4px !important;
+  min-height: 42px !important;
+  padding: 4px !important;
+  margin: 6px 0 4px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 5px !important;
   background: #fff !important;
-  color: #333 !important;
-  font-size: 13px !important;
-  line-height: 30px !important;
-  overflow: hidden;
+  color: #334155 !important;
+  font: 13px/32px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
 }
 
-.legacy-portal .profile-page-container input.profile-document-upload[type="file"]::file-selector-button {
-  margin: 0 8px 0 0 !important;
-  padding: 0 10px !important;
-  height: 30px;
-  border: 0 !important;
-  border-right: 1px solid #2e6da4 !important;
-  border-radius: 0 !important;
-  background: #337ab7 !important;
+/* Separate standard selectors from vendor aliases to avoid invalid rule lists. */
+.legacy-portal .profile-page-container input[type="file"].profile-file-input::file-selector-button {
+  display: inline-block !important;
+  height: 32px !important;
+  box-sizing: border-box !important;
+  margin: 0 10px 0 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid #146c96 !important;
+  border-radius: 4px !important;
+  background: #1680b3 !important;
   color: #fff !important;
-  font: inherit;
-  font-weight: 600 !important;
-  cursor: pointer;
+  font: 600 13px/20px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  vertical-align: top !important;
+  cursor: pointer !important;
 }
 
-.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:not(:disabled)::file-selector-button:hover {
-  background: #286090 !important;
+.legacy-portal .profile-page-container input[type="file"].profile-file-input:not(:disabled):hover::file-selector-button {
+  background: #0f5c82 !important;
 }
 
-.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:focus-visible {
-  outline: 2px solid #337ab7;
-  outline-offset: 3px;
+.legacy-portal .profile-page-container input[type="file"].profile-file-input:focus-visible {
+  outline: 2px solid #1680b3 !important;
+  outline-offset: 2px !important;
 }
 
-.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:disabled {
-  background: #f5f7f9 !important;
+.legacy-portal .profile-page-container input[type="file"].profile-file-input:disabled {
+  background: #f1f5f9 !important;
   color: #64748b !important;
   cursor: not-allowed !important;
+  opacity: 1 !important;
 }
 
-.legacy-portal .profile-page-container input.profile-document-upload[type="file"]:disabled::file-selector-button {
+.legacy-portal .profile-page-container input[type="file"].profile-file-input:disabled::file-selector-button {
   background: #e2e8f0 !important;
-  color: #526575 !important;
-  border-color: #cbd5e1 !important;
+  border-color: #94a3b8 !important;
+  color: #475569 !important;
   cursor: not-allowed !important;
 }
-
-input[type="file"].form-control,
-.gov-file-upload-input {
-  display: block;
-  width: 100%;
-  height: auto;
-  min-height: 32px;
-  padding: 3px 6px;
-  font-size: 12px;
-  line-height: 1.4;
-  color: #495057;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-
-input[type="file"].form-control:disabled,
-input[type="file"].form-control[disabled],
-.gov-file-upload-input:disabled,
-.gov-file-upload-input[disabled] {
-  background-color: #f7f7f7 !important;
-  color: #777777;
-  border-color: #e0e0e0;
-  cursor: not-allowed;
-  opacity: 0.9;
-}
-

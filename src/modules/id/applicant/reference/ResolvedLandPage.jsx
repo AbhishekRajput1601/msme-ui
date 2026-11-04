@@ -24,7 +24,11 @@ export default function ResolvedLandPage({ path, identity, amountField, back }) 
     const abort=new AbortController()
     fetchLandPage(path,abort.signal).then(doc=>{
       doc.querySelectorAll('script,style,head').forEach(el=>el.remove())
-      const region=doc.querySelector('#page-wrapper') || doc.body
+      let region=doc.querySelector('#page-wrapper') || doc.body
+      if (!region) {
+        region=document.createElement('div')
+        region.append(doc.cloneNode(true))
+      }
       if(region.textContent.includes('{{') || !region.querySelector('.panel, table, form')) throw new Error('The server did not return complete page details.')
       if(identity) {
         const form=[...region.querySelectorAll('form')].find(el=>paymentActions.has((el.getAttribute('action') || '').split('/').at(-1)))

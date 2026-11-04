@@ -1,0 +1,53 @@
+/* Keep Applicant table controls independent of legacy Bootstrap pagination rules. */
+.legacy-portal.applicant-portal :is(.land-table-footer, .industrial-table-controls, .infrastructure-table-controls, .service-table-controls) {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.legacy-portal.applicant-portal .pagination {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.legacy-portal.applicant-portal .pagination > li {
+  display: flex;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+}
+
+.legacy-portal.applicant-portal .pagination :is(button, a, span.btn, .page-link) {
+  position: static;
+  float: none;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 34px;
+  min-height: 34px;
+  margin: 0;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.legacy-portal.applicant-portal .pagination > span:not(.btn) {
+  flex: 0 0 auto;
+  padding: 6px;
+}
+
+@media (max-width: 640px) {
+  .legacy-portal.applicant-portal .pagination {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+}

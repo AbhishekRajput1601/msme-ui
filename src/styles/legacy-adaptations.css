@@ -872,10 +872,10 @@
   white-space: normal !important;
 }
 
-.legacy-portal input[type="file"],
-.legacy-portal input[type="file"].btn,
-.legacy-portal input[type="file"].btn-primary,
-.legacy-portal .form-file-input {
+.legacy-portal:not(.profile-page-container) input[type="file"]:not(.profile-file-input):not(.profile-document-upload),
+.legacy-portal:not(.profile-page-container) input[type="file"].btn:not(.profile-file-input):not(.profile-document-upload),
+.legacy-portal:not(.profile-page-container) input[type="file"].btn-primary:not(.profile-file-input):not(.profile-document-upload),
+.legacy-portal:not(.profile-page-container) .form-file-input:not(.profile-file-input):not(.profile-document-upload) {
   background: transparent !important;
   background-color: transparent !important;
   color: #333 !important;

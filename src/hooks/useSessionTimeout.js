@@ -1,3 +1,4 @@
+import authService from '../services/authService'
 /**
  * useSessionTimeout.js
  * ─────────────────────────────────────────────────────────────────────────────
@@ -25,8 +26,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { onSessionExpired } from '../api/httpClient'
-import { get } from '../api/httpClient'
-import { COMMON } from '../api/endpoints'
+import { toast } from '../utils/toast'
 
 const DEFAULT_TIMEOUT_SECONDS = 1800 // 30 minutes
 const DEFAULT_WARNING_SECONDS = 120  // 2 minutes warning dialog
@@ -54,9 +54,16 @@ export function useSessionTimeout({
   const warningTimerRef = useRef(null)
   const countdownIntervalRef = useRef(null)
   const throttleRef = useRef(0)
+  const warningRef = useRef(false)
+  const timedOutRef = useRef(false)
+  const checkingRef = useRef(false)
 
   // Redirect to login on session expiry
-  const handleTimeout = useCallback(() => {
+  const handleTimeout = useCallback(async () => {
+    if (timedOutRef.current) return
+    timedOutRef.current = true
+    warningRef.current = false
+    clearTimeout(warningTimerRef.current)
     setIsTimedOut(true)
     setIsWarning(false)
 
@@ -64,9 +71,12 @@ export function useSessionTimeout({
       clearInterval(countdownIntervalRef.current)
     }
 
-    if (typeof onTimeout === 'function') {
-      onTimeout()
+    try {
+      await authService.logout()
+    } catch {
+      // Still leave protected screens if the network is unavailable.
     }
+    if (typeof onTimeout === 'function') await onTimeout()
 
     // Redirect to login page with timeout indicator
     if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
@@ -76,6 +86,8 @@ export function useSessionTimeout({
 
   // Reset timers back to fresh 30-minute idle period
   const resetTimer = useCallback(() => {
+    if (timedOutRef.current) return
+    warningRef.current = false
     lastActivityRef.current = Date.now()
     setIsWarning(false)
     setCountdown(warningSeconds)
@@ -95,6 +107,7 @@ export function useSessionTimeout({
     const timeUntilWarningMs = Math.max(0, (timeoutSeconds - warningSeconds) * 1000)
 
     warningTimerRef.current = setTimeout(() => {
+      warningRef.current = true
       setIsWarning(true)
       setCountdown(warningSeconds)
 
@@ -113,16 +126,20 @@ export function useSessionTimeout({
     }, timeUntilWarningMs)
   }, [enabled, timeoutSeconds, warningSeconds, handleTimeout])
 
-  // Stay logged in action: resets timer and pings backend to keep Spring Security session active
+  // Extend the UI timer only after the backend confirms the session is active.
   const stayLoggedIn = useCallback(async () => {
-    resetTimer()
+    if (checkingRef.current || timedOutRef.current) return
+    checkingRef.current = true
     try {
-      // Optional lightweight ping to backend (keepalive)
-      await get(COMMON.GET_MESSAGE.replace('{key}', 'app.ping'), {}, { timeout: 5000 })
+      const session = await authService.fetchCurrentUser({ timeout: 5000 })
+      if (session.authenticated) resetTimer()
+      else await handleTimeout()
     } catch {
-      // Non-critical ping failure, timer already reset
+      toast.error('Unable to verify your session. Please try again before the countdown ends.')
+    } finally {
+      checkingRef.current = false
     }
-  }, [resetTimer])
+  }, [resetTimer, handleTimeout])
 
   // Immediately log out and redirect
   const logoutNow = useCallback(() => {
@@ -142,7 +159,7 @@ export function useSessionTimeout({
 
     const handleUserActivity = () => {
       // If warning dialog is currently visible, require deliberate click on "Stay Logged In"
-      if (isWarning) return
+      if (warningRef.current || timedOutRef.current) return
 
       // Throttle activity resets to at most once every 2 seconds to reduce CPU overhead
       const now = Date.now()
@@ -170,7 +187,7 @@ export function useSessionTimeout({
       if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current)
       unsubscribeHttp()
     }
-  }, [enabled, isWarning, resetTimer, handleTimeout])
+  }, [enabled, resetTimer, handleTimeout])
 
   return {
     isWarning,

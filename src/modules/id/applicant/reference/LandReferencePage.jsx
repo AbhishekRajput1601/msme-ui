@@ -109,6 +109,7 @@ function ReferenceContent({ name }) {
     return () => abort.abort()
   },[name,params.applicantId,params.landId,params.paymentId,params.mode,params.id,params.decisionId,state])
   return <div className="land-reference-page" data-view={name}>
+    {state.error && <div className="alert alert-danger" role="alert">{state.error}</div>}
     {(state.busy || state.saving) && <Spinner />}
     <IndustrialView name={name} state={state} />
   </div>

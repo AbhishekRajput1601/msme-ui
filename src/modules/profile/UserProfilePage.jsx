@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useAuth } from '../../hooks/useAuth'
 import ProfileNavTabs from './components/ProfileNavTabs'
+import ProfileUpload from './components/ProfileUpload'
+import ProfileLocationSelect from './components/ProfileLocationSelect'
+import { profileUploadError } from './profileModel'
 import { fetchUserProfile, updateUserProfile } from './services/profileService'
 import { getTodayString, isFutureDate } from '../../utils/dateUtils'
 import { toast } from '../../utils/toast'
@@ -15,7 +18,8 @@ export default function UserProfilePage() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const [message, setMessage] = useState(null)
+  const editSnapshot = useRef(null)
+  const [reload, setReload] = useState(0)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const [formData, setFormData] = useState({
@@ -52,9 +56,9 @@ export default function UserProfilePage() {
     address3: '',
     city: '',
     stateId: '20', // Madhya Pradesh
-    districtId: 'Bhopal',
-    tehsilId: 'Huzur',
-    blockId: 'Phanda',
+    districtId: '',
+    tehsilId: '',
+    blockId: '',
     pinCode: '',
     sameAsPresent: false,
     permanentAddress1: '',
@@ -62,11 +66,11 @@ export default function UserProfilePage() {
     permanentAddress3: '',
     permanentCity: '',
     permanentStateId: '20',
-    permanentDistrictId: 'Bhopal',
+    permanentDistrictId: '',
     permanentTehsilId: '',
-    permanentTehsilName: 'Huzur',
+    permanentTehsilName: '',
     permanentBlockId: '',
-    permanentBlockName: 'Phanda',
+    permanentBlockName: '',
     permanentPinCode: '',
   })
 
@@ -80,6 +84,8 @@ export default function UserProfilePage() {
   useEffect(() => {
     let active = true
     setLoading(true)
+    setErrorMessage(null)
+    setIsEditing(false)
     fetchUserProfile()
       .then((data) => {
         if (!active) return
@@ -87,7 +93,7 @@ export default function UserProfilePage() {
           setFormData((prev) => ({
             ...prev,
             ...data,
-            userId: data.userId || currentUser?.username || 'APPLICANT',
+            userId: data.userId,
             roleName: data.roleName || 'ROLE_APPLICANT',
             nameOfUnit: data.nameOfUnit || '',
             aadhaarNumber: data.aadhaarNumber || '',
@@ -117,7 +123,17 @@ export default function UserProfilePage() {
     return () => {
       active = false
     }
-  }, [currentUser])
+  }, [currentUser, reload])
+
+  const startEdit = () => {
+    editSnapshot.current = structuredClone(formData)
+    setIsEditing(true)
+  }
+  const cancelEdit = () => {
+    if (editSnapshot.current) setFormData(editSnapshot.current)
+    setFiles(prev => Object.fromEntries(Object.keys(prev).map(key => [key, null])))
+    setIsEditing(false)
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -146,7 +162,19 @@ export default function UserProfilePage() {
 
     setFormData((prev) => {
       const next = { ...prev, [name]: value }
-      if (prev.sameAsPresent && name.startsWith('address')) {
+      const prefix = name.startsWith('permanent') ? 'permanent' : ''
+      const field = suffix => prefix ? prefix + suffix[0].toUpperCase() + suffix.slice(1) : suffix
+      if (name === field('stateId')) next[field('districtId')] = ''
+      if (name === field('stateId') || name === field('districtId')) {
+        next[field('tehsilId')] = ''
+        next[field('blockId')] = ''
+      }
+      if (prev.sameAsPresent && !prefix) {
+        for (const key of ['address1', 'address2', 'address3', 'city', 'stateId', 'districtId', 'tehsilId', 'blockId', 'pinCode']) {
+          next['permanent' + key[0].toUpperCase() + key.slice(1)] = next[key] ?? ''
+        }
+      }
+      if (prev.sameAsPresent) {
         if (name === 'address1') next.permanentAddress1 = value
         if (name === 'address2') next.permanentAddress2 = value
         if (name === 'address3') next.permanentAddress3 = value
@@ -159,10 +187,12 @@ export default function UserProfilePage() {
 
   const handleFileChange = (e) => {
     const { name, files: selectedFiles } = e.target
+    setFiles(prev => ({ ...prev, [name]: null }))
     if (selectedFiles && selectedFiles[0]) {
       const file = selectedFiles[0]
-      if (file.size > 500 * 1024) {
-        toast.warning(hindi ? 'फ़ाइल का आकार 500 KB से अधिक नहीं होना चाहिए।' : 'File size should not exceed 500 KB.')
+      const uploadError = profileUploadError(name, file, false)
+      if (uploadError) {
+        toast.warning(uploadError)
         e.target.value = ''
         return
       }
@@ -172,6 +202,7 @@ export default function UserProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (submitting || loading || errorMessage || !isEditing) return
 
     if (!formData.firstName || !formData.lastName) {
       toast.warning(hindi ? 'कृपया पहला और अंतिम नाम दर्ज करें।' : 'Please enter first and last name.')
@@ -192,7 +223,7 @@ export default function UserProfilePage() {
     try {
       const dataPayload = new FormData()
       Object.entries(formData).forEach(([k, v]) => {
-        if (v !== undefined && v !== null) {
+        if (v !== undefined && v !== null && typeof v !== 'object') {
           dataPayload.append(k, v)
         }
       })
@@ -205,6 +236,8 @@ export default function UserProfilePage() {
       const res = await updateUserProfile(dataPayload)
       toast.success(res.successMessage || (hindi ? 'उपयोगकर्ता प्रोफ़ाइल सफलतापूर्वक अपडेट की गई।' : 'User profile updated successfully.'))
       setIsEditing(false)
+      setFiles(prev => Object.fromEntries(Object.keys(prev).map(key => [key, null])))
+      setReload(value => value + 1)
     } catch (err) {
       toast.error(err.message || (hindi ? 'प्रोफ़ाइल अपडेट करने में त्रुटि।' : 'Failed to update profile.'))
     } finally {
@@ -228,7 +261,8 @@ export default function UserProfilePage() {
           {!isEditing ? (
             <button
               type="button"
-              onClick={() => setIsEditing(true)}
+              onClick={startEdit}
+              disabled={loading || !!errorMessage}
               className="btn btn-warning"
             >
               <i className="fa fa-pencil" /> {hindi ? 'प्रोफ़ाइल संपादित करें' : 'Edit Profile'}
@@ -236,7 +270,8 @@ export default function UserProfilePage() {
           ) : (
             <button
               type="button"
-              onClick={() => setIsEditing(false)}
+              onClick={cancelEdit}
+              disabled={submitting}
               className="btn btn-default"
             >
               <i className="fa fa-times" /> {hindi ? 'रद्द करें' : 'Cancel Edit'}
@@ -246,16 +281,16 @@ export default function UserProfilePage() {
       </div>
 
 
-      {loading && <Spinner />}
-      {false ? (
+      {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage} <button type="button" className="btn btn-default" onClick={() => setReload(value => value + 1)}>Retry</button></div>}
+      {loading ? (
         <div className="panel panel-default">
           <div className="panel-body text-center py-5">
             <Spinner />
 
           </div>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
+      ) : errorMessage ? null : (
+        <form key={String(isEditing)} onSubmit={handleSubmit}>
           {/* Main Government Form Panel */}
           <div className="panel panel-primary">
             <div className="panel-heading">
@@ -496,10 +531,7 @@ export default function UserProfilePage() {
                       <label style={{ fontSize: '11px' }}>
                         {hindi ? 'जाति प्रमाण पत्र अपलोड (PDF ≤500KB)' : 'Upload Caste Certificate (PDF ≤500KB)'}
                       </label>
-                      <input
-                        type="file"
-                        name="categoryUpload"
-                        className="form-control"
+                      <ProfileUpload documentId={formData.categoryUploadId} type="file" name="categoryUpload" className="form-control profile-file-input"
                         accept=".pdf,.jpg,.jpeg"
                         onChange={handleFileChange}
                         disabled={!isEditing}
@@ -799,10 +831,7 @@ export default function UserProfilePage() {
                       </div>
                       <div className="form-group" style={{ marginTop: '10px' }}>
                         <label style={{ fontSize: '11px', color: '#666' }}>Upload PAN (PDF/JPEG &lt;500KB)</label>
-                        <input
-                          type="file"
-                          name="panUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.panUploadId} type="file" name="panUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -853,10 +882,7 @@ export default function UserProfilePage() {
                       </div>
                       <div className="form-group" style={{ marginTop: '10px' }}>
                         <label style={{ fontSize: '11px', color: '#666' }}>Upload POI (PDF/JPEG &lt;500KB)</label>
-                        <input
-                          type="file"
-                          name="proofOfIdentityUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.proofOfIdentityUploadId} type="file" name="proofOfIdentityUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -895,10 +921,7 @@ export default function UserProfilePage() {
                       </div>
                       <div className="form-group" style={{ marginTop: '10px' }}>
                         <label style={{ fontSize: '11px', color: '#666' }}>Upload POA (PDF/JPEG &lt;500KB)</label>
-                        <input
-                          type="file"
-                          name="proofOfAddressUpload"
-                          className="form-control"
+                        <ProfileUpload documentId={formData.proofOfAddressUploadId} type="file" name="proofOfAddressUpload" className="form-control profile-file-input"
                           accept=".pdf,.jpg,.jpeg"
                           onChange={handleFileChange}
                           disabled={!isEditing}
@@ -969,15 +992,15 @@ export default function UserProfilePage() {
                 <div className="col-md-2 col-sm-4">
                   <div className="form-group">
                     <label>State</label>
-                    <input type="text" className="form-control" value="Madhya Pradesh" disabled />
+                    <ProfileLocationSelect data={formData} name="stateId" className="form-control" value={formData.stateId || ''} onChange={handleChange} disabled={!isEditing} />
                   </div>
                 </div>
 
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>District</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="districtId"
                       className="form-control"
                       value={formData.districtId || ''}
@@ -990,8 +1013,8 @@ export default function UserProfilePage() {
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>Tehsil</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="tehsilId"
                       className="form-control"
                       value={formData.tehsilId || ''}
@@ -1004,8 +1027,8 @@ export default function UserProfilePage() {
                 <div className="col-md-2 col-sm-6">
                   <div className="form-group">
                     <label>Block</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="blockId"
                       className="form-control"
                       value={formData.blockId || ''}
@@ -1099,15 +1122,15 @@ export default function UserProfilePage() {
                 <div className="col-md-2 col-sm-4">
                   <div className="form-group">
                     <label>State</label>
-                    <input type="text" className="form-control" value="Madhya Pradesh" disabled />
+                    <ProfileLocationSelect data={formData} name="permanentStateId" className="form-control" value={formData.permanentStateId || ''} onChange={handleChange} disabled={!isEditing || formData.sameAsPresent} />
                   </div>
                 </div>
 
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>District</label>
-                    <input
-                      type="text"
+                    <ProfileLocationSelect data={formData}
+
                       name="permanentDistrictId"
                       className="form-control"
                       value={formData.permanentDistrictId || ''}
@@ -1120,11 +1143,11 @@ export default function UserProfilePage() {
                 <div className="col-md-3 col-sm-4">
                   <div className="form-group">
                     <label>Tehsil</label>
-                    <input
-                      type="text"
-                      name="permanentTehsilName"
+                    <ProfileLocationSelect data={formData}
+
+                      name="permanentTehsilId"
                       className="form-control"
-                      value={formData.permanentTehsilName || ''}
+                      value={formData.permanentTehsilId || ''}
                       onChange={handleChange}
                       disabled={!isEditing || formData.sameAsPresent}
                     />
@@ -1134,11 +1157,11 @@ export default function UserProfilePage() {
                 <div className="col-md-2 col-sm-6">
                   <div className="form-group">
                     <label>Block</label>
-                    <input
-                      type="text"
-                      name="permanentBlockName"
+                    <ProfileLocationSelect data={formData}
+
+                      name="permanentBlockId"
                       className="form-control"
-                      value={formData.permanentBlockName || ''}
+                      value={formData.permanentBlockId || ''}
                       onChange={handleChange}
                       disabled={!isEditing || formData.sameAsPresent}
                     />
@@ -1166,7 +1189,8 @@ export default function UserProfilePage() {
                 <div className="text-right" style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #e5e5e5' }}>
                   <button
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={cancelEdit}
+                    disabled={submitting}
                     className="btn btn-default"
                     style={{ marginRight: '10px' }}
                   >

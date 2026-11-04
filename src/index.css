@@ -6,6 +6,9 @@
 @import "./styles/profile-pages.css";
 @import "./styles/portal-headings.css";
 @import "./styles/portal-reports.css";
+@import "./styles/auth-layout.css";
+@import "./styles/signup-page.css";
+@import "./styles/applicant-pagination.css";
 
 @theme {
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -51,4 +54,3 @@ button:not(:disabled), summary { cursor: pointer; }
   background-color: rgba(255, 255, 255, 0.25);
   pointer-events: none;
 }
-

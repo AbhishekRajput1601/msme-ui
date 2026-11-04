@@ -24,6 +24,44 @@
 .dtic-refresh:focus-visible { outline: 3px solid #f07e01; outline-offset: 3px; }
 .dtic-refresh:disabled { opacity: .65; cursor: wait; }
 
+/* DTIC table pagers use separate controls rather than joined Bootstrap borders. */
+.legacy-portal.dtic-portal .dtic-table-footer {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.legacy-portal.dtic-portal .dtic-table-footer .dataTables_paginate {
+  min-width: 0;
+  max-width: 100%;
+}
+.legacy-portal.dtic-portal .dtic-table-footer .pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  box-shadow: none;
+}
+.legacy-portal.dtic-portal .dtic-table-footer .pagination > li {
+  display: flex;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+}
+.legacy-portal.dtic-portal .dtic-table-footer .pagination > li > :is(button, span),
+.legacy-portal.dtic-portal .dtic-table-footer .pagination > li > button.dtic-pagination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  float: none;
+  margin: 0;
+  min-width: 36px;
+  height: 36px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
 .dtic-land-applicants button.dtic-pagination-button,
 .legacy-portal .dtic-table-footer .pagination > li > button.dtic-pagination-button {
   background: #3b82b8;

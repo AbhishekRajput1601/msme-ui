@@ -7,6 +7,18 @@ import Spinner from '../../components/loaders/Spinner'
 
 const actions = new Set(['/website/presignup', '/website/presignupauth', '/website/signup', '/website/resetpassword', '/website/login-through-mobile', '/website/login-through-mobileauth'])
 const messages = (doc, selector) => [...new Set([...doc.querySelectorAll(selector)].filter(node => !node.hidden && node.style.display !== 'none').map(node => node.textContent.trim()).filter(Boolean))]
+const signupLabels = {
+  firstName: 'First name',
+  middleName: 'Middle name',
+  lastName: 'Last name',
+  panNo: 'PAN number',
+  emailId: 'Email address',
+  mobileNumber: 'Mobile number',
+  username: 'Username',
+  password: 'Password',
+  confirmPassword: 'Confirm password',
+  captchaText: 'Security code',
+}
 
 export function parseAccountForm(html, url, fallbackAction) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
@@ -37,7 +49,7 @@ export function parseAccountForm(html, url, fallbackAction) {
   return { action, fields, errors, success, captcha: !!form.querySelector('img[src*="captcha"]'), submitLabel: form.querySelector('input[type="submit"]')?.value || form.querySelector('button[type="submit"]')?.textContent.trim() || 'Continue' }
 }
 
-export default function BackendAccountForm({ entry, fallbackAction, title }) {
+export default function BackendAccountForm({ entry, fallbackAction, title, variant = 'default' }) {
   const { locale } = useTranslation()
   const [form, setForm] = useState(null)
   const [values, setValues] = useState({})
@@ -104,25 +116,36 @@ export default function BackendAccountForm({ entry, fallbackAction, title }) {
     } finally { if (!controller.signal.aborted) setBusy(false) }
   }
 
-  return <section className="container account-form-page" aria-busy={busy}>
-    <h1>{title}</h1>
+  const isSignup = variant === 'signup'
+  return <section className={`container account-form-page${isSignup ? ' signup-form-page' : ''}`} aria-busy={busy}>
+    <div className="account-form-heading">
+      <span className="account-form-icon" aria-hidden="true"><i className="fa fa-user-plus" /></span>
+      <div>
+        <h1>{title}</h1>
+        {isSignup && <p>Register to access MPMSME online services and applications.</p>}
+      </div>
+    </div>
     <div ref={notice} tabIndex={-1}>
     </div>
+    {error && <div className="account-form-error" role="alert">{error}</div>}
     {busy && <Spinner />}
     {!form && !busy && <button type="button" onClick={() => setAttempt(value => value + 1)}>Retry</button>}
-    {form?.fields && <form onSubmit={submit}>
+    {form?.fields && <form className={isSignup ? 'signup-form' : ''} onSubmit={submit}>
       <fieldset disabled={busy}>
         {form.fields.map(field => {
           const props = { id: field.id, name: field.name, value: values[field.name] ?? '', onChange: event => setValues(previous => ({ ...previous, [field.name]: event.target.value })), required: field.required, readOnly: field.readOnly, maxLength: field.maxLength, className: 'form-control' }
           if (field.type === 'hidden' && field.name !== 'loginType') return <input key={field.id} type="hidden" name={field.name} value={values[field.name] || ''} />
-          return <div className="form-group" key={field.id}>
-            <label htmlFor={field.id}>{field.name === 'loginType' ? 'Account type' : field.label}</label>
+          const label = isSignup ? signupLabels[field.name] || field.label : field.name === 'loginType' ? 'Account type' : field.label
+          return <div className={`form-group${isSignup ? ` signup-field signup-field-${field.name}` : ''}`} key={field.id}>
+            <label htmlFor={field.id}>{label}{field.required && <span className="required-mark" aria-hidden="true"> *</span>}</label>
             {field.name === 'loginType' ? <select {...props}><option value="APPLICANT">Applicant</option><option value="DEPARTMENT">Department</option></select> : field.type === 'select' ? <select {...props}>{field.options.map(option => <option key={option.value} value={option.value} disabled={option.disabled}>{option.label}</option>)}</select> : field.type === 'textarea' ? <textarea {...props} /> : <input {...props} type={field.type} autoComplete={field.type === 'password' ? 'new-password' : undefined} />}
           </div>
         })}
-        {form.captcha && <div className="form-group"><img src={`${backendUrl('/website/captcha')}?refresh=${captchaVersion}`} alt="Verification code" /><button type="button" onClick={() => { setCaptchaVersion(value => value + 1); setValues(previous => ({ ...previous, captchaText: '' })) }}>Refresh verification code</button></div>}
-        {form.action === '/website/resetpassword' && <button className="btn btn-secondary mr-2" type="submit" value="send-otp">Send OTP</button>}
-        <button className="btn btn-primary" type="submit">{form.submitLabel}</button>
+        {form.captcha && <div className={`form-group signup-captcha${isSignup ? ' signup-field' : ''}`}><div className="captcha-preview"><img src={`${backendUrl('/website/captcha')}?refresh=${captchaVersion}`} alt="Verification code" /><button type="button" onClick={() => { setCaptchaVersion(value => value + 1); setValues(previous => ({ ...previous, captchaText: '' })) }} aria-label="Refresh verification code"><i className="fa fa-refresh" aria-hidden="true" /></button></div></div>}
+        <div className="account-form-actions">
+          {form.action === '/website/resetpassword' && <button className="btn btn-secondary mr-2" type="submit" value="send-otp">Send OTP</button>}
+          <button className="btn btn-primary" type="submit">{isSignup ? 'Create account' : form.submitLabel}</button>
+        </div>
       </fieldset>
     </form>}
     <p><Link to="/login">Return to login</Link></p>
