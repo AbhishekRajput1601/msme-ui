@@ -104,7 +104,7 @@ export default function SecretaryProgressPage() {
   return (
     <div id="page-wrapper" className="secretary-progress-page" style={{ padding: '15px' }}>
       <div className="panel panel-info">
-        <div className="panel-heading" style={{ overflow: 'hidden', lineHeight: '28px' }}>
+        <div className="panel-heading no-print" style={{ overflow: 'hidden', lineHeight: '28px' }}>
           <span>
             Financial Assistance &nbsp;&raquo;&nbsp;{' '}
             <a
@@ -133,7 +133,7 @@ export default function SecretaryProgressPage() {
 
         <div className="panel-body">
           {/* Print instruction bar */}
-          <div className="row" style={{ marginBottom: '15px' }}>
+          <div className="row no-print" style={{ marginBottom: '15px' }}>
             <div className="col-md-6 text-left">
               <div style={{ fontWeight: 'bold', color: '#c00', fontSize: '13px' }}>
                 Please click on Print Button for Printing of this Form.
@@ -229,7 +229,7 @@ export default function SecretaryProgressPage() {
               {/* Progress Details Table */}
               <div className="table-responsive">
                 <table
-                  className="table table-bordered table-striped"
+                  className="table table-bordered table-striped progress-details-table"
                   style={{ fontSize: '13px', marginBottom: 0 }}
                 >
                   <thead>
@@ -304,7 +304,7 @@ export default function SecretaryProgressPage() {
           )}
 
           {/* Bottom Back Button */}
-          <div className="text-center" style={{ marginTop: '15px' }}>
+          <div className="text-center no-print" style={{ marginTop: '15px' }}>
             <button
               type="button"
               className="btn btn-default"

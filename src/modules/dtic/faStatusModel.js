@@ -36,9 +36,9 @@ export async function loadFaStatusApplications(request, config, signal, { idFiel
   let pageLength = 0
   do {
     const data = await request('get', config.endpoint, { ...dticTableParams(config, { start, length: pageSize }), ...params }, signal)
-    if (signal.aborted) throw new Error('Request cancelled.')
-    const total = Number(data.iTotalDisplayRecords)
-    if (!Array.isArray(data.aaData) || data.iTotalDisplayRecords == null || !Number.isSafeInteger(total) || total < 0) {
+    if (signal?.aborted) throw new Error('Request cancelled.')
+    const total = Number(data?.iTotalDisplayRecords)
+    if (!Array.isArray(data?.aaData) || data.iTotalDisplayRecords == null || !Number.isSafeInteger(total) || total < 0) {
       throw new Error('Unable to load application status totals.')
     }
     expectedTotal = Math.max(expectedTotal, total)

@@ -2,6 +2,7 @@ import { installFinancialActions } from './generated/actions'
 import { createFinancialRequests, financialRequest, financialDocument, financialLink } from './financialService'
 import { filter } from '../industrial-unit/viewHelpers'
 import toast from '../../utils/toast'
+import { workflowSuccess } from '../department/workflowResponses'
 
 export function createFinancialState({ params, navigate, notify, signal, locale }) {
   const state = {params, locale, notify, initialized:new Set(), initializePerInstance:true, preserveHeading:true,
@@ -31,9 +32,10 @@ export function createFinancialState({ params, navigate, notify, signal, locale 
   }
   state.selectApplication=(id,selected)=>{state.IdList=selected?[...new Set([...state.IdList,id])]:state.IdList.filter(v=>v!==id);notify()}
   state.acceptApplication=async id=>{
-    state.saving=true;notify()
+    if(state.saving)return
+    state.saving=true;state.error='';notify()
     try{
-      state.responseObject=await financialRequest('post','updateStatus',new URLSearchParams({applicationId:id,status:'accepted'}),signal)
+      state.responseObject=workflowSuccess(await financialRequest('post','updateStatus',new URLSearchParams({applicationId:id,status:'accepted'}),signal))
       toast.success('Application accepted successfully.')
       state.listVersion++
     }

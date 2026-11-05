@@ -20,6 +20,7 @@ import {
 } from './secretaryService'
 import { toast } from '../../utils/toast'
 import Spinner from '../../components/loaders/Spinner'
+import { useSecretaryBatch } from './SecretaryWorkflowContext'
 import './secretary.css'
 
 export default function SecretaryBatchesPage() {
@@ -28,7 +29,7 @@ export default function SecretaryBatchesPage() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [batches, setBatches] = useState([])
-  const [activeBatch, setActiveBatch] = useState(null)
+  const [activeBatch, setActiveBatch] = useSecretaryBatch()
   const [responseObject, setResponseObject] = useState({ successMessage: null, errorMessage: null })
 
   // Assistance remark overlay state
@@ -60,7 +61,7 @@ export default function SecretaryBatchesPage() {
   }, [])
 
   useEffect(() => {
-    loadData()
+    return loadData()
   }, [loadData])
 
   // Open a batch and load its applications
@@ -146,6 +147,7 @@ export default function SecretaryBatchesPage() {
 
   // Forward Batch to LDM
   const submitBatch = async () => {
+    if (submitting) return
     const apps = (activeBatch && activeBatch.applications) || []
     if (apps.length === 0) {
       toast.warning('This batch has no applications.')

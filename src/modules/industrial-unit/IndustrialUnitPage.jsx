@@ -8,6 +8,7 @@ import { createIndustrialState } from './industrialUnitModel'
 import { getUnitData } from './industrialUnitService'
 import translations from './generated/translations.json'
 import Spinner from '../../components/loaders/Spinner'
+import toast from '../../utils/toast'
 import './generated/reference.css'
 import './industrial-unit.css'
 
@@ -61,6 +62,7 @@ function UnitContent({ route, id, establishmentType, locale }) {
       locale,
     })
     if (resolveIndustrialView(route) === 'infraDevelopmetForm') model.preserveHeading = true
+    model.toastStatusMessages = true
     setState(model)
 
     if (normalizedRoute === 'viewfadocumentsuploadunit') {
@@ -96,6 +98,14 @@ function UnitContent({ route, id, establishmentType, locale }) {
     return () => abort.abort()
   }, [normalizedRoute, id, establishmentType, locale, navigate, isQuery])
 
+  const errorMessage = state?.error || state?.responseObject?.errorMessage || state?.responseObject1?.errorMessage
+  const successMessage = state?.responseObject?.successMessage || state?.responseObject1?.successMessage
+  useEffect(() => {
+    if (state?.saving) return
+    if (errorMessage) toast.error(errorMessage)
+    else if (successMessage) toast.success(successMessage)
+  }, [state?.saving, errorMessage, successMessage])
+
   if (!state) {
     return (
       <div>
@@ -107,6 +117,7 @@ function UnitContent({ route, id, establishmentType, locale }) {
   return (
     <>
       {state.saving && <Spinner />}
+      {state.step === 3 && state.assistanceLoading && <p role="status">Loading available assistance schemes…</p>}
       {isQuery ? (
         <div className="panel panel-info">
           <div className="panel-heading text-center" style={{ textAlign: 'center' }}>

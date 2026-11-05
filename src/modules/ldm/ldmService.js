@@ -1,5 +1,7 @@
 import http, { get, post, download } from '../../api/httpClient'
 import { LDM, fillPath } from '../../api/endpoints'
+import { jsonData } from '../../api/responseData'
+import { workflowList, workflowSuccess } from '../department/workflowResponses'
 
 export const ldmLink = value => '/department/ldm/' + String(value).replace(/^#\/?/, '')
 export const ldmDocument = value => '/mpmsme/ldm/' + String(value).replace(/^\//, '')
@@ -10,7 +12,7 @@ export const ldmDocument = value => '/mpmsme/ldm/' + String(value).replace(/^\//
 export async function fetchApplications(search = '', signal) {
   const params = search ? { search } : {}
   const data = await get(LDM.FETCH_APPLICATIONS, params, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -19,7 +21,7 @@ export async function fetchApplications(search = '', signal) {
 export async function fetchBatches(search = '', signal) {
   const params = search ? { search } : {}
   const data = await get(LDM.FETCH_BATCHES, params, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -28,7 +30,7 @@ export async function fetchBatches(search = '', signal) {
 export async function fetchVerificationHistory(applicationNo, signal) {
   const url = fillPath(LDM.HISTORY, { applicationNo })
   const data = await get(url, {}, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -58,6 +60,8 @@ export function createLdmRequests(state, signal) {
     state.error = ''
     return chain(http({method, url:'/ldm/'+endpoint, signal, ...(method === 'get' ? value : {data:value})}).then(response => {
       if (typeof response.data === 'string' && /<html|<!doctype/i.test(response.data)) throw new Error('The server did not return LDM data. Please sign in again.')
+      response.data = method === 'post' ? workflowSuccess(response.data) : jsonData(response.data)
+      if (method === 'get' && /^(fetchApplications|fetchBatches|history|applicantAssistances)(\/|\?|$)/.test(endpoint)) response.data = workflowList(response.data)
       return response
     }))
   }]))

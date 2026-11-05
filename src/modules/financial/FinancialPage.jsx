@@ -20,6 +20,7 @@ import {rowRules} from './generated/rows'
 import {expressions} from './generated/expressions'
 import toast from '../../utils/toast'
 import Spinner from '../../components/loaders/Spinner'
+import { jsonData } from '../../api/responseData'
 import '../industrial-unit/industrial-unit.css'
 import '../dtic/dtic-page.css'
 import './generated/reference.css'
@@ -50,7 +51,7 @@ function Content({match,locale,query}){
   Object.assign(state,{viewBundle:views,expressionBundle:expressions,translations,tableBundle:tables,rowRules})
   async function load(){
    let name=route.views.at(-1)
-   if(route.views.length>1){const data=await financialRequest('get','fetchFAMSMEDetailUnitForSanction',{applicationId:params.applicationId},abort.signal);if(/institution/i.test(params.establishmentType||'') ? !!data?.applicationId : data?.meetingDate!=null)name=route.views[0]}
+   if(route.views.length>1){const data=jsonData(await financialRequest('get','fetchFAMSMEDetailUnitForSanction',{applicationId:params.applicationId},abort.signal));if(/institution/i.test(params.establishmentType||'') ? !!data?.applicationId : data?.meetingDate!=null)name=route.views[0]}
    if(reports[name]){state.reportName=name;state.reportConfig=reports[route.path==='detailList'?'detailList':name];state.renderTable=node=><FinancialReportTable name={name} node={node} state={state}/>}
    else if(tables[name])state.renderTable=node=>route.path==='dticfapendingapplicantsunit' && params.view==='statuses'
     ? <FaStatusApplications name={name} node={node} state={state} request={financialRequest}/>
@@ -84,5 +85,5 @@ function Content({match,locale,query}){
  if(error)return <div className="alert alert-danger" role="alert">{error}</div>
  if(!content)return <Spinner />
  const {state,name}=content
- return <div className="industrial-unit-page dtic-page financial-page">{(state.busy||state.saving)&&<Spinner />}<IndustrialView name={name} state={state}/></div>
+ return <div className="industrial-unit-page dtic-page financial-page">{(state.busy||state.saving)&&<Spinner />}{state.error&&<div className="alert alert-danger" role="alert">{state.error}</div>}<IndustrialView name={name} state={state}/></div>
 }

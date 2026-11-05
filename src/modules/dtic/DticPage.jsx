@@ -59,13 +59,10 @@ function DticContent({ match, locale, statusOverview }) {
     async function initialize() {
       let name = route.views.at(-1)
       if (route.views.length > 1) {
-        try {
-          const data = await dticRequest('get','fetchFAMSMEDetailUnitForSanction',{ applicationId:params.applicationId || params.applicationIds },abort.signal)
-          const hasDecision = route.path.startsWith('fazonal') ? data?.zonalMeetingDate != null : params.establishmentType?.toLowerCase() === 'institute' ? !!data?.applicationId : data?.meetingDate != null
-          if (hasDecision) name = route.views[0]
-        } catch {
-          // If fetch fails or no sanction data exists yet, remain on the primary view
-        }
+        const data = await dticRequest('get','fetchFAMSMEDetailUnitForSanction',{ applicationId:params.applicationId || params.applicationIds },abort.signal)
+        if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('The server did not return sanction details. Please retry.')
+        const hasDecision = route.path.startsWith('fazonal') ? data?.zonalMeetingDate != null : params.establishmentType?.toLowerCase() === 'institute' ? !!data?.applicationId : data?.meetingDate != null
+        if (hasDecision) name = route.views[0]
       }
       state.renderTable = tables[name] ? node => statusOverview && name === 'dtic/fapendingapplicantsunit'
         ? <FaStatusApplications name={name} node={node} state={state} />

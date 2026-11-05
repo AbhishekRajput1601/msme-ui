@@ -243,61 +243,54 @@ export default function SecretaryVerificationPage() {
             </div>
             <div className="panel-body">
               {/* Search filter row */}
-              <div className="row" style={{ marginBottom: '15px' }}>
-                <div className="col-md-6">
-                  <form onSubmit={handleSearch} className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search by application no / unit name"
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                    />
-                    <span className="input-group-btn">
-                      <button className="btn btn-default" type="submit" disabled={loading}>
-                        <i className="fa fa-search fa-fw" /> Search
-                      </button>
-                    </span>
-                  </form>
-                </div>
+              <div className="search-form-group">
+                <form onSubmit={handleSearch} className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search by application no / unit name"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                  />
+                  <span className="input-group-btn">
+                    <button className="btn btn-search" type="submit" disabled={loading}>
+                      Search
+                    </button>
+                  </span>
+                </form>
               </div>
 
               {/* Applications table */}
               <div className="table-responsive">
                 {loading && <Spinner />}
-                <table className="table table-striped table-bordered table-hover">
+                <table className="table verification-table">
                   <thead>
                     <tr>
-                      <th width="4%" style={{ textAlign: 'center' }}>
-                        <input
-                          type="checkbox"
-                          title="Select / Deselect all"
-                          checked={allEligibleSelected}
-                          onChange={(e) => handleSelectAll(e.target.checked)}
-                          disabled={applications.length === 0}
-                        />
+                      <th
+                        width="5%"
+                        style={{ textAlign: 'center', cursor: 'pointer' }}
+                        onClick={() => handleSelectAll(!allEligibleSelected)}
+                        title="Click to select / deselect all"
+                      >
+                        Select
                       </th>
-                      <th width="5%">S.No.</th>
-                      <th>Application No.</th>
-                      <th>Unit / Institution</th>
-                      <th>Application Date</th>
-                      <th>Status</th>
-                      <th width="24%">Remark</th>
-                      <th width="14%" style={{ textAlign: 'center' }}>
-                        Progress / Remarks
+                      <th width="5%" style={{ textAlign: 'center' }}>S.No.</th>
+                      <th width="16%">Application No.</th>
+                      <th width="16%">Unit / Institution</th>
+                      <th width="11%" style={{ textAlign: 'center' }}>
+                        Application<br />Date
+                      </th>
+                      <th width="13%" style={{ textAlign: 'center' }}>Status</th>
+                      <th width="21%" style={{ textAlign: 'center' }}>Remark</th>
+                      <th width="13%" style={{ textAlign: 'center' }}>
+                        Progress /<br />Remarks
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {false ? (
+                    {applications.length === 0 ? (
                       <tr>
                         <td colSpan="8" className="text-center" style={{ padding: '20px' }}>
-                          <Spinner />
-                        </td>
-                      </tr>
-                    ) : applications.length === 0 ? (
-                      <tr>
-                        <td colSpan="8" className="text-center">
                           No applications pending verification.
                         </td>
                       </tr>
@@ -306,7 +299,7 @@ export default function SecretaryVerificationPage() {
                         const processed = isProcessed(app)
                         return (
                           <tr key={app.applicationId || index}>
-                            <td align="center">
+                            <td className="cell-select">
                               <input
                                 type="checkbox"
                                 checked={!!app.selected}
@@ -314,60 +307,53 @@ export default function SecretaryVerificationPage() {
                                 onChange={() => handleToggleSelect(index)}
                               />
                             </td>
-                            <td>{index + 1}</td>
-                            <td>
-                              <b>{app.applicationId}</b>
+                            <td className="cell-sno">{index + 1}</td>
+                            <td className="cell-appno">
+                              {app.applicationId}
                             </td>
-                            <td>{app.unitOrInstName || '-'}</td>
-                            <td>{app.applicationDate || '-'}</td>
-                            <td>
-                              <span className="label label-info">{app.status || 'Meeting Agenda Generated'}</span>
+                            <td className="cell-unit">{app.unitOrInstName || '-'}</td>
+                            <td className="cell-date">{app.applicationDate || '-'}</td>
+                            <td className="cell-status">
+                              {app.status || 'Secratry Approval'}
                             </td>
                             <td>
-                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                              <div className="remark-input-group">
                                 <input
                                   type="text"
-                                  className="form-control input-sm"
                                   maxLength={2000}
                                   value={app.remark || ''}
                                   onChange={(e) => handleRemarkChange(index, e.target.value)}
                                   placeholder="Enter remark"
-                                  style={{ display: 'inline-block', width: '80%', marginRight: '6px' }}
                                 />
                                 <button
                                   type="button"
-                                  className="btn btn-default btn-sm"
+                                  className="btn-remark-edit"
                                   onClick={() => openRemarks(app)}
                                   title="Open remarks popup"
                                 >
-                                  <i className="fa fa-edit" />
+                                  <i className="fa fa-pencil-square-o" />
                                 </button>
                               </div>
                             </td>
-                            <td align="center">
+                            <td className="cell-actions">
                               <button
                                 type="button"
-                                className="btn btn-primary btn-xs"
+                                className="btn-view-app"
                                 onClick={() => viewDetail(app)}
                                 title="View full applicant details"
-                                style={{ marginBottom: '4px', color: '#ffffff' }}
                               >
-                                <i className="fa fa-eye" style={{ color: '#ffffff', marginRight: '3px' }} /> View
+                                <i className="fa fa-eye" /> View
                               </button>
-                              <br />
                               <button
                                 type="button"
-                                className="btn btn-link btn-xs"
-                                style={{ padding: 0, textDecoration: 'underline' }}
+                                className="action-link"
                                 onClick={() => viewProgress(app)}
                               >
                                 Progress Details
                               </button>
-                              <br />
                               <button
                                 type="button"
-                                className="btn btn-link btn-xs"
-                                style={{ padding: 0, textDecoration: 'underline' }}
+                                className="action-link"
                                 onClick={() => openHistory(app)}
                               >
                                 Remarks
@@ -383,19 +369,18 @@ export default function SecretaryVerificationPage() {
 
               {/* Action buttons */}
               {applications.length > 0 && (
-                <div className="text-center" style={{ marginTop: '20px' }}>
+                <div className="bottom-action-bar">
                   <button
                     type="button"
-                    className="btn btn-success"
+                    className="btn-submit-verify"
                     onClick={submitVerify}
                     disabled={submitting}
-                    style={{ marginRight: '10px' }}
                   >
                     {submitting ? <i className="fa fa-spinner fa-spin" /> : null} Submit (Verify)
                   </button>
                   <button
                     type="button"
-                    className="btn btn-warning"
+                    className="btn-query-raised"
                     onClick={submitQuery}
                     disabled={submitting}
                   >

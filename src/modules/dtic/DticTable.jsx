@@ -80,7 +80,7 @@ export function Cell({ markup, state, row, eligible }) {
     if (tag === 'input') {
       const id = row.applicationId || row.applicantId || row.requestId || ''
       return <input key={key} {...props} type="checkbox" aria-label={`Select ${id}`}
-        disabled={node.classList.contains('elig-gated') ? !eligible : node.hasAttribute('disabled')}
+        disabled={state.saving || (node.classList.contains('elig-gated') ? !eligible : node.hasAttribute('disabled'))}
         checked={Boolean(state.IdList?.includes(id))} onChange={e => state.selectApplication?.(id, e.target.checked)} />
     }
     if (tag === 'a') {

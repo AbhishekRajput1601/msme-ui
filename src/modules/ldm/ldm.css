@@ -1,19 +1,105 @@
-.legacy-portal.ldm-portal #sideNav {
+/* Scoped layout background when in LDM Portal */
+.legacy-portal.ldm-portal #sideNav,
+.legacy-portal #sideNav:has(.ldm-navigation) {
   background-color: #2b509a !important;
   background: #2b509a !important;
 }
-.ldm-navigation .nav {display:block;padding:0;margin:0}
-.ldm-navigation li {list-style:none;border-bottom:1px solid #ffffff30}
-.ldm-navigation a {display:block;padding:14px 18px;color:inherit;text-decoration:none}
-.ldm-navigation a:hover,.ldm-navigation a.active {background:#ffffff20}
-.legacy-portal .ldm-navigation .portal-menu-item > i.fa {width:1.28571429em;max-width:1.28571429em;flex:none;margin:3px 0 0;color:inherit}
+
+.legacy-portal .ldm-navigation {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.42857143 !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu li {
+  border-bottom: 1px solid #e7e7e7 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  padding: 10px 15px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link:hover,
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link:focus {
+  background: #f07e01 !important;
+  background-color: #f07e01 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link > i {
+  float: left !important;
+  min-height: 30px !important;
+  margin-right: 10px !important;
+  position: relative !important;
+  top: 3px !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  width: 16px !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link > span {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link.active,
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link[aria-current="page"],
+.legacy-portal .ldm-navigation #side-menu > .active > .ldm-menu-link {
+  background: #f07e01 !important;
+  background-color: #f07e01 !important;
+  color: #ffffff !important;
+}
+
+.legacy-portal .ldm-navigation #side-menu .ldm-menu-link:focus-visible {
+  outline: 2px solid white !important;
+  outline-offset: -3px !important;
+}
 .ldm-page {font-family:Arial,sans-serif;font-size:14px}
 .ldm-page #ldm-page-content {margin:0;padding:0;min-width:0}
 .ldm-page .panel-heading,.ldm-page .divheadertxt {background:var(--portal-primary,#337ab7);color:white}
 .ldm-page .panel-heading {padding:10px 15px}
 .ldm-page .panel-body {padding:15px;overflow-x:auto}
 .ldm-page .table {width:100%;margin-bottom:20px}
-.ldm-page .table th,.ldm-page .table td {padding:8px;vertical-align:top}
+.ldm-page .table th {
+  background-color: #245d8f !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  padding: 10px 8px !important;
+  border: 1px solid #1e4f7a !important;
+}
+.ldm-page .table td {padding:10px 8px !important;vertical-align:middle !important}
 .ldm-page .input-group {display:flex;flex-wrap:nowrap}
 .ldm-page .input-group .form-control {min-width:0}
 .ldm-page .btn {white-space:nowrap}

@@ -58,6 +58,9 @@ function Content({ match, locale }) {
 
     // Ensure back to batch list returns to batches view
     next.renderNode = node => {
+      if (node.attrs?.class?.includes('esignHtml')) return <div className="esignHtml">
+        {next.esignLetterHtml && <iframe title="Approval document preview" sandbox="" srcDoc={next.esignLetterHtml} style={{ width: '100%', height: 650, border: '1px solid #d1d5db' }} />}
+      </div>
       if (match.route.path.startsWith('detail/') && node.tag === 'span' && node.attrs?.class?.includes('pull-right')) return null
       if (node.click != null && /closeBatch/.test(String(expressions[node.click])))
         return <button type="button" className="btn btn-default btn-xs pull-right" onClick={() => { next.closeBatch(); next.notify() }}>← Back to batch list</button>

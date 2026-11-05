@@ -7,6 +7,8 @@
 
 import { get, post, download } from '../../api/httpClient'
 import { SECRETARY, fillPath } from '../../api/endpoints'
+import { workflowList, workflowSuccess } from '../department/workflowResponses'
+import { jsonData } from '../../api/responseData'
 
 /**
  * Fetch applications pending Secretary verification (status 20, mapped district).
@@ -18,7 +20,7 @@ import { SECRETARY, fillPath } from '../../api/endpoints'
 export async function fetchApplications(search = '', signal) {
   const params = search ? { search } : {}
   const data = await get(SECRETARY.FETCH_APPLICATIONS, params, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -29,7 +31,7 @@ export async function fetchApplications(search = '', signal) {
  * @returns {Promise<{successMessage?: string, errorMessage?: string}>}
  */
 export async function verifyApplications(actions, signal) {
-  return await post(SECRETARY.VERIFY, actions, { signal })
+  return workflowSuccess(await post(SECRETARY.VERIFY, actions, { signal }))
 }
 
 /**
@@ -40,7 +42,7 @@ export async function verifyApplications(actions, signal) {
  * @returns {Promise<{successMessage?: string, errorMessage?: string}>}
  */
 export async function queryApplications(actions, signal) {
-  return await post(SECRETARY.QUERY, actions, { signal })
+  return workflowSuccess(await post(SECRETARY.QUERY, actions, { signal }))
 }
 
 /**
@@ -53,7 +55,7 @@ export async function queryApplications(actions, signal) {
 export async function fetchVerificationHistory(applicationNo, signal) {
   const url = fillPath(SECRETARY.HISTORY, { applicationNo })
   const data = await get(url, {}, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -65,7 +67,7 @@ export async function fetchVerificationHistory(applicationNo, signal) {
  */
 export async function fetchApplicationDetail(applicationNo, signal) {
   const url = fillPath(SECRETARY.DETAIL_DATA, { applicationNo })
-  return await get(url, {}, { signal })
+  return jsonData(await get(url, {}, { signal }))
 }
 
 /**
@@ -90,7 +92,7 @@ export async function fetchDticEligible(applicationNo, signal) {
 export async function fetchApplicantAssistances(applicationNo, signal) {
   const url = fillPath(SECRETARY.APPLICANT_ASSISTANCES, { applicationNo })
   const data = await get(url, {}, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -103,7 +105,7 @@ export async function fetchApplicantAssistances(applicationNo, signal) {
 export async function fetchBatches(search = '', signal) {
   const params = search ? { search } : {}
   const data = await get(SECRETARY.FETCH_BATCHES, params, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**
@@ -115,7 +117,9 @@ export async function fetchBatches(search = '', signal) {
  */
 export async function fetchBatchDetail(batchId, signal) {
   const url = fillPath(SECRETARY.BATCH_DETAIL, { batchId })
-  return await get(url, {}, { signal })
+  const data = jsonData(await get(url, {}, { signal }))
+  if (String(data.batchId) !== String(batchId) || !Array.isArray(data.applications)) throw new Error('The server returned incomplete batch details. Please reload the batch.')
+  return data
 }
 
 /**
@@ -128,7 +132,7 @@ export async function fetchBatchDetail(batchId, signal) {
  */
 export async function submitSecretaryBatch(batchId, actions, signal) {
   const url = fillPath(SECRETARY.SUBMIT_BATCH, { batchId })
-  return await post(url, actions, { signal })
+  return workflowSuccess(await post(url, actions, { signal }))
 }
 
 /**
@@ -168,7 +172,7 @@ export async function downloadUploadedDoc(documentId, applicationNo, label) {
 export async function fetchProgressHistory(applicationNo, signal) {
   const url = fillPath(SECRETARY.PROGRESS_HISTORY, { applicationNo })
   const data = await get(url, {}, { signal })
-  return Array.isArray(data) ? data : []
+  return workflowList(data)
 }
 
 /**

@@ -24,6 +24,7 @@ export function createCollectorState({ params, navigate, notify, signal, locale,
     signOption: 'eSign',
   }
   Object.defineProperty(state, 'faActiveBatch', { get: () => batchCache.current, set: value => { batchCache.current = value } })
+  Object.defineProperty(state, 'collectorEsignApps', { get: () => batchCache.esignApps, set: value => { batchCache.esignApps = value } })
   const navigation = {
     open: path => window.open(collectorDocument(path), '_blank', 'noopener'),
     print: () => window.print(),
@@ -96,10 +97,21 @@ export function createCollectorState({ params, navigate, notify, signal, locale,
   }
 
   // Prevent multiple double submissions while busy
-  for (const name of ['submitBatch', 'approveBatch', 'approveBatchWithoutSign', 'reject', 'markPending', 'raiseQuery']) {
+  for (const name of ['submitBatch', 'approveBatch', 'approveBatchWithoutSign', 'reject', 'markPending', 'raiseQuery', 'eSignApprove', 'dscSign']) {
     const action = state[name]
     if (typeof action === 'function') {
-      state[name] = (...args) => { if (!state.busy) return action(...args) }
+      state[name] = (...args) => {
+        if (state.busy) return
+        try {
+          if (name === 'approveBatchWithoutSign' && (state.error || !state.esignReady || !state.batchPdfHtml?.trim())) throw new Error('Load and review the complete batch document before approving.')
+          if (name === 'approveBatch') {
+            const amounts = (state.activeBatch?.applications || []).flatMap(app => app.assistanceList?.length ? app.assistanceList.map(item => item.sanctionedAmount) : [app.sanctionedAmount])
+            if (amounts.some(value => value != null && value !== '' && !Number.isFinite(Number(value)))) throw new Error('Sanctioned amounts must be valid numbers.')
+          }
+          return action(...args)
+        }
+        catch (error) { state.busy = false; state.error = error.message; notify() }
+      }
     }
   }
 

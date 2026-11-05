@@ -207,23 +207,26 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
         if (!response.id) throw new Error('The server did not return an application ID.')
         state.faData.applicationId = response.id; state.responseObject = response
         state.step = 2; state.maxStep = Math.max(2, state.maxStep)
-        toast.success('Industrial profile details saved successfully.')
       })
     },
     addFaIndustrialUnitDetails(valid) {
+      if (state.saving) return
+      // Step 2 has one submit action: Save & Next (including keyboard submit).
+      state.setSaveAndNext()
       if (!state.validateUnit(valid) || !window.confirm('Are you sure you want to save the data?')) return
       return save(async () => {
+        state.responseObject = {}
         const unit = state.faData.faIndustrialUnitBean
         unit.applicationId = state.faData.applicationId; unit.schemeYear = state.schemeYear
-        state.responseObject = await post('fa/addFaIndustrialUnitDetails', unit)
+        const response = await post('fa/addFaIndustrialUnitDetails', unit)
+        if (!response.successMessage) throw new Error('The server did not confirm that the unit details were saved.')
         await upload('uploadFaIndustrialUnitDocument', Object.fromEntries(Object.entries(state.fileData).filter(([key]) => unitFiles.has(key) && (key !== 'employmentGivenUpload' || state.schemeYear === '2021') && (key !== 'schemeDocUpload' || state.schemeYear === '2025'))))
-        try {
-          await state.fetchAppliedAssistanceList(state.faData.unitName, unit.unitType)
-        } catch (e) {
-          console.warn('fetchAppliedAssistanceList failed', e)
-        }
-        if (state.saveAndNext) { state.step = 3; state.maxStep = Math.max(3,state.maxStep) }
-        toast.success('Industrial unit details saved successfully.')
+        state.responseObject = response
+        state.step = 3; state.maxStep = Math.max(3,state.maxStep)
+        // This lookup populates Step 3; it must not hold successful saves on Step 2.
+        state.assistanceLoading = true
+        void state.fetchAppliedAssistanceList(state.faData.unitName, unit.unitType)
+          .finally(() => { if (!signal.aborted) { state.assistanceLoading = false; refresh() } })
       })
     },
     addFaIndustrialSchemeDetails: valid => saveScheme(valid, false),
@@ -273,8 +276,6 @@ export function createIndustrialState({ params, navigate, notify, signal, locale
         state.responseObject = await post('fa/addFaIndustrialSchemeDetails', { ...scheme, statusId: finalStatus })
         toast.success('Application submitted successfully!')
         navigate('/applicant/financial-assistance')
-      } else {
-        toast.success('Scheme details saved successfully.')
       }
     })
   }

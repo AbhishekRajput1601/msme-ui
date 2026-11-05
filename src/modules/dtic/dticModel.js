@@ -165,28 +165,43 @@ export function createDticState({ params, navigate, notify, signal, locale, cont
       else throw new Error('Unrecognized DTIC action: ' + action)
     },
     async selectApplication(id, selected) {
+      if (state.saving) return
       if (!selected) { state.IdList = state.IdList.filter(value => value !== id); notify(); return }
+      const previousSelection = [...state.IdList]
       if (!state.IdList.includes(id)) state.IdList.push(id)
+      notify()
       await perform(async () => {
-        const previous = await dticRequest('get', 'getPreviousApplicationData', { applicationId: id }, signal)
-        if (!Array.isArray(previous)) throw new Error('The server returned invalid application history.')
-        if (previous.length) state.IdList = previous.map(row => row.applicationId)
-        state.agendaRows = previous.length ? await dticRequest('get', 'agendaRows', { applicationIds: state.IdList.join(',') }, signal) : []
-        state.agendaOpen = true
+        try {
+          const rows = await dticRequest('get', 'agendaRows', { applicationIds: state.IdList.join(',') }, signal)
+          if (!Array.isArray(rows) || !rows.length) throw new Error('The server returned no agenda details for the selected applications.')
+          state.agendaRows = rows
+          state.agendaOpen = true
+        } catch (error) {
+          state.IdList = previousSelection
+          state.agendaRows = []
+          state.agendaOpen = false
+          throw error
+        }
       })
     },
     acceptApplication: id => perform(async () => {
       const response = await dticRequest('post', 'updateStatus', new URLSearchParams({ applicationId: id, status: 'accepted' }), signal)
-      if (!response.successMessage) throw new Error('The server did not confirm application acceptance.')
-      state.responseObject = response; state.listVersion++
+      if (!response?.successMessage) throw new Error('The server did not confirm application acceptance. Refresh the list before retrying.')
+      const successMsg = response.successMessage
+      state.responseObject = response
+      state.listVersion++
+      toast.success(successMsg)
     }),
     forwardBatch: ({ appData, letterNo, date, file }) => perform(async () => {
+      if (!state.IdList.length || !letterNo?.trim() || !(file instanceof File) || !file.size || !/\.pdf$/i.test(file.name)) throw new Error('Select applications, enter the covering letter number, and attach a non-empty PDF.')
+      if (!Array.isArray(appData) || state.IdList.some(id => !appData.some(row => String(row.applicationNo) === String(id) && row.gmRemark?.trim()))) throw new Error('A GM DTIC remark is required for every selected application.')
       const body = new FormData()
       for (const [key, value] of Object.entries({ applicationIds: state.IdList.join(','), establishmentType: 'Unit', coveringLetterNo: letterNo, coveringLetterDate: date, coveringLetter: file, appData: JSON.stringify(appData) })) body.append(key, value)
       const response = await dticRequest('post', 'forwardBatch', body, signal)
-      if (!response.successMessage) throw new Error('Could not create batch.')
+      if (!response?.successMessage) throw new Error('The server did not confirm batch creation. Check the batch list before retrying.')
       state.responseObject = { successMessage: `Batch ${response.successMessage} created and forwarded to Secretary.` }
       state.agendaOpen = false; state.IdList = []; state.listVersion++
+      return true
     }),
     downloadAction(action, id) {
       const types = { downloadDLCLetter: 'FA_UNIT_COMMITTEE_NOTESHEET', downloadRejectionLetter: 'FA_UNIT_ZONAL_NOTESHEET', downloadSanctionDocuments: 'FA_ACCEPTANCE_LETTER_RELEASED', downloadZonalDecisionLetter: 'FA_ACCEPTANCE_LETTER_RELEASED', downloadDisbursementLetter: 'FA_DISBURSEMENT_LETTER_RELEASED' }

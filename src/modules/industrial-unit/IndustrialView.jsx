@@ -99,6 +99,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
     })
   }
   if (node.if != null && !evaluate(node.if, s)) return null
+  if (root.toastStatusMessages && node.if != null && /responseObject(?:1)?\.(?:successMessage|errorMessage)/.test(String((root.expressionBundle || expressions)[node.if]))) return null
   const attrs = Object.fromEntries(Object.entries(node.attrs || {}).map(([key,value]) => [names[key] || key, interpolate(value, s)]))
   for (const key of booleans) if (key in attrs) attrs[key] = true
   for (const key of ['disabled','required','checked','value']) if (node[key] != null) attrs[key] = evaluate(node[key], s) ?? (key === 'value' ? '' : false)

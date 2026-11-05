@@ -1589,13 +1589,13 @@ state.onIndustryTypeSelected = function() {
 	};
 
 state.onProductNameChange = function(index) {
-						
-					if(null!= state.faData.faIndustrialUnitBean.unitProductDetailsBeans[index].productName)
-						if(state.faData.schemeYear == '2021')
-							state.faData.faIndustrialUnitBean.unitExpansionDetailsBeans[index+2].description='Annual Capacity of Product - ' + state.faData.faIndustrialUnitBean.unitProductDetailsBeans[index].productName;
-						else if(state.faData.schemeYear == '2025')
-							state.faData.faIndustrialUnitBean.unitExpansionDetailsBeans[index+3].description='Annual Capacity of Product - ' + state.faData.faIndustrialUnitBean.unitProductDetailsBeans[index].productName;
-					};
+  const unit = state.faData.faIndustrialUnitBean;
+  const product = unit?.unitProductDetailsBeans?.[index];
+  const offset = String(state.faData.schemeYear) === '2021' ? 2 : String(state.faData.schemeYear) === '2025' ? 3 : null;
+  const row = offset == null ? null : unit?.unitExpansionDetailsBeans?.[Number(index) + offset];
+  // New units and partial drafts need not have expansion rows.
+  if (product?.productName != null && row) row.description = 'Annual Capacity of Product - ' + product.productName;
+};
 
 state.removeFaChoice = function(index) {
 		

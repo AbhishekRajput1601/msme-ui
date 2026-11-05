@@ -155,7 +155,7 @@ export default function ChangePasswordPage({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!otp || otp.length < 4) {
+    if (!/^\d{6}$/.test(otp)) {
       toast.warning(hindi ? 'कृपया 6-अंकीय ओटीपी दर्ज करें।' : 'Please enter the 6-digit OTP.')
       return
     }

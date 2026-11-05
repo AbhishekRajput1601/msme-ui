@@ -1,7 +1,9 @@
 // Generated from CollectorController.js and FaViewController.js.
+import { createCollectorHelpers } from '../collectorHelpers.js'
 const each = (items, fn) => Object.entries(items || {}).forEach(([k,v]) => fn(v,k));
 const $sce = { trustAsHtml: x => x };
 export function installCollectorActions(state, {request, navigation, loading, params, later}) {
+const { postDecision, buildBean, submitGateway } = createCollectorHelpers(state, {request, loading, later});
 state.loadApplications = function() {
 		loading.start('sample-1');
 		var url = 'fetchApplications';
@@ -465,9 +467,7 @@ state.eSignApprove = function() {
 				alert('Unable to initiate eSign. Please try again.');
 				return;
 			}
-			$('#msg').val(data.eHastaksharHiddenInputTAG);
-			$('#ICGForm').attr('action', data.aspUrl);
-			$('#ICGForm').submit();     
+			submitGateway(data);
 		}).error(function() {
 			loading.finish('sample-1');
 			alert('Unable to initiate eSign. Please try again.');

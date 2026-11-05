@@ -16,6 +16,7 @@ import LdmSidebar from '../modules/ldm/LdmSidebar'
 import CollectorSidebar from '../modules/collector/CollectorSidebar'
 import { CollectorWorkflowProvider } from '../modules/collector/CollectorPage'
 import { LdmWorkflowProvider } from '../modules/ldm/LdmPage'
+import { SecretaryWorkflowProvider } from '../modules/secretary/SecretaryWorkflowContext'
 
 export default function DepartmentLayout() {
   const { roles } = useAuth()
@@ -104,7 +105,7 @@ export default function DepartmentLayout() {
   const isSecretary = roles.some(role => role === 'ROLE_SECRETARY' || role === 'SECRETARY') || location.pathname.startsWith('/department/secretary')
 
   return (
-    <CollectorWorkflowProvider><LdmWorkflowProvider><AuthenticatedLayout
+    <SecretaryWorkflowProvider><CollectorWorkflowProvider><LdmWorkflowProvider><AuthenticatedLayout
       sidebarItems={sidebarItems}
       renderSidebar={
         (roles.some(role => role === 'ROLE_COLLECTOR' || role === 'COLLECTOR') || location.pathname.startsWith('/department/collector')) && location.pathname.startsWith('/department/collector')
@@ -126,6 +127,6 @@ export default function DepartmentLayout() {
           {officerRoleName}
         </span>
       }
-    /></LdmWorkflowProvider></CollectorWorkflowProvider>
+    /></LdmWorkflowProvider></CollectorWorkflowProvider></SecretaryWorkflowProvider>
   )
 }
