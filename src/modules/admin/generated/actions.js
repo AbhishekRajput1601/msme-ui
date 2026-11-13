@@ -4030,8 +4030,7 @@ state.saveOX1Form = function(isValid) {
 
 				    	if (confirm("Are you sure you want to save the data?")) {
 				    		loading.start('sample-1');
-				    		if(null!=document.getElementById("submitBtn"))
-								document.getElementById("submitBtn").disabled=true;
+
 				    		var responsePromise = request.post('saveOX1Form', state.ox1Data);
 
 				    		responsePromise
@@ -4044,8 +4043,7 @@ state.saveOX1Form = function(isValid) {
 				    							state.responseObject.successMessage = null;
 				    						}, 10000);
 				    				navigation.location.href = '#editOx1FormAdmin';
-				    				if(null!=document.getElementById("submitBtn"))
-				    					document.getElementById("submitBtn").disabled=true;
+
 				    				loading.finish('sample-1');
 				    			}
 
@@ -4060,8 +4058,7 @@ state.saveOX2Form = function(isValid) {
 
 				    	if (confirm("Are you sure you want to save the data?")) {
 				    		loading.start('sample-1');
-				    		if(null!=document.getElementById("submitBtn"))
-								document.getElementById("submitBtn").disabled=true;
+
 				    		var responsePromise = request.post('saveOX2Form', state.ox2Data);
 
 				    		responsePromise
@@ -4074,8 +4071,7 @@ state.saveOX2Form = function(isValid) {
 				    							state.responseObject.successMessage = null;
 				    						}, 10000);
 				    				navigation.location.href = '#editOx2FormAdmin';
-				    				if(null!=document.getElementById("submitBtn"))
-				    					document.getElementById("submitBtn").disabled=true;
+
 				    				loading.finish('sample-1');
 				    			}
 
@@ -4089,8 +4085,7 @@ state.saveOX3Form = function(isValid) {
 
 						if (confirm("Are you sure you want to save the data?")) {
 						loading.start('sample-1');
-						if(null!=document.getElementById("submitBtn"))
-							document.getElementById("submitBtn").disabled=true;
+
 						var responsePromise = request.post('saveOX3Form', state.ox3Data);
 
 						responsePromise
@@ -4103,8 +4098,7 @@ state.saveOX3Form = function(isValid) {
 													state.responseObject.successMessage = null;
 												}, 10000);
 										navigation.location.href = '#editOx3FormAdmin';
-										if(null!=document.getElementById("submitBtn"))
-											document.getElementById("submitBtn").disabled=true;
+
 										loading.finish('sample-1');
 									}
 									
@@ -4118,8 +4112,7 @@ state.saveOX4Form = function(isValid) {
 
 						if (confirm("Are you sure you want to save the data?")) {
 							loading.start('sample-1');
-							if(null!=document.getElementById("submitBtn"))
-								document.getElementById("submitBtn").disabled=true;
+
 							var responsePromise = request.post('saveOX4Form', state.ox4Data);
 
 							responsePromise
@@ -4132,8 +4125,7 @@ state.saveOX4Form = function(isValid) {
 												state.responseObject.successMessage = null;
 											}, 10000);
 									navigation.location.href = '#editOx4FormAdmin';
-									if(null!=document.getElementById("submitBtn"))
-										document.getElementById("submitBtn").disabled=true;
+
 									loading.finish('sample-1');
 								}
 							});
@@ -4870,7 +4862,7 @@ state.fetchDistrictFacilityTypeSummaryDashboardAdmin = function(type) {
 				config) {
 			state.districtFacilityTypeBeans = data;
 			if(null!= state.districtFacilityTypeBeans){
-				var districtFacilityTypeBean=state.districtFacilityTypeBeans[0];
+				var districtFacilityTypeBean=state.districtFacilityTypeBeans[0] || {};
 				
 				state.totalSuppliedGovtMedicalCollege=districtFacilityTypeBean.totalSuppliedGovtMedicalCollege;
 				state.totalSuppliedPvtMedicalCollege=districtFacilityTypeBean.totalSuppliedPvtMedicalCollege;
@@ -5201,8 +5193,7 @@ state.saveTankerMgmtForm = function(isValid) {
 
 		    	if (confirm("Are you sure you want to save the data?")) {
 		    		loading.start('sample-1');
-		    		if(null!=document.getElementById("submitBtn"))
-						document.getElementById("submitBtn").disabled=true;
+
 		    		var responsePromise = request.post('saveTankerMgmtForm', state.tankerMgmtData);
 
 		    		responsePromise
@@ -5215,8 +5206,7 @@ state.saveTankerMgmtForm = function(isValid) {
 		    							state.responseObject.successMessage = null;
 		    						}, 10000);
 		    				navigation.location.href = '#tankerDetailsEntryFormAdmin';
-		    				if(null!=document.getElementById("submitBtn"))
-		    					document.getElementById("submitBtn").disabled=true;
+
 		    				loading.finish('sample-1');
 		    			}
 

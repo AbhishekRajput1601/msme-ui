@@ -1,4 +1,15 @@
 import http, { download } from '../../api/httpClient'
+import { jsonData } from '../../api/responseData'
+import { workflowSuccess } from '../department/workflowResponses'
+
+export function validateAdminResponse(data, method, endpoint) {
+  if (typeof data === 'string' && /<html|<!doctype|id=["']loginForm/i.test(data)) throw new Error('The server did not return admin data. Please sign in again.')
+  if (data == null) throw new Error('The server returned no admin data. Please retry.')
+  if (typeof data === 'object') jsonData(data)
+  const deleting = endpoint.split('?')[0].split('/').some(part => /^delete/i.test(part))
+  if (method.toLowerCase() === 'post' || deleting) return workflowSuccess(data)
+  return data
+}
 
 export const adminLink = value => {
   const raw = String(value || '')
@@ -23,8 +34,7 @@ export function adminApiPath(endpoint) {
 
 export async function adminRequest(method, endpoint, data, signal) {
   const response = await http({ method, url: adminApiPath(endpoint), ...(method === 'get' ? { params: data } : { data }), signal })
-  if (typeof response.data === 'string' && /<html|<!doctype/i.test(response.data)) throw new Error('The server did not return admin data. Please sign in again.')
-  return response.data
+  return validateAdminResponse(response.data, method, endpoint)
 }
 
 export function createAdminRequests(state, signal) {
@@ -38,6 +48,7 @@ export function createAdminRequests(state, signal) {
       }
     })
     return {
+      finally: fn => chain(promise.finally(fn)),
       success: fn =>
         chain(
           promise.then(response => {
@@ -92,28 +103,27 @@ export function createAdminRequests(state, signal) {
       const url = resolveUrl(endpoint)
       return chain(
         http({ method: 'get', url, signal, ...config }).then(response => {
-          if (typeof response.data === 'string' && /<html|<!doctype/i.test(response.data) && !url.includes('Html')) {
-            throw new Error('The server did not return valid admin data. Please sign in again.')
-          }
+          response.data = validateAdminResponse(response.data, 'get', url)
           return response
         })
       )
     },
     post: (endpoint, data, config = {}) => {
       state.error = ''
+      state.responseObject = {}
+      state.saving = true
+      state.notify()
       const url = resolveUrl(endpoint)
-      const headers = config?.headers || {}
+      const headers = { ...config?.headers }
       if (data instanceof FormData) {
         // Axios handles multipart boundaries automatically
         delete headers['Content-Type']
       }
       return chain(
         http({ method: 'post', url, data, signal, ...config, headers }).then(response => {
-          if (typeof response.data === 'string' && /<html|<!doctype/i.test(response.data) && !url.includes('Html')) {
-            throw new Error('The server did not return valid admin data. Please sign in again.')
-          }
+          response.data = validateAdminResponse(response.data, 'post', url)
           return response
-        })
+        }).finally(() => { state.saving = false; if (!signal?.aborted) state.notify() })
       )
     },
   }

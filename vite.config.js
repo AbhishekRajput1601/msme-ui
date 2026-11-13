@@ -83,7 +83,7 @@ export default defineConfig({
         rewrite: path => `/mpmsme${path}`,
         bypass: (req) => {
           const url = req.url || ''
-          if (url.includes('diary-calendar') || url.includes('emblem') || url.includes('minister') || url.includes('tree-logo') || url.includes('hero-slider')) return url
+          if (url.split('?')[0] === '/img/gallery-meeting.jpg' || url.includes('diary-calendar') || url.includes('emblem') || url.includes('minister') || url.includes('tree-logo') || url.includes('hero-slider')) return url
           return null
         },
       },

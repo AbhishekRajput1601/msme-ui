@@ -24,8 +24,10 @@ function run(id, s, root) {
 }
 
 function validation(form, root, submitted = true) {
-  const previous = root[form.name || 'form']
-  const state = { ...previous, $submitted: submitted || root[form.name || 'form']?.$submitted || false, $valid: true, $invalid: false, $error: {} }
+  // A control named "name" shadows HTMLFormElement.name (Admin reset form).
+  const formName = form.getAttribute('name') || 'form'
+  const previous = root[formName]
+  const state = { ...previous, $submitted: submitted || previous?.$submitted || false, $valid: true, $invalid: false, $error: {} }
   for (const el of form.elements) {
     // Legacy templates keep conditional controls in the DOM through ng-show.
     // React hides those sections with display:none, but native validity still
@@ -40,7 +42,7 @@ function validation(form, root, submitted = true) {
   state.$invalid = !state.$valid
   state.$setUntouched = () => { for (const field of Object.values(state)) if (field && typeof field === 'object' && '$touched' in field) field.$touched = false }
   state.$setPristine = () => { state.$submitted = false; state.$pristine = true; state.$dirty = false }
-  root[form.name || 'form'] = state
+  root[formName] = state
   return state
 }
 

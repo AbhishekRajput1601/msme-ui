@@ -1,3 +1,4 @@
+import TableViewport from '../../components/tables/TableViewport'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getUnitData } from './industrialUnitService'
@@ -89,10 +90,10 @@ export default function IndustrialUnitList() {
               <input className="form-control input-sm" style={{ display: 'inline-block', width: 'auto', height: '30px', padding: '2px 8px' }} value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} />
             </label>
           </div>
-          <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={loading}>
+          <TableViewport loading={loading} resetKey={length}><table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={loading}>
             <thead><tr>{['Application Id', 'Application Date', 'Establishment Type', 'Establishment Name', 'Status', 'Action'].map(label => <th key={label}>{label}</th>)}</tr></thead>
             <tbody>{rows.map(row => <tr key={row.applicationId}><td>{row.applicationId}</td><td>{row.submittedOn || ''}</td><td>{row.establishmentType}</td><td>{row.unitOrInstName}</td><td>{row.status}</td><td><div className="action-buttons">{applicationActions(row).map((action, index) => <span key={action.label}>{index > 0 && ' | '}{action.to ? <Link className="blue" to={action.to}>{action.label}</Link> : <a className="blue" href={action.href} target="_blank" rel="noreferrer">{action.label}</a>}</span>)}</div></td></tr>)}{!rows.length && <tr><td colSpan={6} style={{ textAlign: 'center' }}>{loading ? 'Processing...' : error ? <span>Applications could not be loaded. <button type="button" className="btn btn-default btn-xs" onClick={() => setRetry(v => v + 1)} style={{ marginLeft: '8px' }}>Retry</button></span> : 'No data available in table'}</td></tr>}</tbody>
-          </table>
+          </table></TableViewport>
           <div className="industrial-table-controls">
             <span>Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries</span>
             <div className="pagination" style={{ margin: 0 }}>

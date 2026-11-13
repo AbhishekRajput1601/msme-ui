@@ -1,3 +1,4 @@
+import TableViewport from './TableViewport'
 /**
  * DataTable.jsx
  * ─────────────────────────────────────────────────────────────────────────────
@@ -13,7 +14,7 @@
  *  • Accessible table semantics (scope, aria-sort, aria-label)
  */
 
-import React from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import Button from '../ui/Button'
 
 export default function DataTable({
@@ -39,6 +40,12 @@ export default function DataTable({
   headerActions,
   className = '',
 }) {
+  const previousData = useRef({ data, totalCount })
+  useLayoutEffect(() => {
+    if (!loading) previousData.current = { data, totalCount }
+  }, [loading, data, totalCount])
+  const displayedData = loading ? previousData.current.data : data
+  if (loading) totalCount = previousData.current.totalCount
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
   const startRecord = totalCount === 0 ? 0 : (page - 1) * pageSize + 1
   const endRecord = Math.min(totalCount, page * pageSize)
@@ -129,7 +136,7 @@ export default function DataTable({
 
       {/* Table view */}
       {!error && (
-        <div className="overflow-x-auto">
+        <TableViewport loading={loading} resetKey={pageSize}><div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-gray-600 border-collapse">
             <thead className="bg-gray-50 text-[11px] uppercase tracking-wider text-gray-600 font-semibold border-b border-gray-200">
               <tr>
@@ -192,7 +199,7 @@ export default function DataTable({
 
             <tbody className="divide-y divide-gray-100">
               {/* Loading Skeletons */}
-              {loading &&
+              {loading && !displayedData.length &&
                 Array.from({ length: pageSize || 5 }).map((_, rIdx) => (
                   <tr key={`skeleton-${rIdx}`} className="animate-pulse bg-white">
                     {columns.map((col, cIdx) => (
@@ -225,8 +232,7 @@ export default function DataTable({
               )}
 
               {/* Data Rows */}
-              {!loading &&
-                data.map((row, rowIdx) => (
+              {displayedData.map((row, rowIdx) => (
                   <tr
                     key={row.id || rowIdx}
                     className="hover:bg-indigo-50/30 transition-colors duration-100"
@@ -249,7 +255,7 @@ export default function DataTable({
                 ))}
             </tbody>
           </table>
-        </div>
+        </div></TableViewport>
       )}
 
       {/* Pagination Footer */}

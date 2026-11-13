@@ -42,7 +42,17 @@ export default function PublicContentPage() {
     params.set('language', locale === 'hi' ? 'hi_IN' : 'en_US')
     const url = `${backendUrl(`/website/${encodeURIComponent(page)}`)}?${params}`
     setResult({ loading: true })
-    fetch(url, { credentials: 'include', signal: controller.signal })
+    const load = async () => {
+      if (page === 'search') {
+        const bootstrap = await fetch(backendUrl('/website/auth-bootstrap'), { credentials: 'include', signal: controller.signal })
+        if (!bootstrap.ok) throw new Error('Search could not be initialized. Please retry.')
+        const data = await bootstrap.json()
+        if (!data.csrfPreventionSalt) throw new Error('Search could not be initialized. Please retry.')
+        params.set('csrfPreventionSalt', data.csrfPreventionSalt)
+      }
+      return fetch(`${backendUrl(`/website/${encodeURIComponent(page)}`)}?${params}`, { credentials: 'include', signal: controller.signal })
+    }
+    load()
       .then(async response => {
         if (!response.ok) throw new Error(`Content could not be loaded (${response.status}). Please try again.`)
         return parsePublicContent(await response.text(), new URL(url, window.location.origin).href)

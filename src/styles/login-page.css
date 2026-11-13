@@ -81,9 +81,9 @@
   .legacy-public.login-layout .footer-copy { flex-direction: row; flex-wrap: wrap; gap: 3px 8px; }
   .legacy-public.login-layout .footer-right-col { width: 100%; justify-content: space-between; }
   .legacy-public.login-layout .footer-social-icons a { width: 22px; height: 22px; font-size: 11px; }
-  .legacy-public.login-layout .side-diary-tab { width: auto; height: 180px; right: -140px; top: 120px; }
+  .legacy-public.login-layout .side-diary-tab { width: auto; height: 140px; right: -100px; top: 120px; }
   .legacy-public.login-layout .side-diary-tab:hover, .legacy-public.login-layout .side-diary-tab:focus-visible { right: 0; }
-  .legacy-public.login-layout .side-diary-tab__card, .legacy-public.login-layout .side-diary-tab__card img { width: 140px; height: 180px; }
+  .legacy-public.login-layout .side-diary-tab__card, .legacy-public.login-layout .side-diary-tab__card img { width: 100px; height: 140px; }
   .legacy-public.login-layout .side-diary-tab__label { min-height: 0; height: auto; }
 }
 

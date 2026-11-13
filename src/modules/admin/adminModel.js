@@ -119,10 +119,26 @@ export function createAdminState({ params = {}, navigate, notify = () => {}, sig
 
   // Install statically compiled controller actions
   installAdminActions(state, adapters)
+  for (const [name, action] of Object.entries(state)) {
+    if (typeof action !== 'function' || !/^(update|insert|save|delete|add|changePassword)/.test(name) || !/request\s*\.\s*(post|get)/.test(String(action))) continue
+    // Some legacy loaders replace their save handler after loading a record.
+    // Keep the submission guard when that handler is reassigned.
+    const guarded = fn => (...args) => {
+      if (state.saving || state.busy) return
+      return fn(...args)
+    }
+    let handler = guarded(action)
+    Object.defineProperty(state, name, {
+      enumerable: true,
+      configurable: true,
+      get: () => handler,
+      set: fn => { handler = guarded(fn) },
+    })
+  }
 
   // These legacy actions invoked page-local jQuery DataTables functions.
   // React owns fetching, filtering and pagination through DticTable instead.
-  for (const name of ['loadHoList', 'loadofficerList', 'loadzonalList', 'loaddticList', 'loadapplicantList', 'loadofficeList', 'loadExternalOfficerList', 'loadSupplierNameListAdmin', 'loadSupplyNameListAdmin', 'loadTankerList', 'loadSupplySourceList', 'loadTankerSupplierNameList', 'loadUserList']) {
+  for (const name of ['loadHoList', 'loadofficerList', 'loadzonalList', 'loaddticList', 'loadapplicantList', 'loadofficeList', 'loadExternalOfficerList', 'loadSupplierNameListAdmin', 'loadSupplierListAdmin', 'loadSupplyNameListAdmin', 'loadTankerList', 'loadSupplySourceList', 'loadTankerSupplierNameList', 'loadUserList']) {
     state[name] = () => { state.listVersion++; state.busy = false; notify() }
   }
   state.inlineAction = action => {
@@ -149,6 +165,7 @@ export function createAdminState({ params = {}, navigate, notify = () => {}, sig
   }
 
   state.prepareElement = (attrs, node) => {
+    if (attrs.id === 'submitBtn') attrs.disabled = Boolean(attrs.disabled || state.busy || state.saving)
     if (
       node.attrs?.href?.some?.(
         part => typeof part === 'string' && part.includes('javascript:history.back()')

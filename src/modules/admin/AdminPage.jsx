@@ -97,10 +97,11 @@ function AdminContent({ match, locale }) {
   if (!state) return <Spinner fullScreen />
 
   const viewName = match.route.views[0]
+  const isOxygenPage = /^(?:admuser\/)?(?:dashboard[^/]*|(?:edit)?ox[1-4]FormAdmin)$/i.test(viewName)
 
   return (
-    <div className="admin-page dtic-page">
-      {state.busy && <Spinner />}
+    <div className={`admin-page dtic-page${isOxygenPage ? ' admin-oxygen-page' : ''}`}>
+      {(state.busy || state.saving) && <Spinner />}
       {state.error && (
         <div role="alert" className="alert alert-danger" style={{ margin: '15px 0' }}>
           <strong>Error: </strong>

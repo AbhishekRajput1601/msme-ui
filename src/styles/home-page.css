@@ -353,16 +353,16 @@
 /* ─── Fixed Side Diary / Calendar 2026 Tab ─── */
 .legacy-public .side-diary-tab {
   position: fixed;
-  right: -202px;
+  right: -120px;
   top: 140px;
   display: flex;
   align-items: stretch;
   z-index: 1000;
   text-decoration: none;
   cursor: pointer;
-  transition: right 0.3s ease;
-  box-shadow: -4px 4px 14px rgba(0, 0, 0, 0.25);
-  border-radius: 6px 0 0 6px;
+  transition: right 0.25s ease;
+  box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px 0 0 4px;
   overflow: hidden;
   padding: 0;
   writing-mode: horizontal-tb;
@@ -371,7 +371,7 @@
 .legacy-public .side-diary-tab:hover,
 .legacy-public .side-diary-tab:focus-visible {
   right: 0;
-  box-shadow: -6px 6px 22px rgba(0, 0, 0, 0.35);
+  box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .legacy-public .side-diary-tab__label {
@@ -381,24 +381,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 14px 7px;
-  font-size: 12px;
+  gap: 6px;
+  padding: 8px 4px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.8px;
   white-space: nowrap;
   user-select: none;
-  border-radius: 6px 0 0 6px;
+  border-radius: 4px 0 0 4px;
 }
 
 .legacy-public .side-diary-tab__label i {
-  font-size: 13px;
+  font-size: 10px;
   transform: rotate(90deg);
 }
 
 .legacy-public .side-diary-tab__card {
-  width: 220px;
-  height: 306px;
+  width: 120px;
+  height: 165px;
   background: #ffffff;
   flex-shrink: 0;
   display: block;
@@ -1680,3 +1680,10 @@
   .legacy-public .backend-menu .public-dropdown > ul,
   .legacy-public .backend-menu .public-dropdown .public-dropdown > ul { position: static; min-width: 0; margin-left: 12px; }
 }
+
+/* Keep off-canvas diary artwork inside the viewport on narrow screens. */
+.legacy-public { overflow-x: clip; }
+.legacy-public:not(.login-layout) .side-diary-tab { right: 0; transform: translateX(120px); }
+.legacy-public:not(.login-layout) .side-diary-tab:hover, .legacy-public:not(.login-layout) .side-diary-tab:focus-visible { transform: translateX(0); }
+.hp-ticker__inner--manual { animation: none; white-space: normal; }
+.hp-panel__nav button:disabled, .hp-ticker__controls button:disabled { opacity: .45; cursor: default; }

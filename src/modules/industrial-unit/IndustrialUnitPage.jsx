@@ -6,6 +6,7 @@ import IndustrialUnitList from './IndustrialUnitList'
 import InfrastructurePages from './InfrastructurePages'
 import { createIndustrialState } from './industrialUnitModel'
 import { getUnitData } from './industrialUnitService'
+import { filter } from './viewHelpers'
 import translations from './generated/translations.json'
 import Spinner from '../../components/loaders/Spinner'
 import toast from '../../utils/toast'
@@ -64,6 +65,14 @@ function UnitContent({ route, id, establishmentType, locale }) {
     if (resolveIndustrialView(route) === 'infraDevelopmetForm') model.preserveHeading = true
     model.toastStatusMessages = true
     setState(model)
+
+    if (normalizedRoute === 'newapplicantsingleform') {
+      try {
+        model.loadUserIndustrialDetails?.()
+      } catch (err) {
+        console.warn('loadUserIndustrialDetails error:', err)
+      }
+    }
 
     if (normalizedRoute === 'viewfadocumentsuploadunit') {
       getUnitData('fetchfaapplicantdocumentslist', { applicationId: id }, abort.signal)
@@ -156,7 +165,87 @@ function UnitContent({ route, id, establishmentType, locale }) {
               Infrastructure Development Permission &gt;&gt; {translations[locale]?.['application.selfemployment.applicationform'] || 'Application Form'}
             </h1>
           )}
-          <IndustrialView name={view} state={state} />
+          {view === 'faNewMsmeFundAssistance' && !state.formOpen ? (
+            <div className="commercial-date-box-wrap" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '55vh', padding: '30px 15px' }}>
+              <div className="panel panel-info" style={{ width: '100%', maxWidth: '580px', boxShadow: '0 4px 15px rgba(0,0,0,0.12)', borderRadius: '6px', border: '1px solid #bce8f1', overflow: 'hidden' }}>
+                <div className="panel-heading text-center" style={{ backgroundColor: '#2b509a', color: '#ffffff', padding: '15px 20px', textAlign: 'center' }}>
+                  <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#ffffff' }}>Commercial Production Date</h4>
+                  <div style={{ fontSize: '12px', marginTop: '5px', color: '#eef5fb' }}>Please select the commercial production date of the industrial unit</div>
+                </div>
+                <div className="panel-body" style={{ padding: '25px 30px' }}>
+                  <div className="form-group text-center" style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    <label htmlFor="unitStartDate" style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '10px', color: '#333333' }}>
+                      Commercial Production Date <span className="aestrick" style={{ color: '#d9534f' }}>*</span>
+                    </label>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <input
+                        type="date"
+                        id="unitStartDate"
+                        name="unitStartDate"
+                        className="form-control"
+                        style={{ maxWidth: '280px', height: '40px', fontSize: '14px', textAlign: 'center', borderRadius: '4px', border: '1px solid #ccc' }}
+                        value={state.faData?.faIndustrialUnitBean?.unitStartDate ? filter('date', state.faData.faIndustrialUnitBean.unitStartDate, 'yyyy-MM-dd') : ''}
+                        onChange={(e) => {
+                          const val = e.target.value ? filter('date', e.target.value, 'dd/MM/yyyy') : ''
+                          if (!state.faData) state.faData = {}
+                          if (!state.faData.faIndustrialUnitBean) state.faData.faIndustrialUnitBean = {}
+                          state.faData.faIndustrialUnitBean.unitStartDate = val
+                          state.checkProductionDate()
+                          state.notify()
+                        }}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {state.showPolicy && (
+                    <div className="alert alert-info" style={{ marginTop: '20px', borderRadius: '4px', borderLeft: '4px solid #31708f', backgroundColor: '#d9edf7', color: '#31708f', padding: '15px' }}>
+                      <div style={{ fontSize: '13px', lineHeight: 1.5, fontWeight: 500 }}>
+                        <i className="fa fa-info-circle fa-fw" style={{ marginRight: '6px' }} />
+                        <strong>Policy Details: </strong>{state.policyMessage}
+                      </div>
+                      <hr style={{ margin: '12px 0', borderColor: '#bce8f1' }} />
+                      <label style={{ cursor: 'pointer', fontWeight: 600, fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', margin: 0, color: '#31708f' }}>
+                        <input
+                          type="checkbox"
+                          style={{ width: '18px', height: '18px', cursor: 'pointer', margin: 0 }}
+                          checked={!!state.declarationAccepted}
+                          onChange={(e) => {
+                            state.declarationAccepted = e.target.checked
+                            if (e.target.checked) {
+                              state.openForm()
+                            } else {
+                              state.formOpen = false
+                            }
+                            state.notify()
+                          }}
+                        />
+                        <span>I accept the policy terms and conditions</span>
+                      </label>
+                    </div>
+                  )}
+
+                  {state.showPolicy && state.declarationAccepted && (
+                    <div className="text-center" style={{ marginTop: '25px', textAlign: 'center' }}>
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        style={{ padding: '8px 26px', fontSize: '14px', fontWeight: 600, borderRadius: '4px' }}
+                        onClick={() => {
+                          state.formOpen = true
+                          state.notify()
+                        }}
+                      >
+                        Continue to Application Form <i className="fa fa-arrow-right" style={{ marginLeft: '6px' }} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <IndustrialView name={view} state={state} />
+          )}
         </>
       ) : (
         <div className="alert alert-danger text-center" style={{ textAlign: 'center' }}>

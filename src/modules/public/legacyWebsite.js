@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { backendUrl, publicPagePath } from './publicRoutes'
+import { resolveWebsiteAsset } from './websiteAssets'
 
 export const ASSETS = '/legacy/pages/website/msme_new/app_assets'
 export const backendLink = path => {
@@ -73,6 +74,10 @@ export function safeUrl(value, pageUrl, navigation = true) {
   try {
     const url = new URL(value, pageUrl)
     if (!/^https?:$/.test(url.protocol)) return ''
+    if (!navigation) {
+      const asset = resolveWebsiteAsset(url)
+      if (asset !== null) return asset
+    }
 
     // Intercept any local URLs (whether port 5173 or 8080) and map to frontend
     const isLocal =
@@ -121,7 +126,7 @@ export function parseLegacyWebsite(html, pageUrl) {
     menu: menuNodes(doc.querySelector('.mainmenu .navbar-nav'), pageUrl),
     footerLinks: links('.footer-widget a[href]'),
     slides: [...doc.querySelectorAll('#slider img')].map(img => ({ src: image(img), alt: img.alt || 'MSME Madhya Pradesh', href: safeUrl(img.closest('a')?.getAttribute('href'), pageUrl) })).filter(item => item.src),
-    officers: [...doc.querySelectorAll('.about-with-section .img-holder')].map(node => ({ src: image(node.querySelector('img')), name: text(node.parentElement, '.ribbon > span'), position: text(node.parentElement, '.ribbon small') })).filter(item => item.src),
+    officers: [...doc.querySelectorAll('.about-with-section .img-holder')].map(node => ({ src: image(node.querySelector('img')), name: text(node.parentElement, '.ribbon > span'), position: text(node.parentElement, '.ribbon small') })).filter(item => item.src || item.name),
     about: [...doc.querySelectorAll('.about .content_text_body')].map(node => node.textContent.trim()).filter(Boolean),
     aboutContent: [...doc.querySelectorAll('.about .content_text_body')].flatMap(node => contentNodes(node, pageUrl)),
     // Legacy CMS cards can have no destination (javascript:void(0)). Keep their

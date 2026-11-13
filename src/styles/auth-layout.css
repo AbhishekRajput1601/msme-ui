@@ -13,14 +13,12 @@
   background: transparent !important;
 }
 
-.legacy-public.login-layout .legacy-login-page,
 .legacy-public.login-layout .auth-recovery-page,
 .legacy-public.login-layout .account-form-page {
   position: relative;
   z-index: 0;
 }
 
-.legacy-public.login-layout .legacy-login-page .panel,
 .legacy-public.login-layout .auth-recovery-card,
 .legacy-public.login-layout .account-form-page {
   background-color: rgba(255, 255, 255, 0.94);

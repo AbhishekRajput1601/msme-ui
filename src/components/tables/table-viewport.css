@@ -1,0 +1,31 @@
+.portal-table-viewport {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  isolation: isolate;
+}
+
+.portal-table-content {
+  overflow-x: auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.portal-table-viewport[aria-busy="true"] > .portal-table-content {
+  min-height: 160px;
+}
+
+.portal-table-viewport > .portal-table-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255 255 255 / 65%);
+  cursor: progress;
+}
+
+.portal-table-content table > tbody > tr > td {
+  overflow-wrap: anywhere;
+}

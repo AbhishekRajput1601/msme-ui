@@ -1,3 +1,4 @@
+import TableViewport from '../../components/tables/TableViewport'
 import { useEffect, useMemo, useReducer, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import http from '../../api/httpClient'
@@ -89,18 +90,17 @@ function InfrastructureList({ locale }) {
     <div className="row"><div className="panel panel-info">
       <div className="panel-heading">{t('application.fa.title', 'Financial Assistance')} &gt; <Link style={{ textDecoration: 'underline', color: '#ffffff', fontWeight: 700 }} to="/department/fa/dticfapendingapplicantsunit">{t('application.fa.industrialUnit', 'Industrial Unit')}</Link></div>
       <div className="panel-body"><div className="row">
-        {busy && <Spinner />}
         <div className="res_div">
           <div className="infrastructure-table-controls">
             <label>Show <select aria-label="Entries per page" value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10, 25, 50, 100].map(n => <option key={n}>{n}</option>)}</select> entries</label>
             <label>Search: <input type="search" value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} /></label>
           </div>
-          <table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={busy}>
+          <TableViewport loading={busy} resetKey={length}><table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={busy}>
             <thead><tr>{['Application No.', t('application.fa.applicationDate', 'Application Date'), 'Applicant Name', 'District', t('application.page.action', 'Action')].map(label => <th key={label}>{label}</th>)}</tr></thead>
             <tbody>{(data.aaData || []).map(row => <tr key={row.id}><td>{row.id}</td><td>{row.createdDate}</td><td>{row.applicantName}</td><td>{row.districtName}</td><td><div className="hidden-sm hidden-xs action-buttons"><Link className="blue" to={'/department/fa/viewfaInfrastructure/' + encodeURIComponent(row.id)}>{t('application.page.viewprint', 'View/Print')}</Link></div></td></tr>)}
-              {!data.aaData?.length && <tr><td colSpan={5} style={{ textAlign: 'center' }}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}
+              {!busy && !data.aaData?.length && <tr><td colSpan={5} style={{ textAlign: 'center' }}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}
             </tbody>
-          </table>
+          </table></TableViewport>
           <div className="infrastructure-table-controls">
             <span>Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries{Number(data.iTotalRecords) > count && ` (filtered from ${data.iTotalRecords} total entries)`}</span>
             <div className="pagination">

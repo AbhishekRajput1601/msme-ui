@@ -26,6 +26,25 @@
 }
 
 /* Panel Theming */
+.admin-page.admin-oxygen-page .page-header,
+.admin-page.admin-oxygen-page .page-header2,
+.admin-page.admin-oxygen-page .title2 {
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+  padding: 8px 12px;
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .admin-page.admin-oxygen-page .page-header,
+  .admin-page.admin-oxygen-page .page-header2,
+  .admin-page.admin-oxygen-page .title2 {
+    font-size: 16px;
+    white-space: normal;
+  }
+}
+
 .admin-page .panel {
   margin-bottom: 20px;
   background-color: #fff;
@@ -347,5 +366,213 @@
   content: " ";
   display: table;
   clear: both;
+}
+
+/* Scoped overrides for the generated Bootstrap 3/5 admin templates.
+   Important declarations win over legacy inline colors and utility classes. */
+.legacy-portal .admin-page {
+  --admin-primary: var(--color-indigo-600, #337ab7);
+  --admin-primary-hover: var(--color-indigo-700, #286090);
+  --admin-soft: var(--color-indigo-50, #eef5fb);
+  --admin-border: #cfdeea;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.legacy-portal .admin-page #admin-page-content {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+}
+
+.legacy-portal .admin-page :is(.btn, .btn-save, input[type="button"], input[type="submit"]) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 16px;
+  margin: 4px 6px 4px 0;
+  border: 1px solid var(--admin-primary) !important;
+  border-radius: 6px !important;
+  background: var(--admin-primary) !important;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: normal;
+  text-decoration: none;
+  text-shadow: none;
+  box-shadow: none;
+  transition: background-color .15s, border-color .15s;
+}
+
+.legacy-portal .admin-page :is(.btn-default, .btn-secondary, .btn-warning) {
+  color: var(--admin-primary-hover) !important;
+  background: #fff !important;
+  border-color: var(--admin-border) !important;
+}
+
+.legacy-portal .admin-page :is(.btn, .btn-save, input[type="button"], input[type="submit"]):hover:not(:disabled):not(.disabled) {
+  background: var(--admin-primary-hover) !important;
+  border-color: var(--admin-primary-hover) !important;
+  color: #fff !important;
+  opacity: 1;
+}
+
+.legacy-portal .admin-page :is(.btn-danger, input.remove) {
+  background: #b52f35 !important;
+  border-color: #b52f35 !important;
+}
+
+.legacy-portal .admin-page :is(.btn-danger, input.remove):hover:not(:disabled) {
+  background: #92262b !important;
+  border-color: #92262b !important;
+}
+
+.legacy-portal .admin-page :is(.btn, .btn-save, input[type="button"], input[type="submit"]):is(:disabled, .disabled) {
+  opacity: .5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.legacy-portal .admin-page :is(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #90bddc !important;
+  outline-offset: 3px;
+}
+
+.legacy-portal .admin-page :is(.table-responsive, .dtic-table-scroll) {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  margin: 12px 0 20px;
+}
+
+.legacy-portal .admin-page :is(.main-table, #dynamic-table) {
+  --bs-table-bg: transparent;
+  --bs-table-color: #334155;
+  --bs-table-striped-bg: transparent;
+  --bs-table-hover-bg: transparent;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+}
+
+.legacy-portal .admin-page :is(.main-table, #dynamic-table) > :is(thead, tbody, tfoot) > tr > :is(th, td) {
+  padding: 12px;
+  border: 0 !important;
+  border-right: 1px solid var(--admin-border) !important;
+  border-bottom: 1px solid var(--admin-border) !important;
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: none;
+}
+
+.legacy-portal .admin-page :is(.main-table, #dynamic-table) > thead > tr > th {
+  background: var(--admin-primary) !important;
+  color: #fff !important;
+  border-color: #ffffff40 !important;
+  font-weight: 600;
+  text-shadow: none;
+  white-space: normal;
+}
+
+.legacy-portal .admin-page .main-table > thead > tr:nth-child(2) > th {
+  background: var(--admin-primary-hover) !important;
+}
+
+.legacy-portal .admin-page .main-table > :is(thead, tbody) > tr > :is(th, td):not([colspan]) {
+  min-width: 120px !important;
+}
+
+.legacy-portal .admin-page :is(.main-table, #dynamic-table) > tbody > tr:nth-child(odd) {
+  background: #f7fafc;
+}
+
+.legacy-portal .admin-page :is(.main-table, #dynamic-table) > tbody > tr:hover {
+  background: var(--admin-soft);
+}
+
+.legacy-portal .admin-page .main-table > tfoot > tr > td {
+  background: var(--admin-soft);
+  color: #23527c;
+  font-weight: 600;
+}
+
+/* Keep nested supply details aligned with their grouped column headers. */
+.legacy-portal .admin-page .sd-table {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+}
+
+.legacy-portal .admin-page .sd-table td {
+  padding: 10px;
+  border-color: var(--admin-border);
+  background: transparent;
+  box-shadow: none;
+}
+
+.legacy-portal .admin-page .sd-table input[type="button"] {
+  width: 32px;
+  min-height: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 20px;
+}
+
+.legacy-portal .admin-page .main-table .form-control {
+  min-height: 38px;
+  font-size: 13px;
+}
+
+.legacy-portal .admin-page .title2 {
+  height: auto;
+  padding: 10px 16px;
+  border-left: 4px solid var(--admin-primary);
+  border-radius: 4px;
+  background: var(--admin-soft);
+  color: #23527c;
+}
+
+.legacy-portal .admin-page .title2::after { display: none; }
+
+.legacy-portal .admin-page .dtic-table-controls { gap: 12px; }
+.legacy-portal .admin-page .dtic-table-controls label { margin: 0; }
+.legacy-portal .admin-page .dtic-table-controls :is(input, select) {
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.legacy-portal .admin-page .pagination { flex-wrap: wrap; gap: 4px; box-shadow: none; }
+.legacy-portal .admin-page .pagination > li > :is(button, span) {
+  min-height: 36px;
+  margin: 0;
+  border-radius: 5px;
+  color: var(--admin-primary-hover);
+  border-color: var(--admin-border);
+}
+.legacy-portal .admin-page .pagination > li.active > :is(button, span) {
+  background: var(--admin-primary) !important;
+  border-color: var(--admin-primary) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 640px) {
+  .legacy-portal .admin-page { padding: 10px 0; }
+  .legacy-portal .admin-page #admin-page-content { padding: 10px; }
+  .legacy-portal .admin-page .dtic-table-actions { width: 100%; }
+  .legacy-portal .admin-page .dtic-table-actions label { width: 100%; }
+  .legacy-portal .admin-page .dtic-table-actions input { width: 100%; }
 }
 

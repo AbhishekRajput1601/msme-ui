@@ -2,118 +2,12 @@ import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { backendLink } from './legacyWebsite'
 import { WebsiteContent } from './WebsiteContent'
+import ImageWithFallback from './WebsiteImage'
 import Spinner from '../../components/loaders/Spinner'
+import { useTranslation } from '../../hooks/useTranslation'
 
 const FALLBACK_SLIDES = [
   { src: '/img/hero-slider.jpg', alt: 'MSME Madhya Pradesh – Empowering Entrepreneurs' },
-]
-
-const FALLBACK_OFFICERS = [
-  {
-    src: '/img/chief-minister.png',
-    name: 'Dr. Mohan Yadav',
-    position: 'Hon. Chief Minister'
-  },
-  {
-    src: '/img/minister.png',
-    name: 'Shri Chetanya Kasyap',
-    position: 'Hon. Minister'
-  },
-]
-
-const FALLBACK_ABOUT = `Micro, Small & Medium Enterprises (MSME) is known as engine of economic growth and for promoting equitable development. To strengthen them Department of Micro, Small & Medium Enterprises (MSME) was formed on 5 April, 2016. The aim of MSME Department is to make such policies for MSMEs that not only make them competent but also help foster their development. The department helps MSMEs to promote socio-economic growth and employment opportunity in MP. By promoting rural entrepreneurship the department promotes the rural economy and hence empowers rural people in general and rural women in particular. It also provides access to credit, technology and local as well as global market for MSMEs. It also develops clusters to provide common minimum facility to MSMEs. Through Self-employment schemes it encourages youth to establish their enterprise at their home town/village.`
-
-const FALLBACK_NEWS = [
-  {
-    title: 'Industrial Area Ratibad, District - Bhopal, Rate of Industrial Land for the year 2025-',
-    href: backendLink('/website/whatsNew'),
-    date: ''
-  },
-  {
-    title: 'List of Recommended EoIs for issuance of Letter of Intent and Not Recommended EoIs',
-    href: backendLink('/website/whatsNew'),
-    date: '28/01/2026'
-  },
-]
-
-const FALLBACK_CIRCULARS = [
-  {
-    title: 'Amendments in Coal Distribution Procedure & Policy - 2022',
-    href: backendLink('/website/orderCirculars'),
-    date: ''
-  },
-  {
-    title: 'PMEGP New Guidelines 2022',
-    href: backendLink('/website/orderCirculars'),
-    date: '14/06/2022'
-  },
-  {
-    title: 'Decisions of State Govt. on proposals of M/s Fairdeal Export Co-operative Society ltd.',
-    href: backendLink('/website/orderCirculars'),
-    date: ''
-  },
-]
-
-const FALLBACK_EVENTS = [
-  {
-    title: 'Bharat Nutraverse Expo, New Delhi (7-9 September 2026)',
-    href: backendLink('/website/events'),
-    date: ''
-  },
-  {
-    title: 'Bharat Nutraverse Expo, New Delhi (7-9 September 2026)',
-    href: backendLink('/website/events'),
-    date: ''
-  },
-]
-
-const FALLBACK_TICKER = [
-  {
-    title: 'List of Recommended EoIs under the process held in July 2026',
-    href: backendLink('/website/whatsNew')
-  },
-]
-
-const FALLBACK_SERVICES = [
-  {
-    title: 'Mukhyamantri Udyam Kranti Yojana',
-    description: 'Apply Online',
-    href: backendLink('/website/home'),
-    icon: 'fa-university',
-  },
-  {
-    title: 'Udyam Registration',
-    description: 'Udyam Registration is a government registration that is provided along with a recognition certificate and a unique number',
-    href: 'https://udyamregistration.gov.in/',
-    icon: 'fa-file-text-o',
-  },
-  {
-    title: 'Lok Seva Guarantee',
-    description: 'Services of MSME Department under Madhya Pradesh Public Services Guarantee Act, 2010',
-    href: backendLink('/website/home'),
-    icon: 'fa-shield',
-  },
-  {
-    title: 'MSME Award',
-    description: 'To recognize and honor the MSMEs of the state who play a vital role in the MSME\'s transformation',
-    href: backendLink('/website/home'),
-    icon: 'fa-trophy',
-  },
-  {
-    title: 'Right to Information',
-    description: 'Right to Information',
-    href: backendLink('/website/home'),
-    icon: 'fa-info-circle',
-  },
-]
-
-const FALLBACK_PARTNERS = [
-  { title: 'MP Govt Logo', href: 'https://mp.gov.in/' },
-  { title: 'MSME India', href: 'https://msme.gov.in/' },
-  { title: 'GeM Portal', href: 'https://gem.gov.in/' },
-  { title: 'Invest MP', href: 'https://invest.mp.gov.in/' },
-  { title: 'Digital India', href: 'https://digitalindia.gov.in/' },
-  { title: 'Make in India', href: 'https://www.makeinindia.com/' },
 ]
 
 function validUpdates(items) {
@@ -127,30 +21,38 @@ function validUpdates(items) {
 
 export default function HomePage() {
   const website = useOutletContext() || {}
+  const { locale } = useTranslation()
+  const hindi = locale === 'hi'
+  const [tickerIndex, setTickerIndex] = useState(0)
+  const [tickerPaused, setTickerPaused] = useState(false)
   const backendSlides = website.slides?.filter(Boolean)
   const slides = backendSlides?.length ? backendSlides : FALLBACK_SLIDES
   const [slideIndex, setSlideIndex] = useState(0)
   const activeSlide = slides[slideIndex % slides.length]
 
   const backendOfficers = website.officers?.filter(Boolean)
-  const officers = backendOfficers?.length ? backendOfficers : FALLBACK_OFFICERS
+  const officers = backendOfficers?.length ? backendOfficers : []
   const validNews = validUpdates(website.news)
-  const news = validNews.length ? validNews : FALLBACK_NEWS
+  const news = validNews
 
   const validCirculars = validUpdates(website.circulars)
-  const circulars = validCirculars.length ? validCirculars : FALLBACK_CIRCULARS
+  const circulars = validCirculars
 
   const backendEvents = website.events?.filter(Boolean) || []
-  const loadedSuccessfully = website.loading === false && !website.error
-  const events = backendEvents.length || loadedSuccessfully ? backendEvents : FALLBACK_EVENTS
-  const ticker = validNews.length ? validNews.slice(0, 5) : FALLBACK_TICKER
+  const events = backendEvents
+  const ticker = validNews.slice(0, 5)
+  useEffect(() => {
+    if (ticker.length < 2 || tickerPaused) return
+    const timer = setInterval(() => setTickerIndex(i => (i + 1) % ticker.length), 5000)
+    return () => clearInterval(timer)
+  }, [ticker.length, tickerPaused])
   const backendServices = website.features?.filter(Boolean)
-  const services = backendServices?.length ? backendServices : FALLBACK_SERVICES
+  const services = backendServices?.length ? backendServices : []
   const [featurePosition, setFeaturePosition] = useState(0)
   const [featureTransition, setFeatureTransition] = useState(true)
   const [featuresPaused, setFeaturesPaused] = useState(false)
   const backendPartners = website.partners?.filter(Boolean)
-  const partners = backendPartners?.length ? backendPartners : FALLBACK_PARTNERS
+  const partners = backendPartners?.length ? backendPartners : []
   const [partnerPosition, setPartnerPosition] = useState(0)
   const [partnerTransition, setPartnerTransition] = useState(true)
   const [partnersPaused, setPartnersPaused] = useState(false)
@@ -213,8 +115,8 @@ export default function HomePage() {
     <>
       {website.error && (
         <div className="container" role="alert">
-          <p>Website content could not be loaded. Showing fallback content.</p>
-          {website.retry && <button type="button" className="btn btn-default" onClick={website.retry}>Retry</button>}
+          <p>{hindi ? 'वेबसाइट की सामग्री लोड नहीं हो सकी। कृपया पुनः प्रयास करें।' : 'Website content could not be loaded. Please retry.'}</p>
+          {website.retry && <button type="button" className="btn btn-default" onClick={website.retry}>{hindi ? 'पुनः प्रयास करें' : 'Retry'}</button>}
         </div>
       )}
       {/* ── 1. Hero Slider Banner ────────────────────────────── */}
@@ -258,12 +160,15 @@ export default function HomePage() {
       </section>
 
       {/* ── 2. News Ticker ──────────────────────────────────── */}
-      <div className="hp-ticker" role="marquee" aria-label="Latest news">
+      <div className="hp-ticker" aria-label={hindi ? 'नवीनतम समाचार' : 'Latest news'}
+        onMouseEnter={() => setTickerPaused(true)} onMouseLeave={() => setTickerPaused(false)}
+        onFocus={() => setTickerPaused(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setTickerPaused(false) }}>
         <div className="hp-ticker__container">
-          <span className="hp-ticker__label">LATEST</span>
+          <span className="hp-ticker__label">{hindi ? 'नवीनतम' : 'LATEST'}</span>
           <div className="hp-ticker__track">
-            <div className="hp-ticker__inner">
-              {[...ticker, ...ticker, ...ticker].map((item, i) => (
+            {!ticker.length && <span>{hindi ? 'कोई नई सूचना उपलब्ध नहीं है।' : 'No new updates available.'}</span>}
+            <div className="hp-ticker__inner hp-ticker__inner--manual" aria-live="polite">
+              {ticker.slice(tickerIndex % (ticker.length || 1), tickerIndex % (ticker.length || 1) + 1).map((item, i) => (
                 <a key={i} href={item.href} className="hp-ticker__item">
                   {item.title}
                   {item.date && <span> ({item.date})</span>}
@@ -272,8 +177,8 @@ export default function HomePage() {
             </div>
           </div>
           <div className="hp-ticker__controls">
-            <button aria-label="Ticker previous">&#10094;</button>
-            <button aria-label="Ticker next">&#10095;</button>
+            <button aria-label="Ticker previous" disabled={ticker.length < 2} onClick={() => setTickerIndex(i => (i + ticker.length - 1) % ticker.length)}>&#10094;</button>
+            <button aria-label="Ticker next" disabled={ticker.length < 2} onClick={() => setTickerIndex(i => (i + 1) % ticker.length)}>&#10095;</button>
           </div>
         </div>
       </div>
@@ -293,7 +198,7 @@ export default function HomePage() {
             <div className="hp-about__text">
               {hasAbout ? (
                 website.aboutContent?.length ? <WebsiteContent nodes={website.aboutContent} /> : website.about.map((text, index) => <p key={index}>{text}</p>)
-              ) : <p>{FALLBACK_ABOUT}</p>}
+              ) : <p>{hindi ? 'सामग्री उपलब्ध नहीं है।' : 'Content is not available.'}</p>}
             </div>
           </div>
           <div className="hp-about__officer">
@@ -323,6 +228,7 @@ export default function HomePage() {
         }}
       >
         <div className="hp-features__card-wrapper">
+          {!services.length && <p role="status">{hindi ? 'सेवाओं की जानकारी उपलब्ध नहीं है।' : 'Service information is not available.'}</p>}
           <div className="hp-features__viewport" aria-live="polite">
             <div
               className="hp-features__track"
@@ -404,28 +310,28 @@ export default function HomePage() {
         <div className="hp-panels__container">
           <NewsPanel
             number={1}
-            title="WHAT'S NEW"
+            title={hindi ? 'नया क्या है' : "WHAT'S NEW"}
             icon="fa-bullhorn"
             items={news}
             href="/website/whatsNew"
           />
           <NewsPanel
             number={2}
-            title="ORDER/CIRCULARS"
+            title={hindi ? 'आदेश / परिपत्र' : 'ORDER/CIRCULARS'}
             icon="fa-file-text-o"
             items={circulars}
             href="/website/orderCirculars"
           />
           <NewsPanel
             number={3}
-            title="EVENTS"
+            title={hindi ? 'कार्यक्रम' : 'EVENTS'}
             icon="fa-calendar"
             items={events}
             href="/website/events"
           />
           <div className="hp-panel hp-panel--4" role="region" aria-labelledby="hp-gallery-hd">
             <h3 className="hp-panel__heading" id="hp-gallery-hd">
-              <i className="fa fa-picture-o" aria-hidden="true" /> GALLERY SECTION
+              <i className="fa fa-picture-o" aria-hidden="true" /> {hindi ? 'चित्र दीर्घा' : 'GALLERY SECTION'}
             </h3>
             <div className="hp-panel__body hp-panel__body--gallery">
               <a href={backendLink('/website/albums')} style={{ width: '100%' }}>
@@ -439,7 +345,7 @@ export default function HomePage() {
             </div>
             <div className="hp-panel__footer">
               <a href={backendLink('/website/albums')} className="hp-panel__more">
-                VIEW ALL
+                {hindi ? 'सभी देखें' : 'VIEW ALL'}
               </a>
             </div>
           </div>
@@ -485,24 +391,6 @@ export default function HomePage() {
   )
 }
 
-function ImageWithFallback({ src, alt, style, className, fallback }) {
-  const [failedSources, setFailedSources] = useState(() => new Set())
-  const [loadedSrc, setLoadedSrc] = useState(null)
-  const failed = failedSources.has(src)
-  useEffect(() => {
-    if (!src || failed || loadedSrc === src) return
-    // CMS hosts can hang without promptly emitting an image error.
-    const timeout = setTimeout(() => {
-      setFailedSources(previous => new Set(previous).add(src))
-    }, 10000)
-    return () => clearTimeout(timeout)
-  }, [src, failed, loadedSrc])
-  if (!src || failed) return fallback
-  return <img key={src} src={src} alt={alt} style={style} className={className}
-    onLoad={() => setLoadedSrc(src)}
-    onError={() => setFailedSources(previous => new Set(previous).add(src))} />
-}
-
 function OfficerCard({ officer }) {
   if (!officer) return null
   return (
@@ -520,6 +408,11 @@ function OfficerCard({ officer }) {
 }
 
 function NewsPanel({ number, title, icon, items, href }) {
+  const { locale } = useTranslation()
+  const hindi = locale === 'hi'
+  const [page, setPage] = useState(0)
+  const pages = Math.ceil(items.length / 3)
+  const current = Math.min(page, Math.max(0, pages - 1))
   return (
     <div className={`hp-panel hp-panel--${number}`} role="region" aria-labelledby={`hp-panel-hd-${number}`}>
       <h3 className="hp-panel__heading" id={`hp-panel-hd-${number}`}>
@@ -528,7 +421,7 @@ function NewsPanel({ number, title, icon, items, href }) {
       <div className="hp-panel__body">
         <ul className="hp-panel__list">
           {items.length ? (
-            items.map((item, i) => (
+            items.slice(current * 3, current * 3 + 3).map((item, i) => (
               <li key={i} className="hp-panel__item">
                 <a href={item.href}>{item.title}</a>
                 {item.date && (
@@ -539,17 +432,17 @@ function NewsPanel({ number, title, icon, items, href }) {
               </li>
             ))
           ) : (
-            <li className="hp-panel__item">Content awaited.</li>
+            <li className="hp-panel__item">{hindi ? 'सामग्री उपलब्ध नहीं है।' : 'Content is not available.'}</li>
           )}
         </ul>
       </div>
       <div className="hp-panel__footer">
         <a href={backendLink(href)} className="hp-panel__more">
-          READ MORE
+          {hindi ? 'और पढ़ें' : 'READ MORE'}
         </a>
         <div className="hp-panel__nav">
-          <button aria-label="Previous">&#10094;</button>
-          <button aria-label="Next">&#10095;</button>
+          <button aria-label={hindi ? 'पिछला' : 'Previous'} disabled={current === 0} onClick={() => setPage(current - 1)}>&#10094;</button>
+          <button aria-label={hindi ? 'अगला' : 'Next'} disabled={current + 1 >= pages} onClick={() => setPage(current + 1)}>&#10095;</button>
         </div>
       </div>
     </div>

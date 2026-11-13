@@ -20,6 +20,7 @@ import {
 } from './secretaryService'
 import { toast } from '../../utils/toast'
 import Spinner from '../../components/loaders/Spinner'
+import TableViewport from '../../components/tables/TableViewport'
 import { useSecretaryBatch } from './SecretaryWorkflowContext'
 import './secretary.css'
 
@@ -212,7 +213,7 @@ export default function SecretaryBatchesPage() {
               {/* ─── 1. Batch List View ─────────────────────────────────────── */}
               {!activeBatch && (
                 <div className="table-responsive">
-                  {loading && <Spinner />}
+                  <TableViewport loading={loading}>
                   <table className="table table-striped table-bordered table-hover">
                     <thead>
                       <tr>
@@ -276,7 +277,7 @@ export default function SecretaryBatchesPage() {
                         ))
                       )}
                     </tbody>
-                  </table>
+                  </table></TableViewport>
                 </div>
               )}
 
@@ -295,7 +296,7 @@ export default function SecretaryBatchesPage() {
                   </h4>
 
                   <div className="table-responsive">
-                  {loading && <Spinner />}
+                  <TableViewport loading={loading}>
                     <table className="table table-striped table-bordered">
                       <thead>
                         <tr>
@@ -433,7 +434,7 @@ export default function SecretaryBatchesPage() {
                           ))
                         )}
                       </tbody>
-                    </table>
+                    </table></TableViewport>
                   </div>
 
                   <div className="text-center" style={{ marginTop: '20px' }}>

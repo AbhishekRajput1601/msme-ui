@@ -17,6 +17,7 @@ import {
 } from './secretaryService'
 import { toast } from '../../utils/toast'
 import Spinner from '../../components/loaders/Spinner'
+import TableViewport from '../../components/tables/TableViewport'
 import './secretary.css'
 
 export default function SecretaryVerificationPage() {
@@ -262,7 +263,7 @@ export default function SecretaryVerificationPage() {
 
               {/* Applications table */}
               <div className="table-responsive">
-                {loading && <Spinner />}
+                <TableViewport loading={loading}>
                 <table className="table verification-table">
                   <thead>
                     <tr>
@@ -364,7 +365,7 @@ export default function SecretaryVerificationPage() {
                       })
                     )}
                   </tbody>
-                </table>
+                </table></TableViewport>
               </div>
 
               {/* Action buttons */}

@@ -7,6 +7,7 @@ import { ASSETS, backendLink, useLegacyWebsite } from '../modules/public/legacyW
 import { WebsiteMenuItem } from '../modules/public/WebsiteContent'
 import indiaEmblem from '../assets/branding/emblem-india.png'
 import mpDiaryCalendar from '../assets/branding/mp-diary-calendar-2026.png'
+import WebsiteImage from '../modules/public/WebsiteImage'
 
 export default function PublicLayout() {
   const { authenticated, roles } = useAuth()
@@ -115,14 +116,11 @@ export default function PublicLayout() {
                 <i className="fa fa-print" aria-hidden="true" />
               </button>
               <div className="header-msme-badge">
-                <img
+                <WebsiteImage
                   src={website.governmentLogo || '/img/msme-tree-logo.png'}
                   alt={website.governmentName || 'MSME Logo'}
                   className="header-msme-img"
-                  onError={(e) => {
-                    const fallback = `${ASSETS}/assets_img/MSME_logo.png`
-                    if (e.currentTarget.getAttribute('src') !== fallback) e.currentTarget.src = fallback
-                  }}
+                  fallback={<img src={`${ASSETS}/assets_img/MSME_logo.png`} alt="MSME" className="header-msme-img" />}
                 />
               </div>
             </div>

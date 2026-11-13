@@ -1,3 +1,4 @@
+import TableViewport from '../../../../components/tables/TableViewport'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import http from '../../../../api/httpClient'
@@ -107,7 +108,7 @@ export default function LandReferenceTable({ name, node, state }) {
         </label>
       </div>
     </div>
-    {result.loading && <div className="land-table-loading" role="status"><span className="loading-spinner"></span> Processing...</div>}
+    <TableViewport loading={result.loading} resetKey={length}>
     <div className="land-table-scroll-container">
       <table id="dynamic-table" className="table table-striped table-bordered table-hover land-styled-table" aria-busy={!!result.loading}>
         <thead>
@@ -167,7 +168,7 @@ export default function LandReferenceTable({ name, node, state }) {
               </tr>
             )
           })}
-          {!result.data.length && (
+          {!result.loading && !result.data.length && (
             <tr>
               <td colSpan={headers.length} className="text-center no-records-cell">
                 {search ? 'No matching records found' : 'No data available in table'}
@@ -176,7 +177,7 @@ export default function LandReferenceTable({ name, node, state }) {
           )}
         </tbody>
       </table>
-    </div>
+    </div></TableViewport>
     <div className="land-table-controls land-table-footer">
       <div className="land-table-info">
         Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries

@@ -1,3 +1,4 @@
+import TableViewport from '../../components/tables/TableViewport'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import IndustrialView from '../industrial-unit/IndustrialView'
@@ -9,7 +10,6 @@ import { rowRules } from './generated/rows'
 import tables from './generated/tables.json'
 import toast from '../../utils/toast'
 import './dtic-refresh.css'
-import Spinner from '../../components/loaders/Spinner'
 import { filterFaApplications } from './faStatusModel'
 
 export function dticCells(name, row, index, rules = rowRules, tableConfig = tables) {
@@ -141,14 +141,14 @@ export default function DticTable({ name, node, state, records }) {
         </Link>}
       </div>
     </div>
-    {result.loading && <Spinner />}
+    <TableViewport loading={result.loading} resetKey={length}>
     <div className="dtic-table-scroll"><table id="dynamic-table" className="table table-striped table-bordered table-hover" aria-busy={!!result.loading}>
       <thead><tr>{headers.map((n, i) => <th key={i}><IndustrialView nodes={n.children} state={state} /></th>)}</tr></thead>
       <tbody>{result.rows.map((row, index) => {
         const cells = dticCells(name, row, start + index, state.rowRules || rowRules, state.tableBundle || tables)
         return <tr key={row.applicationId || row.applicantId || row.requestId || row.vacantLandId || index}>{config.columns.map((column, i) => <td key={i}>{i in cells ? <Cell markup={cells[i]} state={state} row={row} eligible={result.eligible?.includes(row.applicationId)} /> : String(readPath(row, column) ?? '')}</td>)}</tr>
       })}{!result.loading && result.error && <tr><td colSpan={headers.length || config?.columns?.length || 1}><div className="alert alert-danger" role="alert">{result.error} <button type="button" className="btn btn-default" onClick={() => setAttempt(n => n + 1)}>Retry</button></div></td></tr>}{!result.loading && !result.error && !result.rows.length && <tr><td className="dataTables_empty" colSpan={headers.length || config?.columns?.length || 1} style={{ textAlign: 'center', verticalAlign: 'middle', padding: '24px 12px' }}>{search ? 'No matching records found' : 'No data available in table'}</td></tr>}</tbody>
-    </table></div>
+    </table></div></TableViewport>
     <div className="dtic-table-controls dtic-table-footer">
       <div className="dataTables_info" role="status" aria-live="polite">Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries{result.total > count ? ` (filtered from ${result.total} total entries)` : ''}</div>
       <div className="dataTables_paginate paging_bootstrap">
