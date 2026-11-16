@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 /**
  * SecretaryProgressPage.jsx
  * ─────────────────────────────────────────────────────────────────────────────
@@ -93,13 +94,6 @@ export default function SecretaryProgressPage() {
     window.print()
   }
 
-  const handleBack = () => {
-    if (window.history.state && window.history.state.idx > 0) {
-      navigate(-1)
-    } else {
-      navigate('/department/secretary/verification')
-    }
-  }
 
   return (
     <div id="page-wrapper" className="secretary-progress-page" style={{ padding: '15px' }}>
@@ -121,13 +115,7 @@ export default function SecretaryProgressPage() {
             <b>View Progress Details ({applicationNo})</b>
           </span>
           <span className="pull-right">
-            <button
-              type="button"
-              className="btn btn-default btn-xs"
-              onClick={handleBack}
-            >
-              <i className="fa fa-arrow-left" /> Back
-            </button>
+            <BackButton />
           </span>
         </div>
 
@@ -305,13 +293,7 @@ export default function SecretaryProgressPage() {
 
           {/* Bottom Back Button */}
           <div className="text-center no-print" style={{ marginTop: '15px' }}>
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={handleBack}
-            >
-              <i className="fa fa-arrow-left" /> Back
-            </button>
+            <BackButton />
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
+import BackButton from '../../../components/ui/BackButton'
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import LandApplicationForm from './components/LandApplicationForm'
 import { loadLandApplication, saveLandApplication } from './services/landApplicationService'
 import toast from '../../../utils/toast'
@@ -31,7 +32,7 @@ export default function LandApplicationEditPage({ correction = false }) {
   return <section className="panel panel-info">
     <div className="panel-heading">Land allotment application</div>
     <div className="panel-body">
-      <Link to="/applicant/land-allotment">Back to applications</Link>
+      <BackButton />
       {result.loading ? <Spinner /> : result.error ? <div className="alert alert-danger" role="alert"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
         <h2>{result.data.vacantLandBean.industrialAreaName} — Plot {result.data.vacantLandBean.plotNumber}</h2>
         <LandApplicationForm key={`${applicantId}-${parcelToken}-${attempt}`} initialData={result.data} onSave={save} />

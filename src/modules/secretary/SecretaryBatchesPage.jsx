@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 /**
  * SecretaryBatchesPage.jsx
  * ─────────────────────────────────────────────────────────────────────────────
@@ -286,13 +287,7 @@ export default function SecretaryBatchesPage() {
                 <div>
                   <h4 style={{ marginTop: 0, marginBottom: '15px' }}>
                     {activeBatch.batchCode} &mdash; {activeBatch.totalApplications} application
-                    <button
-                      type="button"
-                      className="btn btn-default btn-xs pull-right"
-                      onClick={closeBatch}
-                    >
-                      <i className="fa fa-arrow-left" /> Back to batch list
-                    </button>
+                    <BackButton />
                   </h4>
 
                   <div className="table-responsive">

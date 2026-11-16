@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 /**
  * UnauthorizedPage.jsx
  * ─────────────────────────────────────────────────────────────────────────────
@@ -33,9 +34,7 @@ export default function UnauthorizedPage() {
         )}
 
         <div className="flex justify-center gap-3">
-          <Button variant="secondary" onClick={() => window.history.back()}>
-            Go Back
-          </Button>
+          <BackButton />
           <Link to="/">
             <Button variant="primary">Return Home</Button>
           </Link>

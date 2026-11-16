@@ -1,4 +1,4 @@
-import TableViewport from '../../../../components/tables/TableViewport'
+import Spinner from '../../../../components/loaders/Spinner'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import http from '../../../../api/httpClient'
@@ -73,7 +73,7 @@ export default function LandReferenceTable({ name, node, state }) {
     return () => abort.abort()
   }, [name, config, start, length, search, sort])
   const headers = node.children.find(child => child.tag === 'thead')?.children.find(child => child.tag === 'tr')?.children || []
-  const count = result.count || 0, page = Math.floor(start / length), pages = Math.ceil(count / length)
+  const count = result.count || 0, page = Math.floor(start / length)
   return <div className="land-datatable">
     <div className="land-table-controls">
       <div className="land-control-group">
@@ -108,9 +108,14 @@ export default function LandReferenceTable({ name, node, state }) {
         </label>
       </div>
     </div>
-    <TableViewport loading={result.loading} resetKey={length}>
-    <div className="land-table-scroll-container">
-      <table id="dynamic-table" className="table table-striped table-bordered table-hover land-styled-table" aria-busy={!!result.loading}>
+    <div className="land-table-wrapper">
+      {result.loading && (
+        <div className="land-table-loading-overlay">
+          <Spinner inline />
+        </div>
+      )}
+      <div className="land-table-scroll-container">
+        <table id="dynamic-table" className="table table-striped table-bordered table-hover land-styled-table" aria-busy={!!result.loading}>
         <thead>
           <tr>
             {headers.map((header, i) => (
@@ -177,27 +182,17 @@ export default function LandReferenceTable({ name, node, state }) {
           )}
         </tbody>
       </table>
-    </div></TableViewport>
+    </div>
+    </div>
     <div className="land-table-controls land-table-footer">
       <div className="land-table-info">
         Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries
         {result.total > count && ` (filtered from ${result.total} total entries)`}
       </div>
       <div className="pagination">
-        <button disabled={!start || result.loading} onClick={() => setStart(0)} title="First page">« First</button>
-        <button disabled={!start || result.loading} onClick={() => setStart(start - length)} title="Previous page">‹ Prev</button>
-        {Array.from({ length: Math.min(pages, 5) }, (_, i) => Math.max(0, Math.min(page - 2, pages - 5)) + i).map(n => (
-          <button
-            key={n}
-            aria-current={n === page ? 'page' : undefined}
-            disabled={result.loading}
-            onClick={() => setStart(n * length)}
-          >
-            {n + 1}
-          </button>
-        ))}
-        <button disabled={start + length >= count || result.loading} onClick={() => setStart(start + length)} title="Next page">Next ›</button>
-        <button disabled={start + length >= count || result.loading} onClick={() => setStart((pages - 1) * length)} title="Last page">Last »</button>
+        <button type="button" disabled={!start || result.loading} onClick={() => setStart(Math.max(0, start - length))} aria-label="Previous page">Previous</button>
+        <button type="button" aria-current="page" aria-label={`Page ${page + 1}`}>{page + 1}</button>
+        <button type="button" disabled={start + length >= count || result.loading} onClick={() => setStart(start + length)} aria-label="Next page">Next</button>
       </div>
     </div>
   </div>

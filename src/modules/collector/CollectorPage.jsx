@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 import { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { useLocation, useNavigate, Navigate } from 'react-router-dom'
 import IndustrialView from '../industrial-unit/IndustrialView'
@@ -63,7 +64,7 @@ function Content({ match, locale }) {
       </div>
       if (match.route.path.startsWith('detail/') && node.tag === 'span' && node.attrs?.class?.includes('pull-right')) return null
       if (node.click != null && /closeBatch/.test(String(expressions[node.click])))
-        return <button type="button" className="btn btn-default btn-xs pull-right" onClick={() => { next.closeBatch(); next.notify() }}>← Back to batch list</button>
+        return <BackButton />
       return undefined
     }
     setState(next)

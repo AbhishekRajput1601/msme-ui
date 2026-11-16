@@ -83,7 +83,6 @@ function InfrastructureList({ locale }) {
     return () => abort.abort()
   }, [start, length, search])
   const count = Number(data.iTotalDisplayRecords || 0)
-  const pages = Math.ceil(count / length)
   const current = Math.floor(start / length)
   return <div id="industrial-unit-content">
     <div className="row"><div className="col-md-12"><h1 className="page-header" /></div></div>
@@ -105,7 +104,7 @@ function InfrastructureList({ locale }) {
             <span>Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries{Number(data.iTotalRecords) > count && ` (filtered from ${data.iTotalRecords} total entries)`}</span>
             <div className="pagination">
               <button disabled={!start || busy} onClick={() => setStart(start - length)}>Previous</button>
-              {Array.from({ length: Math.min(pages, 5) }, (_, i) => Math.max(0, Math.min(current - 2, pages - 5)) + i).map(page => <button key={page} aria-current={page === current ? 'page' : undefined} disabled={busy} onClick={() => setStart(page * length)}>{page + 1}</button>)}
+              <button type="button" aria-current="page" aria-label={`Page ${current + 1}`}>{current + 1}</button>
               <button disabled={start + length >= count || busy} onClick={() => setStart(start + length)}>Next</button>
             </div>
           </div>

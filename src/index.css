@@ -9,6 +9,7 @@
 @import "./styles/auth-layout.css";
 @import "./styles/signup-page.css";
 @import "./styles/applicant-pagination.css";
+@import "./styles/page-content.css";
 
 @theme {
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;

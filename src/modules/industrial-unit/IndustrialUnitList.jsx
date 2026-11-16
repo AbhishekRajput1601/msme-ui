@@ -98,7 +98,7 @@ export default function IndustrialUnitList() {
             <span>Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries</span>
             <div className="pagination" style={{ margin: 0 }}>
               <button className="btn btn-default btn-sm" disabled={start === 0 || loading} onClick={() => setStart(Math.max(0, start - length))}>Previous</button>
-              <span className="btn btn-primary btn-sm" style={{ pointerEvents: 'none' }}>{Math.floor(start / length) + 1}</span>
+              <button type="button" className="btn btn-primary btn-sm" aria-current="page" aria-label={`Page ${Math.floor(start / length) + 1}`}>{Math.floor(start / length) + 1}</button>
               <button className="btn btn-default btn-sm" disabled={start + length >= count || loading} onClick={() => setStart(start + length)}>Next</button>
             </div>
           </div>

@@ -128,9 +128,6 @@ export default function DticTable({ name, node, state, records }) {
   }, [config, start, length, search, state.listVersion, attempt, records])
   const headers = node.children.find(n => n.tag === 'thead')?.children.find(n => n.tag === 'tr')?.children || []
   const count = result.count || 0
-  const page = Math.floor(start / length), pages = Math.ceil(count / length)
-  const fullNumbers = config.pagingType === 'full_numbers'
-  const pageNumbers = Array.from({ length: Math.min(5, pages) }, (_, i) => Math.max(0, Math.min(page - 2, pages - 5)) + i)
   return <div className="dtic-datatable">
     <div className="dtic-table-controls">
       <label>Show <select value={length} onChange={e => { setLength(+e.target.value); setStart(0) }}>{[10, 25, 50, 100].map(n => <option key={n}>{n}</option>)}</select> entries</label>
@@ -153,17 +150,15 @@ export default function DticTable({ name, node, state, records }) {
       <div className="dataTables_info" role="status" aria-live="polite">Showing {count ? start + 1 : 0} to {Math.min(start + length, count)} of {count} entries{result.total > count ? ` (filtered from ${result.total} total entries)` : ''}</div>
       <div className="dataTables_paginate paging_bootstrap">
         <ul className="pagination">
-          {fullNumbers && <li className={!start || result.loading ? 'disabled' : ''}><button type="button" disabled={!start || result.loading} onClick={() => setStart(0)}>First</button></li>}
           <li className={`paginate_button previous ${!start || result.loading ? 'disabled' : ''}`}>
             <button type="button" className="dtic-pagination-button" disabled={!start || result.loading} onClick={() => setStart(Math.max(0, start - length))} aria-label="Previous page">Previous</button>
           </li>
-          {fullNumbers ? pageNumbers.map(number => <li key={number} className={`paginate_button ${page === number ? 'active' : ''}`}><button type="button" aria-current={page === number ? 'page' : undefined} disabled={result.loading} onClick={() => setStart(number * length)}>{number + 1}</button></li>) : count > 0 && <li className="paginate_button active">
-            <span>{Math.floor(start / length) + 1}</span>
-          </li>}
+          <li className="paginate_button active">
+            <button type="button" className="dtic-pagination-button" aria-current="page" aria-label={`Page ${Math.floor(start / length) + 1}`}>{Math.floor(start / length) + 1}</button>
+          </li>
           <li className={`paginate_button next ${start + length >= count || result.loading ? 'disabled' : ''}`}>
             <button type="button" className="dtic-pagination-button" disabled={start + length >= count || result.loading} onClick={() => setStart(start + length)} aria-label="Next page">Next</button>
           </li>
-          {fullNumbers && <li className={start + length >= count || result.loading ? 'disabled' : ''}><button type="button" disabled={start + length >= count || result.loading} onClick={() => setStart(Math.max(0, (pages - 1) * length))}>Last</button></li>}
         </ul>
       </div>
     </div>

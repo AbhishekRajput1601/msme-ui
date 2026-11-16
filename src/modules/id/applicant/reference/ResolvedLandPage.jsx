@@ -1,3 +1,4 @@
+import BackButton from '../../../../components/ui/BackButton'
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchLandPage } from '../services/landApplicationService'
@@ -52,6 +53,7 @@ export default function ResolvedLandPage({ path, identity, amountField, back }) 
     if(node.nodeType!==1)return null
     const tag=node.tagName.toLowerCase()==='body'?'div':node.tagName.toLowerCase()
     if(!tags.has(tag))return null
+    if (['a', 'button'].includes(tag) && (/\bBack\b/.test(node.textContent) || /history.back|doTheBack/.test((node.getAttribute('onclick') || '') + (node.getAttribute('data-ng-click') || '')))) return <BackButton key={key} />
     const props={key}
     for(const attr of node.attributes) {
       if(!allowed.has(attr.name) || ['value','checked','selected','style','href','src','action'].includes(attr.name))continue

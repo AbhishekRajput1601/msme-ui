@@ -38,7 +38,7 @@ export default function AwardTable({ node, state }) {
     })
     return () => abort.abort()
   },[start,length,search])
-  const count=result.count || 0, pages=Math.ceil(count/length), page=Math.floor(start/length)
+  const count=result.count || 0, page=Math.floor(start/length)
   return <div>
     <div className="service-table-controls"><label>Show <select value={length} onChange={e => { setLength(Number(e.target.value)); setStart(0) }}>{[10,25,50,100].map(n => <option key={n}>{n}</option>)}</select> entries</label><label>Search: <input value={search} onChange={e => { setSearch(e.target.value); setStart(0) }} /></label></div>
     <TableViewport loading={result.loading} resetKey={length}>
@@ -51,7 +51,7 @@ export default function AwardTable({ node, state }) {
     </table></TableViewport>
     <div className="service-table-controls"><span>Showing {count ? start+1 : 0} to {Math.min(start+length,count)} of {count} entries{result.total > count && ` (filtered from ${result.total} total entries)`}</span><div className="pagination">
       <button disabled={!start || result.loading} onClick={() => setStart(Math.max(0,start-length))}>Previous</button>
-      {Array.from({length:Math.min(5,pages)},(_,i) => Math.max(0,Math.min(page-2,pages-5))+i).map(n => <button key={n} disabled={result.loading} aria-current={page === n ? 'page' : undefined} onClick={() => setStart(n*length)}>{n+1}</button>)}
+      <button type="button" aria-current="page" aria-label={`Page ${page + 1}`}>{page + 1}</button>
       <button disabled={start+length >= count || result.loading} onClick={() => setStart(start+length)}>Next</button>
     </div></div>
   </div>

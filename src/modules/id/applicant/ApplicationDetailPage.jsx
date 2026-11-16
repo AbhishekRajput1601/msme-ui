@@ -1,3 +1,4 @@
+import BackButton from '../../../components/ui/BackButton'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from '../../../hooks/useTranslation'
@@ -57,7 +58,7 @@ function ApplicationDetailContent({ id }) {
       if (node.tag === 'img' && attrs.id === 'avatar') attrs.alt = 'Applicant photograph'
     },
   }), [data, locale])
-  if (error) return <div className="alert alert-danger" role="alert">{error} <Link to="/applicant/land-allotment">Back to Applications List</Link></div>
+  if (error) return <div className="alert alert-danger" role="alert">{error} <BackButton /></div>
   if (!data) return <Spinner />
   const { application } = data
   const statusLower = (application.status || '').toLowerCase()
@@ -69,7 +70,7 @@ function ApplicationDetailContent({ id }) {
         <strong aria-current="page">{application.applicationId}</strong>
       </nav>
       <div className="land-application-actions">
-        <Link className="btn btn-default" to="/applicant/land-allotment">Back to List</Link>
+        <BackButton />
         <button className="btn btn-primary" type="button" onClick={() => window.print()}><i className="fa fa-print" aria-hidden="true" /> Print Form</button>
       </div>
     </div>

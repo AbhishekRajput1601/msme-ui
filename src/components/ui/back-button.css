@@ -1,0 +1,60 @@
+.portal-page-navigation {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Contain legacy floated grids and keep tall tables from shrinking under Back. */
+.portal-page-body {
+  display: flow-root;
+  flex: 0 0 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+.portal-back-bar {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  clear: both;
+  width: 100%;
+  padding: 12px 20px;
+}
+
+button.portal-back-button,
+.legacy-portal button.portal-back-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px !important;
+  border: 1px solid #337ab7 !important;
+  border-radius: 5px !important;
+  background: #337ab7 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff;
+  font: 600 14px/1.4 Arial, sans-serif;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+button.portal-back-button:hover:not(:disabled) {
+  background: #286090 !important;
+  border-color: #286090 !important;
+}
+
+button.portal-back-button:focus-visible {
+  outline: 3px solid #80bfff;
+  outline-offset: 3px;
+}
+
+button.portal-back-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media print {
+  .portal-back-bar, button.portal-back-button { display: none !important; }
+}

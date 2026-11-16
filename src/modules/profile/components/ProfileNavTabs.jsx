@@ -1,4 +1,5 @@
 import React from 'react'
+import BackButton from '../../../components/ui/BackButton'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from '../../../hooks/useTranslation'
 
@@ -60,9 +61,7 @@ export default function ProfileNavTabs({ activeTab, pageTitle }) {
         </div>
 
         <div>
-          <Link to={dashboardPath} className="btn btn-default btn-sm">
-            <i className="fa fa-arrow-left" /> {hindi ? 'डैशबोर्ड पर वापस' : 'Back to Dashboard'}
-          </Link>
+          <BackButton />
         </div>
       </div>
 

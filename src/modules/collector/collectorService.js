@@ -74,10 +74,22 @@ export function createCollectorRequests(state, signal) {
         return response
       }
       if (typeof response.data === 'string' && /<html|<!doctype/i.test(response.data)) throw new Error('The server did not return Collector data. Please sign in again.')
+      if (method === 'get') {
+        const isEmpty = response.data == null || (typeof response.data === 'string' && !response.data.trim())
+        if (isEmpty) {
+          response.data = /^(fetchApplications|fetchBatches|fetchProcessed|fetchApproved|history|applicantAssistances)(\/|\?|$)/.test(endpoint) ? [] : {}
+          return response
+        }
+      }
       response.data = method === 'post' && /^(submitBatch|saveSanctionedAmounts|saveBatchAmounts|applyCollectorDecisions|approveBatchWithoutSign|reject|pending|query|signApprovalPDF)(\/|\?|$)/.test(endpoint)
         ? workflowSuccess(response.data) : jsonData(response.data)
       if (method === 'get' && /^(fetchApplications|fetchBatches|fetchProcessed|fetchApproved|history|applicantAssistances)(\/|\?|$)/.test(endpoint)) response.data = workflowList(response.data)
       return response
+    }).catch(error => {
+      if (method === 'get' && /^(dticEligible|history|applicantAssistances)(\/|\?|$)/.test(endpoint)) {
+        return { data: endpoint.startsWith('dticEligible') ? {} : [] }
+      }
+      throw error
     }))
   }]))
 }

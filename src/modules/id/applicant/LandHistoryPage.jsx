@@ -1,5 +1,6 @@
+import BackButton from '../../../components/ui/BackButton'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { get } from '../../../api/httpClient'
 import { jsonData } from '../../../api/responseData'
 import toast from '../../../utils/toast'
@@ -24,7 +25,7 @@ export default function LandHistoryPage() {
     return () => controller.abort()
   }, [applicantId, attempt])
   return <section className="panel panel-info"><div className="panel-heading">Application progress history</div><div className="panel-body">
-    <Link to={`/applicant/land-allotment/detail/${encodeURIComponent(applicantId)}`}>Back to application</Link>
+    <BackButton />
     {result.loading ? <Spinner /> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <div className="overflow-x-auto"><table className="table table-bordered"><thead><tr>{['Status', 'Assigned by', 'Assigned to', 'Comments', 'Decision date', 'Created date'].map(label => <th key={label}>{label}</th>)}</tr></thead><tbody>
       {result.rows.length ? result.rows.map((row, index) => <tr key={index}>{['status', 'assigner', 'assignee', 'comments', 'decisionDate', 'createdDate'].map(key => <td key={key}>{row[key] || '—'}</td>)}</tr>) : <tr><td colSpan={6}>No progress history is available.</td></tr>}
     </tbody></table></div>}

@@ -1,3 +1,4 @@
+import BackButton from '../../../components/ui/BackButton'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { fetchLandPage } from './services/landApplicationService'
@@ -45,7 +46,7 @@ export default function LandReceiptPage({ statusLookup = false, application = fa
     return () => controller.abort()
   }, [crn, locChallanId, applicantId, parcelToken, application, statusLookup, attempt])
   return <section className="panel panel-info"><div className="panel-heading">{statusLookup ? 'Check treasury payment status' : 'Land payment receipt and status'}</div><div className="panel-body">
-    <Link to="/applicant/land-allotment">Back to applications</Link>
+    <BackButton />
     {result.loading ? <Spinner /> : result.error ? <div className="alert alert-danger" role="alert"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Reload</button></div> : <>
       {!statusLookup && <WebsiteContent nodes={result.nodes} />}
       {result.fields.length > 0 && <form action="/backend/applicant/id/checkOnlinePaymentStatus" method="post" onSubmit={event => { if (submitting) event.preventDefault(); else setSubmitting(true) }}>

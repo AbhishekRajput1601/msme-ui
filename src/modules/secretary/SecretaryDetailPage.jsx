@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 /**
  * SecretaryDetailPage.jsx
  * ─────────────────────────────────────────────────────────────────────────────
@@ -129,13 +130,7 @@ export default function SecretaryDetailPage() {
                 >
                   <i className="fa fa-list" /> Progress Details
                 </button>
-                <button
-                  type="button"
-                  className="btn btn-default btn-xs"
-                  onClick={() => navigate(-1)}
-                >
-                  <i className="fa fa-arrow-left" /> Back
-                </button>
+                <BackButton />
               </span>
             </div>
 
@@ -592,14 +587,7 @@ export default function SecretaryDetailPage() {
 
                   {/* Bottom Navigation */}
                   <div className="text-center" style={{ marginTop: '20px', marginBottom: '20px' }}>
-                    <button
-                      type="button"
-                      className="btn btn-default"
-                      onClick={() => navigate(-1)}
-                      style={{ marginRight: '10px' }}
-                    >
-                      <i className="fa fa-arrow-left" /> Back
-                    </button>
+                    <BackButton />
                     <button
                       type="button"
                       className="btn btn-primary"

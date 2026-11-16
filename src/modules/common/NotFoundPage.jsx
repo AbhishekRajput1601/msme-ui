@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 /**
  * NotFoundPage.jsx
  * ─────────────────────────────────────────────────────────────────────────────
@@ -17,10 +18,8 @@ export default function NotFoundPage() {
         <p className="text-sm text-gray-500 mb-6">
           The requested page does not exist or may have been relocated during the portal migration.
         </p>
-        <div className="flex justify-center gap-3">
-          <Button variant="secondary" onClick={() => window.history.back()}>
-            Go Back
-          </Button>
+        <div className="flex justify-start gap-3">
+          <BackButton />
           <Link to="/">
             <Button variant="primary">Return Home</Button>
           </Link>

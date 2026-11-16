@@ -1,0 +1,39 @@
+/* Keep page and panel containers from producing nested decorative frames. */
+#root :is(.legacy-portal, .legacy-public) :is(
+  #page-wrapper, #admin-page-content, #industrial-unit-content,
+  #land-resolved-content, .panel, .panel-body
+) {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Search/filter rows should wrap with a visible gap on narrow screens. */
+#root :is(.legacy-portal, .legacy-public) :is(.form-inline, .public-search) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+#root :is(.legacy-portal, .legacy-public) .form-inline.text-center {
+  justify-content: center;
+}
+
+#root :is(.legacy-portal, .legacy-public) .form-inline.text-right {
+  justify-content: flex-end;
+}
+
+/* Also cover legacy filter rows that have no form-inline wrapper. */
+#root :is(input:not([type="hidden"]), select, textarea, label:has(input, select), .form-group)
+  + :is(button, a.btn, input[type="submit"], input[type="button"]) {
+  margin-inline-start: 12px !important;
+}
+
+/* Bootstrap input groups use a separate wrapper for the action button. */
+#root .input-group > :is(input, select) + .input-group-btn {
+  padding-inline-start: 12px;
+}
+
+#root .input-group > .input-group-btn > .btn {
+  border-radius: 4px;
+}

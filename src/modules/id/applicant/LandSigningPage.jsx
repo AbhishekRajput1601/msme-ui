@@ -1,3 +1,4 @@
+import BackButton from '../../../components/ui/BackButton'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import LandSigningDocument from './components/LandSigningDocument'
@@ -53,7 +54,7 @@ export default function LandSigningPage() {
   const signedDocumentId = result.data?.applicationData.signedApplicationFormUploadDocId
   const signed = String(result.data?.applicationData.isApplicationFormEsigned) === 'true' || !!signedDocumentId
   return <section className="panel panel-info"><div className="panel-heading">Review and sign land application</div><div className="panel-body">
-    <Link to={`/applicant/land-allotment/detail/${applicantId}`}>Back to application</Link>
+    <BackButton />
     {result.loading ? <Spinner /> : result.error ? <div className="alert alert-danger" role="alert"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
       <div ref={documentRef} className="overflow-x-auto"><LandSigningDocument {...result.data} /></div>
       {signed || saved ? <div role="status" className="alert alert-success"><p>{saved ? 'The server confirmed that the signed PDF was stored.' : 'This application is already signed.'}</p>{signedDocumentId && <a href={getDownloadEsignedDocumentUrl(signedDocumentId)}>Download signed application</a>}<p><Link to={`/applicant/land-allotment/detail/${applicantId}`}>Check application status</Link></p></div> : gateway ? <form action={gateway.action} method="post"><input type="hidden" name="msg" value={gateway.message} /><p>The signing request is ready. Continue to the signing provider to complete verification. Creating this request does not mean the application is signed.</p><button className="btn btn-primary">Continue to Aadhaar signing</button></form> : <div>

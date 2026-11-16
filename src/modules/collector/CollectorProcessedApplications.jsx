@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Spinner from '../../components/loaders/Spinner'
@@ -37,7 +38,7 @@ export default function CollectorProcessedApplications({ state }) {
   const groups = [
     { key: 'all', label: 'All applications', count: result.rows.length },
     ...statuses.map(status => ({ ...status, count: actual.find(group => group.key === status.key)?.count || 0 })),
-    ...actual.filter(group => !statuses.some(status => status.key === group.key)),
+    ...actual.filter(group => !statuses.some(status => status.key === group.key) && group.label !== 'Status unavailable'),
   ]
   const rows = filterFaApplications(result.rows, selected, search)
   const active = groups.find(group => group.key === selected)
@@ -50,7 +51,7 @@ export default function CollectorProcessedApplications({ state }) {
   }
 
   return <section className="fa-status-applications" aria-label="Collector processed applications by status">
-    <Link to="/department/collector/dashboard">← Back to dashboard</Link>
+    <BackButton />
     <div className="fa-status-heading">
       <div><h2>Processed applications by status</h2><p>Select a status to view applications in your mapped districts.</p></div>
       <button type="button" className="dtic-refresh" disabled={result.loading} onClick={() => setAttempt(value => value + 1)}>Refresh</button>

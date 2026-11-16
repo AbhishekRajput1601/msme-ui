@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 import React, { useEffect, useRef } from 'react'
 import { expressions } from './generated/expressions'
 import views from './generated/views'
@@ -337,6 +338,7 @@ function ViewNode({ node, scope: s, root, repeated = false }) {
       children = <>{children}{options.map(item => <option key={item[match[2]]} value={item[match[2]]}>{item[match[3]]}</option>)}</>
     }
   }
+  if (isBack) return <BackButton key={attrs.key} />
   if (root.prepareElement) root.prepareElement(attrs, node, s)
   if (node.tag === 'img' && attrs.title === 'Print Filled Form') {
     const { onClick, ...icon } = attrs

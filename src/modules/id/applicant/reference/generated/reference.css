@@ -21,42 +21,6 @@
 
 }
 @scope (.land-reference-page[data-view="applicationList"]) {
-
-        /* Fix line wrapping for Plot Numbers */
-        #dynamic-table th:nth-child(5),
-        #dynamic-table td:nth-child(5) {
-            min-width: 200px !important;
-            max-width: 200px !important;
-            white-space: normal !important;
-            word-break: keep-all !important;
-            line-height: 22px;
-        }
-
-        /* Make last columns wider for action buttons */
-        #dynamic-table th:nth-child(10),
-        #dynamic-table td:nth-child(10),
-        #dynamic-table th:nth-child(9),
-        #dynamic-table td:nth-child(9) {
-            min-width: 250px;
-        }
-
-        /* Scrollable wrapper */
-        .res_div {
-            overflow-x: auto;
-            width: 100%;
-        }
-    
-
-		/* Fix line wrapping */
-		#dynamic-table th:nth-child(3),
-		#dynamic-table td:nth-child(3) {
-			min-width: 300px !important;
-			max-width: 300px !important;
-			white-space: normal !important;
-			word-break: keep-all !important;
-			line-height: 22px;
-		}
-	
 }
 @scope (.land-reference-page[data-view="annualPayments"]) {
 

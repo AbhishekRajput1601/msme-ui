@@ -1,3 +1,4 @@
+import { PageBackNavigation } from '../components/ui/BackButton'
 import { useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
@@ -19,6 +20,13 @@ export default function PublicLayout() {
   const hindi = locale === 'hi'
   const menu = website.menu || []
   const pathname = useLocation().pathname
+  const backButtonPath = pathname.replace(/^\/mpmsme(?=\/)/, '').replace(/\/+$/, '') || '/'
+  const hideBackButton = [
+    '/', '/website/home', '/login', '/website/login',
+    '/signup', '/website/viewsignup',
+    '/forgot-password', '/website/viewforgotpassword',
+    '/forgot-username', '/website/viewforgotusername',
+  ].includes(backButtonPath)
   const isAuthPage = ['/login', '/signup', '/forgot-password', '/forgot-username', '/website/viewsignup', '/website/viewforgotpassword', '/website/viewforgotusername'].includes(pathname)
 
   return (
@@ -191,7 +199,9 @@ export default function PublicLayout() {
 
       {/* ── Main Page Content ── */}
       <main id="main-content" tabIndex={-1}>
-        <Outlet context={website} />
+        <PageBackNavigation hidden={hideBackButton}>
+          <Outlet context={website} />
+        </PageBackNavigation>
       </main>
 
       {/* ── 4. Footer Section ── */}

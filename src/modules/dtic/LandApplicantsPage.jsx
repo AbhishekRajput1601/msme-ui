@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 import TableViewport from '../../components/tables/TableViewport'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -26,7 +27,7 @@ export default function LandApplicantsPage() {
   const start = page * 10
   function refresh() { setPage(0); setAttempt(value => value + 1) }
   return <section className="dtic-land-applicants">
-    <Link to="/department/dtic/dashboard">← Back to dashboard</Link>
+    <BackButton />
     <header><div><h1>Land with applicants</h1><p>Plots and sheds with at least one application.</p></div><button type="button" className="dtic-refresh" disabled={result.loading} onClick={refresh}>Refresh</button></header>
     <label>Search land <input type="search" value={search} placeholder="Plot, industrial area or district" onChange={event => { setSearch(event.target.value); setPage(0) }} /></label>
     {result.error ? <p className="alert alert-danger" role="alert">{result.error} <button type="button" className="btn btn-default" onClick={refresh}>Retry</button></p> : <>
@@ -34,7 +35,7 @@ export default function LandApplicantsPage() {
         {rows.slice(start, start + 10).map(row => { const path = landApplicantsPath(row); return <tr key={row.vacantLandId}><td>{row.plotNumber || '—'}</td><td>{row.industrialAreaName || '—'}</td><td>{row.districtName || '—'}</td><td>{row.plotShed || '—'}</td><td>{Number(row.totalApplicationReceived).toLocaleString('en-IN')}</td><td>{path ? <Link className="dtic-land-applicants__button" to={path} aria-label={`View applicants for ${row.plotNumber || 'land ' + row.vacantLandId}`}>View applicants</Link> : 'Applicant link unavailable'}</td></tr> })}
         {!result.loading && !rows.length && <tr><td colSpan={6}>{query ? 'No matching land found.' : 'No land with applicants found.'}</td></tr>}
       </tbody></table></div></TableViewport>
-      <footer><span>Showing {rows.length ? start + 1 : 0}–{Math.min(start + 10, rows.length)} of {rows.length} land records</span><div><button type="button" className="dtic-pagination-button" disabled={result.loading || page === 0} onClick={() => setPage(value => value - 1)}>Previous</button> <button type="button" className="dtic-pagination-button" disabled={result.loading || start + 10 >= rows.length} onClick={() => setPage(value => value + 1)}>Next</button></div></footer>
+      <footer><span>Showing {rows.length ? start + 1 : 0}–{Math.min(start + 10, rows.length)} of {rows.length} land records</span><div><button type="button" className="dtic-pagination-button" disabled={result.loading || page === 0} onClick={() => setPage(value => value - 1)}>Previous</button> <button type="button" className="dtic-pagination-button" aria-current="page" aria-label={`Page ${page + 1}`}>{page + 1}</button> <button type="button" className="dtic-pagination-button" disabled={result.loading || start + 10 >= rows.length} onClick={() => setPage(value => value + 1)}>Next</button></div></footer>
     </>}
   </section>
 }

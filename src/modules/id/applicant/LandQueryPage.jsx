@@ -1,3 +1,4 @@
+import BackButton from '../../../components/ui/BackButton'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { loadLandQuery, submitLandQuery, uploadLandQueryDocument, validateQueryDocument } from './services/landQueryService'
@@ -47,7 +48,7 @@ export default function LandQueryPage() {
     finally { setBusy(false) }
   }
   return <section className="panel panel-info"><div className="panel-heading">Reply to land application query</div><div className="panel-body">
-    <Link to="/applicant/land-allotment">Back to applications</Link>
+    <BackButton />
     {result.loading ? <Spinner /> : result.error ? <div role="alert" className="alert alert-danger"><p>{result.error}</p><button className="btn btn-default" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : saved ? <p role="status" className="alert alert-success">Your reply{file ? ' and document have' : ' has'} been saved.</p> : <form onSubmit={submit} aria-busy={busy}>
       <h2>Department query</h2><p className="whitespace-pre-wrap">{result.query.comments}</p>
       {!replySaved && <p><Link to={`/applicant/land-allotment/correct/${applicantId}/${encodeURIComponent(parcelToken)}`}>Correct application details or documents before replying</Link></p>}

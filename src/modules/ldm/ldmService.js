@@ -60,9 +60,21 @@ export function createLdmRequests(state, signal) {
     state.error = ''
     return chain(http({method, url:'/ldm/'+endpoint, signal, ...(method === 'get' ? value : {data:value})}).then(response => {
       if (typeof response.data === 'string' && /<html|<!doctype/i.test(response.data)) throw new Error('The server did not return LDM data. Please sign in again.')
+      if (method === 'get') {
+        const isEmpty = response.data == null || (typeof response.data === 'string' && !response.data.trim())
+        if (isEmpty) {
+          response.data = /^(fetchApplications|fetchBatches|history|applicantAssistances)(\/|\?|$)/.test(endpoint) ? [] : {}
+          return response
+        }
+      }
       response.data = method === 'post' ? workflowSuccess(response.data) : jsonData(response.data)
       if (method === 'get' && /^(fetchApplications|fetchBatches|history|applicantAssistances)(\/|\?|$)/.test(endpoint)) response.data = workflowList(response.data)
       return response
+    }).catch(error => {
+      if (method === 'get' && /^(dticEligible|history|applicantAssistances)(\/|\?|$)/.test(endpoint)) {
+        return { data: endpoint.startsWith('dticEligible') ? {} : [] }
+      }
+      throw error
     }))
   }]))
 }

@@ -26,6 +26,6 @@
   cursor: progress;
 }
 
-.portal-table-content table > tbody > tr > td {
-  overflow-wrap: anywhere;
+.portal-table-content table:not(.land-styled-table):not(#dynamic-table) > tbody > tr > td {
+  overflow-wrap: break-word;
 }

@@ -290,55 +290,9 @@ export default function DataTable({
           {/* Page navigation */}
           {onPageChange && totalPages > 1 && (
             <nav aria-label="Pagination" className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => onPageChange(1)}
-                disabled={page <= 1 || loading}
-                aria-label="First page"
-                className="rounded p-1.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500"
-              >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => onPageChange(page - 1)}
-                disabled={page <= 1 || loading}
-                aria-label="Previous page"
-                className="rounded p-1.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500"
-              >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-
-              <span className="px-2 font-medium text-gray-700">
-                Page {page} of {totalPages}
-              </span>
-
-              <button
-                type="button"
-                onClick={() => onPageChange(page + 1)}
-                disabled={page >= totalPages || loading}
-                aria-label="Next page"
-                className="rounded p-1.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500"
-              >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => onPageChange(totalPages)}
-                disabled={page >= totalPages || loading}
-                aria-label="Last page"
-                className="rounded p-1.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500"
-              >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                </svg>
-              </button>
+              <button type="button" onClick={() => onPageChange(page - 1)} disabled={page <= 1 || loading} className="rounded border px-3 py-1.5 disabled:opacity-30 disabled:cursor-not-allowed" aria-label="Previous page">Previous</button>
+              <button type="button" aria-current="page" aria-label={`Page ${page}`} className="rounded bg-indigo-600 px-3 py-1.5 font-medium text-white">{page}</button>
+              <button type="button" onClick={() => onPageChange(page + 1)} disabled={page >= totalPages || loading} className="rounded border px-3 py-1.5 disabled:opacity-30 disabled:cursor-not-allowed" aria-label="Next page">Next</button>
             </nav>
           )}
         </div>

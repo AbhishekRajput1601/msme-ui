@@ -21,7 +21,8 @@ export default function TableViewport({ loading = false, resetKey, children }) {
     // Measure real records once. Subsequent pages retain the same column widths,
     // including reports with grouped (colspan) headings.
     const hasRecords = [...(table.tBodies[0]?.rows || [])].some(row => row.cells.length > 1)
-    if (!loading && hasRecords && saved.table !== table) {
+    const isScrollableTable = table.classList.contains('land-styled-table') || table.closest('.land-table-scroll-container') || table.id === 'dynamic-table'
+    if (!loading && hasRecords && saved.table !== table && !isScrollableTable) {
       const widths = columnWidths([...(table.tHead?.rows || [])].map(row => [...row.cells].map(cell => ({
         width: cell.getBoundingClientRect().width, colSpan: cell.colSpan, rowSpan: cell.rowSpan,
       }))))

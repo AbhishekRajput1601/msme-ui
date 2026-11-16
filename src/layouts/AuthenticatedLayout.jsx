@@ -1,3 +1,4 @@
+import { PageBackNavigation } from '../components/ui/BackButton'
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { Outlet, Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
@@ -282,7 +283,9 @@ export default function AuthenticatedLayout({ sidebarItems = [], portalTitle = '
         <i className={`fa fa-angle-double-${sidebarHidden ? 'right' : 'left'}`} />
       </button>
       <main id="page-wrapper" className={location.pathname.includes('land-allotment') || location.pathname.includes('profile') || location.pathname.includes('password') ? 'formstyle1' : 'portal-content'}>
-        <Outlet />
+        <PageBackNavigation>
+          <Outlet />
+        </PageBackNavigation>
         <footer id="footer">
           <p>Copyright &copy; {copyrightYear}. Govt. of Madhya Pradesh. Department of Micro, Small &amp; Medium Enterprises. All Rights Reserved.<br />Design &amp; Developed by <a href="https://mapit.gov.in/" target="_blank" rel="noreferrer">Centre of Excellence (CoE), MAP_IT</a>.</p>
         </footer>

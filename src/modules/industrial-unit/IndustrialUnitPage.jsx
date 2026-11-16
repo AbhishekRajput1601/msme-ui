@@ -1,3 +1,4 @@
+import BackButton from '../../components/ui/BackButton'
 import { useEffect, useReducer, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
@@ -153,7 +154,7 @@ function UnitContent({ route, id, establishmentType, locale }) {
               </div>
               <div className="text-center" style={{ textAlign: 'center', marginTop: '15px' }}>
                 <button className="btn btn-primary" type="submit">Submit</button>{' '}
-                <button className="btn btn-default" type="button" onClick={state.goBackToBatch}>Back</button>
+                <BackButton />
               </div>
             </form>
           </div>
