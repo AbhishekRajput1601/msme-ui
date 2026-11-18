@@ -417,7 +417,7 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  background: #111;
+  background: #102d46;
 }
 
 .hp-hero__slide {
@@ -436,7 +436,7 @@
 .hp-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+  background: linear-gradient(180deg, rgba(10, 35, 57, 0.02) 50%, rgba(10, 35, 57, 0.32) 100%);
   pointer-events: none;
 }
 
@@ -499,8 +499,8 @@
 
 /* ─── 5. News Ticker ─────────────────────────────────────────── */
 .hp-ticker {
-  background: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+  background: linear-gradient(90deg, #edf5fb, #ffffff 55%, #f0f8f7);
+  border-bottom: 1px solid #dce8ef;
   display: flex;
   align-items: stretch;
   height: 38px;
@@ -595,8 +595,12 @@
 
 /* ─── 6. About Section ───────────────────────────────────────── */
 .hp-about {
-  background: #f8fbfe;
-  padding: 40px 15px;
+  background:
+    radial-gradient(ellipse at 0% 15%, rgba(129, 187, 224, 0.22), transparent 48%),
+    radial-gradient(ellipse at 100% 85%, rgba(125, 195, 183, 0.16), transparent 45%),
+    linear-gradient(135deg, #f3f8fc, #ffffff 52%, #f1f8f7);
+  border-bottom: 1px solid #dfebef;
+  padding: 48px 15px;
   position: relative;
 }
 
@@ -754,21 +758,25 @@
 
 /* ─── 7. Online Services Section (Teal Card Area) ─────────────── */
 .hp-features {
-  background: #00897b;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-  background-size: 16px 16px;
-  padding: 20px 15px 25px;
+  background:
+    radial-gradient(ellipse at 5% 0%, rgba(68, 196, 180, 0.35), transparent 52%),
+    radial-gradient(ellipse at 100% 100%, rgba(54, 125, 174, 0.3), transparent 48%),
+    repeating-linear-gradient(135deg, transparent 0 47px, rgba(255, 255, 255, 0.035) 47px 48px),
+    linear-gradient(115deg, #075d62, #073c51);
+  padding: 36px 15px;
+  border-block: 1px solid #145d68;
 }
 
 .hp-features__card-wrapper {
   position: relative;
   overflow: hidden;
-  background: #ffffff;
-  border-radius: 8px;
+  background: linear-gradient(145deg, #ffffff, #f4f9fa);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 8px 8px 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 16px 40px rgba(3, 26, 40, 0.22);
 }
 
 .hp-features__viewport {
@@ -1031,8 +1039,11 @@
 
 /* ─── 8. 4-Column News, Circulars, Events & Gallery ──────────── */
 .hp-panels {
-  background: #f8fafc;
-  padding: 40px 15px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(215, 229, 244, 0.7), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(235, 223, 202, 0.25), transparent 45%),
+    linear-gradient(180deg, #f2f6fa, #f8fafc);
+  padding: 48px 15px;
 }
 
 .hp-panels__container {
@@ -1045,8 +1056,8 @@
 
 .hp-panel {
   background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(26, 55, 82, 0.07);
   border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
@@ -1077,21 +1088,25 @@
 }
 
 .hp-panel--1 .hp-panel__heading {
+  background: linear-gradient(110deg, #eaf3ff, #f8fbff);
   color: #1976d2;
   border-bottom-color: #1976d2;
 }
 
 .hp-panel--2 .hp-panel__heading {
+  background: linear-gradient(110deg, #fff2df, #fffbf5);
   color: #f57c00;
   border-bottom-color: #f57c00;
 }
 
 .hp-panel--3 .hp-panel__heading {
+  background: linear-gradient(110deg, #fdeef3, #fff9fb);
   color: #e91e63;
   border-bottom-color: #e91e63;
 }
 
 .hp-panel--4 .hp-panel__heading {
+  background: linear-gradient(110deg, #e4f5f1, #f6fcfa);
   color: #009688;
   border-bottom-color: #009688;
 }
@@ -1219,9 +1234,10 @@
 
 /* ─── 9. Partner Logos ───────────────────────────────────────── */
 .hp-partners {
-  background: #f1f5f9;
-  padding: 25px 15px;
-  border-top: 1px solid #e2e8f0;
+  background: linear-gradient(110deg, #edf5f8, #ffffff 50%, #edf7f3);
+  padding: 32px 15px;
+  border-top: 1px solid #dce8ed;
+  border-bottom: 1px solid #dce8ed;
 }
 
 .hp-partners__viewport {
@@ -1687,3 +1703,22 @@
 .legacy-public:not(.login-layout) .side-diary-tab:hover, .legacy-public:not(.login-layout) .side-diary-tab:focus-visible { transform: translateX(0); }
 .hp-ticker__inner--manual { animation: none; white-space: normal; }
 .hp-panel__nav button:disabled, .hp-ticker__controls button:disabled { opacity: .45; cursor: default; }
+
+/* Complete the home page palette without changing other public page footers. */
+.legacy-public:has(.hp-hero) .footer-section {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(26, 109, 118, 0.22), transparent 55%),
+    linear-gradient(120deg, #162a43, #101e32) !important;
+}
+
+/* Decorative surfaces must yield to the visitor's contrast preference. */
+.legacy-public.high-contrast :is(.hp-hero, .hp-ticker, .hp-ticker__label, .hp-about, .hp-features, .hp-features__card-wrapper, .hp-features__item, .hp-panels, .hp-panel, .hp-panel__heading, .hp-panel__footer, .hp-partners, .hp-partners__item, .hp-officer__role, .footer-section) {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: #aaa;
+  box-shadow: none;
+}
+
+.legacy-public.high-contrast :is(.hp-officer__name, .hp-panel__date) {
+  color: #fff;
+}

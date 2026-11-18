@@ -1,10 +1,15 @@
 import { createElement } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { publicPagePath } from './publicRoutes'
 
 /** Migrated page links use React navigation, including links from the CMS. */
 export function WebsiteLink({ href, ...props }) {
-  if (/^\/(?:website\/|login(?:[?#]|$)|signup(?:[?#]|$)|forgot-password(?:[?#]|$)|forgot-username(?:[?#]|$)|[?#]|$)/.test(href || '')) {
-    return <Link to={href} {...props} />
+  if (!href) return <span {...props} />
+  const [pathname] = href.split(/[?#]/)
+  const mapped = publicPagePath(pathname)
+  const suffix = href.slice(pathname.length)
+  if (!href.startsWith('/backend/') && (mapped || ['/', '/login', '/signup', '/forgot-password', '/forgot-username'].includes(pathname))) {
+    return <Link to={`${mapped || pathname}${suffix}`} {...props} />
   }
   return <a href={href} {...props} />
 }
@@ -21,7 +26,16 @@ export function WebsiteContent({ nodes }) {
 }
 
 export function WebsiteMenuItem({ item, nested = false }) {
-  return <li className={nested ? undefined : 'nav-item'}>
+  const { pathname } = useLocation()
+  const isHome = item.href === '/' && pathname === '/'
+  const isCurrent = item.href && item.href !== '/' && pathname.startsWith(item.href)
+  const isChildActive = item.children?.some(c => c.href && (pathname === c.href || pathname.startsWith(c.href + '/')))
+
+  const liClass = nested
+    ? (isCurrent ? 'active' : undefined)
+    : `nav-item${isHome ? ' nav-home nav-active' : ''}${isCurrent || isChildActive ? ' active' : ''}`
+
+  return <li className={liClass}>
     {item.children?.length ? <details className="public-dropdown"
       onPointerEnter={event => {
         if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover)').matches) event.currentTarget.open = true
@@ -39,8 +53,24 @@ export function WebsiteMenuItem({ item, nested = false }) {
           event.currentTarget.querySelector('summary')?.focus()
         }
       }}>
-      <summary className="nav-link">{item.label}<span className="public-dropdown__arrow" aria-hidden="true">▾</span></summary>
-      <ul>{item.children.map((child, index) => <WebsiteMenuItem item={child} nested key={`${child.label}-${index}`} />)}</ul>
-    </details> : <WebsiteLink className="nav-link" href={item.href}>{item.label}</WebsiteLink>}
+      <summary className={`nav-link${isChildActive ? ' active' : ''}`}>
+        {item.label}<span className="public-dropdown__arrow" aria-hidden="true">▾</span>
+      </summary>
+      <ul>
+        {item.children.map((child, index) => (
+          <WebsiteMenuItem item={child} nested key={`${child.label}-${index}`} />
+        ))}
+      </ul>
+    </details> : (
+      <WebsiteLink
+        className={`nav-link${isHome || isCurrent ? ' active' : ''}`}
+        href={item.href}
+        onClick={(e) => {
+          e.currentTarget.closest('details')?.removeAttribute('open')
+        }}
+      >
+        {item.label}
+      </WebsiteLink>
+    )}
   </li>
 }

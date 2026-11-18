@@ -137,7 +137,34 @@ export default function AppRoutes() {
         <Route path="/website/screen-reader" element={<ScreenReaderPage />} />
         <Route path="/website/:page" element={<PublicContentPage />} />
         <Route path="/mpmsme/website/:page" element={<LegacyPublicRedirect />} />
+
+        {/* Facilitation Council Landing Routes & Aliases */}
+        <Route path="/msefcLanding/caseListLanding" element={<Navigate to="/website/msefc-cases" replace />} />
+        <Route path="/mpmsme/msefcLanding/caseListLanding" element={<Navigate to="/website/msefc-cases" replace />} />
+        <Route path="/msefcLanding/home" element={<Navigate to="/website/facilitation-council" replace />} />
+        <Route path="/mpmsme/msefcLanding/home" element={<Navigate to="/website/facilitation-council" replace />} />
+
+        {/* Infra & Land Landing Routes & Aliases */}
+        <Route path="/idLanding/vacantLandListLanding" element={<Navigate to="/website/vacant-land-developed" replace />} />
+        <Route path="/mpmsme/idLanding/vacantLandListLanding" element={<Navigate to="/website/vacant-land-developed" replace />} />
+        <Route path="/idLanding/vacantLandListLandingUL" element={<Navigate to="/website/vacant-land-undeveloped" replace />} />
+        <Route path="/mpmsme/idLanding/vacantLandListLandingUL" element={<Navigate to="/website/vacant-land-undeveloped" replace />} />
+        <Route path="/idLanding/seekingLandAllotmentReport" element={<Navigate to="/website/land-reports" replace />} />
+        <Route path="/mpmsme/idLanding/seekingLandAllotmentReport" element={<Navigate to="/website/land-reports" replace />} />
+        <Route path="/idLanding/unifiedPortal/applicationStatus" element={<Navigate to="/website/application-status" replace />} />
+        <Route path="/mpmsme/idLanding/unifiedPortal/applicationStatus" element={<Navigate to="/website/application-status" replace />} />
+
+        {/* Advance Search Landing Routes & Aliases */}
+        <Route path="/advanceSearch/home" element={<Navigate to="/website/advanceSearch" replace />} />
+        <Route path="/mpmsme/advanceSearch/home" element={<Navigate to="/website/advanceSearch" replace />} />
+        <Route path="/advanceSearch/advanceSearchLanding" element={<Navigate to="/website/advanceSearch" replace />} />
+        <Route path="/mpmsme/advanceSearch/advanceSearchLanding" element={<Navigate to="/website/advanceSearch" replace />} />
+
+        {/* Order Circulars Landing Routes & Aliases */}
+        <Route path="/orderCirculars" element={<Navigate to="/website/orderCirculars" replace />} />
+        <Route path="/mpmsme/orderCirculars" element={<Navigate to="/website/orderCirculars" replace />} />
         <Route path="/website/home" element={<Navigate to="/" replace />} />
+        <Route path="/mpmsme/website/home" element={<Navigate to="/" replace />} />
         <Route path="/website/login" element={<Navigate to="/login" replace />} />
         <Route path="/mpmsme/website/screen-reader" element={<Navigate to="/website/screen-reader" replace />} />
         <Route path="/login" element={<LoginPage />} />

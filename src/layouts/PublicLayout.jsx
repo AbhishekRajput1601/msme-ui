@@ -1,11 +1,12 @@
 import { PageBackNavigation } from '../components/ui/BackButton'
 import { useState } from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useTranslation } from '../hooks/useTranslation'
 import { getDefaultRouteForRoles } from '../routes/roleRoutes'
 import { ASSETS, backendLink, useLegacyWebsite } from '../modules/public/legacyWebsite'
 import { WebsiteMenuItem } from '../modules/public/WebsiteContent'
+import { getPublicHeaderMenu } from '../modules/public/menuData'
 import indiaEmblem from '../assets/branding/emblem-india.png'
 import mpDiaryCalendar from '../assets/branding/mp-diary-calendar-2026.png'
 import WebsiteImage from '../modules/public/WebsiteImage'
@@ -13,12 +14,13 @@ import WebsiteImage from '../modules/public/WebsiteImage'
 export default function PublicLayout() {
   const { authenticated, roles } = useAuth()
   const { locale, toggleLocale } = useTranslation()
-  const [menuOpen, setMenuOpen] = useState(false)
   const [fontSize, setFontSize] = useState(1)
   const [contrast, setContrast] = useState(false)
   const website = useLegacyWebsite(locale)
   const hindi = locale === 'hi'
-  const menu = website.menu || []
+  const defaultMenu = getPublicHeaderMenu(hindi)
+  // Authoritative, comprehensive header menu ensuring every dropdown link works
+  const menu = defaultMenu
   const pathname = useLocation().pathname
   const backButtonPath = pathname.replace(/^\/mpmsme(?=\/)/, '').replace(/\/+$/, '') || '/'
   const hideBackButton = [
@@ -137,59 +139,13 @@ export default function PublicLayout() {
 
         {/* ── 3. Main Navigation Bar ── */}
         {!isAuthPage && (
-          <div className={`bottom-header${website.menu?.length ? ' backend-menu' : ''}`} id="skip_navigation" tabIndex={-1}>
+          <div className="bottom-header backend-menu" id="skip_navigation" tabIndex={-1}>
             <div className="main-nav-inner">
               <nav aria-label="Main navigation" style={{ width: '100%' }}>
                 <ul className="mainmenu-list">
-                  {menu.length ? menu.map((item, index) => (
+                  {menu.map((item, index) => (
                     <WebsiteMenuItem key={`${item.label}-${index}`} item={item} />
-                  )) : <>
-                  <li className="nav-home nav-active">
-                    <NavLink to="/" end onClick={() => setMenuOpen(false)}>
-                      {hindi ? 'होम' : 'HOME'}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <a href="/#about">
-                      {hindi ? 'हमारे बारे में' : 'ABOUT US'} <i className="fa fa-caret-down" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href={backendLink('/website/policies')}>
-                      {hindi ? 'नीतियां' : 'POLICIES'}
-                    </a>
-                  </li>
-                  <li>
-                    <a href={backendLink('/website/schemes')}>
-                      {hindi ? 'योजनाएं' : 'SCHEMES'} <i className="fa fa-caret-down" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#services">
-                      {hindi ? 'ऑनलाइन सेवाएं' : 'ONLINE SERVICES'} <i className="fa fa-caret-down" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href={backendLink('/website/startup')}>
-                      STARTUP <i className="fa fa-caret-down" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href={backendLink('/website/infra')}>
-                      INFRA & LAND <i className="fa fa-caret-down" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href={backendLink('/website/acts')}>
-                      ACTS & RULES
-                    </a>
-                  </li>
-                  <li>
-                    <a href={backendLink('/website/more')}>
-                      MORE <i className="fa fa-caret-down" />
-                    </a>
-                  </li>
-                  </>}
+                  ))}
                 </ul>
               </nav>
             </div>

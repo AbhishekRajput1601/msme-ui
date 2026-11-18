@@ -10,6 +10,7 @@
 @import "./styles/signup-page.css";
 @import "./styles/applicant-pagination.css";
 @import "./styles/page-content.css";
+@import "./styles/public-dropdown-pages.css";
 
 @theme {
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;

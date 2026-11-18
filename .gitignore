@@ -15,7 +15,10 @@ dist-ssr
 # Migration tooling output and working files (not needed to build or run the app)
 artifacts/
 docs/
-scripts/
+scripts/*
+!scripts/check-header-api.mjs
+!scripts/check-header-browser.mjs
+!scripts/check-header-contract.mjs
 
 # Editor directories and files
 .vscode/*

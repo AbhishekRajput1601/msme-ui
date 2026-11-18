@@ -1,0 +1,21 @@
+.legacy-public .public-portal-page h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  margin: .25rem 0;
+}
+.legacy-public .public-portal-page a { text-decoration: underline; }
+.legacy-public .public-portal-page section > div { min-width: 0; }
+.legacy-public .public-portal-page input { max-width: 100%; }
+.legacy-public .public-portal-page [aria-label="Breadcrumb"] a { color: #fff; }
+@media (max-width: 768px) {
+  .legacy-public:not(.login-layout) .public-toolbar { flex-wrap: wrap; justify-content: center; padding: 8px; }
+  .legacy-public:not(.login-layout) .toolbar-right-group { flex-wrap: wrap; justify-content: center; width: 100%; margin-left: 0 !important; }
+  .legacy-public:not(.login-layout) .toolbar-links { flex-wrap: wrap; justify-content: center; overflow: visible; width: 100%; }
+  .legacy-public:not(.login-layout) .toolbar-links a,
+  .legacy-public:not(.login-layout) .toolbar-links button { font-size: 10px; line-height: 24px; }
+  .legacy-public:not(.login-layout) .public-brand-row { align-items: center; }
+  .legacy-public:not(.login-layout) .logo-title h1 { white-space: normal; font-size: 14px; }
+  .legacy-public:not(.login-layout) .logo-brand-wrap { flex: 1; }
+  .legacy-public:not(.login-layout) .header-right-actions { flex-shrink: 0; }
+}

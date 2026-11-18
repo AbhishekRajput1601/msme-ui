@@ -25,7 +25,10 @@ const contentStyles = ['color', 'backgroundColor', 'fontSize', 'fontWeight', 'fo
 
 export function contentNodes(parent, pageUrl) {
   return [...parent.childNodes].flatMap(node => {
-    if (node.nodeType === 3) return [{ text: node.textContent }]
+    if (node.nodeType === 3) {
+      if (['TABLE', 'THEAD', 'TBODY', 'TFOOT', 'TR'].includes(parent.tagName) && !node.textContent.trim()) return []
+      return [{ text: node.textContent }]
+    }
     if (node.nodeType !== 1 || ['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'FORM'].includes(node.tagName)) return []
     const tag = node.tagName.toLowerCase()
     if (!contentTags.has(tag)) return contentNodes(node, pageUrl)
@@ -63,7 +66,7 @@ function menuNodes(parent, pageUrl) {
   return [...parent.children].filter(node => node.tagName === 'LI').map(node => {
     const anchor = node.querySelector(':scope > a')
     const children = menuNodes(node.querySelector(':scope > ul'), pageUrl)
-    return { label: anchor?.textContent.trim() || '', href: children.length ? '' : safeUrl(anchor?.getAttribute('href'), pageUrl), children }
+    return { sourceHref: safeUrl(anchor?.getAttribute('href'), pageUrl, false), label: anchor?.textContent.trim() || '', href: children.length ? '' : safeUrl(anchor?.getAttribute('href'), pageUrl), children }
   }).filter(item => item.label && (item.href || item.children.length))
 }
 
@@ -97,6 +100,7 @@ export function safeUrl(value, pageUrl, navigation = true) {
       if (/^\/website\/viewforgotusername\/?$/.test(cleanPath)) return '/forgot-username'
       if (/^\/website\/viewsignup\/?$/.test(cleanPath)) return '/signup'
 
+      if (/^\/(idLanding|msefcLanding|advanceSearch)\//.test(cleanPath)) return `${backendUrl(cleanPath)}${url.search}${url.hash}`
       if (url.pathname.startsWith('/mpmsme')) {
         return `${url.pathname}${url.search}${url.hash}`
       }

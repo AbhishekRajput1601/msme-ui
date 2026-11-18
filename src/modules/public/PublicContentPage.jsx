@@ -1,41 +1,123 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from '../../hooks/useTranslation'
-import { contentNodes } from './legacyWebsite'
+import { hasPublishedContent, parsePublicContent } from './parsePublicContent'
 import { backendUrl } from './publicRoutes'
 import { WebsiteContent } from './WebsiteContent'
 import Spinner from '../../components/loaders/Spinner'
+import * as Pages from './pages'
 
-export function parsePublicContent(html, pageUrl) {
-  const doc = new DOMParser().parseFromString(html, 'text/html')
-  const content = doc.querySelector('.inner-content')
-  if (!content || !doc.querySelector('.header-new-section')) throw new Error('The requested content was not returned by the server.')
-  // Replace Bootstrap/jQuery accordions with accessible native disclosure controls.
-  for (const panel of content.querySelectorAll('.panel-group > .panel')) {
-    const label = panel.querySelector(':scope > .panel-heading')
-    const body = panel.querySelector(':scope > .panel-collapse')
-    if (!label || !body) continue
-    const details = doc.createElement('details')
-    const summary = doc.createElement('summary')
-    summary.textContent = label.textContent.trim()
-    details.append(summary, ...body.childNodes)
-    panel.replaceWith(details)
-  }
-  // The old gallery wraps videos in a Flash player URL. Use native video controls.
-  for (const anchor of content.querySelectorAll('a:has(video)')) anchor.replaceWith(...anchor.childNodes)
-  return {
-    title: content.parentElement.querySelector('.heading')?.textContent.trim() || doc.title,
-    nodes: contentNodes(content, pageUrl),
-  }
+const DEDICATED_PAGE_MAP = {
+  // Acts & Rules
+  'acts-rules': Pages.ActsRulesPage,
+  'acts': Pages.ActsRulesPage,
+  'rules': Pages.ActsRulesPage,
+
+  // Facilitation Council
+  'facilitation-council': Pages.MSEFCOverviewPage,
+  'fc-overview': Pages.MSEFCOverviewPage,
+  'msefc-overview': Pages.MSEFCOverviewPage,
+  'msefc': Pages.MSEFCOverviewPage,
+  'msefc-cases': Pages.MSEFCCasesPage,
+  'fc-cases': Pages.MSEFCCasesPage,
+  'caseListLanding': Pages.MSEFCCasesPage,
+  'msefc-delayed-payment': Pages.MSEFCDelayedPaymentPage,
+  'fc-delayed-payment': Pages.MSEFCDelayedPaymentPage,
+  'delayed-payment-calculator': Pages.MSEFCDelayedPaymentPage,
+  'delayed-payment': Pages.MSEFCDelayedPaymentPage,
+  'msefc-rules': Pages.MSEFCRulesPage,
+  'fc-rules': Pages.MSEFCRulesPage,
+
+  // Infra & Land
+  'vacant-land-developed': Pages.VacantLandDevelopedPage,
+  'land-developed': Pages.VacantLandDevelopedPage,
+  'vacantLandListLanding': Pages.VacantLandDevelopedPage,
+  'vacant-land-undeveloped': Pages.VacantLandUndevelopedPage,
+  'land-undeveloped': Pages.VacantLandUndevelopedPage,
+  'vacantLandListLandingUL': Pages.VacantLandUndevelopedPage,
+  'industrial-areas': Pages.IndustrialAreasPage,
+  'land-areas': Pages.IndustrialAreasPage,
+  'industrial-areas-directory': Pages.IndustrialAreasPage,
+  'land-reports': Pages.LandReportsPage,
+  'seekingLandAllotmentReport': Pages.LandReportsPage,
+  'collector-rates': Pages.LandReportsPage,
+  'infra': Pages.IndustrialAreasPage,
+  'land': Pages.VacantLandDevelopedPage,
+
+  // Policies
+  'policies': Pages.PoliciesPage,
+  'policy': Pages.PoliciesPage,
+  'msme-policy': Pages.PoliciesPage,
+
+  // Schemes
+  'scheme-mmuky': Pages.SchemeMMUKYPage,
+  'mmuky': Pages.SchemeMMUKYPage,
+  'scheme-financial-assistance': Pages.SchemeFinancialAssistancePage,
+  'financial-assistance': Pages.SchemeFinancialAssistancePage,
+  'schemes': Pages.SchemeFinancialAssistancePage,
+  'scheme-cluster-development': Pages.SchemeClusterDevelopmentPage,
+  'cluster-development': Pages.SchemeClusterDevelopmentPage,
+  'clusters': Pages.SchemeClusterDevelopmentPage,
+  'scheme-quality-certification': Pages.SchemeQualityCertificationPage,
+  'quality-certification': Pages.SchemeQualityCertificationPage,
+  'ipr-patents': Pages.SchemeQualityCertificationPage,
+
+  // Online Services
+  'service-land-allotment': Pages.ServiceLandAllotmentPage,
+  'apply-land': Pages.ServiceLandAllotmentPage,
+  'services': Pages.ServiceLandAllotmentPage,
+  'service-financial-assistance': Pages.ServiceFinancialAssistancePage,
+  'apply-subsidy': Pages.ServiceFinancialAssistancePage,
+  'service-mpidc-noc': Pages.ServiceMpidcNocPage,
+  'mpidc-noc': Pages.ServiceMpidcNocPage,
+  'noc': Pages.ServiceMpidcNocPage,
+  'application-status': Pages.ApplicationStatusPage,
+  'track-application': Pages.ApplicationStatusPage,
+  'status': Pages.ApplicationStatusPage,
+  'service-grievance': Pages.ServiceGrievancePage,
+  'grievance': Pages.ServiceGrievancePage,
+  'helpdesk': Pages.ServiceGrievancePage,
+
+  // Startup
+  'startup-policy': Pages.StartupPolicyPage,
+  'startup': Pages.StartupPolicyPage,
+  'startup-incubation': Pages.StartupIncubationPage,
+  'incubation': Pages.StartupIncubationPage,
+  'startup-funding': Pages.StartupFundingPage,
+  'startup-directory': Pages.StartupDirectoryPage,
+  'startups': Pages.StartupDirectoryPage,
+
+  // Circulars & Archive
+  'orderCirculars': Pages.CircularsOrdersPage,
+  'circulars-orders': Pages.CircularsOrdersPage,
+  'circulars': Pages.CircularsOrdersPage,
+  'orders': Pages.CircularsOrdersPage,
+  'circulars-notifications': Pages.CircularsNotificationsPage,
+  'notifications': Pages.CircularsNotificationsPage,
+  'tenders': Pages.TendersPage,
+  'procurement': Pages.TendersPage,
+  'advanceSearch': Pages.AdvanceSearchPage,
+  'advanceSearchLanding': Pages.AdvanceSearchPage,
+  'advance-search': Pages.AdvanceSearchPage,
+
+  // Common CMS legacy aliases
+  'downloads': Pages.CircularsOrdersPage,
 }
 
 export default function PublicContentPage() {
+  const { page } = useParams()
+  const DedicatedComponent = DEDICATED_PAGE_MAP[page]
+  return DedicatedComponent ? <DedicatedComponent key={page} /> : <CmsContentPage key={page} />
+}
+
+function CmsContentPage() {
   const { page } = useParams()
   const { search } = useLocation()
   const { locale } = useTranslation()
   const [result, setResult] = useState({ loading: true })
   const [attempt, setAttempt] = useState(0)
   const heading = useRef(null)
+
   useEffect(() => {
     const controller = new AbortController()
     const params = new URLSearchParams(search)
@@ -61,6 +143,7 @@ export default function PublicContentPage() {
       .catch(error => { if (!controller.signal.aborted) setResult({ error: error.message, loading: false }) })
     return () => controller.abort()
   }, [page, search, locale, attempt])
+
   useEffect(() => {
     if (!result.title) return
     const previous = document.title
@@ -68,11 +151,44 @@ export default function PublicContentPage() {
     heading.current?.focus()
     return () => { document.title = previous }
   }, [result.title])
-  return <article className="container public-content-page" lang={locale} aria-busy={result.loading}>
-    <nav aria-label="Breadcrumb"><Link to="/">{locale === 'hi' ? 'मुख्य पृष्ठ' : 'Home'}</Link></nav>
-    {result.loading ? <Spinner /> : result.error ? <div role="alert"><p>{result.error}</p><button type="button" onClick={() => setAttempt(value => value + 1)}>Retry</button></div> : <>
-      <h1 ref={heading} tabIndex={-1}>{result.title}</h1>
-      <WebsiteContent nodes={result.nodes} />
-    </>}
-  </article>
+
+  const hasContent = hasPublishedContent(result.nodes)
+
+  return (
+    <article className="container public-content-page py-6" lang={locale} aria-busy={result.loading}>
+      <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+        <Link to="/" className="text-blue-700 hover:underline">
+          {locale === 'hi' ? 'मुख्य पृष्ठ' : 'Home'}
+        </Link>
+        <span className="mx-2">/</span>
+        <span className="text-slate-700 font-medium">
+          {result.title || (locale === 'hi' ? 'विभागीय सेवाएं' : 'Departmental Information')}
+        </span>
+      </nav>
+
+      {result.loading ? (
+        <Spinner />
+      ) : result.error ? (
+        <div role="alert" className="p-6 bg-red-50 border border-red-200 rounded-lg text-red-800 text-center my-8">
+          <p className="font-semibold text-lg mb-2">{result.error}</p>
+          <button
+            type="button"
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 font-medium"
+            onClick={() => setAttempt(value => value + 1)}
+          >
+            {locale === 'hi' ? 'पुनः प्रयास करें' : 'Retry'}
+          </button>
+        </div>
+      ) : hasContent ? (
+        <>
+          <h1 ref={heading} tabIndex={-1} className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6 border-b pb-3">
+            {result.title}
+          </h1>
+          <WebsiteContent nodes={result.nodes} />
+        </>
+      ) : (
+        <p role="status">Currently no data available.</p>
+      )}
+    </article>
+  )
 }
